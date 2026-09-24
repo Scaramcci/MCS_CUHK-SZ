@@ -1,0 +1,65 @@
+# Local school administration and personal information
+/Chores/
+_private/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+._*
+__MACOSX/
+
+# Python, notebooks and dependency caches
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+node_modules/
+
+# Editors and Office temporary files
+.idea/
+.vscode/
+~$*.docx
+~$*.pptx
+~$*.xlsx
+
+# LaTeX intermediates (keep source, styles, assets and final PDFs)
+*.aux
+*.log
+*.out
+*.toc
+*.nav
+*.snm
+*.vrb
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xdv
+*.bcf
+*.run.xml
+*.blg
+
+# Credentials
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Generated builds and large local artifacts
+build/
+dist/
+checkpoints/
+wandb/
+**/data/raw/
+**/data/downloads/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
