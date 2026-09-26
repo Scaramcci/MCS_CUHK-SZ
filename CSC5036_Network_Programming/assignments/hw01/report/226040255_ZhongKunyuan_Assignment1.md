@@ -35,10 +35,3 @@
 
    > All instances are `c5.large`.
 
-## Comments
-
-Each table entry is the arithmetic mean of three measurements. TCP bandwidth was measured using a single iPerf TCP connection for 30 seconds per run, and RTT was measured using the average of 30 Ping replies per run. All Ping runs used for the tables had zero packet loss.
-
-Within N. Virginia, the tested instance pairs achieved similar TCP bandwidth, approximately 4.94–4.97 Gbps, with average RTTs below 0.5 ms. The higher RTT for the t3.medium pair includes a 21.008 ms delay spike in one Ping run.
-
-The cross-region measurements used an Oregon client and an N. Virginia server, both c5.large, communicating through public IPv4 addresses. This pair achieved 390.67 Mbps and 54.532 ms average RTT, compared with approximately 4.97 Gbps and less than 0.3 ms RTT for the same-region c5.large pairs. The earlier cross-region attempt with no ICMP replies was excluded from the final table. These results describe the tested connections under the stated settings rather than the maximum network capacity of each instance type.
