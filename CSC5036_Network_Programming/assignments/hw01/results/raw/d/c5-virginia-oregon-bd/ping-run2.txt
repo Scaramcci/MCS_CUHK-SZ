@@ -1,0 +1,35 @@
+PING 3.238.228.203 (3.238.228.203) 56(84) bytes of data.
+64 bytes from 3.238.228.203: icmp_seq=1 ttl=58 time=54.6 ms
+64 bytes from 3.238.228.203: icmp_seq=2 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=3 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=4 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=5 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=6 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=7 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=8 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=9 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=10 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=11 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=12 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=13 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=14 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=15 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=16 ttl=58 time=54.6 ms
+64 bytes from 3.238.228.203: icmp_seq=17 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=18 ttl=58 time=54.6 ms
+64 bytes from 3.238.228.203: icmp_seq=19 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=20 ttl=58 time=54.6 ms
+64 bytes from 3.238.228.203: icmp_seq=21 ttl=58 time=54.6 ms
+64 bytes from 3.238.228.203: icmp_seq=22 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=23 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=24 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=25 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=26 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=27 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=28 ttl=58 time=54.5 ms
+64 bytes from 3.238.228.203: icmp_seq=29 ttl=58 time=54.6 ms
+64 bytes from 3.238.228.203: icmp_seq=30 ttl=58 time=54.5 ms
+
+--- 3.238.228.203 ping statistics ---
+30 packets transmitted, 30 received, 0% packet loss, time 29045ms
+rtt min/avg/max/mdev = 54.507/54.533/54.626/0.025 ms

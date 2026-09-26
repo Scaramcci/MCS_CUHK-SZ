@@ -1,0 +1,7 @@
+------------------------------------------------------------
+Client connecting to 172.31.75.108, TCP port 5001
+TCP window size: 16.0 KByte (default)
+------------------------------------------------------------
+[  1] local 172.31.64.64 port 50952 connected with 172.31.75.108 port 5001 (icwnd/mss/irtt=87/8949/183)
+[ ID] Interval       Transfer     Bandwidth
+[  1] 0.0000-30.0063 sec  17.3 GBytes  4.96 Gbits/sec
