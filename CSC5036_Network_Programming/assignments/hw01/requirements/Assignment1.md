@@ -14,7 +14,6 @@
 
 1. (2 mark) The metrics of network performance include **TCP bandwidth** and **round-trip time (RTT)**. Within the same region, what network performance is experienced between instances of the same type and different types? In order to answer this question, you need to complete the following table.
 
-
    | Type                    | TCP b/w (Mbps) | RTT (ms) |
    | ----------------------- | -------------- | -------- |
    | `t3.medium`-`t3.medium` |                |          |
@@ -25,9 +24,8 @@
    | `m5.large`-`t3.medium`  |                |          |
 
    > Region: US East (N. Virginia)
-   >
-2. (2 mark) What about the network performance for instances deployed in different regions? In order to answer this question, you need to complete the following table.
 
+2. (2 mark) What about the network performance for instances deployed in different regions? In order to answer this question, you need to complete the following table.
 
    | Connection              | TCP b/w (Mbps) | RTT (ms) |
    | ----------------------- | -------------- | -------- |
@@ -36,4 +34,3 @@
    | Oregon-Oregon           |                |          |
 
    > All instances are `c5.large`.
-   >
