@@ -1,0 +1,39 @@
+{
+  "toy_audit": {
+    "pocket_training_nonincreasing": true,
+    "pocket_equals_running_best_training_error": true,
+    "snapshot_errors_verified": true,
+    "separate_current_and_pocket_storage": true
+  },
+  "training_audit": {
+    "pocket_training_nonincreasing": true,
+    "pocket_equals_running_best_training_error": true,
+    "snapshot_errors_verified": true,
+    "separate_current_and_pocket_storage": true
+  },
+  "seed": 0,
+  "max_updates": 2000,
+  "updates_completed": 2000,
+  "n_train": 1669,
+  "n_test": 434,
+  "score_tie_rule": "score >= 0 -> +1; score < 0 -> -1",
+  "current": {
+    "final_weights": [
+      2.0,
+      -1.622472656250003,
+      -13.263523437500032
+    ],
+    "final_train_error": 0.040143798681845415,
+    "final_test_error": 0.07142857142857142
+  },
+  "pocket": {
+    "final_weights": [
+      3.0,
+      -0.9020117187500011,
+      -12.898976562500014
+    ],
+    "final_train_error": 0.03235470341521869,
+    "final_test_error": 0.06451612903225806
+  },
+  "interpretation": "Only pocket TRAINING error is guaranteed nonincreasing. Test error is measured after training and is not used to select a model."
+}

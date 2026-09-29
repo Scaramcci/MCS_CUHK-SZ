@@ -1,7 +1,7 @@
-# 共享 LaTeX 模板
+# Shared LaTeX Templates
 
-`CUHK-beamer.zip` 原样保存，可纳入根仓库 Git 管理。检查压缩包确认其为 CUHK **Beamer 幻灯片模板**，不是普通 article 作业报告模板。
+- `CUHK-beamer.zip` is the existing CUHK Beamer presentation template. It remains unchanged.
+- `报告模板.zip` is an **unofficial, English-language CUHK-Shenzhen academic report template** for XeLaTeX. It contains `main.tex`, an English README, an empty BibTeX scaffold, and the crest asset copied from `CUHK-beamer.zip`. Its former unrelated report text and NKU assets have been removed.
+- `报告模板-preview.pdf` is a compiled one-page preview of the report template. It is a layout sample, not a completed assignment.
 
-包含 `slides.tex`、`CUHKBeamer.sty`、校徽资源、示例 `slides.pdf` 和原模板 README。使用时解压副本到具体作业或项目的 `report/`；原压缩包保留。原 README 指定 XeLaTeX 编译两次。
-
-本次不解压、不修改模板、不生成作业。`.gitignore` 保留 `.tex`、`.sty`、图片、ZIP 和最终 PDF，只忽略编译中间产物。
+For a new report, extract `报告模板.zip` into that assignment's working `report/` directory, edit the metadata and replace every illustrative passage, then compile with `latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex`. Keep the extracted template assets with the source file. Do not include the sample preview in an assignment submission.
