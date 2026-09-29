@@ -1,0 +1,41 @@
+{
+  "verification": [
+    {
+      "mu": 1.0,
+      "n": 5,
+      "gradient": [
+        0.5,
+        1.0
+      ],
+      "gradient_dot_direction": 1.1,
+      "finite_difference_at_smallest_step": 1.1000000000027654,
+      "finite_difference_abs_error_at_smallest_step": 2.76534350973634e-12,
+      "error_if_sum_gradient_is_divided_by_n": 0.8800000000027655,
+      "sum_to_mean_gradient_factor": 5,
+      "mean_finite_difference_at_smallest_step": 0.22000000000077513,
+      "mean_finite_difference_abs_error_at_smallest_step": 7.75102204642053e-13,
+      "sum_to_mean_finite_difference_ratio": 4.999999999994953,
+      "taylor_abs_error_at_largest_step": 1.2399999999999998,
+      "taylor_abs_error_at_smallest_step": 1.3200000480520242e-08
+    },
+    {
+      "mu": 1e-05,
+      "n": 5,
+      "gradient": [
+        0.5,
+        1.0
+      ],
+      "gradient_dot_direction": 1.1,
+      "finite_difference_at_smallest_step": 1.100000000002412,
+      "finite_difference_abs_error_at_smallest_step": 2.41184849869569e-12,
+      "error_if_sum_gradient_is_divided_by_n": 0.880000000002412,
+      "sum_to_mean_gradient_factor": 5,
+      "mean_finite_difference_at_smallest_step": 0.22000000000014358,
+      "mean_finite_difference_abs_error_at_smallest_step": 1.4355183708403274e-13,
+      "sum_to_mean_finite_difference_ratio": 5.0000000000077005,
+      "taylor_abs_error_at_largest_step": 1.2399999999999998e-05,
+      "taylor_abs_error_at_smallest_step": 1.3200000416123046e-13
+    }
+  ]
+}
+Saved results to /home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw01/results/p3-verify-20260929

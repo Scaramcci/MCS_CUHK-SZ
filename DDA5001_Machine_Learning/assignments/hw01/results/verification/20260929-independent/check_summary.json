@@ -1,0 +1,111 @@
+{
+  "runs": {
+    "p3": {
+      "command": [
+        "/usr/bin/python3",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw01/src/p3.py",
+        "--data-dir",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw01/requirements/code_source/code_source/p3/data",
+        "--output-dir",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw01/results/verification/20260929-independent/p3-replay"
+      ],
+      "exit_code": 0
+    },
+    "p5": {
+      "command": [
+        "/usr/bin/python3",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw01/src/p5.py",
+        "--train-data",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw01/results/input-conversion-20260929/train_data.npz",
+        "--test-data",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw01/results/input-conversion-20260929/test_data.npz",
+        "--output-dir",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw01/results/verification/20260929-independent/p5-replay"
+      ],
+      "exit_code": 0
+    }
+  },
+  "checks": {
+    "p3": {
+      "directional_checks": [
+        {
+          "mu": 1.0,
+          "step": 1.0,
+          "gradient_dot_direction": 1.1,
+          "finite_difference": 0.7624999999999993,
+          "absolute_error": 0.3375000000000008
+        },
+        {
+          "mu": 1.0,
+          "step": 0.1,
+          "gradient_dot_direction": 1.1,
+          "finite_difference": 1.0999999999999988,
+          "absolute_error": 1.3322676295501878e-15
+        },
+        {
+          "mu": 1.0,
+          "step": 0.01,
+          "gradient_dot_direction": 1.1,
+          "finite_difference": 1.100000000000012,
+          "absolute_error": 1.199040866595169e-14
+        },
+        {
+          "mu": 1.0,
+          "step": 0.0001,
+          "gradient_dot_direction": 1.1,
+          "finite_difference": 1.1000000000027654,
+          "absolute_error": 2.76534350973634e-12
+        },
+        {
+          "mu": 1e-05,
+          "step": 1e-05,
+          "gradient_dot_direction": 1.1,
+          "finite_difference": 0.7624999999999995,
+          "absolute_error": 0.3375000000000006
+        },
+        {
+          "mu": 1e-05,
+          "step": 1.0000000000000002e-06,
+          "gradient_dot_direction": 1.1,
+          "finite_difference": 1.0999999999999994,
+          "absolute_error": 6.661338147750939e-16
+        },
+        {
+          "mu": 1e-05,
+          "step": 1.0000000000000001e-07,
+          "gradient_dot_direction": 1.1,
+          "finite_difference": 1.1000000000000403,
+          "absolute_error": 4.0190073491430667e-14
+        },
+        {
+          "mu": 1e-05,
+          "step": 1e-09,
+          "gradient_dot_direction": 1.1,
+          "finite_difference": 1.100000000002412,
+          "absolute_error": 2.41184849869569e-12
+        }
+      ],
+      "baseline_history_rows": 1001,
+      "final_error": 5.618720155342013,
+      "final_loss": 252724.64377596654,
+      "least_squares_error": 59.513636482981404
+    },
+    "p5": {
+      "toy_rows": 7,
+      "trajectory_rows": 2001,
+      "n_train": 1669,
+      "n_test": 434,
+      "current_final_train_error": 0.040143798681845415,
+      "pocket_final_train_error": 0.03235470341521869,
+      "current_final_test_error": 0.07142857142857142,
+      "pocket_final_test_error": 0.06451612903225806,
+      "pocket_test_error_increase_count": 2,
+      "pocket_training_running_minimum": true,
+      "random_choice_and_update_replayed": true
+    }
+  },
+  "versions": {
+    "src/p3.py": "572425d021d603deaf553c136e26a999690043af529191991b022a2843ccf6ae",
+    "src/p5.py": "27636fe419d3c156b4157049d8916e3ed27e677e30bd2b5aef834b328e104065"
+  }
+}

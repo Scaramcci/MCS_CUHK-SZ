@@ -1,0 +1,20 @@
+{
+  "train": {
+    "shape": [
+      7291,
+      257
+    ],
+    "dtype": "float64",
+    "bitwise_equal": true,
+    "max_absolute_difference": 0.0
+  },
+  "test": {
+    "shape": [
+      2007,
+      257
+    ],
+    "dtype": "float64",
+    "bitwise_equal": true,
+    "max_absolute_difference": 0.0
+  }
+}
