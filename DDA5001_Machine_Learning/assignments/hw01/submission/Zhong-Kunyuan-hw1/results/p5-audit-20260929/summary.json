@@ -1,0 +1,8 @@
+{
+  "toy_audit": {
+    "pocket_training_nonincreasing": true,
+    "pocket_equals_running_best_training_error": true,
+    "snapshot_errors_verified": true,
+    "separate_current_and_pocket_storage": true
+  }
+}
