@@ -1,0 +1,11 @@
+Independent Verifier: /root/verify_answers
+Date:2026-10-08 Asia/Shanghai
+Source SHA256:f8aaaea7fb5db52fae35506dc80434fec603d4fe8e1c92bbc49a145df071f845
+PDF SHA256:dc2cb61589edd689cfe5fc8b45dfae1d5aab8f13261d7423a78c5d9a6a6f72c5
+Slide SHA256:9d7b4bc358a5dd38788cd838a7ef70016e9bcd28718fa7f085c77fab2a36e195
+Requirements SHA256:2abdc4ff81abedd8a940424ff827e602046dc5f781150cf357fcf90b057261b7
+Script SHA256:828bc1d485d833db9f8a9fa24a891250492fe6a1bb27cfbd4c575d7056eac6c2
+Python:3.14.7 | packaged by Anaconda, Inc. | (main, Aug 14 2026, 10:21:40) [GCC 14.3.0]
+Commands: pdftotext -f24 -l36 -layout; pdftoppm -f24 -l24 -scale-to1600 -png; pdftoppm -f33 -l36 -scale-to1600 -png; python results/verification/20261008-dfs-revision/check.py > output.txt
+All commands exit0;5 rendered slide pages visually inspected.
+No original,source or exported PDF modified.

@@ -1,0 +1,279 @@
+     Artificial Intelligence
+
+Introduction to Intermediate Level
+
+
+           Instructor: Chris Ding
+美Dr. Chris Ding obtained Ph.D. from Columbia University
+                (李政道教授团队博士)
+                                    李政道杨振宁获1957诺贝尔奖
+
+
+
+
+                           2
+3
+ Textbook
+
+Artificial Intelligence: A modern approach, 3rd Ed
+Stewart Russel and Peter Norvig
+
+
+Artificial Intelligence in the 21 Century
+Stephen Lucci and Danny Kopec
+                 Grading
+• Written homework: 24%
+• NLP Projects/Computer homework: 30%
+• Midterm Exam (cover 2/3 course materials): 40%
+• NLP written homework , 6%
+         Some highly visible recent AI
+            successes in games
+
+
+
+Watson defeats       DeepMind            AlphaGo defeats Go   CMU’s Libratus defeats
+Jeopardy champions   achieves human-     champion (2016)      top human poker
+(2011)               level performance                        players (2017)
+                     on many Atari
+                     games (2015)
+The key technology of game play is search.
+
+
+International chess search space 𝑂𝑂(1011 )
+
+
+
+
+Go search space O(10170 )
+
+
+
+From 1997 IBM Blue to 2016 Google AlphaGo, humans spent 20
+years to develop search technology to make
+
+    100000000000000000000 …… 0000000000000000 (160 zeros)
+
+folds leap to conquer the Go.
+
+in the process, they won Nobel prize ……
+               AI Application Areas
+• Game Playing
+• Navigation
+• Autonomous planning and scheduling
+• Automated Logistics
+• Speech Recognition
+• Machine Translation
+• Spam Control
+• Robotic Vehicles
+• Robotics
+• Pattern Recognition/Data Mining
+• Many other application
+        What is artificial intelligence?
+• Popular conception driven by science fiction
+   – Robots good at everything except emotions, empathy,
+     appreciation of art, culture, …
+      • … until later in the movie.
+• Many movies have machines with super intelligence
+• But all these are hypes!
+• The rice cooker in our home is an AI machine …
+• The invention of computer is far more important than AI …
+• Current AI can not solve many simple problems
+• A serious science.              Real AI
+• General-purpose (strong) AI
+   – Incredibly intelligent, like the robots of science fiction
+   – Self learning from experiences
+   – Human brain appears to have lots of special and general functions,
+     integrated in some amazing way that we really do not understand
+• Special-purpose (weak) AI
+   – Solve specific problems
+   – E.g., chess/poker/Go playing programs, logistics planning,
+     automated translation, speech and image recognition, web search,
+     data mining, medical diagnosis, keeping a car on the road, …
+                                                    If our AI system can
+           Definitions of AI                        be more rational than
+                                                       humans in some
+      (strong AI perspective)                          cases, why not?
+
+
+
+    focus on action       Systems that think like    Systems that think
+sidesteps philosophical         humans                   rationally
+ issues such as “is the   Systems that act like       Systems that act
+system conscious” etc.         humans                    rationally
+
+• We will mostly follow “act rationally” approach
+   – Distinction may not be that important
+       • acting rationally/like a human presumably requires (some
+         sort of) thinking rationally/like a human,
+       • humans act more rationally in complex situations
+• Homework: INTRO1
+
+
+• “act rationally”
+  – What does the word “rationally” means?
+  Hint: In economics the theory assumes
+  players/humans are selfish, but act rationally.
+  You can use Chinese words here if that’s easier.
+AI: What is an Agent?
+
+
+Many big names/concepts
+An
+ AIagent is:
+
+-- a rice cooking system/software
+-- a database system (SQL)
+-- a driving/control system on your car
+-- an airline booking system
+-- a robot in a lab of some routine tasks
+-- a software system that scan through newspaper articles
+…….
+
+An agent is a computer/control system
+
+
+AI is part of Computer Science
+Rice cooking system
+Database system
+Car control/driving system
+A Robot is a very complex AI system
+AI techniques and systems
+-- a rice cooking system/software
+-- a database system (SQL)
+--AI
+   a driving/control system on your car
+-- an airline booking system
+-- a robot in a lab of some routine tasks
+-- a software system that scan through newspaper articles
+…….
+
+Many algorithms, techniques, systems used in above
+computer/control systems
+Chess play is the signature activity of human intelligence
+
+             Computer beats World Champion:
+                Beginning of the age of AI
+
+
+
+
+    A person can see 3 steps ahead.
+    A compute can see 10 steps ahead, limited by computer memory space.
+AI Revolution big success:
+1997 Deep Blue defeated World Chess Champion Kasparov
+
+
+
+
+ AI Great Achievement by using search related algorithms
+1997 Deep Blue defeated World Champion Kasparov
+2016 Google AlphaGo beats World Go Champion Lee Sedol
+Constraint Satisfaction Problem
+Neural Networks
+  “Chinese room”
+argument [Searle 1980]
+                     image from http://www.unc.edu/~prinz/pictures/c-room.gif
+
+
+
+
+• A person who knows English but not Chinese sits in room
+• He receives notes in Chinese
+• He uses rule book to translate Chinese into English, broadcast out
+     – He has no understanding of what they mean
+     – But from the outside, it looks like he understand Chinese
+•   Searle’s argument: the room has no intelligence.
+
+
+•   In fact, all techniques we cover in this course has no intelligence at all.
+•   Please tell me what intelligence the KNN algorithm has!
+             Lessons from AI research
+• Clearly-defined tasks that we think require intelligence and
+  education tend to be doable using AI techniques
+   – Playing chess, drawing logical inferences from clearly-stated facts,
+     performing probability calculations in well-defined environments, …
+
+• Complex, messy, ambiguous tasks that come naturally to
+  humans (in some cases other animals) are much harder…
+• Self driving cars are combination of well defined rules and
+  human errors, a technology very complex --- a busy intersection
+  connecting many roads, cars jam, human crosses, --- accidents
+  cause human life ….
+• AI systems lack: broad understanding of the world, common
+  sense, ability to learn from very few examples, truly out-of-
+  the-box creativity…
+• AI don’t understand consciousness. ChatGPT has brains?
+   Some areas where humans shine
+• Coming up with reasonably good solutions in complex messy
+  environments
+• Adapting/self-evaluation/creativity (“My usual approach to chess is
+  getting me into trouble against this person… Why? Is there
+  something entirely different I can do?”)
+• Analogical reasoning, transfer learning (applying insights from one
+  domain to another)
+• Explaining our reasoning
+• Tasks that require a broad understanding of the (human) world
+• Knowing what it’s like to be human
+• Humor
+• …
+              Early history of AI
+• 1950s/1960s: Early founders met and plan AI Proved some
+  theorems. Some initial work on neural networks…
+• 1970s: Patter recognition research, to automatically
+  recognize handwritten letters. Proved initial neural network
+  cannot solver exclusive-OR problem.
+• 1980s: Hopfield networks re-ignite neural network research,
+  back-propagation. Creation of expert systems (systems
+  specialized for one particular task based on experts’
+  knowledge), wide industry adoption
+             History of AI…
+• 1990s: text processing, search engines, data
+  mining research grow rapidly due to computer
+  to collect and generate enormous data
+• 1997: computer beats World Champion
+• 2000’s: machine learning take off. research
+  grow, many algorithms/technologies become
+  mature.
+• 2010s: deep learning, pushing computer
+  vision, NLP grow
+                      Modern AI
+• More rigorous, scientific, formal/mathematical
+• Fewer grandiose promises
+• Divided into many subareas interested in particular
+  aspects of human activities, driving, chess play, etc
+• More directly connected to “neighboring” disciplines
+  – Theoretical computer science, statistics, economics,
+    operations research, biology, psychology/neuroscience, …
+  – Often leads to question “Is this really AI”?
+• Some senior AI researchers are calling for re-
+  integration of all these topics, return to more
+  grandiose goals of AI (strong AI)
+  – Somewhat risky research propositions for graduate
+    students and junior faculty…
+           Healthy Perspective of AI
+• The purpose of AI is to improve/innovate technology
+• Some tasks, humans’ way is not necessarily better.
+• Some tasks humans don’t do well:
+   – Compare two pictures of the same person to check if they are some person
+
+• The over-all drive is to develop new/effective technology to solve
+  more tasks
+   – Some used to be done by humans
+   – Many new tasks, like new city planning, control, etc
+
+• Other technology such as using big data, data driven methods are
+  not necessarily AI.
+
+
+Homework Intro2：Can you think of a task humans don’t do well.
+This course covers:
+fundamental (early) bread/butter
+techniques with some applications.
+
+Will not cover machine learning, neural
+networks, because most/all students take
+separate specialized courses.
+
+
+Will do hands-on experiments on NLP.
+

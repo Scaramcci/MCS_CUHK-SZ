@@ -1,0 +1,9 @@
+Executor: /root/verify_answers (independent Verifier)
+Date: 2026-10-08 Asia/Shanghai
+Source: CSC5010_Artificial_Intelligence/assignments/hw01/requirements/AI-2026-homeWork-Set-1.pdf
+SHA256: ae277e8b99c0bf890378fa0bb26378a938d3fbbd816d9f6e4679082be273a2cc
+Initial git status: clean.
+Rendering: pdftoppm -scale-to 1500 -png (hw02/hw03), 1200 (hw01); exit 0. Fontconfig cache warnings for hw01/hw03, output PNGs successfully viewed.
+Extraction: pdftotext -layout; exit 0.
+Python initial fitz import attempt failed (ModuleNotFoundError); switched to Poppler without dependency installs.
+Draft source SHA256 61888cde8a86e1e91a580cd969065678d67136e87c7996efbc1715b6e5d10f8f

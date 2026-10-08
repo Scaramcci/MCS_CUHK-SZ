@@ -1,0 +1,20 @@
+{
+  "time_utc": "2026-10-08T09:32:44.257712+00:00",
+  "compiler": "pdfTeX 3.141592653-2.6-1.40.28 (TeX Live 2025/Debian)",
+  "source_sha256": "61888cde8a86e1e91a580cd969065678d67136e87c7996efbc1715b6e5d10f8f",
+  "command": [
+    "pdflatex",
+    "-interaction=nonstopmode",
+    "-halt-on-error",
+    "-output-directory",
+    "CSC5010_Artificial_Intelligence/assignments/hw01/results/20261008-answer-build",
+    "CSC5010_Artificial_Intelligence/assignments/hw01/report/answers.tex"
+  ],
+  "exit_code": 0,
+  "builtin_compiler": "failed: Tectonic bundle unavailable; network retrieval failed",
+  "final_time_utc": "2026-10-08T09:42:36.015035+00:00",
+  "final_source_sha256": "ef0e944df2440fda5170a572615b0f8687758a2af14b9e266d146b20e2903be3",
+  "pdf_sha256": "49e12138d76420571cc8d38cd694f4ec2d7d56204202be1d5e73fe7f4f656246",
+  "final_exit_code": 0,
+  "passes": 7
+}

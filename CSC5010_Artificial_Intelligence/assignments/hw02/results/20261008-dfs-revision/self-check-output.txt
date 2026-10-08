@@ -1,0 +1,6 @@
+DFS2 order: ['S', 'A', 'B', 'C', 'E', 'D', 'F', 'G']
+DFS2 timestamps: {'S': [1, 16], 'A': [2, 15], 'B': [3, 14], 'C': [4, 5], 'E': [6, 13], 'D': [7, 8], 'F': [9, 12], 'G': [10, 11]}
+DFS2 branch return nodes: ['B', 'E']
+DFS3 continuation: [('return', 32, 22), ('return', 22, 12), ('return', 12, 11), ('return', 11, 21), ('return', 21, 31), ('return', 31, 41), ('visit', 41, 51), ('visit', 51, 61), ('visit', 61, 62), ('return', 62, 61), ('return', 61, 51), ('return', 51, 41), ('return', 41, 42), ('visit', 42, 43), ('visit', 43, 44), ('visit', 44, 34), ('visit', 34, 24), ('return', 24, 34), ('return', 34, 44), ('visit', 44, 54)]
+DFS3 branch return nodes: [41, 42, 44]
+DFS3 final path: [33, 23, 13, 14, 15, 25, 35, 45, 55, 65, 64, 63, 53, 52, 42, 43, 44, 54]
