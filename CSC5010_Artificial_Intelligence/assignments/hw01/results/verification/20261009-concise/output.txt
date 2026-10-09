@@ -1,0 +1,6 @@
+0 0 0 0 0
+0 1 1 0 1
+1 0 1 0 1
+1 1 1 1 0
+scalar chain rule 1.0128845999999994 finite-difference independent check 1.0128846000406755
+XOR proof: correct by algebra; threshold forward network all four inputs passed.

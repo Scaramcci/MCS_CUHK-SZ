@@ -1,0 +1,6 @@
+DFS2 sorted adjacency {'A': ['B', 'D', 'S'], 'B': ['A', 'C', 'E'], 'C': ['B'], 'D': ['A', 'E', 'S'], 'E': ['B', 'D', 'F'], 'F': ['E', 'G'], 'G': ['F'], 'S': ['A', 'D']}
+DFS2 times {'S': [1, 16], 'A': [2, 15], 'B': [3, 14], 'C': [4, 5], 'E': [6, 13], 'D': [7, 8], 'F': [9, 12], 'G': [10, 11]} tree [('S', 'A'), ('A', 'B'), ('B', 'C'), ('B', 'E'), ('E', 'D'), ('E', 'F'), ('F', 'G')] backtrack branch points ['B', 'E']
+DFS3 initial stack [33, 23, 13, 14, 15, 25, 35, 45, 55, 65, 64, 63, 53, 52, 42, 41, 31, 21, 11, 12, 22, 32]
+DFS3 chronological continuation [('return', 32, 22), ('return', 22, 12), ('return', 12, 11), ('return', 11, 21), ('return', 21, 31), ('return', 31, 41), ('bf', 41), ('visit', 41, 51), ('visit', 51, 61), ('visit', 61, 62), ('return', 62, 61), ('return', 61, 51), ('return', 51, 41), ('return', 41, 42), ('bf', 42), ('visit', 42, 43), ('visit', 43, 44), ('visit', 44, 34), ('visit', 34, 24), ('return', 24, 34), ('return', 34, 44), ('bf', 44), ('visit', 44, 54)]
+DFS3 new edges [(41, 51), (51, 61), (61, 62), (42, 43), (43, 44), (44, 34), (34, 24), (44, 54)] backtrack nodes [41, 42, 44] final stack [33, 23, 13, 14, 15, 25, 35, 45, 55, 65, 64, 63, 53, 52, 42, 43, 44, 54]
+All independent assertions passed.

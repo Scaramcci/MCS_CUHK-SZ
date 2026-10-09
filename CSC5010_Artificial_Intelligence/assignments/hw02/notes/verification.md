@@ -60,3 +60,17 @@ None in revised DFS1–3 technical content.
 ### Warnings / Next role
 
 Ascending labels are an explicitly chosen continuation convention, not a rule imposed on the grid by the slides. The prescribed earlier route is preserved as input even though it need not use that same ordering. Current answer states this distinction correctly. Verification does not constitute final layout/package approval; separate Reviewer should inspect revised PDF DFS1–3 pages and actual delivery file. No answer files modified by Verifier.
+
+## Concise revision: independent technical and coverage verification
+
+Date:2026-10-09 Asia/Shanghai. Executor:`/root/verify_answers`; no participation in answer authorship. Read current source in full against previously visually inspected requirement pages and relevantlecture conventions; rootAGENTS andVerifier role reread. Exactexamined source snapshot/evidence:`results/verification/20261009-concise/`.
+
+Source SHA-256:`a1e82863a0bfca897db1e35515df9d12deb691ca09f3586ce12476f092e8a5de`. PDF SHA-256:`44e67d92ec9a97259aba2f220cba7940a9be28f7793e6dc702e6e026f99d61d4`. Prior detailed/revision records retained andsuperseded forcurrent deliveryversion.
+
+**Passed checks:** All10 exercises retained with essential process: BFS layer/blank-count tables and47total; DFS1 illustrated order,times,tree,return sequence,bt=t; DFS2 actualgraph,D once,times andbtB/E; DFS3 suppliedprefix,explicitascendingremaininglabels,bf41/42/44,deadends24/62 andfinalpath; DFS4 forest/adjacency/times/edgeclasses; DFS5 all21 edge ordercheck; Dijkstra full9step table andtree; AStar1/2 everyOPEN calculation withrelaxation,failurecost50 versus48,admissibility/inconsistency andOPENvsCLOSED distinction; AStar3 continuous/reduced31state representations,triangleinequality/vertexbends andgeometrydiagram. Independently reran earlier numeric script andDFSrevision script, allassertions passed. Lecture-defined backtrack convention andordering limitation remain explicit. No value or required step lost by prose removal.
+
+Actualscriptcommands,exit0,script/inputhashes andPythonversion recorded in `provenance.json`; actualoutputs in `output.txt` (hw02 also `dfs-output.txt`). No original oranswer modified byVerifier.
+
+**Failed checks:** none incovered technical/requirements content. **Required fixes:** none. **Warnings:** finalPDF typography/pageflow andphysical-fileapproval belong toseparateReviewer; codechecks supportbutdo notreplace thewritten mathematicalproof/sourceinterpretation.
+
+**Disposition:** independently passed fortechnicalcorrectness andretainedquestioncoverage, thisexact sourceversion. **Nextrole:** independentReviewer inspectallcurrentPDFpages anddeliveryfiles.

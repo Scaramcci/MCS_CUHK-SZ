@@ -56,3 +56,28 @@ Checklist:
 - Submission package remains N/A: direct handwriting-guide PDF/TeX are the deliverables; no upload or teacher approval claimed.
 
 **Final readiness: Ready for handwriting from the superseding files hashed above.** No open required correction. Any subsequent edit requires affected verification/review again. Next: coordinator delivers the revised PDF and explains the DFS conventions to the user.
+
+## Superseding final review: concise handwriting version, 2026-10-09
+
+Executor: independent Reviewer `/root/review_answers`; did not author answers or act as Verifier. Scope: requested shorter English answers using formulas, tables and diagrams; handwriting guide only. Earlier reviews/versions remain historical and are superseded for delivery by the hashes below.
+
+- `report/answers.tex`: `a1e82863a0bfca897db1e35515df9d12deb691ca09f3586ce12476f092e8a5de`.
+- `report/answers.pdf`: `44e67d92ec9a97259aba2f220cba7940a9be28f7793e6dc702e6e026f99d61d4`.
+
+Checked entire current source and actual final PDF (10 pages), original questions and relevant lecture conventions already visually inspected in earlier stages, build-record.json and appended current-version independent technical verification. Viewed every current rendered page from `/tmp/concise-hw02-*.png`; also inspected dense consolidated pages at full size. Actual source/PDF hashes match build/verification records.
+
+Critical issues: none. Major issues: none. Minor issues requiring repair: none.
+
+Coverage and reasoning: All ten questions retain worked steps. BFS layers and47 count; DFS trees/times; actual-graph D visited once, branch markers t/B/E and chosen grid continuation bf41/42/44; forest and topological edge check; full Dijkstra table/tree; both A* OPEN traces and48cost with50failure explanation; continuous versus31vertex geometry and triangle inequality. Earlier DFS clarification survives compression.
+
+Checklist:
+
+- Requirement/question coverage: PASS. Concision removes explanatory prose without removing required answers, essential derivations or source-sensitive assumptions.
+- User preference: PASS. All answer prose is English; formula/table/diagram emphasis considerably reduces copying load.
+- Actual PDF visual presentation: PASS. All10 pages read; clear boards, labelled tree nodes/arrows, formulas, step tables and boxed conclusions. No clipping, overlapping labels, missing pages or illegible glyphs found. Consolidated content fits margins and remains readable.
+- Independent technical verification: PASS for exact current version. Read appended `notes/verification.md` and evidence under `results/verification/20261009-concise/`; real scripts/outputs/provenance retained, including new hw01 proof/derivative check. Reviewer does not claim these as own calculations or replace independence with self-review.
+- Build: PASS for installed TeXLive PDF export and visual rendering. Built-in Tectonic compiler remains unavailable due uncached bundle; it is not reported as successful.
+- Original protection: PASS; originals are read-only references, prior detailed answers archived in `results/20261009-concise/previous-answers.*`.
+- Submission package/upload: N/A. User asked to copy on paper; actual delivery files are directly inspected PDF and TeX above. No submission or teacher approval claimed.
+
+**Final readiness: Ready for handwriting from this concise version.** No outstanding required fixes. Any later change invalidates affected verification/review. Next: coordinator delivers concise PDFs and source links.

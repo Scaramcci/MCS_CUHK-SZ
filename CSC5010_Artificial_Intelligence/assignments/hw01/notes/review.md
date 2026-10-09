@@ -34,3 +34,28 @@ The initially missing closing quotation in Werbos bibliography item was correcte
 ## Final readiness
 
 **Ready for handwriting from these exact files.** No Critical/Major issue or outstanding required fix. This is neither teacher approval nor submitted status. Later edits require affected recheck. Next: coordinator delivers links to user.
+
+## Superseding final review: concise handwriting version, 2026-10-09
+
+Executor: independent Reviewer `/root/review_answers`; did not author answers or act as Verifier. Scope: requested shorter English answers using formulas, tables and diagrams; handwriting guide only. Earlier reviews/versions remain historical and are superseded for delivery by the hashes below.
+
+- `report/answers.tex`: `05aa75cc609581b756fde0746361ff614386183697de820777b03c8d4a9aed21`.
+- `report/answers.pdf`: `601dc64dae715cc9fb15a1dfed92138d04c76f6bc21308def8fc79655783e593`.
+
+Checked entire current source and actual final PDF (2 pages), original questions and relevant lecture conventions already visually inspected in earlier stages, build-record.json and appended current-version independent technical verification. Viewed every current rendered page from `/tmp/concise-hw01-*.png`; also inspected dense consolidated pages at full size. Actual source/PDF hashes match build/verification records.
+
+Critical issues: none. Major issues: none. Minor issues requiring repair: none.
+
+Coverage and reasoning: All three Intro questions remain complete. Intro1 retains rational utility choice, selfishness distinction and uncertainty. Intro2 retains an explicit poor-human-performance task and AI motivation with geometric-series formula. Intro3 retains truthful LLM disclosure, XOR impossibility proof/table/network, representation-versus-training caveat, chain rule/gradient update, intervening1974 innovation,1969/1986 chronology and16/17-year interval.
+
+Checklist:
+
+- Requirement/question coverage: PASS. Concision removes explanatory prose without removing required answers, essential derivations or source-sensitive assumptions.
+- User preference: PASS. All answer prose is English; formula/table/diagram emphasis considerably reduces copying load.
+- Actual PDF visual presentation: PASS. All2 pages read; clear boards, labelled tree nodes/arrows, formulas, step tables and boxed conclusions. No clipping, overlapping labels, missing pages or illegible glyphs found. Consolidated content fits margins and remains readable.
+- Independent technical verification: PASS for exact current version. Read appended `notes/verification.md` and evidence under `results/verification/20261009-concise/`; real scripts/outputs/provenance retained, including new hw01 proof/derivative check. Reviewer does not claim these as own calculations or replace independence with self-review.
+- Build: PASS for installed TeXLive PDF export and visual rendering. Built-in Tectonic compiler remains unavailable due uncached bundle; it is not reported as successful.
+- Original protection: PASS; originals are read-only references, prior detailed answers archived in `results/20261009-concise/previous-answers.*`.
+- Submission package/upload: N/A. User asked to copy on paper; actual delivery files are directly inspected PDF and TeX above. No submission or teacher approval claimed.
+
+**Final readiness: Ready for handwriting from this concise version.** No outstanding required fixes. Any later change invalidates affected verification/review. Next: coordinator delivers concise PDFs and source links.

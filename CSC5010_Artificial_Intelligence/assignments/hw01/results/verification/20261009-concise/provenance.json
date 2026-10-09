@@ -1,0 +1,11 @@
+{
+  "executor": "/root/verify_answers",
+  "date": "2026-10-09 Asia/Shanghai",
+  "source_sha256": "05aa75cc609581b756fde0746361ff614386183697de820777b03c8d4a9aed21",
+  "pdf_sha256": "601dc64dae715cc9fb15a1dfed92138d04c76f6bc21308def8fc79655783e593",
+  "python": "3.14.7 | packaged by Anaconda, Inc. | (main, Aug 14 2026, 10:21:40) [GCC 14.3.0]",
+  "script_sha256": "fc8ae7b48988d4d5e4c354db2d8afef6adac2743875d16b3c277390caeb62825",
+  "command": "python CSC5010_Artificial_Intelligence/assignments/hw01/results/verification/20261009-concise/check.py > CSC5010_Artificial_Intelligence/assignments/hw01/results/verification/20261009-concise/output.txt",
+  "exit": 0,
+  "coverage": "Intro1 utility maximization,rationality/selfishness distinction and uncertainty caveat retained. Intro2 task and human limitation retained with correct geometric-series/tree-leaf formula. Intro3 LLM/date/prompt disclosure,XOR table,threshold contradiction,hidden-layer construction,credit-assignment explanation,1969/1974/1986 milestones,16/17-year interval and sources retained. Newly added impossibility proof independently checked algebraically: inequalities imply w1+w2+b>=-b>0,contradicting required negative score. Threshold network executed on all4 inputs. New chain-rule derivative correctly expresses scalar/Jacobian composition; independently compared scalar composition to finite difference (error<1e-7), gradient descent minus-sign update correct. Differentiable-training versus threshold-representation caveat retained. Historical sources previously independently verified; bibliographic compression introduces no factual changes."
+}

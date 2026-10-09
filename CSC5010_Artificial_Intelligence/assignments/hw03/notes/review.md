@@ -34,3 +34,28 @@ None requiring correction. Diagrams intentionally simplify originals and are lab
 ## Final readiness
 
 **Ready for handwriting from the exact files above.** This is independent quality review, not teacher approval or proof of submission. Any answer/PDF change invalidates affected review and requires corresponding recheck. Next: coordinator delivers links to user; no upload.
+
+## Superseding final review: concise handwriting version, 2026-10-09
+
+Executor: independent Reviewer `/root/review_answers`; did not author answers or act as Verifier. Scope: requested shorter English answers using formulas, tables and diagrams; handwriting guide only. Earlier reviews/versions remain historical and are superseded for delivery by the hashes below.
+
+- `report/answers.tex`: `9e7f067206dd84505d51d7ff653b586c731a83de80e6702cc89033e06fa54908`.
+- `report/answers.pdf`: `56733238b72354e4a36a3245f99d078a4397ddaeae3cc617c70a4e92c04f99c7`.
+
+Checked entire current source and actual final PDF (5 pages), original questions and relevant lecture conventions already visually inspected in earlier stages, build-record.json and appended current-version independent technical verification. Viewed every current rendered page from `/tmp/concise-hw03-*.png`; also inspected dense consolidated pages at full size. Actual source/PDF hashes match build/verification records.
+
+Critical issues: none. Major issues: none. Minor issues requiring repair: none.
+
+Coverage and reasoning: All five Games questions and both optional counts retain essential reasoning. Every red piece counted; legal complete Game2 continuations; Game3 terminal/fork backups and compact opening tree; Game4 MIN/MAX scores and secondary tie-break; Game5 terminal-depth arguments, history counts, earlier-win exclusion and exact-depth recurrence. Partial-graph, leaf-evaluation and unmerged-history conventions remain explicit.
+
+Checklist:
+
+- Requirement/question coverage: PASS. Concision removes explanatory prose without removing required answers, essential derivations or source-sensitive assumptions.
+- User preference: PASS. All answer prose is English; formula/table/diagram emphasis considerably reduces copying load.
+- Actual PDF visual presentation: PASS. All5 pages read; clear boards, labelled tree nodes/arrows, formulas, step tables and boxed conclusions. No clipping, overlapping labels, missing pages or illegible glyphs found. Consolidated content fits margins and remains readable.
+- Independent technical verification: PASS for exact current version. Read appended `notes/verification.md` and evidence under `results/verification/20261009-concise/`; real scripts/outputs/provenance retained, including new hw01 proof/derivative check. Reviewer does not claim these as own calculations or replace independence with self-review.
+- Build: PASS for installed TeXLive PDF export and visual rendering. Built-in Tectonic compiler remains unavailable due uncached bundle; it is not reported as successful.
+- Original protection: PASS; originals are read-only references, prior detailed answers archived in `results/20261009-concise/previous-answers.*`.
+- Submission package/upload: N/A. User asked to copy on paper; actual delivery files are directly inspected PDF and TeX above. No submission or teacher approval claimed.
+
+**Final readiness: Ready for handwriting from this concise version.** No outstanding required fixes. Any later change invalidates affected verification/review. Next: coordinator delivers concise PDFs and source links.

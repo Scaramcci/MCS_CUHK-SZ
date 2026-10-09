@@ -1,0 +1,16 @@
+{
+  "time_utc": "2026-10-09T05:43:01.853650+00:00",
+  "command": [
+    "pdflatex",
+    "-interaction=nonstopmode",
+    "-halt-on-error",
+    "-output-directory",
+    "CSC5010_Artificial_Intelligence/assignments/hw03/results/20261009-concise",
+    "CSC5010_Artificial_Intelligence/assignments/hw03/report/answers.tex"
+  ],
+  "exit_code": 0,
+  "passes": 2,
+  "source_sha256": "9e7f067206dd84505d51d7ff653b586c731a83de80e6702cc89033e06fa54908",
+  "pdf_sha256": "56733238b72354e4a36a3245f99d078a4397ddaeae3cc617c70a4e92c04f99c7",
+  "builtin_compiler": "failed: uncached Tectonic bundle; used installed system TeXLive"
+}

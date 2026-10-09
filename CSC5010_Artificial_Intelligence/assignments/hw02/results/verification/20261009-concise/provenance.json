@@ -1,0 +1,14 @@
+{
+  "executor": "/root/verify_answers",
+  "date": "2026-10-09 Asia/Shanghai",
+  "source_sha256": "a1e82863a0bfca897db1e35515df9d12deb691ca09f3586ce12476f092e8a5de",
+  "pdf_sha256": "44e67d92ec9a97259aba2f220cba7940a9be28f7793e6dc702e6e026f99d61d4",
+  "python": "3.14.7 | packaged by Anaconda, Inc. | (main, Aug 14 2026, 10:21:40) [GCC 14.3.0]",
+  "script_sha256": "71b8fe361e462c2010df7679bed729557d67325a3f5388d4dc4597054de317ab",
+  "command": "python CSC5010_Artificial_Intelligence/assignments/hw02/results/verification/20261009-concise/check.py > CSC5010_Artificial_Intelligence/assignments/hw02/results/verification/20261009-concise/output.txt",
+  "exit": 0,
+  "coverage": "All10 exercises retained with essential process: BFS layer/blank-count tables and47total; DFS1 illustrated order,times,tree,return sequence,bt=t; DFS2 actualgraph,D once,times andbtB/E; DFS3 suppliedprefix,explicitascendingremaininglabels,bf41/42/44,deadends24/62 andfinalpath; DFS4 forest/adjacency/times/edgeclasses; DFS5 all21 edge ordercheck; Dijkstra full9step table andtree; AStar1/2 everyOPEN calculation withrelaxation,failurecost50 versus48,admissibility/inconsistency andOPENvsCLOSED distinction; AStar3 continuous/reduced31state representations,triangleinequality/vertexbends andgeometrydiagram. Independently reran earlier numeric script andDFSrevision script, allassertions passed. Lecture-defined backtrack convention andordering limitation remain explicit. No value or required step lost by prose removal.",
+  "dfs_script_sha256": "828bc1d485d833db9f8a9fa24a891250492fe6a1bb27cfbd4c575d7056eac6c2",
+  "dfs_command": "python CSC5010_Artificial_Intelligence/assignments/hw02/results/verification/20261009-concise/dfs-check.py > CSC5010_Artificial_Intelligence/assignments/hw02/results/verification/20261009-concise/dfs-output.txt",
+  "dfs_exit": 0
+}

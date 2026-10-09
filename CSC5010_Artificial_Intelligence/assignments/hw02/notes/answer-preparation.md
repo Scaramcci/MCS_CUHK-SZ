@@ -31,3 +31,13 @@ Handoff: independent Verifier checks revised algorithms and source support; sepa
 
 Revised source SHA256: `f8aaaea7fb5db52fae35506dc80434fec603d4fe8e1c92bbc49a145df071f845`.
 Revised exported PDF SHA256: `dc2cb61589edd689cfe5fc8b45dfae1d5aab8f13261d7423a78c5d9a6a6f72c5`.
+
+## Concise handwriting revision, 2026-10-09
+Role / Executor: Solver and Report Writer / root Codex session.
+User preference: all-English, less prose, more formulae and diagrams.
+Changes: condensed explanatory paragraphs, shortened question headings, retained question coverage and required assumptions; detailed prior source/PDF archived under results/20261009-concise/.
+State: compiled with system TeXLive, exit0 in two passes, no box overflow warnings; all final rendered pages visually self-checked.
+Source SHA256: `a1e82863a0bfca897db1e35515df9d12deb691ca09f3586ce12476f092e8a5de`.
+PDF SHA256: `44e67d92ec9a97259aba2f220cba7940a9be28f7793e6dc702e6e026f99d61d4`.
+Evidence: results/20261009-concise/build-record.json, compile-pass1/2.txt.
+Handoff: independent Verifier for technical and coverage checks, then separate Reviewer for final source/PDF. Earlier final records remain version-specific.

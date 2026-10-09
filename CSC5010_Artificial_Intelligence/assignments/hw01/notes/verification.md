@@ -36,3 +36,17 @@ Final technical disposition: passed within documented source/calculation coverag
 ## Final punctuation/export resolution
 
 Re-read current reference[3]: title now has closing quotation marks. Earlier punctuation warning resolved. Current source SHA-256 `ef0e944df2440fda5170a572615b0f8687758a2af14b9e266d146b20e2903be3` (matches examined final-source snapshot); final exported PDF SHA-256 `49e12138d76420571cc8d38cd694f4ec2d7d56204202be1d5e73fe7f4f656246`. The earlier recorded PDF hash refers to the prior export and is superseded for delivery. Technical source verification remains passed. Source read and `sha256sum` executed successfully; Verifier did not edit answers. Final PDF visual review remains the independent Reviewer responsibility.
+
+## Concise revision: independent technical and coverage verification
+
+Date:2026-10-09 Asia/Shanghai. Executor:`/root/verify_answers`; no participation in answer authorship. Read current source in full against previously visually inspected requirement pages and relevantlecture conventions; rootAGENTS andVerifier role reread. Exactexamined source snapshot/evidence:`results/verification/20261009-concise/`.
+
+Source SHA-256:`05aa75cc609581b756fde0746361ff614386183697de820777b03c8d4a9aed21`. PDF SHA-256:`601dc64dae715cc9fb15a1dfed92138d04c76f6bc21308def8fc79655783e593`. Prior detailed/revision records retained andsuperseded forcurrent deliveryversion.
+
+**Passed checks:** Intro1 utility maximization,rationality/selfishness distinction and uncertainty caveat retained. Intro2 task and human limitation retained with correct geometric-series/tree-leaf formula. Intro3 LLM/date/prompt disclosure,XOR table,threshold contradiction,hidden-layer construction,credit-assignment explanation,1969/1974/1986 milestones,16/17-year interval and sources retained. Newly added impossibility proof independently checked algebraically: inequalities imply w1+w2+b>=-b>0,contradicting required negative score. Threshold network executed on all4 inputs. New chain-rule derivative correctly expresses scalar/Jacobian composition; independently compared scalar composition to finite difference (error<1e-7), gradient descent minus-sign update correct. Differentiable-training versus threshold-representation caveat retained. Historical sources previously independently verified; bibliographic compression introduces no factual changes.
+
+Actualscriptcommands,exit0,script/inputhashes andPythonversion recorded in `provenance.json`; actualoutputs in `output.txt` (hw02 also `dfs-output.txt`). No original oranswer modified byVerifier.
+
+**Failed checks:** none incovered technical/requirements content. **Required fixes:** none. **Warnings:** finalPDF typography/pageflow andphysical-fileapproval belong toseparateReviewer; codechecks supportbutdo notreplace thewritten mathematicalproof/sourceinterpretation.
+
+**Disposition:** independently passed fortechnicalcorrectness andretainedquestioncoverage, thisexact sourceversion. **Nextrole:** independentReviewer inspectallcurrentPDFpages anddeliveryfiles.

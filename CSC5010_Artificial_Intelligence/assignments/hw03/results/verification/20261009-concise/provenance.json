@@ -1,0 +1,11 @@
+{
+  "executor": "/root/verify_answers",
+  "date": "2026-10-09 Asia/Shanghai",
+  "source_sha256": "9e7f067206dd84505d51d7ff653b586c731a83de80e6702cc89033e06fa54908",
+  "pdf_sha256": "56733238b72354e4a36a3245f99d078a4397ddaeae3cc617c70a4e92c04f99c7",
+  "python": "3.14.7 | packaged by Anaconda, Inc. | (main, Aug 14 2026, 10:21:40) [GCC 14.3.0]",
+  "script_sha256": "3a330dd0f0d9a16c96b6e01cb8df994b96f73e3d6143c085ac4360416ecd5770",
+  "command": "python CSC5010_Artificial_Intelligence/assignments/hw03/results/verification/20261009-concise/check.py > CSC5010_Artificial_Intelligence/assignments/hw03/results/verification/20261009-concise/output.txt",
+  "exit": 0,
+  "coverage": "All5 games retained: Games1 all16 redpieces and44total,1ply44/3ply85184 evaluations; Game2 prescribedprefixes andcomplete legaldrawboardsequences; Game3 terminal/fork utilities,MIN/MAX recurrence,openingbackup0/0/root0 andpartialgraphscope; Game4 allcandidateleafscorearrays,1/0/1/0 backup,bestfourcorners bysymmetry andsubjectivetiebreak; Game5 eachrequiredproperty1\u20134 compacttable withreason,1440formula,optional5328formula,optional127872recurrence/table and46080drawcheck. Independently reran legalmoves/history/minimax/Game3 backup checks, exit0. No required question omitted. Compression keeps leaf-history versusboard merging andterminal-stop conventions."
+}

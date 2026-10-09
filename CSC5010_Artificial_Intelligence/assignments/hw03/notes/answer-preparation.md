@@ -18,3 +18,13 @@ Handoff complete: independent Verifier and separate Reviewer records are in note
 - `report/answers.tex` SHA256 `2d5a768de915a9ebbe570e9f4e84b993717c949f4b954ee6c96e4cf2c68def8e`
 - `report/answers.pdf` SHA256 `723e1de0b74740f27095c99d45c72667e2ec2c5a0f09fb84490cdb03da38f7d1`
 - Compilation commands, exit status, compiler version and timestamps: `results/20261008-answer-build/build-record.json`.
+
+## Concise handwriting revision, 2026-10-09
+Role / Executor: Solver and Report Writer / root Codex session.
+User preference: all-English, less prose, more formulae and diagrams.
+Changes: condensed explanatory paragraphs, shortened question headings, retained question coverage and required assumptions; detailed prior source/PDF archived under results/20261009-concise/.
+State: compiled with system TeXLive, exit0 in two passes, no box overflow warnings; all final rendered pages visually self-checked.
+Source SHA256: `9e7f067206dd84505d51d7ff653b586c731a83de80e6702cc89033e06fa54908`.
+PDF SHA256: `56733238b72354e4a36a3245f99d078a4397ddaeae3cc617c70a4e92c04f99c7`.
+Evidence: results/20261009-concise/build-record.json, compile-pass1/2.txt.
+Handoff: independent Verifier for technical and coverage checks, then separate Reviewer for final source/PDF. Earlier final records remain version-specific.

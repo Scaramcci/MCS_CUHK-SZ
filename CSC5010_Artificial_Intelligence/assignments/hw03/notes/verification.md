@@ -36,3 +36,17 @@ Source SHA-256: `2d5a768de915a9ebbe570e9f4e84b993717c949f4b954ee6c96e4cf2c68def8
 
 Diff reviewed against previously checked source. Changes concern spacing, board baseline, wrapping math cells, and clearer DFS3 goal mark. No numerical, graph-edge, or algorithmic-value changes. Previous independent technical checks remain applicable to this exact version. No technical defects.
 Final technical disposition: passed within documented source/calculation coverage; no answer files modified by Verifier. Final PDF readability and complete delivery review remain separate.
+
+## Concise revision: independent technical and coverage verification
+
+Date:2026-10-09 Asia/Shanghai. Executor:`/root/verify_answers`; no participation in answer authorship. Read current source in full against previously visually inspected requirement pages and relevantlecture conventions; rootAGENTS andVerifier role reread. Exactexamined source snapshot/evidence:`results/verification/20261009-concise/`.
+
+Source SHA-256:`9e7f067206dd84505d51d7ff653b586c731a83de80e6702cc89033e06fa54908`. PDF SHA-256:`56733238b72354e4a36a3245f99d078a4397ddaeae3cc617c70a4e92c04f99c7`. Prior detailed/revision records retained andsuperseded forcurrent deliveryversion.
+
+**Passed checks:** All5 games retained: Games1 all16 redpieces and44total,1ply44/3ply85184 evaluations; Game2 prescribedprefixes andcomplete legaldrawboardsequences; Game3 terminal/fork utilities,MIN/MAX recurrence,openingbackup0/0/root0 andpartialgraphscope; Game4 allcandidateleafscorearrays,1/0/1/0 backup,bestfourcorners bysymmetry andsubjectivetiebreak; Game5 eachrequiredproperty1–4 compacttable withreason,1440formula,optional5328formula,optional127872recurrence/table and46080drawcheck. Independently reran legalmoves/history/minimax/Game3 backup checks, exit0. No required question omitted. Compression keeps leaf-history versusboard merging andterminal-stop conventions.
+
+Actualscriptcommands,exit0,script/inputhashes andPythonversion recorded in `provenance.json`; actualoutputs in `output.txt` (hw02 also `dfs-output.txt`). No original oranswer modified byVerifier.
+
+**Failed checks:** none incovered technical/requirements content. **Required fixes:** none. **Warnings:** finalPDF typography/pageflow andphysical-fileapproval belong toseparateReviewer; codechecks supportbutdo notreplace thewritten mathematicalproof/sourceinterpretation.
+
+**Disposition:** independently passed fortechnicalcorrectness andretainedquestioncoverage, thisexact sourceversion. **Nextrole:** independentReviewer inspectallcurrentPDFpages anddeliveryfiles.
