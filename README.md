@@ -1,6 +1,6 @@
 # MCS 研究生课程统一仓库 · 2026–27 学年第一学期
 
-按当前教学计划与 Fall 2026 课件整理。整个学期共用根目录一个 Git 仓库；课程目录不创建 `.git`，不使用 Git submodule。本次仅整理已有资料，未完成任何作业。
+本仓库用于完成26-27第一学期作业。
 
 ## Agent 工作入口
 
@@ -10,30 +10,30 @@
 
 ## 课程索引
 
-| 目录 | 课程 | 当前资料覆盖 |
-| --- | --- | --- |
-| [CSC5010_Artificial_Intelligence/](CSC5010_Artificial_Intelligence/README.md) | 人工智能 | 人工智能基础、状态空间搜索、BFS/DFS、Dijkstra、启发式搜索与博弈。 |
-| [CSC5036_Network_Programming/](CSC5036_Network_Programming/README.md) | 网络编程 | 计算机网络、传输层、TCP 流量与拥塞控制、Socket 编程及 EC2 网络测量。 |
-| [CSC5041_Introduction_to_Database_Systems/](CSC5041_Introduction_to_Database_Systems/README.md) | 数据库系统导论 | ER 建模、关系模型、关系代数、SQL 和数据库设计。 |
-| [CSC5051_Natural_Language_Processing/](CSC5051_Natural_Language_Processing/README.md) | 自然语言处理 | 语言学基础、词表示、Word2Vec 与自然语言处理。 |
-| [DDA5001_Machine_Learning/](DDA5001_Machine_Learning/README.md) | 机器学习 | 监督与无监督学习、感知机、最小二乘、最大似然、训练与测试。 |
+| 目录                                                                                           | 课程           | 当前资料覆盖                                                         |
+| ---------------------------------------------------------------------------------------------- | -------------- | -------------------------------------------------------------------- |
+| [CSC5010_Artificial_Intelligence/](CSC5010_Artificial_Intelligence/README.md)                   | 人工智能       | 人工智能基础、状态空间搜索、BFS/DFS、Dijkstra、启发式搜索与博弈。    |
+| [CSC5036_Network_Programming/](CSC5036_Network_Programming/README.md)                           | 网络编程       | 计算机网络、传输层、TCP 流量与拥塞控制、Socket 编程及 EC2 网络测量。 |
+| [CSC5041_Introduction_to_Database_Systems/](CSC5041_Introduction_to_Database_Systems/README.md) | 数据库系统导论 | ER 建模、关系模型、关系代数、SQL 和数据库设计。                      |
+| [CSC5051_Natural_Language_Processing/](CSC5051_Natural_Language_Processing/README.md)           | 自然语言处理   | 语言学基础、词表示、Word2Vec 与自然语言处理。                        |
+| [DDA5001_Machine_Learning/](DDA5001_Machine_Learning/README.md)                                 | 机器学习       | 监督与无监督学习、感知机、最小二乘、最大似然、训练与测试。           |
 
 ## 目录规范
 
 保留现有课程编号与目录名，教师原始文件名原则上不改。按需建立：
 
-| 目录 | 用途 |
-| --- | --- |
-| `syllabus/` | 大纲、评分规则、课程说明、教学安排 |
-| `slides/` | 教师 PPT、讲义；包含课程说明的完整课件仍放此处，不拆分原文件 |
-| `assignments/hwXX/` | 已明确发布的作业 |
-| `projects/projectXX/` | 已明确发布的项目或大作业 |
-| `notes/` | 自己的笔记 |
-| `resources/` | 参考资料、Tutorial、数据说明等 |
-| `exams/` | 考试与复习资料 |
-| `templates/latex/` | 共享 LaTeX 模板，可纳入 Git |
-| `00_unsorted/` | 归属无法确定的新增文件；本次没有需放入的文件，暂不创建 |
-| `Chores/` | 行政通知、选课、个人证明、申请、会议等校内事务；本地保留，禁止提交 |
+| 目录                    | 用途                                                               |
+| ----------------------- | ------------------------------------------------------------------ |
+| `syllabus/`           | 大纲、评分规则、课程说明、教学安排                                 |
+| `slides/`             | 教师 PPT、讲义；包含课程说明的完整课件仍放此处，不拆分原文件       |
+| `assignments/hwXX/`   | 已明确发布的作业                                                   |
+| `projects/projectXX/` | 已明确发布的项目或大作业                                           |
+| `notes/`              | 自己的笔记                                                         |
+| `resources/`          | 参考资料、Tutorial、数据说明等                                     |
+| `exams/`              | 考试与复习资料                                                     |
+| `templates/latex/`    | 共享 LaTeX 模板，可纳入 Git                                        |
+| `00_unsorted/`        | 归属无法确定的新增文件；本次没有需放入的文件，暂不创建             |
+| `Chores/`             | 行政通知、选课、个人证明、申请、会议等校内事务；本地保留，禁止提交 |
 
 作业内 `requirements/` 保存教师要求与原始配套压缩包；按需建立 `src/`、`report/`、`results/`、`submission/`。手写作业可增加 `handwritten/` 和 `notes/`。项目采用类似结构，并按需增加 `data/`。不为未发布作业或项目预建目录，不用占位文件制造空目录。
 
@@ -63,49 +63,49 @@
 <details>
 <summary>完整文件移动清单（原文件名均保留）</summary>
 
-| 原路径 | 新路径 |
-| --- | --- |
-| `CSC5010_Artificial_Intelligence/AI-Introduction2026-09-01.pdf` | `CSC5010_Artificial_Intelligence/slides/AI-Introduction2026-09-01.pdf` |
-| `CSC5010_Artificial_Intelligence/AI_Search_Ding6.pdf` | `CSC5010_Artificial_Intelligence/slides/AI_Search_Ding6.pdf` |
-| `CSC5010_Artificial_Intelligence/BFS-DFS-Dijkstra-2026-4-7.pdf` | `CSC5010_Artificial_Intelligence/slides/BFS-DFS-Dijkstra-2026-4-7.pdf` |
-| `CSC5010_Artificial_Intelligence/GamesCDing2026-9-3.pdf` | `CSC5010_Artificial_Intelligence/slides/GamesCDing2026-9-3.pdf` |
-| `CSC5010_Artificial_Intelligence/Homework1/AI-2026-homeWork-Set-1.pdf` | `CSC5010_Artificial_Intelligence/assignments/hw01/requirements/AI-2026-homeWork-Set-1.pdf` |
-| `CSC5010_Artificial_Intelligence/Homework2/BFS-DFS-Dijkstra-Astar-homework.pdf` | `CSC5010_Artificial_Intelligence/assignments/hw02/requirements/BFS-DFS-Dijkstra-Astar-homework.pdf` |
-| `CSC5010_Artificial_Intelligence/Informed_Search_Ding2026-6-15.pdf` | `CSC5010_Artificial_Intelligence/slides/Informed_Search_Ding2026-6-15.pdf` |
-| `CSC5036_Network_Programming/01-intro.pdf` | `CSC5036_Network_Programming/slides/01-intro.pdf` |
-| `CSC5036_Network_Programming/02-network.pdf` | `CSC5036_Network_Programming/slides/02-network.pdf` |
-| `CSC5036_Network_Programming/03-transport.pdf` | `CSC5036_Network_Programming/slides/03-transport.pdf` |
-| `CSC5036_Network_Programming/04-flow_control.pdf` | `CSC5036_Network_Programming/slides/04-flow_control.pdf` |
-| `CSC5036_Network_Programming/05-congestion.pdf` | `CSC5036_Network_Programming/slides/05-congestion.pdf` |
-| `CSC5036_Network_Programming/06-socket.pdf` | `CSC5036_Network_Programming/slides/06-socket.pdf` |
-| `CSC5036_Network_Programming/Homework1/Assignment1.md` | `CSC5036_Network_Programming/assignments/hw01/requirements/Assignment1.md` |
-| `CSC5036_Network_Programming/Homework1/ec2(1).pptx` | `CSC5036_Network_Programming/assignments/hw01/requirements/ec2(1).pptx` |
-| `CSC5036_Network_Programming/Homework1/ec2_measurement.pdf` | `CSC5036_Network_Programming/assignments/hw01/requirements/ec2_measurement.pdf` |
-| `CSC5041_Introduction_to_Database_Systems/CSC5041_Teaching_Plan.pdf` | `CSC5041_Introduction_to_Database_Systems/syllabus/CSC5041_Teaching_Plan.pdf` |
-| `CSC5041_Introduction_to_Database_Systems/Lecture2A.pptx` | `CSC5041_Introduction_to_Database_Systems/slides/Lecture2A.pptx` |
-| `CSC5041_Introduction_to_Database_Systems/Questions.pdf` | `CSC5041_Introduction_to_Database_Systems/resources/tutorials/Questions.pdf` |
-| `CSC5041_Introduction_to_Database_Systems/Relational_Algebra.pptx` | `CSC5041_Introduction_to_Database_Systems/slides/Relational_Algebra.pptx` |
-| `CSC5041_Introduction_to_Database_Systems/SQLpart1.pptx` | `CSC5041_Introduction_to_Database_Systems/slides/SQLpart1.pptx` |
-| `CSC5041_Introduction_to_Database_Systems/Week 1A - IntroductionNEW.pptx` | `CSC5041_Introduction_to_Database_Systems/slides/Week 1A - IntroductionNEW.pptx` |
-| `CSC5041_Introduction_to_Database_Systems/Week 1B - Conceptual DB Design.pptx` | `CSC5041_Introduction_to_Database_Systems/slides/Week 1B - Conceptual DB Design.pptx` |
-| `CSC5051_Natural_Language_Processing/Homework1/Assignment_1.pdf` | `CSC5051_Natural_Language_Processing/assignments/hw01/requirements/Assignment_1.pdf` |
-| `CSC5051_Natural_Language_Processing/Lecture 1：Introduction.pdf` | `CSC5051_Natural_Language_Processing/slides/Lecture 1：Introduction.pdf` |
+| 原路径                                                                                            | 新路径                                                                                                   |
+| ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `CSC5010_Artificial_Intelligence/AI-Introduction2026-09-01.pdf`                                 | `CSC5010_Artificial_Intelligence/slides/AI-Introduction2026-09-01.pdf`                                 |
+| `CSC5010_Artificial_Intelligence/AI_Search_Ding6.pdf`                                           | `CSC5010_Artificial_Intelligence/slides/AI_Search_Ding6.pdf`                                           |
+| `CSC5010_Artificial_Intelligence/BFS-DFS-Dijkstra-2026-4-7.pdf`                                 | `CSC5010_Artificial_Intelligence/slides/BFS-DFS-Dijkstra-2026-4-7.pdf`                                 |
+| `CSC5010_Artificial_Intelligence/GamesCDing2026-9-3.pdf`                                        | `CSC5010_Artificial_Intelligence/slides/GamesCDing2026-9-3.pdf`                                        |
+| `CSC5010_Artificial_Intelligence/Homework1/AI-2026-homeWork-Set-1.pdf`                          | `CSC5010_Artificial_Intelligence/assignments/hw01/requirements/AI-2026-homeWork-Set-1.pdf`             |
+| `CSC5010_Artificial_Intelligence/Homework2/BFS-DFS-Dijkstra-Astar-homework.pdf`                 | `CSC5010_Artificial_Intelligence/assignments/hw02/requirements/BFS-DFS-Dijkstra-Astar-homework.pdf`    |
+| `CSC5010_Artificial_Intelligence/Informed_Search_Ding2026-6-15.pdf`                             | `CSC5010_Artificial_Intelligence/slides/Informed_Search_Ding2026-6-15.pdf`                             |
+| `CSC5036_Network_Programming/01-intro.pdf`                                                      | `CSC5036_Network_Programming/slides/01-intro.pdf`                                                      |
+| `CSC5036_Network_Programming/02-network.pdf`                                                    | `CSC5036_Network_Programming/slides/02-network.pdf`                                                    |
+| `CSC5036_Network_Programming/03-transport.pdf`                                                  | `CSC5036_Network_Programming/slides/03-transport.pdf`                                                  |
+| `CSC5036_Network_Programming/04-flow_control.pdf`                                               | `CSC5036_Network_Programming/slides/04-flow_control.pdf`                                               |
+| `CSC5036_Network_Programming/05-congestion.pdf`                                                 | `CSC5036_Network_Programming/slides/05-congestion.pdf`                                                 |
+| `CSC5036_Network_Programming/06-socket.pdf`                                                     | `CSC5036_Network_Programming/slides/06-socket.pdf`                                                     |
+| `CSC5036_Network_Programming/Homework1/Assignment1.md`                                          | `CSC5036_Network_Programming/assignments/hw01/requirements/Assignment1.md`                             |
+| `CSC5036_Network_Programming/Homework1/ec2(1).pptx`                                             | `CSC5036_Network_Programming/assignments/hw01/requirements/ec2(1).pptx`                                |
+| `CSC5036_Network_Programming/Homework1/ec2_measurement.pdf`                                     | `CSC5036_Network_Programming/assignments/hw01/requirements/ec2_measurement.pdf`                        |
+| `CSC5041_Introduction_to_Database_Systems/CSC5041_Teaching_Plan.pdf`                            | `CSC5041_Introduction_to_Database_Systems/syllabus/CSC5041_Teaching_Plan.pdf`                          |
+| `CSC5041_Introduction_to_Database_Systems/Lecture2A.pptx`                                       | `CSC5041_Introduction_to_Database_Systems/slides/Lecture2A.pptx`                                       |
+| `CSC5041_Introduction_to_Database_Systems/Questions.pdf`                                        | `CSC5041_Introduction_to_Database_Systems/resources/tutorials/Questions.pdf`                           |
+| `CSC5041_Introduction_to_Database_Systems/Relational_Algebra.pptx`                              | `CSC5041_Introduction_to_Database_Systems/slides/Relational_Algebra.pptx`                              |
+| `CSC5041_Introduction_to_Database_Systems/SQLpart1.pptx`                                        | `CSC5041_Introduction_to_Database_Systems/slides/SQLpart1.pptx`                                        |
+| `CSC5041_Introduction_to_Database_Systems/Week 1A - IntroductionNEW.pptx`                       | `CSC5041_Introduction_to_Database_Systems/slides/Week 1A - IntroductionNEW.pptx`                       |
+| `CSC5041_Introduction_to_Database_Systems/Week 1B - Conceptual DB Design.pptx`                  | `CSC5041_Introduction_to_Database_Systems/slides/Week 1B - Conceptual DB Design.pptx`                  |
+| `CSC5051_Natural_Language_Processing/Homework1/Assignment_1.pdf`                                | `CSC5051_Natural_Language_Processing/assignments/hw01/requirements/Assignment_1.pdf`                   |
+| `CSC5051_Natural_Language_Processing/Lecture 1：Introduction.pdf`                               | `CSC5051_Natural_Language_Processing/slides/Lecture 1：Introduction.pdf`                               |
 | `CSC5051_Natural_Language_Processing/Lecture 2：Linguistics Basics and Word Representation.pdf` | `CSC5051_Natural_Language_Processing/slides/Lecture 2：Linguistics Basics and Word Representation.pdf` |
-| `CSC5051_Natural_Language_Processing/Tutorial 1.zip` | `CSC5051_Natural_Language_Processing/resources/tutorials/Tutorial 1.zip` |
-| `CUHK-beamer.zip` | `templates/latex/CUHK-beamer.zip` |
-| `DDA5001_Machine_Learning/Composition_of_Score.jpg` | `DDA5001_Machine_Learning/syllabus/Composition_of_Score.jpg` |
-| `DDA5001_Machine_Learning/Homework1/DDA5001_HW1.pdf` | `DDA5001_Machine_Learning/assignments/hw01/requirements/DDA5001_HW1.pdf` |
-| `DDA5001_Machine_Learning/Homework1/code_source.zip` | `DDA5001_Machine_Learning/assignments/hw01/requirements/code_source.zip` |
-| `DDA5001_Machine_Learning/Syllabus.pdf` | `DDA5001_Machine_Learning/syllabus/Syllabus.pdf` |
-| `DDA5001_Machine_Learning/slides1_JY(1).pdf` | `DDA5001_Machine_Learning/slides/slides1_JY(1).pdf` |
-| `DDA5001_Machine_Learning/slides2_JY(1).pdf` | `DDA5001_Machine_Learning/slides/slides2_JY(1).pdf` |
-| `DDA5001_Machine_Learning/slides2_JY.pdf` | `DDA5001_Machine_Learning/slides/slides2_JY.pdf` |
-| `DDA5001_Machine_Learning/slides3_JY(1).pdf` | `DDA5001_Machine_Learning/slides/slides3_JY(1).pdf` |
-| `DDA5001_Machine_Learning/slides3_JY.pdf` | `DDA5001_Machine_Learning/slides/slides3_JY.pdf` |
-| `DDA5001_Machine_Learning/slides4_JY.pdf` | `DDA5001_Machine_Learning/slides/slides4_JY.pdf` |
-| `DDA5001_Machine_Learning/slides5_JY.pdf` | `DDA5001_Machine_Learning/slides/slides5_JY.pdf` |
-| `DDA5001_Machine_Learning/slides6_JY.pdf` | `DDA5001_Machine_Learning/slides/slides6_JY.pdf` |
-| `DDA5001_Machine_Learning/tutorial1_slides.pdf` | `DDA5001_Machine_Learning/slides/tutorial1_slides.pdf` |
+| `CSC5051_Natural_Language_Processing/Tutorial 1.zip`                                            | `CSC5051_Natural_Language_Processing/resources/tutorials/Tutorial 1.zip`                               |
+| `CUHK-beamer.zip`                                                                               | `templates/latex/CUHK-beamer.zip`                                                                      |
+| `DDA5001_Machine_Learning/Composition_of_Score.jpg`                                             | `DDA5001_Machine_Learning/syllabus/Composition_of_Score.jpg`                                           |
+| `DDA5001_Machine_Learning/Homework1/DDA5001_HW1.pdf`                                            | `DDA5001_Machine_Learning/assignments/hw01/requirements/DDA5001_HW1.pdf`                               |
+| `DDA5001_Machine_Learning/Homework1/code_source.zip`                                            | `DDA5001_Machine_Learning/assignments/hw01/requirements/code_source.zip`                               |
+| `DDA5001_Machine_Learning/Syllabus.pdf`                                                         | `DDA5001_Machine_Learning/syllabus/Syllabus.pdf`                                                       |
+| `DDA5001_Machine_Learning/slides1_JY(1).pdf`                                                    | `DDA5001_Machine_Learning/slides/slides1_JY(1).pdf`                                                    |
+| `DDA5001_Machine_Learning/slides2_JY(1).pdf`                                                    | `DDA5001_Machine_Learning/slides/slides2_JY(1).pdf`                                                    |
+| `DDA5001_Machine_Learning/slides2_JY.pdf`                                                       | `DDA5001_Machine_Learning/slides/slides2_JY.pdf`                                                       |
+| `DDA5001_Machine_Learning/slides3_JY(1).pdf`                                                    | `DDA5001_Machine_Learning/slides/slides3_JY(1).pdf`                                                    |
+| `DDA5001_Machine_Learning/slides3_JY.pdf`                                                       | `DDA5001_Machine_Learning/slides/slides3_JY.pdf`                                                       |
+| `DDA5001_Machine_Learning/slides4_JY.pdf`                                                       | `DDA5001_Machine_Learning/slides/slides4_JY.pdf`                                                       |
+| `DDA5001_Machine_Learning/slides5_JY.pdf`                                                       | `DDA5001_Machine_Learning/slides/slides5_JY.pdf`                                                       |
+| `DDA5001_Machine_Learning/slides6_JY.pdf`                                                       | `DDA5001_Machine_Learning/slides/slides6_JY.pdf`                                                       |
+| `DDA5001_Machine_Learning/tutorial1_slides.pdf`                                                 | `DDA5001_Machine_Learning/slides/tutorial1_slides.pdf`                                                 |
 
 </details>
 
