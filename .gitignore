@@ -80,3 +80,31 @@ tensorboard/
 # Legacy data locations: preserve local files; new downloads belong in data/downloads/
 /CSC5051_Natural_Language_Processing/assignments/hw01/report/train.csv
 /CSC5051_Natural_Language_Processing/assignments/hw01/report/quora.zip
+
+# All coursework data stays local (user policy, 2026-10-10)
+# Keep acquisition/conversion code and documentation outside these directories.
+data/
+*.csv
+*.tsv
+*.npy
+*.npz
+*.mat
+*.parquet
+*.arrow
+*.h5
+*.hdf5
+*.bin
+*.pcap
+*.pcapng
+**/results/raw/
+**/results/imports/
+**/results/**/received/
+
+# Teacher package contains datasets; extracted teacher code remains tracked.
+/DDA5001_Machine_Learning/assignments/hw01/requirements/code_source.zip
+# Final archives can contain data; keep exact submission packages on this computer.
+**/submission/**/*.zip
+
+# Socket generator outputs, including when run directly in src/.
+/CSC5036_Network_Programming/assignments/hw02/src/file[0-9]*.zip
+/CSC5036_Network_Programming/assignments/hw02/src/bigfile[0-9]*.zip
