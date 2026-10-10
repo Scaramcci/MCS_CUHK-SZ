@@ -68,3 +68,15 @@ wandb/
 /CSC5036_Network_Programming/assignments/hw01/credentials/
 
 /CSC5036_Network_Programming/assignments/hw01/report/results.zip
+
+# Downloaded/processed experiment data and reproducible binary outputs
+# Keep source code, small result tables, provenance and final submissions tracked.
+**/data/processed/
+**/data/external/
+local_artifacts/
+tensorboard/
+**/results/**/*.npz
+
+# Legacy data locations: preserve local files; new downloads belong in data/downloads/
+/CSC5051_Natural_Language_Processing/assignments/hw01/report/train.csv
+/CSC5051_Natural_Language_Processing/assignments/hw01/report/quora.zip
