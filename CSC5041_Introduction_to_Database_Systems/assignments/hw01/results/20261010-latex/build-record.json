@@ -1,0 +1,25 @@
+{
+  "executor": "root Codex session (Solver / Report Writer)",
+  "status": "authored, locally compiled, visually self-checked; independent review recorded separately",
+  "time_utc": "2026-10-10T09:21:18.887342+00:00",
+  "source_sha256": {
+    "CSC5041_Introduction_to_Database_Systems/assignments/hw01/requirements/Assignment_1_Questions.pdf": "b81b7e1643b1a9a05bc5d8686d7ced19aa9d3d67b286c6306167e44ad51f518d",
+    "CSC5041_Introduction_to_Database_Systems/assignments/hw01/report/answers.tex": "17e220e529b35de989d9874f1cd6a7733f081ab7e6e2c75b9060ca014d9f00a1",
+    "CSC5041_Introduction_to_Database_Systems/assignments/hw01/report/answers.pdf": "a048c57616f178cd7960df931c6cfc5367df4406fc522598d16e3fc5918dadc2"
+  },
+  "compile_command": [
+    "pdflatex",
+    "-interaction=nonstopmode",
+    "-halt-on-error",
+    "-output-directory",
+    "CSC5041_Introduction_to_Database_Systems/assignments/hw01/results/20261010-latex",
+    "CSC5041_Introduction_to_Database_Systems/assignments/hw01/report/answers.tex"
+  ],
+  "exit_code": 0,
+  "pdf_pages": 5,
+  "builtin_compiler": "Unavailable Tectonic bundle; download failed. Native editor remains open; PDF compiled with installed pdflatex.",
+  "logs": [
+    "compile-output.txt",
+    "compile-final.txt"
+  ]
+}

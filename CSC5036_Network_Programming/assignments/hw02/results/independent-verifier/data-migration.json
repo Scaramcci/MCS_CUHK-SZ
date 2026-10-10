@@ -1,0 +1,17 @@
+{
+  "reason": "retain synthetic verification inputs in ignored data/raw; original execution logs remain unchanged",
+  "files": [
+    {
+      "original_path": "CSC5036_Network_Programming/assignments/hw02/results/independent-verifier/64MiB.bin",
+      "retained_path": "CSC5036_Network_Programming/assignments/hw02/data/raw/independent-verifier/source-64MiB.bin",
+      "bytes": 67108864,
+      "sha256": "281e519df3077b557c6b03f5da83c4e8d397219259615dd7c3308f89cae8f2a6"
+    },
+    {
+      "original_path": "CSC5036_Network_Programming/assignments/hw02/results/independent-verifier/received/64MiB.bin",
+      "retained_path": "CSC5036_Network_Programming/assignments/hw02/data/raw/independent-verifier/received-64MiB.bin",
+      "bytes": 67108864,
+      "sha256": "281e519df3077b557c6b03f5da83c4e8d397219259615dd7c3308f89cae8f2a6"
+    }
+  ]
+}

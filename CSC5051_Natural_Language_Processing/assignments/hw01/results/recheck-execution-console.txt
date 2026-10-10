@@ -1,0 +1,210 @@
+Evidence: /home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw01/results/execution_20261010T090025_711071Z
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+START cell 0
+START cell 1
+START cell 2
+DONE cell 2
+START cell 3
+START cell 4
+START cell 5
+START cell 6
+START cell 7
+START cell 8
+Python: 3.10.21 | PyTorch: 2.14.1+cu130
+Device: cuda NVIDIA GeForce RTX 4090 Laptop GPU
+Seed: 42 | Quora SHA256: 5f28dbe0bb01b39a793f36567d18fe7cf34d20bbca69ff85b131d7c2186f9914
+Run ID: 20261010T090028_253067Z
+DONE cell 8
+START cell 9
+START cell 10
+50000
+  0%|          | 0/50000 [00:00<?, ?it/s]  5%|▍         | 2309/50000 [00:00<00:02, 23080.45it/s]  9%|▉         | 4735/50000 [00:00<00:01, 23772.76it/s] 14%|█▍        | 7206/50000 [00:00<00:01, 24197.34it/s] 19%|█▉        | 9626/50000 [00:00<00:01, 23985.04it/s] 24%|██▍       | 12072/50000 [00:00<00:01, 24154.47it/s] 29%|██▉       | 14576/50000 [00:00<00:01, 24443.75it/s] 34%|███▍      | 17047/50000 [00:00<00:01, 24529.23it/s] 39%|███▉      | 19501/50000 [00:00<00:01, 24464.89it/s] 44%|████▍     | 21968/50000 [00:00<00:01, 24527.19it/s] 49%|████▉     | 24421/50000 [00:01<00:01, 24489.57it/s] 54%|█████▍    | 26880/50000 [00:01<00:00, 24518.82it/s] 59%|█████▉    | 29385/50000 [00:01<00:00, 24679.61it/s] 64%|██████▍   | 31879/50000 [00:01<00:00, 24755.84it/s] 69%|██████▊   | 34355/50000 [00:01<00:00, 24726.01it/s] 74%|███████▎  | 36828/50000 [00:01<00:00, 24609.79it/s] 79%|███████▊  | 39335/50000 [00:01<00:00, 24747.32it/s] 84%|████████▎ | 41810/50000 [00:01<00:00, 24570.65it/s] 89%|████████▊ | 44268/50000 [00:01<00:00, 24406.43it/s] 93%|█████████▎| 46710/50000 [00:01<00:00, 24290.46it/s] 98%|█████████▊| 49140/50000 [00:02<00:00, 24269.49it/s]100%|██████████| 50000/50000 [00:02<00:00, 24411.61it/s]
+DONE cell 10
+START cell 11
+['what', 'is', 'the', 'step', 'by', 'step', 'guide', 'to', 'invest', 'in', 'share', 'market', 'in', 'india', '?']
+DONE cell 11
+START cell 12
+START cell 13
+Vocabulary size: 7226
+Tokens count: 623563
+Unknown tokens appeared: 35607
+Most freq words: ['?', 'the', 'what', 'is', 'how', 'i', 'a', 'to', 'in', 'do', 'of', 'are', 'and', 'can', 'for', ',', 'you', 'why', 'it', 'best']
+DONE cell 13
+START cell 14
+START cell 15
+DONE cell 15
+START cell 16
+START cell 17
+DONE cell 17
+START cell 18
+START cell 19
+DONE cell 19
+START cell 20
+START cell 21
+START cell 22
+START cell 23
+DONE cell 23
+START cell 24
+START cell 25
+Initializing batches generator with 12380 batches per epoch
+DONE cell 25
+START cell 26
+START cell 27
+DONE cell 27
+START cell 28
+START cell 29
+Model check passed: (32, 7226) cuda:0
+DONE cell 29
+START cell 30
+START cell 31
+Initializing batches generator with 3095 batches per epoch
+Epoch 1, step 3000, average loss 6.4760
+Epoch 1/4: mean loss = 6.4539
+Initializing batches generator with 3095 batches per epoch
+Epoch 2, step 2905, average loss 5.5352
+Epoch 2/4: mean loss = 5.5262
+Initializing batches generator with 3095 batches per epoch
+Epoch 3, step 2810, average loss 5.2241
+Epoch 3/4: mean loss = 5.2168
+Initializing batches generator with 3095 batches per epoch
+Epoch 4, step 2715, average loss 5.0303
+Epoch 4/4: mean loss = 5.0247
+Training time: 7.37 seconds
+DONE cell 31
+START cell 32
+START cell 33
+Trained embedding matrix: (7226, 32)
+DONE cell 33
+START cell 34
+START cell 35
+START cell 36
+DONE cell 36
+START cell 37
+START cell 38
+[t-SNE] Computing 91 nearest neighbors...
+[t-SNE] Indexed 100 samples in 0.000s...
+[t-SNE] Computed neighbors for 100 samples in 0.028s...
+[t-SNE] Computed conditional probabilities for sample 100 / 100
+[t-SNE] Mean sigma: 4.137080
+[t-SNE] KL divergence after 250 iterations with early exaggeration: 64.863190
+[t-SNE] KL divergence after 1000 iterations: 0.622242
+DONE cell 38
+START cell 39
+START cell 40
+DONE cell 40
+START cell 41
+Loaded vocab size 1193514; dimensions 25
+DONE cell 41
+START cell 42
+START cell 43
+DONE cell 43
+START cell 44
+START cell 45
+DONE cell 45
+START cell 46
+Embedding matrix: (10010, 25)
+Running Truncated SVD over 10010 words...
+Done. Explained variance ratio: [0.03913019 0.07872656]
+DONE cell 46
+START cell 47
+START cell 48
+DONE cell 48
+START cell 49
+START cell 50
+DONE cell 50
+START cell 51
+START cell 52
+START cell 53
+bank : [('unit', 0.8722262978553772), ('service', 0.8568196892738342), ('office', 0.8555631637573242), ('reg', 0.8434539437294006), ('program', 0.8430007696151733), ('company', 0.8412134051322937), ('open', 0.8405929803848267), ('target', 0.8367257714271545), ('bp', 0.8303275108337402), ('private', 0.8243083953857422)]
+('iron', 0.8700125813484192), ('guitar', 0.8695952296257019), ('ninja', 0.8601314425468445), ('cover', 0.8592653870582581), ('metal', 0.8563848733901978), ('mask', 0.8533897399902344), ('shampoo', 0.8532813787460327), ('perfume', 0.8505100607872009), ('patch', 0.8495413661003113)]
+leaves : [('turns', 0.9376382231712341), ('stands', 0.9167802929878235), ('takes', 0.9155983328819275), ('breaks', 0.9122216701507568), ('holding', 0.907587468624115), ('sees', 0.906860888004303), ('runs', 0.9057334065437317), ('walks', 0.9046515226364136), ('ground', 0.9041924476623535), ('holds', 0.9032379388809204)]
+scoop : [('strip', 0.8704896569252014), ('bucket', 0.8554397821426392), ('grab', 0.849097490310669), ('whip', 0.8479706048965454), ('wrap', 0.8426421284675598), ('pops', 0.8376337885856628), ('bars', 0.8339059948921204), ('cracker', 0.8267431259155273), ('munch', 0.8222930431365967), ('stack', 0.81661057472229)]
+rock : [('mix', 0.921779990196228), ('pop', 0.9107745885848999), ('show', 0.8874101638793945), ('monster', 0.885505199432373), ('dance', 0.8815889954566956), ('live', 0.8754167556762695), ('red', 0.8733323812484741), ('lady', 0.8715966939926147), ('crew', 0.8581048846244812), ('disney', 0.8554842472076416)]
+pitch : [('plays', 0.9161696434020996), ('draw', 0.9066561460494995), ('third', 0.8981503844261169), ('field', 0.8977275490760803), ('played', 0.8960466980934143), ('season', 0.8938038945198059), ('second', 0.8898852467536926), ('ball', 0.8883428573608398), ('starting', 0.8842042088508606), ('bench', 0.8817084431648254)]
+fan : [('fans', 0.8931773900985718), ('star', 0.8752758502960205), ('team', 0.8595527410507202), ('real', 0.8498328924179077), ('boys', 0.8495983481407166), ('one', 0.8446941375732422), ('date', 0.8401679396629333), ('factor', 0.8367919921875), ('trend', 0.8323792219161987), ('club', 0.8297488689422607)]
+spring : [('summer', 0.9507137537002563), ('winter', 0.9442874789237976), ('saturday', 0.8899416923522949), ('tonight', 0.8866020441055298), ('beach', 0.884717583656311), ('opening', 0.8823341131210327), ('today', 0.8797439932823181), ('holiday', 0.8779107928276062), ('friday', 0.8769242763519287), ('home', 0.8743504881858826)]
+light : [('dark', 0.9217612147331238), ('deep', 0.9195147156715393), ('cross', 0.9112328886985779), ('sun', 0.9087563157081604), ('heavy', 0.9079349040985107), ('clear', 0.9014251232147217), ('shadow', 0.9007907509803772), ('edge', 0.8986004590988159), ('inside', 0.8943150043487549), ('side', 0.8934881091117859)]
+DONE cell 53
+START cell 54
+START cell 55
+START cell 56
+happy/cheerful/sad: synonym=0.566535, antonym=0.262956
+good/excellent/bad: synonym=0.279723, antonym=0.085213
+hot/scorching/cold: synonym=0.795029, antonym=0.230165
+big/large/small: synonym=0.283211, antonym=0.142084
+rich/wealthy/poor: synonym=0.194848, antonym=0.206059
+young/youthful/old: synonym=0.589194, antonym=0.129406
+Selected: happy, cheerful, sad; 0.262956 < 0.566535
+DONE cell 56
+START cell 57
+START cell 58
+START cell 59
+START cell 60
+DONE cell 60
+START cell 61
+START cell 62
+DONE cell 62
+START cell 63
+START cell 64
+DONE cell 64
+START cell 65
+START cell 66
+DONE cell 66
+START cell 67
+START cell 68
+DONE cell 68
+START cell 69
+START cell 70
+START cell 71
+meets           0.884192
+prince          0.832163
+queen           0.825746
+’s              0.817410
+crow            0.813499
+hunter          0.813104
+father          0.811583
+soldier         0.811136
+mercy           0.808239
+hero            0.808226
+DONE cell 71
+START cell 72
+START cell 73
+START cell 74
+DONE cell 74
+START cell 75
+START cell 76
+DONE cell 76
+START cell 77
+START cell 78
+Sentence index: (997, 25)
+DONE cell 78
+START cell 79
+DONE cell 79
+START cell 80
+START cell 81
+DONE cell 81
+START cell 82
+START cell 83
+DONE cell 83
+START cell 84
+START cell 85
+START cell 86
+[('maths', 0.7983574867248535), ('basis', 0.7973601818084717), ('humør', 0.7948898673057556), ('cert', 0.7902684807777405), ('mulig', 0.7874146699905396), ('spændende', 0.7728654742240906), ('dårligt', 0.7700906991958618), ('latter', 0.7676339745521545), ('noget', 0.7676041722297668), ('vet', 0.7675378918647766)]
+
+[('representation', 0.871566116809845), ('encourages', 0.8626720309257507), ('empowering', 0.8612703084945679), ('intellectual', 0.8564386963844299), ('influences', 0.8559868931770325), ('ethical', 0.8550472259521484), ('affairs', 0.8541139960289001), ('behaviors', 0.8481355905532837), ('advocacy', 0.8439522981643677), ('critic', 0.8406821489334106)]
+DONE cell 86
+START cell 87
+START cell 88
+occupation  woman_similarity  man_similarity  woman_minus_man
+     nurse          0.635092        0.462567         0.172525
+  engineer          0.477637        0.381555         0.096082
+    doctor          0.724820        0.690761         0.034059
+programmer          0.356278        0.184690         0.171588
+ homemaker          0.200550       -0.096672         0.297222
+man : computer_programmer :: woman : ? [('sourcing', 0.8578739762306213), ('marketer', 0.8558772802352905), ('optimization', 0.8489900827407837), ('traveller', 0.8439235091209412), ('strategist', 0.8393991589546204), ('telesales', 0.8304333686828613), ('caregiver', 0.8303733468055725), ('curation', 0.8273847103118896), ('manpower', 0.8204442858695984), ('entrepreneur', 0.8195655941963196)]
+DONE cell 88
+START cell 89
+START cell 90
+START cell 91
+START cell 92
+Final status: completed

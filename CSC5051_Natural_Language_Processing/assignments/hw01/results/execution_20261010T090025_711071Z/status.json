@@ -1,0 +1,12 @@
+{
+  "executor": "primary Codex session (self-check, not independent verification)",
+  "python": "3.10.21 (main, Aug 27 2026, 14:42:07) [GCC 14.3.0]",
+  "executable": "/home/scarramcci/miniconda3/envs/NLP/bin/python",
+  "source_sha256": "c5ed1838c41410e28d5a12d45d15331f8d6579c7a03c485aa2464dc1ef334a62",
+  "kernel": "nlp",
+  "command": "/home/scarramcci/miniconda3/envs/NLP/bin/python -u notes/execute_notebook.py",
+  "started_utc": "execution_20261010T090025_711071Z",
+  "status": "completed",
+  "output_sha256": "ceeeafa7f199a68062eb45562a8996114339bfa5acaf61059fb0cdd67b4454c5",
+  "finished_utc": "2026-10-10T09:01:00.676134+00:00"
+}

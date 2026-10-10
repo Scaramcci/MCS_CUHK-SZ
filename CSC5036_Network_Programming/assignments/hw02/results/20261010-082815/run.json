@@ -1,0 +1,61 @@
+{
+  "status": "FAIL",
+  "executor": "Codex implementer self-test (not independent verification)",
+  "utc_run_id": "20261010-082815",
+  "command": "python3 tests/integration.py",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "python": "3.14.7",
+  "cpu": "",
+  "events": [
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/src",
+        "-B",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/src/build",
+        "-DCMAKE_C_FLAGS=-Wall -Wextra -Wpedantic -Werror"
+      ],
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02",
+      "exit": 0
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/src/build",
+        "--clean-first"
+      ],
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02",
+      "exit": 0
+    },
+    {
+      "server": "socket_server",
+      "pid": 89,
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/src/build"
+    },
+    {
+      "server": "socket_server",
+      "termination": 1
+    }
+  ],
+  "code_sha256": {
+    "file_server.c": "e60e96d58cff01b41412babe11f0c6856e5687dd3a4511e37d43b1449cdf9dd8",
+    "socket_server.c": "0952f640c096d3ba396267b2c5fd2e0d14caff9b0ad91a955006fbb141582ce3",
+    "CMakeLists.txt": "5f43a77465ab4c23703d06a84f317c1639d8709fc4db9a42cdba5c47cad2045f",
+    "file_client.c": "46f82bf6057d720febc9e0fee1554d50ebafc7826aad0691cc5969b472d052d2",
+    "con.sh": "d63753448608bc87b7ccad98b0899b60861702ff6ed9138b8165fdec385c98ff",
+    "con_file.sh": "038359240c69fd0f763912b5759326e6a9b89c8949e8889a7c07c37857b838f0",
+    "socket_client.c": "6c76a89771de4867ea4ad9979f1f85d906e9cad363e5be3c02c6347f0d0e14e4",
+    "generator.sh": "8e3e0eb1f795a82d88ad1c2c9b19159ae9c2361263add60eed5d2c8d8a1c46b2"
+  },
+  "original_zip_sha256": "23e257d09d2a3fd9b0ac35b47944045b2f0e7bfda6eeb0068db1f7c38c84f7a1",
+  "gcc": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n",
+  "cmake": "cmake version 4.2.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+  "data_note": "generator.sh uses /dev/urandom; original generated inputs are retained under this run. No fixed seed.",
+  "data_relocation": {
+    "original": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/results/20261010-082815/data",
+    "current": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/data/raw/20261010-082815",
+    "reason": "Keep generated large test inputs in Git-ignored data/raw."
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "CMakeLists.txt": {
+    "todo_additions": 0,
+    "original_sha256": "5f43a77465ab4c23703d06a84f317c1639d8709fc4db9a42cdba5c47cad2045f",
+    "current_sha256": "5f43a77465ab4c23703d06a84f317c1639d8709fc4db9a42cdba5c47cad2045f",
+    "outside_todo_identical": true
+  },
+  "con.sh": {
+    "todo_additions": 0,
+    "original_sha256": "d63753448608bc87b7ccad98b0899b60861702ff6ed9138b8165fdec385c98ff",
+    "current_sha256": "d63753448608bc87b7ccad98b0899b60861702ff6ed9138b8165fdec385c98ff",
+    "outside_todo_identical": true
+  },
+  "con_file.sh": {
+    "todo_additions": 0,
+    "original_sha256": "038359240c69fd0f763912b5759326e6a9b89c8949e8889a7c07c37857b838f0",
+    "current_sha256": "038359240c69fd0f763912b5759326e6a9b89c8949e8889a7c07c37857b838f0",
+    "outside_todo_identical": true
+  },
+  "file_client.c": {
+    "todo_additions": 8,
+    "original_sha256": "bc46d1dafa84b24c2723a92c19c6ccafbd644fbc475e23afe8e780d1a5818ee8",
+    "current_sha256": "9ccd906d55cc5c6a1922a58a1035f8de7b23652d3a82de655ac5352c084519ec",
+    "outside_todo_identical": true
+  },
+  "file_server.c": {
+    "todo_additions": 11,
+    "original_sha256": "3ef6e5fa8612ac322a42dd3bb222305f587d4205cca12d98cc31e3a241698607",
+    "current_sha256": "722377f8056722bce48b801de6cfe38249f5831a680d49271990743d8c47dfe6",
+    "outside_todo_identical": true
+  },
+  "generator.sh": {
+    "todo_additions": 0,
+    "original_sha256": "8e3e0eb1f795a82d88ad1c2c9b19159ae9c2361263add60eed5d2c8d8a1c46b2",
+    "current_sha256": "8e3e0eb1f795a82d88ad1c2c9b19159ae9c2361263add60eed5d2c8d8a1c46b2",
+    "outside_todo_identical": true
+  },
+  "socket_client.c": {
+    "todo_additions": 5,
+    "original_sha256": "e4091a1e7c7d8d0bc4019b941134d155596931da03df4ffe976434c179ee290b",
+    "current_sha256": "9756220b29903e2bbc1463f04fe8aba5ee599858c913a6c6115a0e7d2f2e5c2c",
+    "outside_todo_identical": true
+  },
+  "socket_server.c": {
+    "todo_additions": 7,
+    "original_sha256": "78aa929ba848a34751254de2aa23ea5228449ca3333c6cf3002306a358efee03",
+    "current_sha256": "f8efb3671c093af99567654335e3832db71490217f97645146be222bfc9b0e6b",
+    "outside_todo_identical": true
+  }
+}

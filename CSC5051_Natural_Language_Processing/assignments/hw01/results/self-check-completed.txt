@@ -1,0 +1,5 @@
+Initializing batches generator with 2 batches per epoch
+Initializing batches generator with 0 batches per epoch
+Running Truncated SVD over 3 words...
+Done. Explained variance ratio: [0.69230769 0.30769231]
+PASS: batch pairing/tail, mean-context logits/gradients, SVD, OOV/case, cosine ranking/ties/limits

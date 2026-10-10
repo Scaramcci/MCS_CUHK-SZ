@@ -1,0 +1,75 @@
+{
+  "status": "PASS",
+  "executor": "independent Verifier /root/verify_hw02",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "timestamp_utc": "2026-10-10T08:54:34Z",
+  "command": "python3 results/independent-verifier-todo-only/verify.py",
+  "events": [
+    {
+      "check": "independent removal of additions after TODO restores all original ZIP bytes",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/src",
+        "-B",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/results/independent-verifier-todo-only/build",
+        "-DCMAKE_C_FLAGS=-Wall -Wextra -Wpedantic -Werror"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/results/independent-verifier-todo-only/build"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/results/independent-verifier-todo-only/build/socket_client"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "30 concurrent text echo and reset recovery",
+      "status": "PASS"
+    },
+    {
+      "check": "duplicate listener reports bind failure",
+      "status": "PASS",
+      "exit": 1
+    },
+    {
+      "command": [
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/results/independent-verifier-todo-only/build/file_client",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/data/raw/independent-verifier-todo-only/64MiB.bin"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "64MiB file",
+      "status": "PASS",
+      "size": 67108864,
+      "source_sha256": "281e519df3077b557c6b03f5da83c4e8d397219259615dd7c3308f89cae8f2a6",
+      "received_sha256": "281e519df3077b557c6b03f5da83c4e8d397219259615dd7c3308f89cae8f2a6"
+    },
+    {
+      "check": "empty, fragmented/coalesced header, 30 concurrent binary files, incomplete header, invalid path, RST, fopen error recovery",
+      "status": "PASS"
+    }
+  ],
+  "sha256": {
+    "file_server.c": "722377f8056722bce48b801de6cfe38249f5831a680d49271990743d8c47dfe6",
+    "socket_server.c": "f8efb3671c093af99567654335e3832db71490217f97645146be222bfc9b0e6b",
+    "CMakeLists.txt": "5f43a77465ab4c23703d06a84f317c1639d8709fc4db9a42cdba5c47cad2045f",
+    "file_client.c": "9ccd906d55cc5c6a1922a58a1035f8de7b23652d3a82de655ac5352c084519ec",
+    "con.sh": "d63753448608bc87b7ccad98b0899b60861702ff6ed9138b8165fdec385c98ff",
+    "con_file.sh": "038359240c69fd0f763912b5759326e6a9b89c8949e8889a7c07c37857b838f0",
+    "socket_client.c": "9756220b29903e2bbc1463f04fe8aba5ee599858c913a6c6115a0e7d2f2e5c2c",
+    "generator.sh": "8e3e0eb1f795a82d88ad1c2c9b19159ae9c2361263add60eed5d2c8d8a1c46b2"
+  }
+}

@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/tests/integration.py", line 93, in <module>
+    with server('socket_server', BUILD) as proc:
+         ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/miniconda3/lib/python3.14/contextlib.py", line 141, in __enter__
+    return next(self.gen)
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/tests/integration.py", line 52, in server
+    with connect(): pass
+         ~~~~~~~^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/tests/integration.py", line 41, in connect
+    return socket.create_connection(('127.0.0.1', 8080), timeout=10)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/miniconda3/lib/python3.14/socket.py", line 874, in create_connection
+    raise exceptions[0]
+  File "/home/scarramcci/miniconda3/lib/python3.14/socket.py", line 854, in create_connection
+    sock = socket(af, socktype, proto)
+  File "/home/scarramcci/miniconda3/lib/python3.14/socket.py", line 236, in __init__
+    _socket.socket.__init__(self, family, type, proto, fileno)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted

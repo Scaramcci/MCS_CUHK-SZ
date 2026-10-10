@@ -1,0 +1,156 @@
+Listener on port 8080 
+Waiting for connections ...
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46312
+Host disconnected, ip 127.0.0.1, port 46312
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46314
+Host disconnected, ip 127.0.0.1, port 46314
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46328
+New connection, socket fd is 5, ip is: 127.0.0.1, port: 46338
+New connection, socket fd is 6, ip is: 127.0.0.1, port: 46350
+New connection, socket fd is 7, ip is: 127.0.0.1, port: 46354
+New connection, socket fd is 8, ip is: 127.0.0.1, port: 46364
+New connection, socket fd is 9, ip is: 127.0.0.1, port: 46380
+New connection, socket fd is 10, ip is: 127.0.0.1, port: 46386
+New connection, socket fd is 11, ip is: 127.0.0.1, port: 46388
+New connection, socket fd is 12, ip is: 127.0.0.1, port: 46390
+New connection, socket fd is 13, ip is: 127.0.0.1, port: 46404
+New connection, socket fd is 14, ip is: 127.0.0.1, port: 46414
+New connection, socket fd is 15, ip is: 127.0.0.1, port: 46430
+New connection, socket fd is 16, ip is: 127.0.0.1, port: 46440
+New connection, socket fd is 17, ip is: 127.0.0.1, port: 46448
+New connection, socket fd is 18, ip is: 127.0.0.1, port: 46458
+New connection, socket fd is 19, ip is: 127.0.0.1, port: 46464
+New connection, socket fd is 20, ip is: 127.0.0.1, port: 46474
+New connection, socket fd is 21, ip is: 127.0.0.1, port: 46484
+New connection, socket fd is 22, ip is: 127.0.0.1, port: 46498
+New connection, socket fd is 23, ip is: 127.0.0.1, port: 46512
+Host disconnected, ip 127.0.0.1, port 46328
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46516
+Host disconnected, ip 127.0.0.1, port 46338
+New connection, socket fd is 5, ip is: 127.0.0.1, port: 46526
+Host disconnected, ip 127.0.0.1, port 46350
+New connection, socket fd is 6, ip is: 127.0.0.1, port: 46528
+Host disconnected, ip 127.0.0.1, port 46354
+New connection, socket fd is 7, ip is: 127.0.0.1, port: 46542
+Host disconnected, ip 127.0.0.1, port 46364
+New connection, socket fd is 8, ip is: 127.0.0.1, port: 46552
+Host disconnected, ip 127.0.0.1, port 46380
+New connection, socket fd is 9, ip is: 127.0.0.1, port: 46564
+Host disconnected, ip 127.0.0.1, port 46386
+New connection, socket fd is 10, ip is: 127.0.0.1, port: 46580
+Host disconnected, ip 127.0.0.1, port 46388
+New connection, socket fd is 11, ip is: 127.0.0.1, port: 46592
+Host disconnected, ip 127.0.0.1, port 46390
+New connection, socket fd is 12, ip is: 127.0.0.1, port: 46600
+Host disconnected, ip 127.0.0.1, port 46404
+New connection, socket fd is 13, ip is: 127.0.0.1, port: 46604
+Host disconnected, ip 127.0.0.1, port 46414
+Host disconnected, ip 127.0.0.1, port 46430
+Host disconnected, ip 127.0.0.1, port 46440
+Host disconnected, ip 127.0.0.1, port 46448
+Host disconnected, ip 127.0.0.1, port 46458
+Host disconnected, ip 127.0.0.1, port 46464
+Host disconnected, ip 127.0.0.1, port 46474
+Host disconnected, ip 127.0.0.1, port 46484
+Host disconnected, ip 127.0.0.1, port 46498
+Host disconnected, ip 127.0.0.1, port 46512
+Host disconnected, ip 127.0.0.1, port 46516
+Host disconnected, ip 127.0.0.1, port 46526
+Host disconnected, ip 127.0.0.1, port 46528
+Host disconnected, ip 127.0.0.1, port 46542
+Host disconnected, ip 127.0.0.1, port 46552
+Host disconnected, ip 127.0.0.1, port 46564
+Host disconnected, ip 127.0.0.1, port 46580
+Host disconnected, ip 127.0.0.1, port 46592
+Host disconnected, ip 127.0.0.1, port 46600
+Host disconnected, ip 127.0.0.1, port 46604
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46614
+Host disconnected, ip 127.0.0.1, port 46614
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46630
+Host disconnected, ip 127.0.0.1, port 46630
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46642
+New connection, socket fd is 5, ip is: 127.0.0.1, port: 46656
+New connection, socket fd is 6, ip is: 127.0.0.1, port: 46658
+New connection, socket fd is 7, ip is: 127.0.0.1, port: 46666
+Host disconnected, ip 127.0.0.1, port 46642
+Host disconnected, ip 127.0.0.1, port 46656
+Host disconnected, ip 127.0.0.1, port 46658
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46672
+New connection, socket fd is 5, ip is: 127.0.0.1, port: 46688
+New connection, socket fd is 6, ip is: 127.0.0.1, port: 46698
+Host disconnected, ip 127.0.0.1, port 46666
+New connection, socket fd is 7, ip is: 127.0.0.1, port: 46702
+Host disconnected, ip 127.0.0.1, port 46672
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46708
+Host disconnected, ip 127.0.0.1, port 46688
+New connection, socket fd is 5, ip is: 127.0.0.1, port: 46718
+Host disconnected, ip 127.0.0.1, port 46698
+New connection, socket fd is 6, ip is: 127.0.0.1, port: 46728
+Host disconnected, ip 127.0.0.1, port 46702
+New connection, socket fd is 7, ip is: 127.0.0.1, port: 46740
+Host disconnected, ip 127.0.0.1, port 46728
+New connection, socket fd is 6, ip is: 127.0.0.1, port: 46750
+Host disconnected, ip 127.0.0.1, port 46718
+New connection, socket fd is 5, ip is: 127.0.0.1, port: 46760
+New connection, socket fd is 8, ip is: 127.0.0.1, port: 46774
+New connection, socket fd is 9, ip is: 127.0.0.1, port: 46780
+Host disconnected, ip 127.0.0.1, port 46708
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46792
+Host disconnected, ip 127.0.0.1, port 46750
+Host disconnected, ip 127.0.0.1, port 46740
+New connection, socket fd is 6, ip is: 127.0.0.1, port: 46806
+Host disconnected, ip 127.0.0.1, port 46780
+Host disconnected, ip 127.0.0.1, port 46774
+Host disconnected, ip 127.0.0.1, port 46792
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46816
+New connection, socket fd is 7, ip is: 127.0.0.1, port: 46828
+Host disconnected, ip 127.0.0.1, port 46760
+New connection, socket fd is 5, ip is: 127.0.0.1, port: 46830
+Host disconnected, ip 127.0.0.1, port 46816
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46832
+Host disconnected, ip 127.0.0.1, port 46806
+Host disconnected, ip 127.0.0.1, port 46832
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46844
+Host disconnected, ip 127.0.0.1, port 46830
+Host disconnected, ip 127.0.0.1, port 46828
+New connection, socket fd is 5, ip is: 127.0.0.1, port: 46854
+New connection, socket fd is 6, ip is: 127.0.0.1, port: 46856
+Host disconnected, ip 127.0.0.1, port 46854
+New connection, socket fd is 5, ip is: 127.0.0.1, port: 46870
+New connection, socket fd is 7, ip is: 127.0.0.1, port: 46886
+New connection, socket fd is 8, ip is: 127.0.0.1, port: 46888
+Host disconnected, ip 127.0.0.1, port 46844
+Host disconnected, ip 127.0.0.1, port 46870
+Host disconnected, ip 127.0.0.1, port 46856
+Host disconnected, ip 127.0.0.1, port 46886
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46894
+Host disconnected, ip 127.0.0.1, port 46894
+Host disconnected, ip 127.0.0.1, port 46888
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46902
+Host disconnected, ip 127.0.0.1, port 46902
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46912
+Host disconnected, ip 127.0.0.1, port 46912
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46924
+Host disconnected, ip 127.0.0.1, port 46924
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46934
+Host disconnected, ip 127.0.0.1, port 46934
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46942
+Host disconnected, ip 127.0.0.1, port 46942
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46958
+Host disconnected, ip 127.0.0.1, port 46958
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46960
+Host disconnected, ip 127.0.0.1, port 46960
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46968
+Host disconnected, ip 127.0.0.1, port 46968
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46980
+Host disconnected, ip 127.0.0.1, port 46980
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 46992
+Host disconnected, ip 127.0.0.1, port 46992
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 47006
+Host disconnected, ip 127.0.0.1, port 47006
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 47008
+Host disconnected, ip 127.0.0.1, port 47008
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 47016
+Host disconnected, ip 127.0.0.1, port 47016
+New connection, socket fd is 4, ip is: 127.0.0.1, port: 47024
+Host 

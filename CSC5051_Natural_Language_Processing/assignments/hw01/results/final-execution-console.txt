@@ -1,0 +1,138 @@
+Evidence: /home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw01/results/execution_20261010T085932_870739Z
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+START cell 0
+START cell 1
+START cell 2
+DONE cell 2
+START cell 3
+START cell 4
+START cell 5
+START cell 6
+START cell 7
+START cell 8
+OSError No such file or directory: '/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw01/data/downloads/nltk_data/tokenizers/punkt/PY3_tab/english'
+DONE cell 8
+Final status: failed
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw01/notes/execute_notebook.py", line 55, in <module>
+    client.execute()
+  File "/home/scarramcci/miniconda3/envs/NLP/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+  File "/home/scarramcci/miniconda3/envs/NLP/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/home/scarramcci/miniconda3/envs/NLP/lib/python3.10/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/home/scarramcci/miniconda3/envs/NLP/lib/python3.10/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/home/scarramcci/miniconda3/envs/NLP/lib/python3.10/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+import os
+import sys
+import random
+import time
+import math
+import hashlib
+from pathlib import Path
+from datetime import datetime, timezone
+
+# Locate the assignment from either its root or the report directory.
+TASK_DIR = next((p for p in [Path.cwd(), *Path.cwd().parents]
+                 if (p / 'requirements' / 'Assignment_1.pdf').is_file()), Path.cwd())
+CACHE_DIR = TASK_DIR / 'data' / 'downloads'
+CACHE_DIR.mkdir(parents=True, exist_ok=True)
+os.environ.setdefault('GENSIM_DATA_DIR', str(CACHE_DIR / 'gensim'))
+os.environ.setdefault('MPLCONFIGDIR', str(TASK_DIR / '.cache' / 'matplotlib'))
+
+import nltk
+import numpy as np
+import matplotlib.pyplot as plt
+import torch
+import torch.autograd as autograd
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
+import pandas as pd
+from nltk.tokenize import word_tokenize
+from tqdm import tqdm
+from IPython.display import clear_output
+%matplotlib inline
+
+nltk_dir = CACHE_DIR / 'nltk_data'
+nltk.data.path.insert(0, str(nltk_dir))
+for resource, locator in [('punkt', 'tokenizers/punkt'),
+                          ('punkt_tab', 'tokenizers/punkt_tab/english')]:
+    try:
+        nltk.data.find(locator)
+    except LookupError:
+        if not nltk.download(resource, download_dir=str(nltk_dir), quiet=True):
+            raise RuntimeError(f'Unable to download NLTK resource: {resource}')
+
+# Reuse the supplied Quora data; only download if no local copy exists.
+DATA_PATH = next((p for p in [Path.cwd() / 'train.csv', TASK_DIR / 'report' / 'train.csv',
+                             CACHE_DIR / 'quora' / 'train.csv'] if p.is_file()), None)
+if DATA_PATH is None:
+    import gdown
+    import zipfile
+    archive = CACHE_DIR / 'quora.zip'
+    gdown.download(id='1ERtxpdWOgGQ3HOigqAMHTJjmOE_tWvoF', output=str(archive), quiet=False)
+    with zipfile.ZipFile(archive) as z:
+        member = next(name for name in z.namelist() if Path(name).name == 'train.csv')
+        destination = CACHE_DIR / 'quora'
+        destination.mkdir(exist_ok=True)
+        DATA_PATH = destination / 'train.csv'
+        with z.open(member) as src, DATA_PATH.open('wb') as dst:
+            import shutil
+            shutil.copyfileobj(src, dst)
+
+SEED = 42
+random.seed(SEED)
+np.random.seed(SEED)
+torch.manual_seed(SEED)
+if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(SEED)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+torch.set_num_threads(min(8, os.cpu_count() or 1))
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+RUN_ID = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S_%fZ')
+RUN_DIR = TASK_DIR / 'results' / RUN_ID
+RUN_DIR.mkdir(parents=True, exist_ok=True)
+print('Python:', sys.version.split()[0], '| PyTorch:', torch.__version__)
+print('Device:', device, torch.cuda.get_device_name(0) if device.type == 'cuda' else '')
+print('Seed:', SEED, '| Quora SHA256:', hashlib.sha256(DATA_PATH.read_bytes()).hexdigest())
+print('Run ID:', RUN_ID)
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mOSError[0m                                   Traceback (most recent call last)
+Cell [0;32mIn[2], line 37[0m
+[1;32m     34[0m [38;5;28;01mfor[39;00m resource, locator [38;5;129;01min[39;00m [([38;5;124m'[39m[38;5;124mpunkt[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mtokenizers/punkt[39m[38;5;124m'[39m),
+[1;32m     35[0m                           ([38;5;124m'[39m[38;5;124mpunkt_tab[39m[38;5;124m'[39m, [38;5;124m'[39m[38;5;124mtokenizers/punkt_tab/english[39m[38;5;124m'[39m)]:
+[1;32m     36[0m     [38;5;28;01mtry[39;00m:
+[0;32m---> 37[0m         [43mnltk[49m[38;5;241;43m.[39;49m[43mdata[49m[38;5;241;43m.[39;49m[43mfind[49m[43m([49m[43mlocator[49m[43m)[49m
+[1;32m     38[0m     [38;5;28;01mexcept[39;00m [38;5;167;01mLookupError[39;00m:
+[1;32m     39[0m         [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m nltk[38;5;241m.[39mdownload(resource, download_dir[38;5;241m=[39m[38;5;28mstr[39m(nltk_dir), quiet[38;5;241m=[39m[38;5;28;01mTrue[39;00m):
+
+File [0;32m~/miniconda3/envs/NLP/lib/python3.10/site-packages/nltk/data.py:537[0m, in [0;36mfind[0;34m(resource_name, paths)[0m
+[1;32m    535[0m             [38;5;28;01mreturn[39;00m GzipFileSystemPathPointer(p)
+[1;32m    536[0m         [38;5;28;01melse[39;00m:
+[0;32m--> 537[0m             [38;5;28;01mreturn[39;00m [43mFileSystemPathPointer[49m[43m([49m[43mp[49m[43m)[49m
+[1;32m    538[0m [38;5;28;01melse[39;00m:
+[1;32m    539[0m     p [38;5;241m=[39m os[38;5;241m.[39mpath[38;5;241m.[39mjoin(path_, url2pathname(zipfile))
+
+File [0;32m~/miniconda3/envs/NLP/lib/python3.10/site-packages/nltk/compat.py:41[0m, in [0;36mpy3_data.<locals>._decorator[0;34m(*args, **kwargs)[0m
+[1;32m     39[0m [38;5;28;01mdef[39;00m[38;5;250m [39m[38;5;21m_decorator[39m([38;5;241m*[39margs, [38;5;241m*[39m[38;5;241m*[39mkwargs):
+[1;32m     40[0m     args [38;5;241m=[39m (args[[38;5;241m0[39m], add_py3_data(args[[38;5;241m1[39m])) [38;5;241m+[39m args[[38;5;241m2[39m:]
+[0;32m---> 41[0m     [38;5;28;01mreturn[39;00m [43minit_func[49m[43m([49m[38;5;241;43m*[39;49m[43margs[49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mkwargs[49m[43m)[49m
+
+File [0;32m~/miniconda3/envs/NLP/lib/python3.10/site-packages/nltk/data.py:312[0m, in [0;36mFileSystemPathPointer.__init__[0;34m(self, _path)[0m
+[1;32m    310[0m _path [38;5;241m=[39m os[38;5;241m.[39mpath[38;5;241m.[39mabspath(_path)
+[1;32m    311[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m os[38;5;241m.[39mpath[38;5;241m.[39mexists(_path):
+[0;32m--> 312[0m     [38;5;28;01mraise[39;00m [38;5;167;01mOSError[39;00m([38;5;124m"[39m[38;5;124mNo such file or directory: [39m[38;5;132;01m%r[39;00m[38;5;124m"[39m [38;5;241m%[39m _path)
+[1;32m    313[0m [38;5;28mself[39m[38;5;241m.[39m_path [38;5;241m=[39m _path
+
+[0;31mOSError[0m: No such file or directory: '/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw01/data/downloads/nltk_data/tokenizers/punkt/PY3_tab/english'
+

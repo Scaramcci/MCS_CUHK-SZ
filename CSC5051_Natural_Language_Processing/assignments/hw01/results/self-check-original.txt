@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw01/tests/self_check.py", line 19, in <module>
+    tree = ast.parse(''.join(nb['cells'][i]['source']))
+  File "/home/scarramcci/miniconda3/envs/NLP/lib/python3.10/ast.py", line 50, in parse
+    return compile(source, filename, mode, flags,
+  File "<unknown>", line 12
+    # ------------------
+                        ^
+IndentationError: expected an indented block after function definition on line 7

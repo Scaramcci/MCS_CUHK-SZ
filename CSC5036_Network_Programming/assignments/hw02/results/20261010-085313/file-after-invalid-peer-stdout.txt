@@ -1,0 +1,1 @@
+File 'file2.zip' sent; connection closed by server.

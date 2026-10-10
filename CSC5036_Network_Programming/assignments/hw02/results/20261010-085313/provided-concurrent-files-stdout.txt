@@ -1,0 +1,29 @@
+=== Simple file transfer (5 x 10MB files) ===
+Starting client 1: file1.zip
+File 'file1.zip' sent; connection closed by server.
+Starting client 2: file2.zip
+File 'file2.zip' sent; connection closed by server.
+Starting client 3: file3.zip
+File 'file3.zip' sent; connection closed by server.
+Starting client 4: file4.zip
+File 'file4.zip' sent; connection closed by server.
+Starting client 5: file5.zip
+File 'file5.zip' sent; connection closed by server.
+All small file transfers completed.
+
+=== Large file transfer (2 x 50MB files) ===
+Starting client 1: bigfile1.zip
+Starting client 2: bigfile2.zip
+File 'bigfile1.zip' sent; connection closed by server.
+File 'bigfile2.zip' sent; connection closed by server.
+All large file transfers completed.
+
+=== Transfer Summary ===
+Files in current directory:
+-rw-rw-r-- 1 scarramcci scarramcci  48M Oct 10 16:53 bigfile1.zip
+-rw-rw-r-- 1 scarramcci scarramcci  48M Oct 10 16:53 bigfile2.zip
+-rw-rw-r-- 1 scarramcci scarramcci 9.6M Oct 10 16:53 file1.zip
+-rw-rw-r-- 1 scarramcci scarramcci 9.6M Oct 10 16:53 file2.zip
+-rw-rw-r-- 1 scarramcci scarramcci 9.6M Oct 10 16:53 file3.zip
+-rw-rw-r-- 1 scarramcci scarramcci 9.6M Oct 10 16:53 file4.zip
+-rw-rw-r-- 1 scarramcci scarramcci 9.6M Oct 10 16:53 file5.zip

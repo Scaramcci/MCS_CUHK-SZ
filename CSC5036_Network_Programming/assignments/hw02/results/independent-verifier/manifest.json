@@ -1,0 +1,28 @@
+{
+  "entries": [
+    "CMakeLists.txt",
+    "con.sh",
+    "con_file.sh",
+    "file_client.c",
+    "file_server.c",
+    "generator.sh",
+    "socket_client.c",
+    "socket_server.c"
+  ],
+  "unchanged": {
+    "CMakeLists.txt": true,
+    "con.sh": true,
+    "con_file.sh": true,
+    "generator.sh": true
+  },
+  "code_sha256": {
+    "file_server.c": "e60e96d58cff01b41412babe11f0c6856e5687dd3a4511e37d43b1449cdf9dd8",
+    "socket_server.c": "0952f640c096d3ba396267b2c5fd2e0d14caff9b0ad91a955006fbb141582ce3",
+    "CMakeLists.txt": "5f43a77465ab4c23703d06a84f317c1639d8709fc4db9a42cdba5c47cad2045f",
+    "file_client.c": "46f82bf6057d720febc9e0fee1554d50ebafc7826aad0691cc5969b472d052d2",
+    "con.sh": "d63753448608bc87b7ccad98b0899b60861702ff6ed9138b8165fdec385c98ff",
+    "con_file.sh": "038359240c69fd0f763912b5759326e6a9b89c8949e8889a7c07c37857b838f0",
+    "socket_client.c": "6c76a89771de4867ea4ad9979f1f85d906e9cad363e5be3c02c6347f0d0e14e4",
+    "generator.sh": "8e3e0eb1f795a82d88ad1c2c9b19159ae9c2361263add60eed5d2c8d8a1c46b2"
+  }
+}

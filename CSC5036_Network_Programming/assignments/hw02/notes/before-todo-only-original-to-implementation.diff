@@ -1,0 +1,834 @@
+--- original/file_client.c
++++ src/file_client.c
+@@ -1,74 +1,138 @@
+-// file_client.c
+-
+-#include <stdio.h>
+-#include <stdlib.h>
+-#include <string.h>
+-#include <unistd.h>
+-#include <arpa/inet.h>
+-
+-#define PORT 8080
+-#define BUFFER_SIZE 1024
+-
+-int main(int argc, char *argv[]) {
+-    if (argc < 2) {
+-        fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
+-        return 1;
+-    }
+-
+-    struct sockaddr_in serv_addr;
+-    int sock = 0;
+-    char buffer[BUFFER_SIZE] = {0};
+-
+-    /* TODO: socket()
+-    * Create a socket using socket(AF_INET, SOCK_STREAM, 0)
+-    * Store the result in 'sock' variable
+-    * Print an error message and exit if it fails
+-    */
+-
+-    serv_addr.sin_family = AF_INET;
+-    serv_addr.sin_port = htons(PORT);
+-
+-    /* TODO: inet_pton()
+-    * Convert the IP address "127.0.0.1" from text to binary form
+-    * Use inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)
+-    * Print an error message and exit if conversion fails (returns <= 0)
+-    */
+-    
+-
+-    /* TODO: connect()
+-    * Connect to the server.
+-    */
+-
+-    /* IMPLEMENTING SIMPLE FILE TRANSFER */
+-
+-    // Variables you may need to declare:
+-    // FILE *file;
+-    // char *base_filename;
+-
+-    /* TODO: Open file for reading in binary mode
+-    * Use fopen() with "rb" mode
+-    */
+-
+-    /* TODO: Extract filename from path (argv[1])
+-    * Use strrchr() to find the last '/' in the path
+-    * Example: "../file1.zip" -> "file1.zip"
+-    * If no '/' found, use the entire path as filename
+-    * Store result in base_filename
+-    */
+-
+-    /* TODO: Send filename to server
+-    * Send the filename (padded to BUFFER_SIZE) so server knows what to name the file
+-    */
+-
+-    // You can add a small delay to avoid data mix-up
+-
+-    /* TODO: Send file content
+-    * Read file in chunks of BUFFER_SIZE and send each chunk
+-    */
+-
+-    // printf("File '%s' uploaded successfully.\n", base_filename);
+-
+-    /* TODO: Close file and socket */
+-
+-    return 0;
++// file_client.c
++
++#include <stdio.h>
++#include <errno.h>
++#include <stdlib.h>
++#include <string.h>
++#include <unistd.h>
++#include <arpa/inet.h>
++
++#define PORT 8080
++#define BUFFER_SIZE 1024
++
++
++/* TCP can send fewer bytes than requested. Retry until the whole chunk is sent. */
++static int send_all(int fd, const char *data, size_t length) {
++    while (length > 0) {
++        ssize_t sent = send(fd, data, length, MSG_NOSIGNAL);
++        if (sent < 0 && errno == EINTR) continue;
++        if (sent <= 0) {
++            if (sent < 0) perror("send");
++            else fprintf(stderr, "send returned zero\n");
++            return -1;
++        }
++        data += sent;
++        length -= (size_t)sent;
++    }
++    return 0;
++}
++
++int main(int argc, char *argv[]) {
++    if (argc < 2) {
++        fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
++        return 1;
++    }
++
++    struct sockaddr_in serv_addr;
++    int sock = 0;
++    char buffer[BUFFER_SIZE] = {0};
++
++    /* Implemented: socket()
++    * Create a socket using socket(AF_INET, SOCK_STREAM, 0)
++    * Store the result in 'sock' variable
++    * Print an error message and exit if it fails
++    */
++    sock = socket(AF_INET, SOCK_STREAM, 0);
++    if (sock < 0) { perror("socket"); return EXIT_FAILURE; }
++    memset(&serv_addr, 0, sizeof(serv_addr));
++
++    serv_addr.sin_family = AF_INET;
++    serv_addr.sin_port = htons(PORT);
++
++    /* Implemented: inet_pton()
++    * Convert the IP address "127.0.0.1" from text to binary form
++    * Use inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)
++    * Print an error message and exit if conversion fails (returns <= 0)
++    */
++    int converted = inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr);
++    if (converted <= 0) {
++        if (converted < 0) perror("inet_pton");
++        else fprintf(stderr, "Invalid server address\n");
++        close(sock);
++        return EXIT_FAILURE;
++    }
++    
++
++    /* Implemented: connect()
++    * Connect to the server.
++    */
++    if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
++        perror("connect"); close(sock); return EXIT_FAILURE;
++    }
++
++    /* IMPLEMENTING SIMPLE FILE TRANSFER */
++
++    // Variables you may need to declare:
++    // FILE *file;
++    // char *base_filename;
++
++    /* Implemented: Open file for reading in binary mode
++    * Use fopen() with "rb" mode
++    */
++    FILE *file = fopen(argv[1], "rb");
++    if (!file) { perror("fopen"); close(sock); return EXIT_FAILURE; }
++
++    /* Implemented: Extract filename from path (argv[1])
++    * Use strrchr() to find the last '/' in the path
++    * Example: "../file1.zip" -> "file1.zip"
++    * If no '/' found, use the entire path as filename
++    * Store result in base_filename
++    */
++    const char *base_filename = strrchr(argv[1], '/');
++    base_filename = base_filename ? base_filename + 1 : argv[1];
++    size_t filename_length = strlen(base_filename);
++    if (filename_length == 0 || filename_length >= BUFFER_SIZE ||
++        strcmp(base_filename, ".") == 0 || strcmp(base_filename, "..") == 0) {
++        fprintf(stderr, "Invalid filename\n");
++        fclose(file); close(sock); return EXIT_FAILURE;
++    }
++
++    /* Implemented: Send filename to server
++    * Send the filename (padded to BUFFER_SIZE) so server knows what to name the file
++    */
++    memcpy(buffer, base_filename, filename_length);
++    if (send_all(sock, buffer, sizeof(buffer)) < 0) {
++        fclose(file); close(sock); return EXIT_FAILURE;
++    }
++
++    // You can add a small delay to avoid data mix-up
++
++    /* Implemented: Send file content
++    * Read file in chunks of BUFFER_SIZE and send each chunk
++    */
++    size_t count;
++    int failed = 0;
++    while ((count = fread(buffer, 1, sizeof(buffer), file)) > 0) {
++        if (send_all(sock, buffer, count) < 0) { failed = 1; break; }
++    }
++    if (ferror(file)) { perror("fread"); failed = 1; }
++
++    // printf("File '%s' uploaded successfully.\n", base_filename);
++
++    /* Implemented: Close file and socket */
++    if (fclose(file) != 0) { perror("fclose"); failed = 1; }
++    /* EOF on the write half marks the end, regardless of file size. */
++    if (!failed && shutdown(sock, SHUT_WR) < 0) { perror("shutdown"); failed = 1; }
++    /* The server closes after flushing the file. Wait so tests can read it. */
++    if (!failed) {
++        ssize_t count_read;
++        do { count_read = read(sock, buffer, sizeof(buffer)); }
++        while (count_read > 0 || (count_read < 0 && errno == EINTR));
++        if (count_read < 0) { perror("read"); failed = 1; }
++    }
++    if (close(sock) < 0) { perror("close"); failed = 1; }
++    if (failed) return EXIT_FAILURE;
++    printf("File '%s' sent; connection closed by server.\n", base_filename);
++
++    return 0;
+ }--- original/file_server.c
++++ src/file_server.c
+@@ -1,144 +1,198 @@
+-#include <stdio.h>
+-#include <stdlib.h>
+-#include <string.h>
+-#include <unistd.h>
+-#include <errno.h>
+-#include <poll.h>
+-#include <netinet/in.h>
+-#include <arpa/inet.h>
+-
+-#define PORT 8080
+-#define MAX_CLIENTS 30
+-#define BUFFER_SIZE 1024
+-
+-
+-int main() {
+-    int opt = 1;
+-    int master_socket, addrlen, new_socket, client_socket[MAX_CLIENTS], valread;
+-    struct sockaddr_in address;
+-    char buffer[BUFFER_SIZE];
+-    struct pollfd poll_fds[MAX_CLIENTS + 1]; // +1 for the master socket
+-    int max_clients = MAX_CLIENTS;
+-    int poll_count;
+-
+-    // Initialize all client_socket[] to 0 so not checked
+-    for (int i = 0; i < max_clients; i++) {
+-        client_socket[i] = 0;
+-    }
+-
+-
+-    /* TODO: socket()
+-    * Create a master socket using socket(); 
+-    * outputs an error message if it fails.
+-    */
+-    
+-
+-    /* TODO: setsockopt()
+-    * Use setsockopt() to enable the SO_REUSEADDR option. 
+-    * The server allows multiple connections on the same local address and port.
+-    */
+-
+-
+-    // Type of socket created
+-    address.sin_family = AF_INET;
+-    address.sin_addr.s_addr = INADDR_ANY;
+-    address.sin_port = htons(PORT);
+-
+-
+-    /* TODO: bind()
+-    * The server should bind to the specified port and address without errors.
+-    */
+-
+-    printf("Listener on port %d \n", PORT);
+-    /* TODO: listen()
+-    * The server listens on the specified port and can queue up to 3 pending 
+-    * connections for the master socket.
+-    */
+-
+-    // Accept the incoming connection
+-    addrlen = sizeof(address);
+-    puts("Waiting for connections ...");
+-
+-    // Set up the initial listening socket and event for listening to incoming connections
+-    poll_fds[0].fd = master_socket;
+-    poll_fds[0].events = POLLIN;
+-
+-    while (1) {
+-        /* TODO: 
+-        * Prepare the poll_fds array for existing connections.
+-        * Hint: poll_fds[0] is reserved for the listening socket.
+-        */
+-
+-        // Wait for some event on one of the sockets with no timeout (NULL)
+-        poll_count = poll(poll_fds, max_clients + 1, -1);
+-
+-        if (poll_count < 0) {
+-            perror("poll error");
+-            exit(EXIT_FAILURE);
+-        }
+-
+-        // If something happened on the master socket, then it's an incoming connection
+-        if (poll_fds[0].revents & POLLIN) {
+-            /* TODO: accept()
+-            * Accept a new connection when there is incoming request on the master socket.
+-            */
+-
+-            printf("New connection, socket fd is %d, ip is: %s, port: %d\n",
+-                   new_socket, inet_ntoa(address.sin_addr), ntohs(address.sin_port));
+-
+-            /* TODO:
+-            * Add the new client socket to the client_socket array.
+-            */
+-            
+-        }
+-
+-        // Loop through all client sockets
+-        for (int i = 0; i < max_clients; i++) {
+-            int sd = client_socket[i];
+-
+-            // Skip if this slot is not connected
+-            if (sd == 0) continue;
+-
+-            // Check if the socket has incoming data using poll
+-            if (poll_fds[i + 1].revents & POLLIN) {
+-                /* IMPLEMENTING SIMPLE FILE TRANSFER */
+-
+-                // Variables you may need to declare:
+-                // char filename[BUFFER_SIZE];
+-                // FILE *file;
+-
+-                /* TODO: Read the filename from the client
+-                * The client sends the filename first (padded to BUFFER_SIZE)
+-                */
+-
+-                /* TODO: Handle client disconnection
+-                * If read returns 0, the client has disconnected
+-                */
+-
+-                /* TODO: Open the file for writing
+-                * Use fopen() with "wb" mode for binary write
+-                */
+-
+-                // Uncomment the following after declaring 'file' and 'filename':
+-                // if (!file) {
+-                //     perror("Error opening file");
+-                //     continue;
+-                // }
+-                // printf("Receiving file: %s\n", filename);
+-
+-                /* TODO: Receive file data from the client and write to file
+-                * Loop: read from socket, write to file, until no more data
+-                */
+-
+-                // Confirm file save and clean up resources
+-                // Uncomment after implementing:
+-                // printf("File saved as: %s\n", filename);
+-                // fclose(file);
+-                // close(sd);
+-                // client_socket[i] = 0;
+-            }
+-        }
+-    }
+-
+-    return 0;
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <unistd.h>
++#include <errno.h>
++#include <poll.h>
++#include <netinet/in.h>
++#include <arpa/inet.h>
++
++#define PORT 8080
++#define MAX_CLIENTS 30
++#define BUFFER_SIZE 1024
++
++
++
++struct transfer {
++    char filename[BUFFER_SIZE];
++    size_t header_used;
++    FILE *file;
++};
++
++static void close_transfer(int *fd, struct transfer *state) {
++    if (state->file && fclose(state->file) != 0) perror("fclose");
++    if (close(*fd) < 0) perror("close");
++    *fd = 0;
++    memset(state, 0, sizeof(*state));
++}
++
++/* Read at most one available chunk, so a slow sender cannot block others. */
++static void receive_file(int *fd, struct transfer *state) {
++    char data[BUFFER_SIZE];
++    int reading_header = state->header_used < BUFFER_SIZE;
++    char *destination = reading_header ? state->filename + state->header_used : data;
++    size_t capacity = reading_header ? BUFFER_SIZE - state->header_used : sizeof(data);
++    ssize_t count = recv(*fd, destination, capacity, MSG_DONTWAIT);
++    if (count < 0) {
++        if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK) return;
++        perror("recv");
++        close_transfer(fd, state);
++        return;
++    }
++    if (count == 0) {
++        if (reading_header) fprintf(stderr, "Client closed before complete filename\n");
++        else printf("File received: %s\n", state->filename);
++        close_transfer(fd, state);
++        return;
++    }
++    if (reading_header) {
++        state->header_used += (size_t)count;
++        if (state->header_used < BUFFER_SIZE) return;
++        /* Only accept a base name, never a directory path supplied by a peer. */
++        if (!memchr(state->filename, '\0', BUFFER_SIZE) ||
++            state->filename[0] == '\0' || strchr(state->filename, '/') ||
++            strcmp(state->filename, ".") == 0 || strcmp(state->filename, "..") == 0) {
++            fprintf(stderr, "Invalid filename header\n");
++            close_transfer(fd, state);
++            return;
++        }
++        state->file = fopen(state->filename, "wb");
++        if (!state->file) { perror("fopen"); close_transfer(fd, state); return; }
++        printf("Receiving file: %s\n", state->filename);
++    } else if (fwrite(data, 1, (size_t)count, state->file) != (size_t)count) {
++        perror("fwrite");
++        close_transfer(fd, state);
++    }
++}
++
++int main() {
++    int opt = 1;
++    int master_socket, new_socket, client_socket[MAX_CLIENTS];
++    socklen_t addrlen;
++    struct sockaddr_in address;
++    struct pollfd poll_fds[MAX_CLIENTS + 1]; // +1 for the master socket
++    int max_clients = MAX_CLIENTS;
++    int poll_count;
++    struct transfer transfers[MAX_CLIENTS] = {0};
++
++    // Initialize all client_socket[] to 0 so not checked
++    for (int i = 0; i < max_clients; i++) {
++        client_socket[i] = 0;
++    }
++
++
++    /* Implemented: socket()
++    * Create a master socket using socket(); 
++    * outputs an error message if it fails.
++    */
++    master_socket = socket(AF_INET, SOCK_STREAM, 0);
++    if (master_socket < 0) { perror("socket"); return EXIT_FAILURE; }
++    memset(&address, 0, sizeof(address));
++    
++
++    /* Implemented: setsockopt()
++    * Use setsockopt() to enable the SO_REUSEADDR option. 
++    * The server allows multiple connections on the same local address and port.
++    */
++    if (setsockopt(master_socket, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
++        perror("setsockopt"); close(master_socket); return EXIT_FAILURE;
++    }
++
++
++    // Type of socket created
++    address.sin_family = AF_INET;
++    address.sin_addr.s_addr = INADDR_ANY;
++    address.sin_port = htons(PORT);
++
++
++    /* Implemented: bind()
++    * The server should bind to the specified port and address without errors.
++    */
++    if (bind(master_socket, (struct sockaddr *)&address, sizeof(address)) < 0) {
++        perror("bind"); close(master_socket); return EXIT_FAILURE;
++    }
++
++    printf("Listener on port %d \n", PORT);
++    /* Implemented: listen()
++    * The server listens on the specified port and can queue up to 3 pending 
++    * connections for the master socket.
++    */
++    if (listen(master_socket, 3) < 0) {
++        perror("listen"); close(master_socket); return EXIT_FAILURE;
++    }
++
++    // Accept the incoming connection
++    addrlen = sizeof(address);
++    puts("Waiting for connections ...");
++
++    // Set up the initial listening socket and event for listening to incoming connections
++    poll_fds[0].fd = master_socket;
++    poll_fds[0].events = POLLIN;
++
++    while (1) {
++        /* Implemented: 
++        * Prepare the poll_fds array for existing connections.
++        * Hint: poll_fds[0] is reserved for the listening socket.
++        */
++        for (int i = 0; i < max_clients; i++) {
++            poll_fds[i + 1].fd = client_socket[i] ? client_socket[i] : -1;
++            poll_fds[i + 1].events = POLLIN;
++            poll_fds[i + 1].revents = 0;
++        }
++
++        // Wait for some event on one of the sockets with no timeout (NULL)
++        poll_count = poll(poll_fds, max_clients + 1, -1);
++
++        if (poll_count < 0) {
++            if (errno == EINTR) continue;
++            perror("poll error");
++            exit(EXIT_FAILURE);
++        }
++
++        if (poll_fds[0].revents & (POLLERR | POLLHUP | POLLNVAL)) {
++            fprintf(stderr, "Listening socket failed\n");
++            close(master_socket); return EXIT_FAILURE;
++        }
++
++        // If something happened on the master socket, then it's an incoming connection
++        if (poll_fds[0].revents & POLLIN) {
++            /* Implemented: accept()
++            * Accept a new connection when there is incoming request on the master socket.
++            */
++            addrlen = sizeof(address);
++            new_socket = accept(master_socket, (struct sockaddr *)&address, &addrlen);
++            if (new_socket < 0) { perror("accept"); continue; }
++
++            printf("New connection, socket fd is %d, ip is: %s, port: %d\n",
++                   new_socket, inet_ntoa(address.sin_addr), ntohs(address.sin_port));
++
++            /* Implemented:
++            * Add the new client socket to the client_socket array.
++            */
++            int slot;
++            for (slot = 0; slot < max_clients; slot++) {
++                if (client_socket[slot] == 0) { client_socket[slot] = new_socket; break; }
++            }
++            if (slot == max_clients) {
++                fprintf(stderr, "Client capacity reached\n");
++                close(new_socket);
++            }
++            
++        }
++
++        // Loop through all client sockets
++        for (int i = 0; i < max_clients; i++) {
++            int sd = client_socket[i];
++
++            // Skip if this slot is not connected
++            if (sd == 0) continue;
++
++            // Check if the socket has incoming data using poll
++            if (poll_fds[i + 1].revents & (POLLIN | POLLHUP | POLLERR | POLLNVAL)) {
++                receive_file(&client_socket[i], &transfers[i]);
++            }
++        }
++    }
++
++    return 0;
+ }--- original/socket_client.c
++++ src/socket_client.c
+@@ -1,6 +1,7 @@
+ // socket_client.c
+ 
+ #include <stdio.h>
++#include <errno.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
+@@ -9,49 +10,98 @@
+ #define PORT 8080
+ #define BUFFER_SIZE 1024
+ 
++
++/* TCP can send fewer bytes than requested. Retry until the whole chunk is sent. */
++static int send_all(int fd, const char *data, size_t length) {
++    while (length > 0) {
++        ssize_t sent = send(fd, data, length, MSG_NOSIGNAL);
++        if (sent < 0 && errno == EINTR) continue;
++        if (sent <= 0) {
++            if (sent < 0) perror("send");
++            else fprintf(stderr, "send returned zero\n");
++            return -1;
++        }
++        data += sent;
++        length -= (size_t)sent;
++    }
++    return 0;
++}
++
+ int main() {
+     struct sockaddr_in serv_addr;
+     int sock = 0;
+     char *hello = "Hello from client";
+     char buffer[BUFFER_SIZE] = {0};
+ 
+-    /* TODO: socket()
++    /* Implemented: socket()
+     * Create a socket using socket(AF_INET, SOCK_STREAM, 0)
+     * Store the result in 'sock' variable
+     * Print an error message and exit if it fails
+     */
++    sock = socket(AF_INET, SOCK_STREAM, 0);
++    if (sock < 0) { perror("socket"); return EXIT_FAILURE; }
++    memset(&serv_addr, 0, sizeof(serv_addr));
+ 
+     serv_addr.sin_family = AF_INET;
+     serv_addr.sin_port = htons(PORT);
+ 
+-    /* TODO: inet_pton()
++    /* Implemented: inet_pton()
+     * Convert the IP address "127.0.0.1" from text to binary form
+     * Use inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)
+     * Print an error message and exit if conversion fails (returns <= 0)
+     */
++    int converted = inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr);
++    if (converted <= 0) {
++        if (converted < 0) perror("inet_pton");
++        else fprintf(stderr, "Invalid server address\n");
++        close(sock);
++        return EXIT_FAILURE;
++    }
+     
+ 
+-    /* TODO: connect()
++    /* Implemented: connect()
+     * Connect to the server.
+     */
++    if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
++        perror("connect"); close(sock); return EXIT_FAILURE;
++    }
+ 
+ 
+     // Send data to the server
+-    send(sock, hello, strlen(hello), 0);
++    if (send_all(sock, hello, strlen(hello)) < 0) {
++        close(sock); return EXIT_FAILURE;
++    }
+     printf("Hello message sent\n");
+ 
+ 
+-    /* TODO: read()
++    /* Implemented: read()
+     * Read data from the server into buffer with size BUFFER_SIZE.
+     */
++    size_t received = 0;
++    const size_t expected = strlen(hello);
++    while (received < expected) {
++        ssize_t count = read(sock, buffer + received, expected - received);
++        if (count < 0 && errno == EINTR) continue;
++        if (count <= 0) {
++            if (count < 0) perror("read");
++            else fprintf(stderr, "Server closed before the complete echo\n");
++            close(sock); return EXIT_FAILURE;
++        }
++        received += (size_t)count;
++    }
++    buffer[received] = '\0';
++    if (memcmp(buffer, hello, expected) != 0) {
++        fprintf(stderr, "Echo does not match\n"); close(sock); return EXIT_FAILURE;
++    }
+     printf("Message from server: %s\n", buffer);
+ 
+     // Introduce a delay to keep the connection open
+     sleep(2); // Waits for 2 seconds. You can adjust this value as needed.
+ 
+-    /* TODO: close()
++    /* Implemented: close()
+     * Close the socket.
+     */
++    if (close(sock) < 0) { perror("close"); return EXIT_FAILURE; }
+ 
+     return 0;
+ }--- original/socket_server.c
++++ src/socket_server.c
+@@ -12,9 +12,28 @@
+ #define BUFFER_SIZE 1024
+ 
+ 
++
++/* TCP can send fewer bytes than requested. Retry until the whole chunk is sent. */
++static int send_all(int fd, const char *data, size_t length) {
++    while (length > 0) {
++        ssize_t sent = send(fd, data, length, MSG_NOSIGNAL);
++        if (sent < 0 && errno == EINTR) continue;
++        if (sent <= 0) {
++            if (sent < 0) perror("send");
++            else fprintf(stderr, "send returned zero\n");
++            return -1;
++        }
++        data += sent;
++        length -= (size_t)sent;
++    }
++    return 0;
++}
++
+ int main() {
+     int opt = 1;
+-    int master_socket, addrlen, new_socket, client_socket[MAX_CLIENTS], valread;
++    int master_socket, new_socket, client_socket[MAX_CLIENTS];
++    socklen_t addrlen;
++    ssize_t valread;
+     struct sockaddr_in address;
+     char buffer[BUFFER_SIZE];
+     struct pollfd poll_fds[MAX_CLIENTS + 1]; // +1 for the master socket
+@@ -27,16 +46,22 @@
+     }
+ 
+ 
+-    /* TODO: socket()
++    /* Implemented: socket()
+     * Create a master socket using socket(); 
+     * outputs an error message if it fails.
+     */
++    master_socket = socket(AF_INET, SOCK_STREAM, 0);
++    if (master_socket < 0) { perror("socket"); return EXIT_FAILURE; }
++    memset(&address, 0, sizeof(address));
+     
+ 
+-    /* TODO: setsockopt()
++    /* Implemented: setsockopt()
+     * Use setsockopt() to enable the SO_REUSEADDR option. 
+     * The server allows multiple connections on the same local address and port.
+     */
++    if (setsockopt(master_socket, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
++        perror("setsockopt"); close(master_socket); return EXIT_FAILURE;
++    }
+ 
+ 
+     // Type of socket created
+@@ -45,15 +70,21 @@
+     address.sin_port = htons(PORT);
+ 
+ 
+-    /* TODO: bind()
++    /* Implemented: bind()
+     * The server should bind to the specified port and address without errors.
+     */
++    if (bind(master_socket, (struct sockaddr *)&address, sizeof(address)) < 0) {
++        perror("bind"); close(master_socket); return EXIT_FAILURE;
++    }
+ 
+     printf("Listener on port %d \n", PORT);
+-    /* TODO: listen()
++    /* Implemented: listen()
+     * The server listens on the specified port and can queue up to 3 pending 
+     * connections for the master socket.
+     */
++    if (listen(master_socket, 3) < 0) {
++        perror("listen"); close(master_socket); return EXIT_FAILURE;
++    }
+ 
+     // Accept the incoming connection
+     addrlen = sizeof(address);
+@@ -64,31 +95,53 @@
+     poll_fds[0].events = POLLIN;
+ 
+     while (1) {
+-        /* TODO: 
++        /* Implemented: 
+         * Prepare the poll_fds array for existing connections.
+         * Hint: poll_fds[0] is reserved for the listening socket.
+         */
++        for (int i = 0; i < max_clients; i++) {
++            poll_fds[i + 1].fd = client_socket[i] ? client_socket[i] : -1;
++            poll_fds[i + 1].events = POLLIN;
++            poll_fds[i + 1].revents = 0;
++        }
+ 
+         // Wait for some event on one of the sockets with no timeout (NULL)
+         poll_count = poll(poll_fds, max_clients + 1, -1);
+ 
+         if (poll_count < 0) {
++            if (errno == EINTR) continue;
+             perror("poll error");
+             exit(EXIT_FAILURE);
+         }
+ 
++        if (poll_fds[0].revents & (POLLERR | POLLHUP | POLLNVAL)) {
++            fprintf(stderr, "Listening socket failed\n");
++            close(master_socket); return EXIT_FAILURE;
++        }
++
+         // If something happened on the master socket, then it's an incoming connection
+         if (poll_fds[0].revents & POLLIN) {
+-            /* TODO: accept()
++            /* Implemented: accept()
+             * Accept a new connection when there is incoming request on the master socket.
+             */
++            addrlen = sizeof(address);
++            new_socket = accept(master_socket, (struct sockaddr *)&address, &addrlen);
++            if (new_socket < 0) { perror("accept"); continue; }
+ 
+             printf("New connection, socket fd is %d, ip is: %s, port: %d\n",
+                    new_socket, inet_ntoa(address.sin_addr), ntohs(address.sin_port));
+ 
+-            /* TODO:
++            /* Implemented:
+             * Add the new client socket to the client_socket array.
+             */
++            int slot;
++            for (slot = 0; slot < max_clients; slot++) {
++                if (client_socket[slot] == 0) { client_socket[slot] = new_socket; break; }
++            }
++            if (slot == max_clients) {
++                fprintf(stderr, "Client capacity reached\n");
++                close(new_socket);
++            }
+             
+         }
+ 
+@@ -99,11 +152,11 @@
+             // Skip if this slot is not connected
+             if (sd == 0) continue;
+ 
+-            if (poll_fds[i + 1].revents & POLLIN) {
++            if (poll_fds[i + 1].revents & (POLLIN | POLLHUP | POLLERR | POLLNVAL)) {
+                 // Check if it was a closing and also read the incoming message
+                 if ((valread = read(sd, buffer, BUFFER_SIZE - 1)) == 0) {
+                     // Somebody disconnected, get details and print
+-                    getpeername(sd, (struct sockaddr*)&address, (socklen_t*)&addrlen);
++                    getpeername(sd, (struct sockaddr*)&address, &addrlen);
+                     printf("Host disconnected, ip %s, port %d\n",
+                            inet_ntoa(address.sin_addr), ntohs(address.sin_port));
+ 
+@@ -120,7 +173,10 @@
+                 } else {
+                     // Echo back the message that came in
+                     buffer[valread] = '\0';
+-                    send(sd, buffer, strlen(buffer), 0);
++                    if (send_all(sd, buffer, (size_t)valread) < 0) {
++                        close(sd);
++                        client_socket[i] = 0;
++                    }
+                 }
+             }
+         }
