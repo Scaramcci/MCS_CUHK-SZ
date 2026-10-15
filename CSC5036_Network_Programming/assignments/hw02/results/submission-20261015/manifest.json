@@ -1,0 +1,60 @@
+{
+  "executor": "Codex Implementer / package assembly",
+  "created_utc": "2026-10-15T12:01:55.085636+00:00",
+  "zip_path": "CSC5036_Network_Programming/assignments/hw02/submission/Assignment-2.zip",
+  "zip_bytes": 8964,
+  "zip_sha256": "058216a4588309bb35c932cfff02e3c7c9dd2db61ffc882539c30aa4454351af",
+  "files": [
+    {
+      "path": "CMakeLists.txt",
+      "bytes": 764,
+      "sha256": "5f43a77465ab4c23703d06a84f317c1639d8709fc4db9a42cdba5c47cad2045f",
+      "unix_mode": "0o100664"
+    },
+    {
+      "path": "con.sh",
+      "bytes": 421,
+      "sha256": "d63753448608bc87b7ccad98b0899b60861702ff6ed9138b8165fdec385c98ff",
+      "unix_mode": "0o100755"
+    },
+    {
+      "path": "con_file.sh",
+      "bytes": 858,
+      "sha256": "038359240c69fd0f763912b5759326e6a9b89c8949e8889a7c07c37857b838f0",
+      "unix_mode": "0o100755"
+    },
+    {
+      "path": "file_client.c",
+      "bytes": 4997,
+      "sha256": "88527168f29467af7e65dbe8cca54ad3a29a2c0fe2b782404caea4fd89282336",
+      "unix_mode": "0o100664"
+    },
+    {
+      "path": "file_server.c",
+      "bytes": 8903,
+      "sha256": "0e769ebcdc490625c42f057d39c9d9a19f268235eb18ffbf3e69e06e6c754fc0",
+      "unix_mode": "0o100664"
+    },
+    {
+      "path": "generator.sh",
+      "bytes": 593,
+      "sha256": "8e3e0eb1f795a82d88ad1c2c9b19159ae9c2361263add60eed5d2c8d8a1c46b2",
+      "unix_mode": "0o100755"
+    },
+    {
+      "path": "socket_client.c",
+      "bytes": 2628,
+      "sha256": "730c2fcb5dd231837133c779799d647c0d7a0cbf9df8bf8fafcc818216c17eb3",
+      "unix_mode": "0o100664"
+    },
+    {
+      "path": "socket_server.c",
+      "bytes": 5686,
+      "sha256": "58147bfa803d52b0fc9996446be4fedfdffdc38ca4ce7f8034867dcd5ff23b4e",
+      "unix_mode": "0o100664"
+    }
+  ],
+  "self_test": "results/20261015-115947/run.json",
+  "independent_verification": "results/verification-20261015/verification.md",
+  "review_status": "Pending independent Reviewer; assembly is not approval."
+}

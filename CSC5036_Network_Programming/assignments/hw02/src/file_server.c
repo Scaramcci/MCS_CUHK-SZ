@@ -31,27 +31,26 @@ int main() {
     * Create a master socket using socket(); 
     * outputs an error message if it fails.
     */
-/* BEGIN TODO IMPLEMENTATION */
     struct transfer {
         char filename[BUFFER_SIZE];
         size_t header_used;
         FILE *file;
     } transfers[MAX_CLIENTS] = {0};
     master_socket = socket(AF_INET, SOCK_STREAM, 0);
-    if (master_socket < 0) { perror("socket"); return EXIT_FAILURE; }
+    if (master_socket < 0) {
+        perror("socket");
+        return EXIT_FAILURE;
+    }
     memset(&address, 0, sizeof(address));
-/* END TODO IMPLEMENTATION */
     
 
     /* TODO: setsockopt()
     * Use setsockopt() to enable the SO_REUSEADDR option. 
     * The server allows multiple connections on the same local address and port.
     */
-/* BEGIN TODO IMPLEMENTATION */
     if (setsockopt(master_socket, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
         perror("setsockopt"); close(master_socket); return EXIT_FAILURE;
     }
-/* END TODO IMPLEMENTATION */
 
 
     // Type of socket created
@@ -63,22 +62,18 @@ int main() {
     /* TODO: bind()
     * The server should bind to the specified port and address without errors.
     */
-/* BEGIN TODO IMPLEMENTATION */
     if (bind(master_socket, (struct sockaddr *)&address, sizeof(address)) < 0) {
         perror("bind"); close(master_socket); return EXIT_FAILURE;
     }
-/* END TODO IMPLEMENTATION */
 
     printf("Listener on port %d \n", PORT);
     /* TODO: listen()
     * The server listens on the specified port and can queue up to 3 pending 
     * connections for the master socket.
     */
-/* BEGIN TODO IMPLEMENTATION */
     if (listen(master_socket, 3) < 0) {
         perror("listen"); close(master_socket); return EXIT_FAILURE;
     }
-/* END TODO IMPLEMENTATION */
 
     // Accept the incoming connection
     addrlen = sizeof(address);
@@ -93,13 +88,11 @@ int main() {
         * Prepare the poll_fds array for existing connections.
         * Hint: poll_fds[0] is reserved for the listening socket.
         */
-/* BEGIN TODO IMPLEMENTATION */
         for (int i = 0; i < max_clients; i++) {
             poll_fds[i + 1].fd = client_socket[i] ? client_socket[i] : -1;
             poll_fds[i + 1].events = POLLIN;
             poll_fds[i + 1].revents = 0;
         }
-/* END TODO IMPLEMENTATION */
 
         // Wait for some event on one of the sockets with no timeout (NULL)
         poll_count = poll(poll_fds, max_clients + 1, -1);
@@ -114,11 +107,12 @@ int main() {
             /* TODO: accept()
             * Accept a new connection when there is incoming request on the master socket.
             */
-/* BEGIN TODO IMPLEMENTATION */
             socklen_t peer_length = (socklen_t)addrlen;
             new_socket = accept(master_socket, (struct sockaddr *)&address, &peer_length);
-            if (new_socket < 0) { perror("accept"); continue; }
-/* END TODO IMPLEMENTATION */
+            if (new_socket < 0) {
+                perror("accept");
+                continue;
+            }
 
             printf("New connection, socket fd is %d, ip is: %s, port: %d\n",
                    new_socket, inet_ntoa(address.sin_addr), ntohs(address.sin_port));
@@ -126,15 +120,16 @@ int main() {
             /* TODO:
             * Add the new client socket to the client_socket array.
             */
-/* BEGIN TODO IMPLEMENTATION */
             int slot;
             for (slot = 0; slot < max_clients; slot++) {
-                if (client_socket[slot] == 0) { client_socket[slot] = new_socket; break; }
+                if (client_socket[slot] == 0) {
+                    client_socket[slot] = new_socket;
+                    break;
+                }
             }
             if (slot == max_clients) {
                 fprintf(stderr, "Client capacity reached\n"); close(new_socket);
             }
-/* END TODO IMPLEMENTATION */
             
         }
 
@@ -156,7 +151,6 @@ int main() {
                 /* TODO: Read the filename from the client
                 * The client sends the filename first (padded to BUFFER_SIZE)
                 */
-/* BEGIN TODO IMPLEMENTATION */
                 struct transfer *state = &transfers[i];
                 int reading_header = state->header_used < BUFFER_SIZE;
                 char *destination = reading_header ? state->filename + state->header_used : buffer;
@@ -170,12 +164,10 @@ int main() {
                     memset(state, 0, sizeof(*state));
                     continue;
                 }
-/* END TODO IMPLEMENTATION */
 
                 /* TODO: Handle client disconnection
                 * If read returns 0, the client has disconnected
                 */
-/* BEGIN TODO IMPLEMENTATION */
                 if (valread == 0) {
                     if (reading_header) fprintf(stderr, "Client closed before complete filename\n");
                     else printf("File received: %s\n", state->filename);
@@ -184,12 +176,10 @@ int main() {
                     memset(state, 0, sizeof(*state));
                     continue;
                 }
-/* END TODO IMPLEMENTATION */
 
                 /* TODO: Open the file for writing
                 * Use fopen() with "wb" mode for binary write
                 */
-/* BEGIN TODO IMPLEMENTATION */
                 if (reading_header) {
                     state->header_used += (size_t)valread;
                     if (state->header_used < BUFFER_SIZE) continue;
@@ -206,10 +196,9 @@ int main() {
                         memset(state, 0, sizeof(*state)); continue;
                     }
                     printf("Receiving file: %s\n", state->filename);
-                    /* Header and body are separate TCP byte ranges, not packets. */
+                    /* Receive the file contents on the next poll event. */
                     continue;
                 }
-/* END TODO IMPLEMENTATION */
 
                 // Uncomment the following after declaring 'file' and 'filename':
                 // if (!file) {
@@ -221,14 +210,12 @@ int main() {
                 /* TODO: Receive file data from the client and write to file
                 * Loop: read from socket, write to file, until no more data
                 */
-/* BEGIN TODO IMPLEMENTATION */
                 if (fwrite(buffer, 1, (size_t)valread, state->file) != (size_t)valread) {
                     perror("fwrite");
                     if (fclose(state->file) != 0) perror("fclose");
                     close(sd); client_socket[i] = 0;
                     memset(state, 0, sizeof(*state));
                 }
-/* END TODO IMPLEMENTATION */
 
                 // Confirm file save and clean up resources
                 // Uncomment after implementing:

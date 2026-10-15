@@ -1,0 +1,42 @@
+{
+  "CMakeLists.txt": {
+    "original_sha256": "5f43a77465ab4c23703d06a84f317c1639d8709fc4db9a42cdba5c47cad2045f",
+    "current_sha256": "5f43a77465ab4c23703d06a84f317c1639d8709fc4db9a42cdba5c47cad2045f",
+    "outside_todo_identical": true
+  },
+  "con.sh": {
+    "original_sha256": "d63753448608bc87b7ccad98b0899b60861702ff6ed9138b8165fdec385c98ff",
+    "current_sha256": "d63753448608bc87b7ccad98b0899b60861702ff6ed9138b8165fdec385c98ff",
+    "outside_todo_identical": true
+  },
+  "con_file.sh": {
+    "original_sha256": "038359240c69fd0f763912b5759326e6a9b89c8949e8889a7c07c37857b838f0",
+    "current_sha256": "038359240c69fd0f763912b5759326e6a9b89c8949e8889a7c07c37857b838f0",
+    "outside_todo_identical": true
+  },
+  "file_client.c": {
+    "original_sha256": "bc46d1dafa84b24c2723a92c19c6ccafbd644fbc475e23afe8e780d1a5818ee8",
+    "current_sha256": "88527168f29467af7e65dbe8cca54ad3a29a2c0fe2b782404caea4fd89282336",
+    "outside_todo_identical": true
+  },
+  "file_server.c": {
+    "original_sha256": "3ef6e5fa8612ac322a42dd3bb222305f587d4205cca12d98cc31e3a241698607",
+    "current_sha256": "0e769ebcdc490625c42f057d39c9d9a19f268235eb18ffbf3e69e06e6c754fc0",
+    "outside_todo_identical": true
+  },
+  "generator.sh": {
+    "original_sha256": "8e3e0eb1f795a82d88ad1c2c9b19159ae9c2361263add60eed5d2c8d8a1c46b2",
+    "current_sha256": "8e3e0eb1f795a82d88ad1c2c9b19159ae9c2361263add60eed5d2c8d8a1c46b2",
+    "outside_todo_identical": true
+  },
+  "socket_client.c": {
+    "original_sha256": "e4091a1e7c7d8d0bc4019b941134d155596931da03df4ffe976434c179ee290b",
+    "current_sha256": "730c2fcb5dd231837133c779799d647c0d7a0cbf9df8bf8fafcc818216c17eb3",
+    "outside_todo_identical": true
+  },
+  "socket_server.c": {
+    "original_sha256": "78aa929ba848a34751254de2aa23ea5228449ca3333c6cf3002306a358efee03",
+    "current_sha256": "58147bfa803d52b0fc9996446be4fedfdffdc38ca4ce7f8034867dcd5ff23b4e",
+    "outside_todo_identical": true
+  }
+}

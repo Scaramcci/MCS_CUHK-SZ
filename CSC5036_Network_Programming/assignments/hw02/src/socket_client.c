@@ -20,12 +20,13 @@ int main() {
     * Store the result in 'sock' variable
     * Print an error message and exit if it fails
     */
-/* BEGIN TODO IMPLEMENTATION */
 #include <errno.h>
     sock = socket(AF_INET, SOCK_STREAM, 0);
-    if (sock < 0) { perror("socket"); return EXIT_FAILURE; }
+    if (sock < 0) {
+        perror("socket");
+        return EXIT_FAILURE;
+    }
     memset(&serv_addr, 0, sizeof(serv_addr));
-/* END TODO IMPLEMENTATION */
 
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(PORT);
@@ -35,24 +36,20 @@ int main() {
     * Use inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr)
     * Print an error message and exit if conversion fails (returns <= 0)
     */
-/* BEGIN TODO IMPLEMENTATION */
     int converted = inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr);
     if (converted <= 0) {
         if (converted < 0) perror("inet_pton");
         else fprintf(stderr, "Invalid server address\n");
         close(sock); return EXIT_FAILURE;
     }
-/* END TODO IMPLEMENTATION */
     
 
     /* TODO: connect()
     * Connect to the server.
     */
-/* BEGIN TODO IMPLEMENTATION */
     if (connect(sock, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
         perror("connect"); close(sock); return EXIT_FAILURE;
     }
-/* END TODO IMPLEMENTATION */
 
 
     // Send data to the server
@@ -63,7 +60,6 @@ int main() {
     /* TODO: read()
     * Read data from the server into buffer with size BUFFER_SIZE.
     */
-/* BEGIN TODO IMPLEMENTATION */
     size_t received = 0;
     size_t expected = strlen(hello);
     while (received < expected) {
@@ -80,7 +76,6 @@ int main() {
     if (memcmp(buffer, hello, expected) != 0) {
         fprintf(stderr, "Echo does not match\n"); close(sock); return EXIT_FAILURE;
     }
-/* END TODO IMPLEMENTATION */
     printf("Message from server: %s\n", buffer);
 
     // Introduce a delay to keep the connection open
@@ -89,9 +84,10 @@ int main() {
     /* TODO: close()
     * Close the socket.
     */
-/* BEGIN TODO IMPLEMENTATION */
-    if (close(sock) < 0) { perror("close"); return EXIT_FAILURE; }
-/* END TODO IMPLEMENTATION */
+    if (close(sock) < 0) {
+        perror("close");
+        return EXIT_FAILURE;
+    }
 
     return 0;
 }
