@@ -15,9 +15,10 @@ import traceback
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / 'src'
-BUILD = SRC / 'build'
+
 RUN = ROOT / 'results' / time.strftime('%Y%m%d-%H%M%S', time.gmtime())
 RUN.mkdir(parents=True, exist_ok=False)
+BUILD = ROOT / 'local_artifacts' / RUN.name / 'build'
 DATA = ROOT / 'data' / 'raw' / RUN.name
 DATA.mkdir(parents=True)
 EVENTS = []
@@ -139,7 +140,7 @@ try:
         with connect() as s:
             s.sendall(header('../escape.bin'))
             finished(s)
-        assert not (SRC / 'escape.bin').exists()
+        assert not (BUILD.parent / 'escape.bin').exists()
         command([str(BUILD / 'file_client'), str(DATA / 'file2.zip')], BUILD, 'file-after-invalid-peer')
         assert digest(DATA / 'file2.zip') == digest(BUILD / 'file2.zip')
         print('PASS: provided 5 small + 2 large concurrent files, SHA-256, fragmented/coalesced headers, empty file, slow sender, invalid peer recovery', flush=True)

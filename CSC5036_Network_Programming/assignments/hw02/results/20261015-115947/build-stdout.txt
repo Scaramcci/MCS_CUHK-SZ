@@ -1,0 +1,12 @@
+[ 12%] Building C object CMakeFiles/socket_server.dir/socket_server.c.o
+[ 25%] Linking C executable socket_server
+[ 25%] Built target socket_server
+[ 37%] Building C object CMakeFiles/socket_client.dir/socket_client.c.o
+[ 50%] Linking C executable socket_client
+[ 50%] Built target socket_client
+[ 62%] Building C object CMakeFiles/file_server.dir/file_server.c.o
+[ 75%] Linking C executable file_server
+[ 75%] Built target file_server
+[ 87%] Building C object CMakeFiles/file_client.dir/file_client.c.o
+[100%] Linking C executable file_client
+[100%] Built target file_client

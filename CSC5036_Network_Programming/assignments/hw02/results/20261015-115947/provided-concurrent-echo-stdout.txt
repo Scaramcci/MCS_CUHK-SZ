@@ -1,0 +1,92 @@
+Starting 30 concurrent clients...
+Starting client 1
+Starting client 2
+Starting client 3
+Starting client 4
+Starting client 5
+Starting client 6
+Starting client 7
+Starting client 8
+Starting client 9
+Starting client 10
+Starting client 11
+Starting client 12
+Starting client 13
+Starting client 14
+Starting client 15
+Starting client 16
+Starting client 17
+Starting client 18
+Starting client 19
+Starting client 20
+Hello message sent
+Message from server: Hello from client
+Starting client 21
+Hello message sent
+Message from server: Hello from client
+Starting client 22
+Hello message sent
+Message from server: Hello from client
+Starting client 23
+Hello message sent
+Message from server: Hello from client
+Starting client 24
+Hello message sent
+Message from server: Hello from client
+Starting client 25
+Hello message sent
+Message from server: Hello from client
+Starting client 26
+Hello message sent
+Message from server: Hello from client
+Starting client 27
+Hello message sent
+Message from server: Hello from client
+Starting client 28
+Hello message sent
+Message from server: Hello from client
+Starting client 29
+Hello message sent
+Message from server: Hello from client
+Starting client 30
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+Hello message sent
+Message from server: Hello from client
+All 30 clients have finished.

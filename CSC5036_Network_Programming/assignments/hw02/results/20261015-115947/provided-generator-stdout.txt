@@ -1,0 +1,12 @@
+Generating small files (5 x 10MB)...
+Finished generating small files.
+Generating large files (2 x 50MB)...
+Finished generating large files.
+All test files generated successfully!
+-rw-rw-r-- 1 scarramcci scarramcci  48M Oct 15 19:59 bigfile1.zip
+-rw-rw-r-- 1 scarramcci scarramcci  48M Oct 15 19:59 bigfile2.zip
+-rw-rw-r-- 1 scarramcci scarramcci 9.6M Oct 15 19:59 file1.zip
+-rw-rw-r-- 1 scarramcci scarramcci 9.6M Oct 15 19:59 file2.zip
+-rw-rw-r-- 1 scarramcci scarramcci 9.6M Oct 15 19:59 file3.zip
+-rw-rw-r-- 1 scarramcci scarramcci 9.6M Oct 15 19:59 file4.zip
+-rw-rw-r-- 1 scarramcci scarramcci 9.6M Oct 15 19:59 file5.zip

@@ -1,0 +1,82 @@
+{
+  "status": "PASS",
+  "executor": "independent Verifier /root/verify_hw02",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "timestamp_utc": "2026-10-15T12:00:40Z",
+  "command": "python3 results/verification-20261015/verify.py",
+  "events": [
+    {
+      "check": "independent sequential original-byte matching permits additions only after TODO comments",
+      "status": "PASS"
+    },
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/src",
+        "-B",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/results/verification-20261015/build",
+        "-DCMAKE_C_FLAGS=-Wall -Wextra -Wpedantic -Werror"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/results/verification-20261015/build"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/results/verification-20261015/build/socket_client"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "30 concurrent text echo and reset recovery",
+      "status": "PASS"
+    },
+    {
+      "check": "duplicate listener reports bind failure",
+      "status": "PASS",
+      "exit": 1
+    },
+    {
+      "command": [
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/results/verification-20261015/build/file_client",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw02/data/raw/verification-20261015/64MiB.bin"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "64MiB file",
+      "status": "PASS",
+      "size": 67108864,
+      "source_sha256": "281e519df3077b557c6b03f5da83c4e8d397219259615dd7c3308f89cae8f2a6",
+      "received_sha256": "281e519df3077b557c6b03f5da83c4e8d397219259615dd7c3308f89cae8f2a6"
+    },
+    {
+      "check": "empty, fragmented/coalesced header, 30 concurrent binary files, incomplete header, invalid path, RST, fopen error recovery",
+      "status": "PASS"
+    }
+  ],
+  "sha256": {
+    "file_server.c": "0e769ebcdc490625c42f057d39c9d9a19f268235eb18ffbf3e69e06e6c754fc0",
+    "socket_server.c": "58147bfa803d52b0fc9996446be4fedfdffdc38ca4ce7f8034867dcd5ff23b4e",
+    "CMakeLists.txt": "5f43a77465ab4c23703d06a84f317c1639d8709fc4db9a42cdba5c47cad2045f",
+    "file_client.c": "88527168f29467af7e65dbe8cca54ad3a29a2c0fe2b782404caea4fd89282336",
+    "con.sh": "d63753448608bc87b7ccad98b0899b60861702ff6ed9138b8165fdec385c98ff",
+    "con_file.sh": "038359240c69fd0f763912b5759326e6a9b89c8949e8889a7c07c37857b838f0",
+    "socket_client.c": "730c2fcb5dd231837133c779799d647c0d7a0cbf9df8bf8fafcc818216c17eb3",
+    "generator.sh": "8e3e0eb1f795a82d88ad1c2c9b19159ae9c2361263add60eed5d2c8d8a1c46b2"
+  },
+  "gcc": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "cmake": "cmake version 4.2.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).\n",
+  "synthetic_data": {
+    "source": "CSC5036_Network_Programming/assignments/hw02/data/raw/verification-20261015/64MiB.bin",
+    "received": "CSC5036_Network_Programming/assignments/hw02/data/raw/verification-20261015/received/64MiB.bin",
+    "generation": "64 repetitions of bytes(range(256))*4096; deterministic synthetic transfer test only"
+  }
+}

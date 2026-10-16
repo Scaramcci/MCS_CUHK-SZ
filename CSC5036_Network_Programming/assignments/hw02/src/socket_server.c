@@ -31,25 +31,27 @@ int main() {
     * Create a master socket using socket(); 
     * outputs an error message if it fails.
     */
-/* BEGIN TODO IMPLEMENTATION */
 #include <signal.h>
-    /* The original echo send remains unchanged; a peer must not kill the server. */
-    if (signal(SIGPIPE, SIG_IGN) == SIG_ERR) { perror("signal"); return EXIT_FAILURE; }
+    /* Keep running if a client disconnects during send. */
+    if (signal(SIGPIPE, SIG_IGN) == SIG_ERR) {
+        perror("signal");
+        return EXIT_FAILURE;
+    }
     master_socket = socket(AF_INET, SOCK_STREAM, 0);
-    if (master_socket < 0) { perror("socket"); return EXIT_FAILURE; }
+    if (master_socket < 0) {
+        perror("socket");
+        return EXIT_FAILURE;
+    }
     memset(&address, 0, sizeof(address));
-/* END TODO IMPLEMENTATION */
     
 
     /* TODO: setsockopt()
     * Use setsockopt() to enable the SO_REUSEADDR option. 
     * The server allows multiple connections on the same local address and port.
     */
-/* BEGIN TODO IMPLEMENTATION */
     if (setsockopt(master_socket, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
         perror("setsockopt"); close(master_socket); return EXIT_FAILURE;
     }
-/* END TODO IMPLEMENTATION */
 
 
     // Type of socket created
@@ -61,22 +63,18 @@ int main() {
     /* TODO: bind()
     * The server should bind to the specified port and address without errors.
     */
-/* BEGIN TODO IMPLEMENTATION */
     if (bind(master_socket, (struct sockaddr *)&address, sizeof(address)) < 0) {
         perror("bind"); close(master_socket); return EXIT_FAILURE;
     }
-/* END TODO IMPLEMENTATION */
 
     printf("Listener on port %d \n", PORT);
     /* TODO: listen()
     * The server listens on the specified port and can queue up to 3 pending 
     * connections for the master socket.
     */
-/* BEGIN TODO IMPLEMENTATION */
     if (listen(master_socket, 3) < 0) {
         perror("listen"); close(master_socket); return EXIT_FAILURE;
     }
-/* END TODO IMPLEMENTATION */
 
     // Accept the incoming connection
     addrlen = sizeof(address);
@@ -91,13 +89,11 @@ int main() {
         * Prepare the poll_fds array for existing connections.
         * Hint: poll_fds[0] is reserved for the listening socket.
         */
-/* BEGIN TODO IMPLEMENTATION */
         for (int i = 0; i < max_clients; i++) {
             poll_fds[i + 1].fd = client_socket[i] ? client_socket[i] : -1;
             poll_fds[i + 1].events = POLLIN;
             poll_fds[i + 1].revents = 0;
         }
-/* END TODO IMPLEMENTATION */
 
         // Wait for some event on one of the sockets with no timeout (NULL)
         poll_count = poll(poll_fds, max_clients + 1, -1);
@@ -112,11 +108,12 @@ int main() {
             /* TODO: accept()
             * Accept a new connection when there is incoming request on the master socket.
             */
-/* BEGIN TODO IMPLEMENTATION */
             socklen_t peer_length = (socklen_t)addrlen;
             new_socket = accept(master_socket, (struct sockaddr *)&address, &peer_length);
-            if (new_socket < 0) { perror("accept"); continue; }
-/* END TODO IMPLEMENTATION */
+            if (new_socket < 0) {
+                perror("accept");
+                continue;
+            }
 
             printf("New connection, socket fd is %d, ip is: %s, port: %d\n",
                    new_socket, inet_ntoa(address.sin_addr), ntohs(address.sin_port));
@@ -124,15 +121,16 @@ int main() {
             /* TODO:
             * Add the new client socket to the client_socket array.
             */
-/* BEGIN TODO IMPLEMENTATION */
             int slot;
             for (slot = 0; slot < max_clients; slot++) {
-                if (client_socket[slot] == 0) { client_socket[slot] = new_socket; break; }
+                if (client_socket[slot] == 0) {
+                    client_socket[slot] = new_socket;
+                    break;
+                }
             }
             if (slot == max_clients) {
                 fprintf(stderr, "Client capacity reached\n"); close(new_socket);
             }
-/* END TODO IMPLEMENTATION */
             
         }
 
