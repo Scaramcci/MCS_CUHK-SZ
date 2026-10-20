@@ -1,0 +1,100 @@
+% Editable teaching diagrams. Examples reuse Chapters 01--06; no measured data.
+% Requires tikz, amsmath, amssymb; colors are defined by the document preamble.
+\newcommand{\SDtext}[2]{\ifx\SDlang\SDzh #1\else #2\fi}
+\newcommand{\StudyDiagram}[2]{\begingroup
+  \edef\SDlang{#2}\def\SDzh{zh}%
+  \tikzset{sd box/.style={draw=CUHKPurple,rounded corners=3pt,fill=CUHKPurple!4,align=center,inner sep=7pt,font=\fontsize{10}{13}\selectfont},sd arrow/.style={-{Stealth[length=2mm]},thick,draw=CUHKPurple},sd note/.style={align=center,text=Muted,font=\fontsize{9}{12}\selectfont},sd table/.style={draw=Rule,fill=CodeBg,inner sep=6pt,align=center,font=\fontsize{10}{13}\selectfont}}%
+  \csname SDdiagram#1\endcsname
+\endgroup}
+
+\newcommand{\SDdiagramschemas}{%
+\begin{tikzpicture}[node distance=9mm]
+\node[sd box,text width=11.8cm] (e) {\SDtext{外模式：不同用户的视图}{External schemas: different user views}\\\texttt{Student view}\quad|\quad\texttt{Registrar view}};
+\node[sd box,text width=11.8cm,below=of e] (c) {\SDtext{概念模式：整个数据库的逻辑结构}{Conceptual schema: database-wide logical structure}\\\texttt{Student(sid,name,major), Course(...), Enrolment(...)}};
+\node[sd box,text width=11.8cm,below=of c] (i) {\SDtext{内模式：文件、页、索引与存储组织}{Internal schema: files, pages, indexes and storage organization}};
+\draw[sd arrow] (e)--(c);\draw[sd arrow] (c)--(i);
+\node[sd note,below=8mm of i,text width=12.6cm] {\SDtext{逻辑独立性：改变概念模式，保持外模式及应用不变。\\物理独立性：改变内模式，保持概念模式不变。}{Logical independence: change conceptual schema; preserve external schemas/applications.\\Physical independence: change internal schema; preserve conceptual schema.}};
+\end{tikzpicture}}
+
+\newcommand{\SDdiagramdbms}{%
+\begin{tikzpicture}[node distance=7mm]
+\node[sd box,text width=11cm] (a) {\SDtext{用户／应用程序}{User / application}\quad\texttt{SELECT ...}};
+\node[sd box,text width=11cm,below=of a] (q) {\SDtext{查询处理器：解析、优化、执行}{Query processor: parse, optimize, execute}};
+\node[sd box,text width=11cm,below=of q] (s) {\SDtext{存储管理器：缓冲区、文件与索引访问}{Storage manager: buffers, files and index access}};
+\node[sd box,text width=11cm,below=of s] (d) {\SDtext{数据库文件＋系统目录（元数据）}{Database files + system catalog (metadata)}};
+\draw[sd arrow] (a)--(q);\draw[sd arrow] (q)--(s);\draw[sd arrow] (s)--(d);
+\node[sd note,text width=12cm,below=7mm of d] {\SDtext{简化的概念流程；权限、完整性、并发与恢复机制贯穿请求处理。}{Simplified conceptual flow; authorization, integrity, concurrency and recovery support request handling.}};
+\end{tikzpicture}}
+
+\newcommand{\SDdiagramweak}{%
+\begin{tikzpicture}[node distance=10mm]
+\node[sd box,text width=11.4cm] (b) {\textbf{Building}\quad\SDtext{完整键}{Full key}: $\{buildingID\}$};
+\node[sd box,text width=11.4cm,below=of b] (r) {\textbf{Room}\quad\SDtext{局部键}{Partial key}: $\{roomNo\}$\\\SDtext{完整键}{Full key}: $\{buildingID,roomNo\}$};
+\node[sd box,text width=11.4cm,below=of r] (d) {\textbf{Desk}\quad\SDtext{局部键}{Partial key}: $\{deskNo\}$\\\SDtext{完整键}{Full key}: $\{buildingID,roomNo,deskNo\}$};
+\draw[sd arrow] (b)-- node[right,sd note]{\SDtext{继承所有者的完整键}{Carry owner's full key}} (r);
+\draw[sd arrow] (r)-- node[right,sd note]{\SDtext{继承所有者的完整键}{Carry owner's full key}} (d);
+\node[sd note,text width=12.6cm,below=7mm of d] {\SDtext{自编示例。房号只在楼内唯一，桌号只在房间内唯一。\\Desk 的外键为 $(buildingID,roomNo)$，不能只保留 $roomNo$。}{Original example. Room numbers are local to a building; desk numbers are local to a room.\\Desk references Room with $(buildingID,roomNo)$, not $roomNo$ alone.}};
+\end{tikzpicture}}
+
+\newcommand{\SDdiagramintegrity}{%
+\begin{tikzpicture}
+\node[sd table] (s) at (0,0) {\textbf{Student}\\\begin{tabular}{cc}\underline{sid}&name\\\hline S01&Amy\\S02&Ben\end{tabular}};
+\node[sd table] (e) at (7.3,0) {\textbf{Enrolment}\\\begin{tabular}{cc}\underline{sid}&\underline{cid}\\\hline S01&C01\\S01&C02\end{tabular}};
+\draw[sd arrow] (e.west)-- node[above,sd note]{\texttt{FK: sid $\to$ sid}} (s.east);
+\node[sd note,text width=4.6cm] at (0,-2.15) {\SDtext{主键：唯一且非空}{Primary key: unique and non-NULL}\\$PK(Student)=\{sid\}$};
+\node[sd note,text width=6cm] at (7.3,-2.15) {\SDtext{复合主键：整组唯一；sid 可以重复}{Composite PK: pair unique; sid may repeat}\\$PK(Enrolment)=\{sid,cid\}$};
+\node[sd box,text width=11.7cm] at (3.6,-4.1) {$\pi_{sid}(Enrolment)\subseteq\pi_{sid}(Student)$\\\SDtext{本例 sid 属于主键，故非空；一般外键是否可空取决于约束。}{Here sid is part of the PK, so non-NULL; a general FK's nullability depends on constraints.}};
+\node[sd note,text width=12cm] at (3.6,-5.7) {\SDtext{自编示例；仅展示 sid 引用。cid 还需引用 Course 的键。}{Original example; only the sid reference is shown. cid must also reference Course's key.}};
+\end{tikzpicture}}
+
+\newcommand{\SDdiagrammapping}{%
+\begin{tikzpicture}
+\node[sd box,text width=11.8cm] (a) at (0,0) {\textbf{1:N}\quad\texttt{Department}\ $1\;\text{---}\;N$\ \texttt{Employee}\\\texttt{Department(\underline{deptID}, name)}\\\texttt{Employee(\underline{empID}, name, deptID)}};
+\node[sd note,text width=12cm] at (0,-1.65) {$Employee.deptID\longrightarrow Department.deptID$\\\SDtext{外键放 N 侧；若 Employee 全参与，再加 NOT NULL。}{Place FK on the N side; add NOT NULL if Employee participation is total.}};
+\node[sd box,text width=11.8cm] (b) at (0,-3.45) {\textbf{M:N}\quad\texttt{Student}\ $M\;\text{---}\;N$\ \texttt{Course}\\\texttt{Enrolment(\underline{sid}, \underline{cid})}\quad $PK=\{sid,cid\}$};
+\node[sd note,text width=12cm] at (0,-5) {$Enrolment.sid\to Student.sid\qquad Enrolment.cid\to Course.cid$\\\SDtext{建立关联关系；关系属性也放在此处。外键本身不保证两端全参与。}{Create an association relation; put relationship attributes here. FKs alone do not ensure total participation.}};
+\node[sd note,text width=12cm] at (0,-6.1) {\SDtext{自编简化示例；假设同一学生与课程最多关联一次。}{Original simplified example; assume at most one association per student--course pair.}};
+\end{tikzpicture}}
+
+\newcommand{\SDdiagramoperators}{%
+\begin{tikzpicture}
+\node[sd table] (c) at (0,0) {\textbf{Course}\\\begin{tabular}{ccc}cid&dept&credits\\\hline C1&CS&4\\C2&CS&3\\C3&Math&4\end{tabular}};
+\node[sd table] (s) at (7.6,1.3) {\begin{tabular}{ccc}cid&dept&credits\\\hline C1&CS&4\end{tabular}};
+\node[sd table] (p) at (7.6,-1.4) {\begin{tabular}{c}dept\\\hline CS\\Math\end{tabular}};
+\draw[sd arrow] (c.north east)--node[above,sloped,sd note]{$\sigma_{dept='CS'\,\land\,credits>3}$}(s.west);
+\draw[sd arrow] (c.south east)--node[below,sloped,sd note]{$\pi_{dept}$}(p.west);
+\node[sd note,text width=12cm] at (3.6,-3) {\SDtext{选择：筛行，保留所有列。投影：选列，并消除重复。\\采用第 05 章数据；为图示省略 title 列。}{Selection: filter rows, keep all columns. Projection: retain columns and eliminate duplicates.\\Chapter 05 data; the title column is omitted for display.}};
+\end{tikzpicture}}
+
+\newcommand{\SDdiagramdivision}{%
+\begin{tikzpicture}
+\node[sd table] at (0,0) {\textbf{Takes}\quad$R(sid,cid)$\\\begin{tabular}{cc}sid&cid\\\hline S1&C1\\S1&C2\\S2&C1\\S2&C3\\S3&C3\end{tabular}};
+\node[sd table] at (4.25,0.6) {\textbf{Target}\quad$S(cid)$\\\begin{tabular}{c}cid\\\hline C1\\C2\end{tabular}};
+\node[sd table] at (9,0.6) {\SDtext{结果}{Result}\quad$R\div S$\\\begin{tabular}{c}sid\\\hline S1\end{tabular}};
+\draw[sd arrow] (5.95,0.6)--node[above,sd note]{$\forall cid\in S$}(7.4,0.6);
+\node[sd box,text width=11.8cm] at (4.4,-2.6) {$R\div S=\{s\in\pi_{sid}(R)\mid\forall c\in S,\ (s,c)\in R\}$\\\SDtext{覆盖每一门目标课程；允许额外课程；重复不能弥补缺项。}{Cover every target course; extra courses are allowed; duplicates cannot fill a gap.}};
+\node[sd note,text width=12cm] at (4.4,-4) {\SDtext{沿用第 05 章数据。S2 缺 C2；S3 缺 C1、C2。\\候选来自 $\pi_{sid}(R)$，因此 S4 不在除法的候选域内。}{Chapter 05 data. S2 lacks C2; S3 lacks C1 and C2.\\Candidates come from $\pi_{sid}(R)$, so S4 is outside this division's candidate domain.}};
+\end{tikzpicture}}
+
+\newcommand{\SDdiagramsqlflow}{%
+\begin{tikzpicture}[node distance=5mm]
+\node[sd box,text width=10.6cm] (f) {\texttt{FROM / JOIN}\quad\SDtext{形成输入行}{Form input rows}};
+\node[sd box,text width=10.6cm,below=of f] (w) {\texttt{WHERE}\quad\SDtext{筛选行：只保留 TRUE}{Filter rows: retain TRUE only}};
+\node[sd box,text width=10.6cm,below=of w] (g) {\texttt{GROUP BY / aggregation}\quad\SDtext{形成组并聚合}{Form groups and aggregate}};
+\node[sd box,text width=10.6cm,below=of g] (h) {\texttt{HAVING}\quad\SDtext{筛选组：只保留 TRUE}{Filter groups: retain TRUE only}};
+\node[sd box,text width=10.6cm,below=of h] (s) {\texttt{SELECT $\to$ DISTINCT $\to$ ORDER BY}\quad\SDtext{输出}{Output}};
+\draw[sd arrow] (f)--(w);\draw[sd arrow] (w)--(g);\draw[sd arrow] (g)--(h);\draw[sd arrow] (h)--(s);
+\node[sd note,text width=12.1cm,below=6mm of s] {\SDtext{普通查询的逻辑阶段，不是强制的物理执行顺序。\\WHERE 不能直接使用同层的 AVG(score)；HAVING 可筛选聚合结果。}{Logical stages for ordinary queries, not a mandatory physical execution order.\\WHERE cannot directly use same-level AVG(score); HAVING can filter aggregate results.}};
+\end{tikzpicture}}
+
+\newcommand{\SDdiagramnull}{%
+\begin{tikzpicture}
+\node[sd box,text width=11.5cm] at (0,1.5) {\texttt{WHERE score >= 80}};
+\node[sd table] (t) at (-4,0) {$score=90$\\\textbf{TRUE}};
+\node[sd table] (f) at (0,0) {$score=60$\\\textbf{FALSE}};
+\node[sd table] (u) at (4,0) {$score=\mathrm{NULL}$\\\textbf{UNKNOWN}};
+\node[sd box] (keep) at (-4,-1.8) {\SDtext{保留}{Retain}};
+\node[sd box] (reject) at (2,-1.8) {\SDtext{舍弃}{Reject}};
+\draw[sd arrow] (t)--(keep);\draw[sd arrow] (f)--(reject);\draw[sd arrow] (u)--(reject);
+\node[sd note,text width=12cm] at (0,-3.1) {\SDtext{FALSE 与 UNKNOWN 是不同逻辑值，但 WHERE 都不保留。\\检查空值应使用 IS NULL，而非 = NULL。数值为自编示例。}{FALSE and UNKNOWN differ logically, but WHERE retains neither.\\Use IS NULL to test for NULL, not = NULL. Numbers are original teaching examples.}};
+\end{tikzpicture}}

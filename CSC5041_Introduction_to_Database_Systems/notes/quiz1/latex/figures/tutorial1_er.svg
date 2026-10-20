@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1780" viewBox="0 0 2400 1780" role="img" aria-labelledby="title desc"><title id="title">Tutorial 1 veterinary clinic ER model</title><desc id="desc">Six entities, seven relationships. Pet and Treatment are weak entities. Both identifying relationships have double diamonds. Keys, partial keys, all attributes, cardinality labels and participation lines are shown. MANAGES is a subset of EMPLOYS.</desc><style>text{font-family:Arial,Helvetica,sans-serif;font-size:35px;fill:#182a3a;text-anchor:middle;dominant-baseline:middle}.shape{fill:white;stroke:#182a3a;stroke-width:2.4}.line{fill:none;stroke:#182a3a;stroke-width:2.4}.small{font-size:30px}</style><rect width="2400" height="1780" fill="white"/>
+<text x="1200" y="35" class="">Tutorial 1: Veterinary Clinic Chain</text>
+<text x="1200" y="75" class="small">Chen notation; MANAGES ⊆ EMPLOYS (same clinic and veterinarian).</text>
+<line x1="553.8666154359304" y1="281.1639291677644" x2="773.8666154359304" y2="216.1639291677644" class="line"/>
+<line x1="556.1333845640696" y1="288.8360708322356" x2="776.1333845640696" y2="223.8360708322356" class="line"/>
+<line x1="1026.1333845640695" y1="216.1639291677644" x2="1246.1333845640695" y2="281.1639291677644" class="line"/>
+<line x1="1023.8666154359304" y1="223.8360708322356" x2="1243.8666154359305" y2="288.8360708322356" class="line"/>
+<line x1="556.9760376304381" y1="321.52217377042894" x2="776.9760376304381" y2="446.52217377042894" class="line"/>
+<line x1="553.0239623695619" y1="328.47782622957106" x2="773.0239623695619" y2="453.47782622957106" class="line"/>
+<line x1="1025" y1="450" x2="1245" y2="325" class="line"/>
+<line x1="450" y1="345" x2="450" y2="545" class="line"/>
+<line x1="454.0" y1="655.0" x2="454.0" y2="805.0" class="line"/>
+<line x1="446.0" y1="655.0" x2="446.0" y2="805.0" class="line"/>
+<line x1="454.0" y1="895.0" x2="454.0" y2="1065.0" class="line"/>
+<line x1="446.0" y1="895.0" x2="446.0" y2="1065.0" class="line"/>
+<line x1="454.0" y1="1175.0" x2="454.0" y2="1355.0" class="line"/>
+<line x1="446.0" y1="1175.0" x2="446.0" y2="1355.0" class="line"/>
+<line x1="555" y1="1400" x2="760" y2="1400" class="line"/>
+<line x1="1040.0" y1="1396.0" x2="1245.0" y2="1396.0" class="line"/>
+<line x1="1040.0" y1="1404.0" x2="1245.0" y2="1404.0" class="line"/>
+<line x1="1350" y1="345" x2="1350" y2="795" class="line"/>
+<line x1="1354.0" y1="905.0" x2="1354.0" y2="1355.0" class="line"/>
+<line x1="1346.0" y1="905.0" x2="1346.0" y2="1355.0" class="line"/>
+<line x1="1455" y1="1370" x2="1675" y2="1120" class="line"/>
+<line x1="1925" y1="1120" x2="2000" y2="1120" class="line"/>
+<line x1="2000" y1="1120" x2="2000" y2="895" class="line"/>
+<line x1="450" y1="255" x2="450" y2="145" class="line"/>
+<line x1="345" y1="280" x2="150" y2="200" class="line"/>
+<line x1="345" y1="325" x2="150" y2="400" class="line"/>
+<line x1="150" y1="434" x2="90" y2="520" class="line"/>
+<line x1="150" y1="434" x2="200" y2="570" class="line"/>
+<line x1="150" y1="434" x2="310" y2="520" class="line"/>
+<line x1="1350" y1="255" x2="1350" y2="145" class="line"/>
+<line x1="1455" y1="275" x2="1650" y2="150" class="line"/>
+<line x1="1455" y1="300" x2="1680" y2="300" class="line"/>
+<line x1="1455" y1="325" x2="1650" y2="450" class="line"/>
+<line x1="555" y1="825" x2="700" y2="700" class="line"/>
+<line x1="345" y1="825" x2="150" y2="780" class="line"/>
+<line x1="345" y1="850" x2="150" y2="900" class="line"/>
+<line x1="345" y1="875" x2="150" y2="1020" class="line"/>
+<line x1="345" y1="1375" x2="170" y2="1320" class="line"/>
+<line x1="345" y1="1400" x2="150" y2="1460" class="line"/>
+<line x1="345" y1="1425" x2="180" y2="1570" class="line"/>
+<line x1="450" y1="1445" x2="450" y2="1650" class="line"/>
+<line x1="1350" y1="1445" x2="1350" y2="1600" class="line"/>
+<line x1="1455" y1="1370" x2="1650" y2="1320" class="line"/>
+<line x1="1455" y1="1400" x2="1650" y2="1450" class="line"/>
+<line x1="1455" y1="1430" x2="1650" y2="1580" class="line"/>
+<line x1="2000" y1="805" x2="2000" y2="650" class="line"/>
+<line x1="2105" y1="825" x2="2250" y2="780" class="line"/>
+<line x1="2105" y1="875" x2="2240" y2="920" class="line"/>
+<line x1="1875" y1="1142" x2="2000" y2="1270" class="line"/>
+<rect x="345.0" y="255.0" width="210" height="90" class="shape"/>
+<text x="450" y="300" class="">Clinic</text>
+<rect x="1245.0" y="255.0" width="210" height="90" class="shape"/>
+<text x="1350" y="300" class="">Veterinarian</text>
+<rect x="345.0" y="805.0" width="210" height="90" class="shape"/>
+<text x="450" y="850" class="">Owner</text>
+<rect x="345.0" y="1355.0" width="210" height="90" class="shape"/>
+<rect x="352.0" y="1362.0" width="196" height="76" class="shape"/>
+<text x="450" y="1400" class="">Pet</text>
+<rect x="1245.0" y="1355.0" width="210" height="90" class="shape"/>
+<rect x="1252.0" y="1362.0" width="196" height="76" class="shape"/>
+<text x="1350" y="1400" class="">Treatment</text>
+<rect x="1895.0" y="805.0" width="210" height="90" class="shape"/>
+<text x="2000" y="850" class="">Medication</text>
+<polygon points="900,165.0 1025.0,220 900,275.0 775.0,220" class="shape"/>
+<text x="900" y="220" class="small">EMPLOYS</text>
+<polygon points="900,395.0 1025.0,450 900,505.0 775.0,450" class="shape"/>
+<text x="900" y="450" class="small">MANAGES</text>
+<polygon points="450,545.0 575.0,600 450,655.0 325.0,600" class="shape"/>
+<text x="450" y="600" class="small">REGISTERS</text>
+<polygon points="450,1065.0 575.0,1120 450,1175.0 325.0,1120" class="shape"/>
+<polygon points="450,1072.0 560.0,1120 450,1168.0 340.0,1120" class="shape"/>
+<text x="450" y="1120" class="small">OWNS</text>
+<polygon points="900,1345.0 1040.0,1400 900,1455.0 760.0,1400" class="shape"/>
+<polygon points="900,1352.0 1025.0,1400 900,1448.0 775.0,1400" class="shape"/>
+<text x="900" y="1400" class="small" style="font-size:24px">HAS_TREATMENT</text>
+<polygon points="1350,795.0 1475.0,850 1350,905.0 1225.0,850" class="shape"/>
+<text x="1350" y="850" class="small">PERFORMS</text>
+<polygon points="1800,1065.0 1925.0,1120 1800,1175.0 1675.0,1120" class="shape"/>
+<text x="1800" y="1120" class="small">USES</text>
+<text x="630" y="240" class="">1</text>
+<text x="1170" y="240" class="">N</text>
+<text x="630" y="400" class="">1</text>
+<text x="1170" y="400" class="">1</text>
+<text x="480" y="470" class="">1</text>
+<text x="480" y="735" class="">N</text>
+<text x="480" y="995" class="">1</text>
+<text x="480" y="1260" class="">N</text>
+<text x="660" y="1365" class="">1</text>
+<text x="1140" y="1365" class="">N</text>
+<text x="1380" y="570" class="">1</text>
+<text x="1380" y="1170" class="">N</text>
+<text x="1535" y="1240" class="">M</text>
+<text x="2040" y="1030" class="">N</text>
+<ellipse cx="450" cy="145" rx="84" ry="34" class="shape"/>
+<text x="450" y="145" class="">clinicID</text>
+<line x1="396.4" y1="161" x2="503.6" y2="161" stroke="#182a3a" stroke-width="2"/>
+<ellipse cx="150" cy="200" rx="80" ry="34" class="shape"/>
+<text x="150" y="200" class="">phone</text>
+<ellipse cx="150" cy="400" rx="80" ry="34" class="shape"/>
+<text x="150" y="400" class="">address</text>
+<ellipse cx="90" cy="520" rx="80" ry="34" class="shape"/>
+<text x="90" y="520" class="">city</text>
+<ellipse cx="200" cy="570" rx="80" ry="34" class="shape"/>
+<text x="200" y="570" class="">street</text>
+<ellipse cx="310" cy="520" rx="84" ry="34" class="shape"/>
+<text x="310" y="520" class="">postcode</text>
+<ellipse cx="1350" cy="145" rx="80" ry="34" class="shape"/>
+<text x="1350" y="145" class="">empID</text>
+<line x1="1316.5" y1="161" x2="1383.5" y2="161" stroke="#182a3a" stroke-width="2"/>
+<ellipse cx="1650" cy="150" rx="80" ry="34" class="shape"/>
+<text x="1650" y="150" class="">name</text>
+<ellipse cx="1680" cy="300" rx="132" ry="34" class="shape"/>
+<text x="1680" y="300" class="">specialisation</text>
+<ellipse cx="1650" cy="450" rx="80" ry="34" class="shape"/>
+<text x="1650" y="450" class="">salary</text>
+<ellipse cx="700" cy="700" rx="80" ry="34" class="shape"/>
+<text x="700" y="700" class="">ownerID</text>
+<line x1="653.1" y1="716" x2="746.9" y2="716" stroke="#182a3a" stroke-width="2"/>
+<ellipse cx="150" cy="780" rx="80" ry="34" class="shape"/>
+<text x="150" y="780" class="">name</text>
+<ellipse cx="150" cy="900" rx="80" ry="34" class="shape"/>
+<text x="150" y="900" class="">phone</text>
+<ellipse cx="150" cy="1020" rx="80" ry="34" class="shape"/>
+<text x="150" y="1020" class="">email</text>
+<ellipse cx="170" cy="1320" rx="80" ry="34" class="shape"/>
+<text x="170" y="1320" class="">petNo</text>
+<line x1="136.5" y1="1336" x2="203.5" y2="1336" stroke="#182a3a" stroke-width="2" stroke-dasharray="7 5"/>
+<ellipse cx="150" cy="1460" rx="80" ry="34" class="shape"/>
+<text x="150" y="1460" class="">name</text>
+<ellipse cx="180" cy="1570" rx="80" ry="34" class="shape"/>
+<text x="180" y="1570" class="">species</text>
+<ellipse cx="450" cy="1650" rx="108" ry="34" class="shape"/>
+<text x="450" y="1650" class="">dateOfBirth</text>
+<ellipse cx="1350" cy="1600" rx="108" ry="34" class="shape"/>
+<text x="1350" y="1600" class="">treatmentNo</text>
+<line x1="1276.3" y1="1616" x2="1423.7" y2="1616" stroke="#182a3a" stroke-width="2" stroke-dasharray="7 5"/>
+<ellipse cx="1650" cy="1320" rx="80" ry="34" class="shape"/>
+<text x="1650" y="1320" class="">date</text>
+<ellipse cx="1650" cy="1450" rx="92" ry="34" class="shape"/>
+<text x="1650" y="1450" class="">diagnosis</text>
+<ellipse cx="1650" cy="1580" rx="80" ry="34" class="shape"/>
+<text x="1650" y="1580" class="">fee</text>
+<ellipse cx="2000" cy="650" rx="80" ry="34" class="shape"/>
+<text x="2000" y="650" class="">medCode</text>
+<line x1="1953.1" y1="666" x2="2046.9" y2="666" stroke="#182a3a" stroke-width="2"/>
+<ellipse cx="2250" cy="780" rx="80" ry="34" class="shape"/>
+<text x="2250" y="780" class="">name</text>
+<ellipse cx="2240" cy="920" rx="92" ry="34" class="shape"/>
+<text x="2240" y="920" class="">unitPrice</text>
+<ellipse cx="2000" cy="1270" rx="84" ry="34" class="shape"/>
+<text x="2000" y="1270" class="">quantity</text>
+<text x="1200" y="1720" class="small">Double line = total participation; single line = partial participation.</text>
+<text x="1200" y="1755" class="small">Double rectangle/diamond = weak entity/identifying relationship; dashed underline = partial key.</text>
+</svg>

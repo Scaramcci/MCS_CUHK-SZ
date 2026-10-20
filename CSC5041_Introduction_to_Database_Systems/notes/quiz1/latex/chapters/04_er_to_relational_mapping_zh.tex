@@ -1,0 +1,533 @@
+\clearpage
+\section{04 ER 到关系模式的映射：中文学习笔记}\label{04_er_to_relational_mapping_zh}
+
+CSC5041 · 第一次课堂测验复习 · 2026-10-19
+
+\subsection{阅读说明与学习目标}\label{04_er_to_relational_mapping_zh-ux9605ux8bfbux8bf4ux660eux4e0eux5b66ux4e60ux76eeux6807}
+
+本篇连接 \hyperref[02_er_modelling_zh]{02 ER 概念建模} 与 \hyperref[03_relational_model_and_integrity_zh]{03 关系模型与完整性约束}：把 ER 图中的含义转成关系模式，并检查哪些约束已经保留、哪些仍需另行表达。
+
+主要来源为教师 \href{../../../slides/Lecture2A.pptx}{Lecture2A.pptx} 第 33--56 页，对应教学计划第 1 页 Week 3 的 ``ER-to-relational mapping''。下文未注明文件的页码均按该 PPT 的幻灯片顺序计数。Tutorial 1 第 1 页 Question 1(c)--(d) 分别要求写关系模式、说明哪些关系独立成表，以及识别仅靠键与外键不能表达的约束。
+
+学完后，应能应用七步映射，明确主键、完整外键组、关系属性位置、唯一性与非空要求。本篇只写逻辑模式与约束，不提前讲 SQL 查询或规范化算法；例子是课件重述或明确标注的自编示例，不是数据库运行结果或整套 Tutorial 答案。
+
+\subsection{1. 映射的输入、输出与记号}\label{04_er_to_relational_mapping_zh-ux6620ux5c04ux7684ux8f93ux5165ux8f93ux51faux4e0eux8bb0ux53f7}
+
+来源：第 33、54--56 页；约束含义衔接 03。
+
+\begin{StudyCode}
+输入：实体、属性、键、关系、基数、参与约束及文字业务规则
+  ↓ ER-to-relational mapping
+输出：关系模式 + 主键 + 外键组 + 唯一性/非空要求 + 其他约束说明
+\end{StudyCode}
+
+本篇使用下列可读性记号，\textbf{不是完整 SQL 建表代码}：
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+记号 & 含义 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{R(\allowbreak{}a,\allowbreak{}\ b,\allowbreak{}\ c)\allowbreak{}} & 关系 R 的属性列表 \\
+\texttt{PK\{a,b\}} & a、b 合在一起是一个复合主键，不是两个主键 \\
+\texttt{FK\{a,b\}\ →\ S\{x,y\}} & 一组复合外键，a 对应 x、b 对应 y \\
+\texttt{UNIQUE\{a\}} & 非空的 a 值不能在不同行重复，用于保留相应唯一性 \\
+\texttt{NOT\ NULL\{a,b\}} & a 和 b 都必须有值 \\
+\end{longtable}
+
+主键本身已要求唯一且每个组成属性非空。可空的 UNIQUE 记号在此只表达已存在关联不能重复，不规定各 SQL 产品如何处理 NULL；具体实现留到 06。
+
+Tutorial 1(c) 要求\textbf{主键下划线、外键属性加星号}；正式作答应按题面标记，并另列复合外键的分组及目标。仅写几个星号不能说明哪些列合成一组引用。
+
+\Needspace{11cm}
+\subsection{2. 七步映射总览}\label{04_er_to_relational_mapping_zh-ux4e03ux6b65ux6620ux5c04ux603bux89c8}
+
+\StudyVisual{mapping}{zh}
+
+来源：第 35、38、41、44、47、50、53--55 页。
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+课件步骤
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+输入结构
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+基本输出
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+主键/约束重点
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & 强实体 & 每个强实体一个关系 & 保留选定实体键，展开复合属性 \\
+2 & 弱实体 & 弱实体关系，含所有者完整键 & 所有者键 + 部分键 \\
+3 & 二元 1:1 关系 & 通常把一端键加入另一端 & 外键还需唯一性；全参与端考虑非空 \\
+4 & 二元 1:N 关系 & 将 1 端键加入 N 端 & N 端外键；关系属性也放 N 端 \\
+5 & 二元 M:N 关系 & 新建联系关系 & 两端完整键的组合通常作为主键 \\
+6 & 多值属性 & 新建属性关系 & 所有者键 + 属性值的各简单组成部分 \\
+7 & n 元关系，n \textgreater{} 2 & 新建联系关系 & 先收集各参与者键，再按语义确定最小标识 \\
+\end{longtable}
+
+顺序上先确定实体的完整标识，再处理普通关系和多值属性。\textbf{不是``每个菱形都必须建表''}，也不是``每个关系都只需一个外键''。唯一性、非空及覆盖要求必须结合原图回读。
+
+\textbf{独立联系关系中的每条元组都必须有全部参与者。} 各参与角色的键都应非空；已包含在主键中的部分自动非空，其余部分要明确声明。实体的部分参与通过没有对应联系行表示，不通过在一条联系行中把某个参与者写成 NULL 表示。
+
+\subsection{3. Step 1：强实体与普通属性}\label{04_er_to_relational_mapping_zh-step-1ux5f3aux5b9eux4f53ux4e0eux666eux901aux5c5eux6027}
+
+来源：第 35--37 页；派生属性含义见 02 的 ER 课件第 22--23 页。
+
+对强实体 E 建关系 R：加入所有简单属性，将复合属性展开为简单组成部分；以 E 选定的键作为 R 的主键。其他候选键的唯一性也应保留，不能因选了一个主键就丢掉其他标识规则。
+
+\textbf{自编例子}：Student 的键为 sid，email 也唯一；有复合属性 address(city,street,postcode)、多值属性 phone、存储属性 dateOfBirth 和派生属性 age。
+
+\begin{StudyCode}
+Student(sid, name, email, city, street, postcode, dateOfBirth)
+PK{sid}; UNIQUE{email}
+\end{StudyCode}
+
+若 email 在需求中必填，再明确非空。这里只处理普通属性：
+
+\begin{itemize}
+\tightlist
+\item
+  address 展开成三个属性，不同时再机械保留一个重复的 address 列。
+\item
+  phone 不放进单个集合单元格，也不预设 phone1、phone2；Step 6 另处理。
+\item
+  age 按本课 ER 例子的派生含义由 dateOfBirth 与参考日期计算，不默认重复存储。若另有物化需求，应作为额外设计选择说明。
+\item
+  若实体键本身是复合的，复制到其他关系时必须复制其全部组成属性。
+\end{itemize}
+
+\subsection{4. Step 2：弱实体与标识关系}\label{04_er_to_relational_mapping_zh-step-2ux5f31ux5b9eux4f53ux4e0eux6807ux8bc6ux5173ux7cfb}
+
+来源：第 38--40 页。
+
+对弱实体 W 建关系：加入 W 的简单属性及复合属性的简单组成部分；加入所有者的完整主键作为外键；以\textbf{所有者主键 + W 的部分键}作主键。
+
+\begin{StudyCode}
+Employee(empID, name)                       PK{empID}
+Dependent(empID, dependentName, dateOfBirth, kinship)
+  PK{empID, dependentName}
+  FK{empID} → Employee{empID}
+\end{StudyCode}
+
+这是对课件 Dependent 例子的统一命名重述。dependentName 只在同一 Employee 内唯一，不能单独作 Dependent 的主键。empID 同时是主键组成部分和外键；其非空性与弱实体必须有所有者相对应。
+
+标识关系通常不另建一个只重复这些键的关系。若标识关系还有属性，在本例``每个弱实体恰好一个所有者''的条件下，可随联系一起放到弱实体关系中。
+
+\subsubsection{所有者也是弱实体时}\label{04_er_to_relational_mapping_zh-ux6240ux6709ux8005ux4e5fux662fux5f31ux5b9eux4f53ux65f6}
+
+\textbf{自编例子}：Room 在 Building 内按 roomNo 编号，Desk 在 Room 内按 deskNo 编号。
+
+\begin{StudyCode}
+Building(buildingID, name)                 PK{buildingID}
+Room(buildingID, roomNo, floor)
+  PK{buildingID, roomNo}; FK{buildingID} → Building{buildingID}
+Desk(buildingID, roomNo, deskNo)
+  PK{buildingID, roomNo, deskNo}
+  FK{buildingID,roomNo} → Room{buildingID,roomNo}
+\end{StudyCode}
+
+Desk 对 Room 的引用是两属性外键；只复制 roomNo 会失去楼宇上下文。不要为``看起来像弱实体''而另外发明一个全局 ID，随后省略题目原有的局部唯一性要求。
+
+\subsection{5. Step 3：二元 1:1 关系}\label{04_er_to_relational_mapping_zh-step-3ux4e8cux5143-11-ux5173ux7cfb}
+
+来源：第 41--43 页；以下显式唯一性与覆盖检查是对映射语义的补充。
+
+设 S、T 是两端实体的关系。通常在其中一端加入另一端的完整主键作为外键，同时加入关系属性。课件建议：若一端全参与，优先把外键放在该端。
+
+\textbf{自编例子}：每个 Department 必须由恰好一个 Employee 管理；一个 Employee 最多管理一个 Department。MANAGES 还有 startDate。
+
+\begin{StudyCode}
+Employee(empID, name)                      PK{empID}
+Department(deptID, name, managerID, managerStartDate)
+  PK{deptID}
+  FK{managerID} → Employee{empID}
+  UNIQUE{managerID}; NOT NULL{managerID}
+\end{StudyCode}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+要保留的含义 & 哪条规则表达？ \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+管理者必须是已存在的 Employee & 外键 \\
+每个 Department 恰好有一个管理者 & 单值 managerID + 非空 + 外键 \\
+一个 Employee 最多管理一个 Department & managerID 唯一性 \\
+管理起始日期描述这组管理联系 & 放在携带管理外键的 Department 关系中 \\
+\end{longtable}
+
+\textbf{只有外键而没有 UNIQUE，会允许多个部门选择同一个管理员，退化成 N:1。} 第 41 页未展开所有约束声明，不能因此省略 1:1 的语义检查。关系属性是否必填要另看需求，不由``关系全参与''自动决定。
+
+\subsubsection{两端都是部分参与，或需要联系关系时}\label{04_er_to_relational_mapping_zh-ux4e24ux7aefux90fdux662fux90e8ux5206ux53c2ux4e0eux6216ux9700ux8981ux8054ux7cfbux5173ux7cfbux65f6}
+
+可以选一端放可空且唯一的外键，也可以单独建立：
+
+\begin{StudyCode}
+Manages(deptID, empID, startDate)
+PK{deptID}; UNIQUE{empID}; NOT NULL{empID}
+FK{deptID} → Department{deptID}; FK{empID} → Employee{empID}
+\end{StudyCode}
+
+这表示每个部门最多一个管理者、每个员工最多管理一个部门；empID 非空保证每条已有管理联系确实有员工参与。但\textbf{没有要求所有 Department 都必须出现在 Manages 中}。若原图某端全参与，独立联系关系还需要该端的覆盖约束。
+
+课件也提到在合适情况下合并双方，尤其双方全参与且不参加其他关系时。不要见到 1:1 就机械合表；应检查两类实体的标识、独立含义和其他关系是否仍能正确表示。
+
+\subsection{6. Step 4：二元 1:N 关系}\label{04_er_to_relational_mapping_zh-step-4ux4e8cux5143-1n-ux5173ux7cfb}
+
+来源：第 44--46 页。
+
+把 \textbf{1 端的完整主键加入 N 端作为外键}；关系属性也放到 N 端。原有 N 端主键通常不变。
+
+\textbf{自编例子}：Department:Employee = 1:N，每个 Employee 必须在一个 Department 工作，WORKS\_FOR 有 joinedOn 属性。
+
+\begin{StudyCode}
+Department(deptID, name)                   PK{deptID}
+Employee(empID, name, deptID, joinedOn)
+  PK{empID}; FK{deptID} → Department{deptID}
+  NOT NULL{deptID}
+\end{StudyCode}
+
+\begin{itemize}
+\tightlist
+\item
+  deptID 在 Employee 中允许重复，表示同一部门有多名员工；不要加 UNIQUE，否则会错误限制成 1:1。
+\item
+  joinedOn 表示该员工与其所属部门的联系，放在携带外键的 Employee 中。
+\item
+  Employee 全参与用 deptID 非空表达；若其可不属任何部门，则可以允许空引用，并说明没有联系时如何处理关系属性。
+\item
+  若 Department 端要求``每个部门至少有一名员工''，仅 Employee.deptID 的外键与非空仍不足以保证；可能存在无人引用的 Department。
+\end{itemize}
+
+\textbf{不要把员工编号列表塞进 Department 的一个单元格}。一列不能直接保存本课平面关系模型中的多值集合。
+
+\subsection{7. Step 5：二元 M:N 关系}\label{04_er_to_relational_mapping_zh-step-5ux4e8cux5143-mn-ux5173ux7cfb}
+
+来源：第 47--49 页。
+
+建立新的联系关系，加入两端完整键，各自作为外键，再加入关系属性。在普通 ER 关系的``每对参与者对应一个联系实例''语义下，使用两端键的组合作主键。
+
+\begin{StudyCode}
+Employee(empID, name)                     PK{empID}
+Project(projectID, title)                 PK{projectID}
+WorksOn(empID, projectID, timeFraction)
+  PK{empID, projectID}
+  FK{empID} → Employee{empID}
+  FK{projectID} → Project{projectID}
+\end{StudyCode}
+
+empID 单独不能作 WorksOn 主键，否则每人最多参加一个项目；projectID 单独也不行，否则每个项目最多一人。timeFraction 描述配对的性质，通常不放进主键，否则同一配对可因不同 timeFraction 重复出现。
+
+\textbf{只在两边实体各加一个外键，也不能表达任意 M:N 配对集合。} 联系关系用多行存储各个配对，避免把一方限制成单值联系。
+
+\subsubsection{同一配对允许多次发生怎么办？}\label{04_er_to_relational_mapping_zh-ux540cux4e00ux914dux5bf9ux5141ux8bb8ux591aux6b21ux53d1ux751fux600eux4e48ux529e}
+
+若要记录同一 Reader 多次借同一 Book 的历史，应在概念模型中明确一次 Loan 事件及其标识。例如自编扩展：\texttt{Loan(\allowbreak{}loanID,\allowbreak{}\ readerID,\allowbreak{}\ bookID,\allowbreak{}\ startDate,\allowbreak{}\ endDate)\allowbreak{}}，主键为 loanID，两组外键分别为 \texttt{FK\{readerID\}\ →\ Reader\{readerID\}}、\texttt{FK\{bookID\}\ →\ Book\{bookID\}}，并要求 \texttt{NOT\ NULL\{readerID,bookID\}}，保证每次借阅都有读者和书。
+
+新增事件标识应有需求依据；不能只为允许重复而把所有关系属性随意加入主键。普通 M:N 映射与重复事件建模的前提不同。
+
+\subsection{8. Step 6：多值属性}\label{04_er_to_relational_mapping_zh-step-6ux591aux503cux5c5eux6027}
+
+来源：第 50--52 页。
+
+多值属性另建关系，包含实体完整键作为外键，以及属性值的简单组成部分。按课件的集合语义、且没有其他更小标识规则时，\textbf{所有者键 + 属性值}共同作主键。
+
+\subsubsection{多值简单属性}\label{04_er_to_relational_mapping_zh-ux591aux503cux7b80ux5355ux5c5eux6027}
+
+\begin{StudyCode}
+Department(deptID, name)                   PK{deptID}
+DepartmentPhone(deptID, phone)
+  PK{deptID, phone}; FK{deptID} → Department{deptID}
+\end{StudyCode}
+
+只用 deptID 作主键会使每个部门最多一部电话；只用 phone 会额外要求电话不能被不同部门共享，除非题目真的给出这一规则。没有电话的部门在 DepartmentPhone 中没有对应行，而不是填一行 \texttt{(\allowbreak{}deptID,\allowbreak{}NULL)\allowbreak{}}；phone 在此属于主键。
+
+\subsubsection{多值复合属性}\label{04_er_to_relational_mapping_zh-ux591aux503cux590dux5408ux5c5eux6027}
+
+\textbf{自编例子}：Person 有多个 Address，每个 Address 由 city、street、postcode 组成。
+
+\begin{StudyCode}
+PersonAddress(personID, city, street, postcode)
+PK{personID, city, street, postcode}
+FK{personID} → Person{personID}
+\end{StudyCode}
+
+这里用完整地址值在同一人内部区分各地址，假定这些标识组成值完整可用，且没有额外更小的标识规则。同一人的同一地址不重复，符合多值属性是值集合的含义。若需要不完整地址、地址编号、标签或独立历史，应明确额外需求再调整设计，不机械套用此主键。
+
+\textbf{课件命名辨析}：第 34 页多值属性写 Phone，第 52 页最终关系却写 D\_number、Dnumber。本篇统一用语义清楚的 DepartmentPhone/phone 重述多值映射，不把这处命名变化当作新增业务属性。
+
+\subsection{9. Step 7：n 元关系与主键判断}\label{04_er_to_relational_mapping_zh-step-7n-ux5143ux5173ux7cfbux4e0eux4e3bux952eux5224ux65ad}
+
+来源：第 53 页。以下三元例子用于解释该页简略的键选择规则，不是课件原题。
+
+对 n 元关系建立新关系，收集每个参与角色的实体完整键作为外键，加入关系属性。\textbf{键不等于``把所有列都圈上''，也不能只看哪个实体旁写了 1。}
+
+\subsubsection{没有额外唯一性限制的三元关系}\label{04_er_to_relational_mapping_zh-ux6ca1ux6709ux989dux5916ux552fux4e00ux6027ux9650ux5236ux7684ux4e09ux5143ux5173ux7cfb}
+
+\begin{StudyCode}
+Supply(supplierID, partID, projectID, quantity)
+PK{supplierID, partID, projectID}
+FK{supplierID} → Supplier{supplierID}
+FK{partID} → Part{partID}
+FK{projectID} → Project{projectID}
+\end{StudyCode}
+
+假定每组三者至多一条供应联系，且任意两个参与者都不能确定第三个，那么三方键组合作为主键，quantity 是关系属性。
+
+\subsubsection{若``固定 Supplier 与 Part，最多对应一个 Project''}\label{04_er_to_relational_mapping_zh-ux82e5ux56faux5b9a-supplier-ux4e0e-partux6700ux591aux5bf9ux5e94ux4e00ux4e2a-project}
+
+这条规则意味着 \texttt{(\allowbreak{}supplierID,\allowbreak{}partID)\allowbreak{}} 已能确定整个供应联系；假定没有其他更小唯一组，主键应选 \texttt{PK\{supplierID,partID\}}，projectID 仍是外键，但不必属于主键。此时还需显式加 \texttt{NOT\ NULL\{projectID\}}，保证每条三元联系仍有 Project 参与；不能因它不在主键中就允许缺少该角色。
+
+例如 \texttt{(\allowbreak{}S1,\allowbreak{}P1,\allowbreak{}J1,\allowbreak{}10)\allowbreak{}} 与 \texttt{(\allowbreak{}S1,\allowbreak{}P1,\allowbreak{}J2,\allowbreak{}20)\allowbreak{}} 若只用三方组合作键，会被视为两个不同键，从而没有阻止同一 Supplier--Part 对应两个 Project。\textbf{要保留这个``最多一个''，必须约束决定它的那组参与者。}
+
+第 53 页的例外措辞没有展开``固定哪些角色后至多一个''的语义。本篇不据此推导``标 1 的那端键必定单独作主键''，而按明确的唯一性规则检查最小标识；存在多组候选键时，还应保留其他候选键的唯一性。
+
+三元关系也不能不加判断就拆成三组二元联系，否则可能丢失``哪三个对象共同参与''的信息。题意不明确时，应列出需要确认的关联含义。
+
+\subsection{10. 贯穿例子：把课件公司 ER 图整理成模式}\label{04_er_to_relational_mapping_zh-ux8d2fux7a7fux4f8bux5b50ux628aux8bfeux4ef6ux516cux53f8-er-ux56feux6574ux7406ux6210ux6a21ux5f0f}
+
+来源：第 34--52 页。以下保留课件实体与联系含义，但统一名称：SSN → empID，Department.Name → deptName，Pnumber → projectID，Dependent.Fname → dependentName。Department 仍按课件以名称为键，\textbf{没有额外发明 deptID}；这只是本例给定假设，不代表所有真实部门名称都唯一。
+
+\subsubsection{输入含义}\label{04_er_to_relational_mapping_zh-ux8f93ux5165ux542bux4e49}
+
+\begin{itemize}
+\tightlist
+\item
+  强实体：Employee、Department、Project；弱实体 Dependent 由 Employee 与 dependentName 共同识别。
+\item
+  WORKS\_FOR：每位 Employee 在恰好一个 Department 工作，Department 可有多名员工。
+\item
+  MANAGES：每个 Department 恰好一位管理者，Employee 最多管理一个 Department；关系属性 managerStartDate。
+\item
+  WORKS\_ON：Employee 与 Project 为 M:N，关系属性 timeFraction。
+\item
+  Department 有多值 phone；Dependent 另有 dateOfBirth、kinship。
+\end{itemize}
+
+\subsubsection{最终模式与键}\label{04_er_to_relational_mapping_zh-ux6700ux7ec8ux6a21ux5f0fux4e0eux952e}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+关系模式
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+主键
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+外键
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Employee(empID, firstName, lastName, dateOfBirth, deptName) & \texttt{\{empID\}} & \texttt{\{deptName\}\ →\ Department\{deptName\}} \\
+Department(deptName, location, managerID, managerStartDate) & \texttt{\{deptName\}} & \texttt{\{managerID\}\ →\ Employee\{empID\}} \\
+Project(projectID, projectName) & \texttt{\{projectID\}} & 无 \\
+Dependent(empID, dependentName, dateOfBirth, kinship) & \texttt{\{empID,dependentName\}} & \texttt{\{empID\}\ →\ Employee\{empID\}} \\
+WorksOn(empID, projectID, timeFraction) & \texttt{\{empID,projectID\}} & \texttt{\{empID\}\ →\ Employee\{empID\}}；\texttt{\{projectID\}\ →\ Project\{projectID\}} \\
+DepartmentPhone(deptName, phone) & \texttt{\{deptName,phone\}} & \texttt{\{deptName\}\ →\ Department\{deptName\}} \\
+\end{longtable}
+
+还需明确：\texttt{UNIQUE\{Department.managerID\}}、\texttt{NOT\ NULL\{Department.managerID\}}、\texttt{NOT\ NULL\{Employee.deptName\}}。所有主键本身都非空。其他普通属性是否可缺失，按题目要求另定，不凭属性名猜测。
+
+\subsubsection{每条 ER 联系去了哪里？}\label{04_er_to_relational_mapping_zh-ux6bcfux6761-er-ux8054ux7cfbux53bbux4e86ux54eaux91cc}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ER 结构
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+映射落点
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+是否另建联系关系？
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Employee---Dependent 的标识关系 & Dependent.empID 及其复合主键 & 通常不另建 \\
+MANAGES，1:1 & Department.managerID 与 managerStartDate，配合唯一性 & 不另建 \\
+WORKS\_FOR，Department:Employee = 1:N & Employee.deptName & 不另建 \\
+WORKS\_ON，M:N & WorksOn & 是 \\
+Department 多值 phone & DepartmentPhone & 是，属于属性关系，不是新增 ER 二元关系 \\
+\end{longtable}
+
+Employee 与 Department 互相引用不自动构成设计错误：两个方向表达不同业务联系。它们也\textbf{不会自动保证``管理者在自己管理的部门工作''}。若题目另加这项规则，还要明确表达，见下一节。
+
+\subsection{11. 映射后仍要检查的约束}\label{04_er_to_relational_mapping_zh-ux6620ux5c04ux540eux4ecdux8981ux68c0ux67e5ux7684ux7ea6ux675f}
+
+来源：第 41、44、47、55 页的语义回读；应用参考 Tutorial 1 Question 1(d)。下列机制说明属于解释性补充，不是已经实现的数据库功能。
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+业务规则
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+仅有普通主键/外键是否足够？
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+还要表达什么？
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1:1 中一名员工最多管理一个部门 & 不足，managerID 外键允许重复 & 对 managerID 的唯一性要求 \\
+携带外键的一端必须关联目标 & 可空外键不足 & 外键非空 \\
+每个部门至少一名员工 & Employee 的外键即使非空仍不足 & 每个部门都被员工覆盖的全局存在性要求 \\
+M:N 关系中每个 Project 至少有一位参与者 & WorksOn 两组外键和主键仍不足 & 每个 Project 都至少出现在一个 WorksOn 元组中 \\
+管理者必须在其管理部门工作 & 两条独立联系的键约束仍不足 & 管理配对必须属于工作配对的跨关系规则 \\
+startDate 不晚于 endDate & 不足 & 值间比较约束 \\
+\end{longtable}
+
+唯一性和非空可通过相应声明表达；日期比较可用检查约束。全局覆盖要求需要适合的全局检查或触发器等机制，不能用当前几条外键冒充已经保证。
+
+\textbf{同部门管理规则的一个精确表达}：在第 10 节设计中，Department 的 \texttt{(\allowbreak{}managerID,\allowbreak{}deptName)\allowbreak{}} 必须出现在 Employee 的 \texttt{(\allowbreak{}empID,\allowbreak{}deptName)\allowbreak{}} 中。在支持相应复合键引用的实现中，可先声明 Employee 该属性组的唯一性，再增加这组复合外键；也可以由正确覆盖相关变更的触发器等机制检查。
+
+这说明``现有模式中的单列外键不够''与``任何改造后的模式都绝不可能用复合外键表达''不是一回事。Tutorial 1(d) 作答应说清楚所采用的模式与机制，避免不加条件地声称某类约束永远不能由键/外键实现。
+
+\subsection{12. 一套可执行的答题顺序}\label{04_er_to_relational_mapping_zh-ux4e00ux5957ux53efux6267ux884cux7684ux7b54ux9898ux987aux5e8f}
+
+来源：第 54--56 页；以下为整理后的工作流程。
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{抄清输入约束}：每个实体键、弱实体所有者、关系两端的最小/最大参与数，以及额外文字规则。
+\item
+  \textbf{先建实体关系}：强实体展开普通属性；弱实体带上完整所有者键与部分键。
+\item
+  \textbf{处理普通联系}：1:1 选择承载端并补唯一性；1:N 放在 N 端；M:N、n 元另建关系。
+\item
+  \textbf{安置关系属性与多值属性}：前者随联系存储，后者独立成关系；不要漏复合属性的简单组成部分。
+\item
+  \textbf{逐表列主键和每组外键}：给出目标属性组，不能只标``FK''而不说指向哪里。
+\item
+  \textbf{回读最大约束和最小约束}：是否把 1:N 误限成 1:1？是否漏了 UNIQUE、非空或全参与覆盖？
+\item
+  \textbf{构造反例自查}：能否插入两个部门共用同一管理者？能否保留没有员工的部门？如果原规则禁止而模式允许，就还有约束没写。
+\item
+  \textbf{说明额外机制与假设}：将已由模式保证的规则与待实现的检查分开；按题面要求标下划线、星号等。
+\end{enumerate}
+
+这些是模式层面的静态检查，不是 SQL 运行验证。不会因为列出了关系名，就宣称所有 ER 语义已自动保留。
+
+\subsection{13. 易混点速查}\label{04_er_to_relational_mapping_zh-ux6613ux6df7ux70b9ux901fux67e5}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+容易混淆
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+正确区分
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+强实体键 / 弱实体部分键 & 自身完整标识 / 需结合所有者上下文 \\
+复合外键 / 多个独立外键 & 一组属性共同引用一个目标键 / 各自有独立引用目标 \\
+1:1 的外键 / 唯一性 & 保证目标存在 / 限制该目标不能被多个源重复选用 \\
+N 端外键 / 1 端的编号列表 & 逐行保存单个归属 / 错把多值集合塞进一个属性 \\
+外键非空 / 目标端全参与 & 每个引用者有目标 / 每个目标至少有引用者 \\
+关系属性 / 新的标识属性 & 描述联系的性质 / 是否用于识别需要另有语义依据 \\
+M:N 联系关系 / 多值属性关系 & 保存实体配对 / 保存一个实体的多个属性值 \\
+三方键全组合 / 三元关系候选键 & 可区分三方组合 / 若有更强唯一性规则，完整组合未必最小 \\
+画出外键箭头 / 保留全部约束 & 引用方向明确 / 仍需检查唯一、非空、覆盖和其他业务规则 \\
+\end{longtable}
+
+\subsection{14. 复习清单与英文表达}\label{04_er_to_relational_mapping_zh-ux590dux4e60ux6e05ux5355ux4e0eux82f1ux6587ux8868ux8fbe}
+
+以下是自我复习目标，不是正式模拟卷或官方分值安排。
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  不看笔记说出七步映射及各自输出。
+\item[$\square$]
+  把复合属性展开，并把多值属性和派生属性区别处理。
+\item[$\square$]
+  写出两层弱实体的完整主键和分组外键。
+\item[$\square$]
+  解释为什么 1:1 的外键通常还需唯一性。
+\item[$\square$]
+  判断 1:N 的外键与关系属性应该放在哪端。
+\item[$\square$]
+  为普通 M:N 关系选择组合主键，说明为何不随意加入关系属性。
+\item[$\square$]
+  映射简单及复合多值属性，并说明没有值时如何表示。
+\item[$\square$]
+  根据明确的三元唯一性规则选择最小标识，而非死记 1 端位置。
+\item[$\square$]
+  逐项回读贯穿例子的键、外键、唯一性与非空要求。
+\item[$\square$]
+  指出外键尚未保证的全参与或跨关系规则，并说明适用机制。
+\end{itemize}
+
+可用于英文简答的表达：
+
+\begin{quote}
+Map a strong entity type to a relation containing its simple attributes and the simple components of composite attributes.
+\end{quote}
+
+\begin{quote}
+The primary key of a weak entity's relation combines the owner's primary key with the weak entity's partial key.
+\end{quote}
+
+\begin{quote}
+For a binary 1:N relationship, place the foreign key and relationship attributes in the relation on the N side.
+\end{quote}
+
+\begin{quote}
+A foreign key alone does not preserve a 1:1 relationship; uniqueness must also be enforced.
+\end{quote}
+
+\begin{quote}
+Map a many-to-many relationship to a separate relation containing the keys of both participants and the relationship attributes.
+\end{quote}
+
+\begin{quote}
+A non-NULL foreign key ensures that each referencing tuple has a target, not that every target is referenced.
+\end{quote}
+
+\begin{quote}
+For an n-ary relationship, choose the key from the stated uniqueness constraints rather than from the diagram labels alone.
+\end{quote}
+
+\subsection{来源与整理记录}\label{04_er_to_relational_mapping_zh-ux6765ux6e90ux4e0eux6574ux7406ux8bb0ux5f55}
+
+\begin{itemize}
+\tightlist
+\item
+  教师主课件：\href{../../../slides/Lecture2A.pptx}{Lecture2A.pptx}，第 33--56 页；已读取文字，重点查看第 34、37、40、43、46、49--50、52--53、55 页原图，核对键下划线、外键箭头、参与线与多值属性命名。
+\item
+  范围依据：\href{../../../syllabus/CSC5041_Teaching_Plan.pdf}{CSC5041\_Teaching\_Plan.pdf}，第 1 页 Week 3、第 2 页 Tutorial 1；参考要求：\href{../../../slides/Tutorial1.pdf}{Tutorial1.pdf}，第 1 页 Question 1(c)--(d)。本篇未给出完整诊所题答案，未生成模拟题。
+\item
+  Step 1 的派生属性解释衔接 \hyperref[02_er_modelling_zh]{02} 中 ER 课件第 22--23 页；其余自编例子、统一命名、显式约束补充及课件简略规则的辨析已在相应位置说明。
+\item
+  本版为 2026-10-20 的 LaTeX 重排；示例证据状态沿用原说明，未新增数据库实测。
+\item
+  输入版本 SHA-256：Lecture2A \texttt{\seqsplit{cecf28254342cf35e9a0b1b86a007fba728ed17a900e9e05182f2f2616081ee0}}；Tutorial 1 \texttt{\seqsplit{316e8b6bb9581a5ecae3fb2f449e395a4ea8a19b4ee16c4191fc20a6079d2c44}}；syllabus 教学计划 \texttt{\seqsplit{31380a7fe6504e46541b6db0bb2f24859c69188bfeb9681dca73354ebeb68295}}。
+\end{itemize}

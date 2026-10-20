@@ -1,0 +1,244 @@
+\clearpage
+\section{CSC5041 --- Practice Paper 2}\label{practice_paper_2}
+
+\textbf{Scope:} Weeks 1--5 · \textbf{Total:} 100 marks · \textbf{Suggested time:} 120 minutes
+
+Original practice questions based on the teaching plan and Tutorials 1--2. The time and marks are practice settings, not the lecturer's announced examination format. No answers are included.
+
+\subsection{Instructions}\label{practice_paper_2-instructions}
+
+\begin{itemize}
+\tightlist
+\item
+  Attempt all questions. Label answers by question and subpart.
+\item
+  Prefer formulas, schemas, diagrams, and SQL. Use at most one or two sentences when an explanation is requested.
+\item
+  Use the lecture's Chen ER notation. Underline primary keys and mark foreign-key attributes with \texttt{*}; state complete composite foreign-key groups and targets.
+\item
+  Relational algebra uses set semantics. You may use σ, π, ρ, ∪, ∩, −, ×, ⋈, ÷, and γ. Define any intermediate relations.
+\item
+  Write PostgreSQL-compatible SQL using ordinary SELECT, joins, aggregation, and subqueries. No window functions, recursive queries, or PL/pgSQL are needed.
+\item
+  Names and titles need not be unique. Unless stated otherwise, all attributes except explicitly nullable ones are non-NULL, and every declared foreign key is valid.
+\item
+  Each question is independent. Q2's ER model is not the schema used in Q3--Q5.
+\end{itemize}
+
+\subsection{Q1. Database fundamentals and keys {[}10 marks{]}}\label{practice_paper_2-q1.-database-fundamentals-and-keys-10-marks}
+
+\textbf{(a) {[}3 marks{]}} Account(accountID, email, displayName) has the following rules: accountID and email are each globally unique and mandatory; displayName need not be unique. No other uniqueness rules are given. List all candidate keys, and give one superkey that is not a candidate key.
+
+\textbf{(b) {[}2 marks{]}} Classify each operation as changing the schema or only the instance:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Insert a new Account tuple.
+\item
+  Add a dateOfBirth attribute to Account's definition.
+\end{enumerate}
+
+\textbf{(c) {[}3 marks{]}} Name the DBMS component responsible for each task:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Storing descriptions of table structures and constraints.
+\item
+  Choosing a suitable query execution plan.
+\item
+  Managing low-level stored-data access and I/O.
+\end{enumerate}
+
+\textbf{(d) {[}2 marks{]}} A person's address is stored in two independent files. One copy is updated while the other is not. Name the two file-management problems illustrated: the initial duplication, and the disagreement after the update.
+
+\subsection{Q2. Conceptual design and relational mapping {[}30 marks{]}}\label{practice_paper_2-q2.-conceptual-design-and-relational-mapping-30-marks}
+
+A lending archive stores the following information.
+
+A publisher has a unique \texttt{publisherID}, a name, and an address consisting of city and street. A publisher publishes one or more books, and each book has exactly one publisher. A book has a unique \texttt{ISBN} and a title.
+
+Each book has one or more editions. Editions are numbered \texttt{1,\allowbreak{}2,\allowbreak{}3,\allowbreak{}.\allowbreak{}.\allowbreak{}.\allowbreak{}} within their book; the same \texttt{editionNo} may occur for different books. An edition has a publication date and a price. Each edition has one or more physical copies. Copies are numbered \texttt{1,\allowbreak{}2,\allowbreak{}3,\allowbreak{}.\allowbreak{}.\allowbreak{}.\allowbreak{}} within their edition; the same \texttt{copyNo} may occur in different editions. A copy records its acquisition date.
+
+An author has a unique \texttt{authorID} and a name. An author may write zero or more books, and every book has one or more authors. Record a \texttt{contributionPercent} for each author--book association. It is positive, and the percentages for all authors of one book must sum to 100. There is at most one association per author--book pair.
+
+A reader has a unique \texttt{readerID}, a name, and zero or more phone numbers. A loan has a unique \texttt{loanID}, a checkout date, a due date, and a return date that is NULL while the loan is open. Each loan concerns exactly one reader and exactly one physical copy. Readers and copies may participate in zero or more loans over time. The same reader may borrow the same copy repeatedly, with a different loanID each time. At most one open loan is allowed for a physical copy at any moment.
+
+\textbf{(a) {[}5 marks{]}} List entity types and attributes. Identify keys; for each weak entity give its partial key, owner, and full identifier.
+
+\textbf{(b) {[}9 marks{]}} Draw the ER diagram, including attributes, relationship attributes, cardinality ratios, participation constraints, and identifying relationships. State any additional assumptions.
+
+\textbf{(c) {[}12 marks{]}} Produce the relational schema using the standard mapping. Show all primary keys, complete foreign-key groups, and non-null requirements needed for the associations. State which relationships or attributes create separate relations. Preserve repeated loan events.
+
+\textbf{(d) {[}4 marks{]}} Express two stated business constraints not guaranteed by the primary-key and foreign-key declarations in your mapping alone. For each, name a suitable additional enforcement mechanism.
+
+\subsection{Q3. Relational integrity {[}10 marks{]}}\label{practice_paper_2-q3.-relational-integrity-10-marks}
+
+Use this independent schema:
+
+\begin{StudyCode}
+Desk(buildingID, deskNo, zone)
+  PK{buildingID,deskNo}; all attributes NOT NULL
+
+Reservation(resID, buildingID, deskNo, duration)
+  PK{resID}
+  FK{buildingID,deskNo} → Desk{buildingID,deskNo}
+  resID and duration are NOT NULL; CHECK(duration > 0)
+\end{StudyCode}
+
+For this question, the composite foreign key must be either \textbf{entirely NULL}, or \textbf{entirely non-NULL and matching one Desk key}. This is the lecture convention explicitly adopted for this question, not a claim about every SQL implementation's default.
+
+Initial state:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Desk.buildingID & deskNo & zone \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+B1 & D1 & Quiet \\
+B2 & D2 & Group \\
+\end{longtable}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+Reservation.resID & buildingID & deskNo & duration \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+R1 & B1 & D1 & 2 \\
+R2 & NULL & NULL & 3 \\
+\end{longtable}
+
+Assess each operation \textbf{independently from this initial state}. No automatic cascades or reference repairs are configured. State \textbf{valid/invalid} and the applicable constraint or reason. \textbf{{[}2 marks each{]}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Insert \texttt{(\allowbreak{}R3,\allowbreak{}B1,\allowbreak{}D2,\allowbreak{}1)\allowbreak{}} into Reservation.
+\item
+  Insert \texttt{(\allowbreak{}R3,\allowbreak{}B1,\allowbreak{}NULL,\allowbreak{}1)\allowbreak{}} into Reservation.
+\item
+  Change the duration of Reservation R1 to 0.
+\item
+  Delete \texttt{(B2,D2,\textquotesingle{}Group\textquotesingle{})} from Desk.
+\item
+  Insert \texttt{(B3,NULL,\textquotesingle{}Quiet\textquotesingle{})} into Desk.
+\end{enumerate}
+
+\subsection{Schema for Q4 and Q5}\label{practice_paper_2-schema-for-q4-and-q5}
+
+\begin{StudyCode}
+Customer(uid, uname, city, status)         PK{uid}
+Vehicle(vid, model, category, dailyRate)   PK{vid}
+Rental(uid, vid, startDate, endDate, charge)
+  PK{uid,vid,startDate}
+Agent(aid, aname, city)                   PK{aid}
+Handles(aid, uid, vid, startDate)          PK{aid,uid,vid,startDate}
+\end{StudyCode}
+
+\begin{itemize}
+\tightlist
+\item
+  Rental.uid references Customer.uid; Rental.vid references Vehicle.vid.
+\item
+  Handles.aid references Agent.aid. Handles.(uid,vid,startDate) references the complete Rental key.
+\item
+  A Handles tuple links an agent to one particular rental. Several agents may handle the same rental; an agent may handle several rentals.
+\item
+  startDate and endDate have DATE type. endDate is NULL for an ongoing rental; charge is numeric and NULL until billing. All other attributes are non-NULL.
+\item
+  A customer may rent the same vehicle repeatedly on different start dates. Customer and agent cities need not agree.
+\item
+  ``Has rented'' means a Rental tuple exists, including ongoing or unbilled rentals. Consider all dates unless a subpart specifies otherwise.
+\end{itemize}
+
+\subsection{Q4. Relational algebra {[}25 marks{]}}\label{practice_paper_2-q4.-relational-algebra-25-marks}
+
+\textbf{(a) {[}3 marks{]}} Return the models of Hybrid vehicles whose dailyRate is less than 80.
+
+\textbf{(b) {[}4 marks{]}} Return the names of customers who have a rental handled by agent \texttt{\textquotesingle{}A2\textquotesingle{}}. Match the complete rental identity.
+
+\textbf{(c) {[}5 marks{]}} Return the names of customers who have rented:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  At least one Electric vehicle or at least one Hybrid vehicle, using a set union.
+\item
+  At least one vehicle from each category, using a set intersection.
+\end{enumerate}
+
+\textbf{(d) {[}4 marks{]}} Return the names of customers who have never rented any vehicle. Use set difference.
+
+\textbf{(e) {[}6 marks{]}} Return the names of customers who have rented every Electric vehicle in Vehicle. Rentals may be on different dates, and vehicles in other categories are allowed. Assume at least one Electric vehicle exists. Use division, or a correct expression using basic operators.
+
+\textbf{(f) {[}3 marks{]}} For each category represented in Vehicle, return the category, number of vehicles, and average dailyRate. Use γ.
+
+\subsection{Q5. SQL {[}25 marks{]}}\label{practice_paper_2-q5.-sql-25-marks}
+
+\textbf{(a) {[}4 marks{]}} Return vid, model, and dailyRate for vehicles whose dailyRate exceeds the average dailyRate of all vehicles. Use a scalar subquery. Sort by dailyRate descending, then vid ascending.
+
+\textbf{(b) {[}5 marks{]}} Return distinct customer IDs and names for customers with a rental beginning on \texttt{DATE\ \textquotesingle{}2026-10-01\textquotesingle{}} that is handled by agent \texttt{\textquotesingle{}A2\textquotesingle{}}. Ensure that the agent is linked to that particular rental, not another rental by the same customer or for the same vehicle.
+
+\textbf{(c) {[}5 marks{]}} For each vehicle category rented by at least two distinct customers, return the category, number of distinct customers, and average available charge per rental. Count ongoing and unbilled rentals towards the customer requirement, but use only non-NULL charges in the average. Sort by category. A repeated equal charge is still a separate rental charge, not a value to deduplicate.
+
+\textbf{(d) {[}4 marks{]}} Return customer IDs and names for customers who have never rented an Electric vehicle, including customers who have never rented anything. Use NOT EXISTS.
+
+\textbf{(e) {[}7 marks{]}} This subpart uses only the following table:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Payment.pid & amount \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+P1 & NULL \\
+P2 & 20 \\
+P3 & 20 \\
+P4 & NULL \\
+\end{longtable}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Give the single result row of the following query. \textbf{{[}4 marks{]}}
+
+  \Needspace{60pt}
+  \begin{lstlisting}[language=SQL]
+  SELECT COUNT(*), COUNT(amount), SUM(amount), AVG(amount)
+  FROM Payment;
+  \end{lstlisting}
+\item
+  Give the payment IDs returned below, and justify the result in one sentence. \textbf{{[}2 marks{]}}
+
+  \Needspace{105pt}
+  \begin{lstlisting}[language=SQL]
+  SELECT pid
+  FROM Payment
+  WHERE amount NOT IN (
+      SELECT amount FROM Payment WHERE pid IN ('P1','P2')
+  );
+  \end{lstlisting}
+\item
+  State the truth value of the following expression. \textbf{{[}1 mark{]}}
+
+  \Needspace{45pt}
+  \begin{lstlisting}[language=SQL]
+  NOT EXISTS (SELECT 1 FROM Payment WHERE amount < 0)
+  \end{lstlisting}
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{End of Paper 2 --- 100 marks.}
+
+Scope sources: \href{../../../syllabus/CSC5041_Teaching_Plan.pdf}{Teaching plan}, p.~1 Weeks 1--5 and p.~2 Tutorials 1--2; \href{../../../slides/Tutorial1.pdf}{Tutorial 1}, p.~1; \href{../../../slides/Tutorial\%202.pdf}{Tutorial 2}, p.~1. Questions, scenarios, data, timings, and mark allocations in this paper are original practice material.

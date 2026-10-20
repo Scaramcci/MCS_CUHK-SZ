@@ -1,0 +1,545 @@
+\clearpage
+\section{04 ER-to-Relational Mapping: English Study Notes}\label{04_er_to_relational_mapping_en}
+
+CSC5041 · In-class Test 1 revision · 19 October 2026
+
+\subsection{Scope and learning goals}\label{04_er_to_relational_mapping_en-scope-and-learning-goals}
+
+This chapter connects \hyperref[02_er_modelling_en]{02 ER Modelling} with \hyperref[03_relational_model_and_integrity_en]{03 Relational Model and Integrity Constraints}: translate ER meaning into relation schemas, then check which constraints are preserved and which require additional expression.
+
+The main source is the lecturer's \href{../../../slides/Lecture2A.pptx}{Lecture2A.pptx}, slides 33--56, covering ``ER-to-relational mapping'' in Week 3 on page 1 of the teaching plan. Unless another file is named, slide numbers refer to their order in that deck. Tutorial 1, page 1, Question 1(c)--(d), asks for relational schemas, explanations of which relationships become separate relations, and constraints not enforced by keys and foreign keys alone.
+
+After studying this chapter, you should be able to apply the seven mapping steps and identify primary keys, complete foreign-key groups, relationship-attribute placement, uniqueness, and mandatory references. This chapter covers logical schemas and constraints, not SQL querying or normalization algorithms. Examples restate the lecture or are explicitly original; they are not database execution results or a complete tutorial solution.
+
+\subsection{1. Mapping inputs, outputs, and notation}\label{04_er_to_relational_mapping_en-mapping-inputs-outputs-and-notation}
+
+Source: slides 33 and 54--56; constraint meanings continue Chapter 03.
+
+\begin{StudyCode}
+Input: entities, attributes, keys, relationships, cardinalities, participation, written rules
+  ↓ ER-to-relational mapping
+Output: relation schemas + primary keys + foreign-key groups + uniqueness/nullability + other rules
+\end{StudyCode}
+
+The following notation improves readability; it is \textbf{not complete SQL DDL}:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Notation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Meaning
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{R(\allowbreak{}a,\allowbreak{}\ b,\allowbreak{}\ c)\allowbreak{}} & Attribute list of relation R \\
+\texttt{PK\{a,b\}} & One composite primary key containing a and b, not two primary keys \\
+\texttt{FK\{a,b\}\ →\ S\{x,y\}} & One composite foreign key, with a corresponding to x and b to y \\
+\texttt{UNIQUE\{a\}} & Non-NULL a values cannot repeat across rows; preserves the relevant uniqueness rule \\
+\texttt{NOT\ NULL\{a,b\}} & Both a and b must have values \\
+\end{longtable}
+
+A primary key already requires uniqueness and non-NULL values for every component. Nullable UNIQUE notation here only expresses that existing associations cannot repeat; it does not prescribe how individual SQL products handle NULL. Implementation belongs to Chapter 06.
+
+Tutorial 1(c) requires \textbf{underlined primary keys and an asterisk on each foreign-key attribute}. Follow that convention in an actual answer and additionally specify composite-key groups and their targets. Asterisks alone do not identify which columns jointly form one reference.
+
+\Needspace{11cm}
+\subsection{2. Overview of the seven steps}\label{04_er_to_relational_mapping_en-overview-of-the-seven-steps}
+
+\StudyVisual{mapping}{en}
+
+Source: slides 35, 38, 41, 44, 47, 50, and 53--55.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Lecture step
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Input
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Basic output
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Key / constraint concern
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & Strong entity & One relation per strong entity & Retain the selected entity key; flatten composite attributes \\
+2 & Weak entity & Relation including the owner's complete key & Owner key plus partial key \\
+3 & Binary 1:1 relationship & Usually add one side's key to the other & Foreign-key uniqueness; non-nullability for the carrying side's total participation \\
+4 & Binary 1:N relationship & Add the 1-side key to the N-side relation & N-side foreign key; relationship attributes also go there \\
+5 & Binary M:N relationship & New relationship relation & Usually the combination of both complete participant keys \\
+6 & Multivalued attribute & New attribute relation & Owner key plus all simple components of the attribute value \\
+7 & n-ary relationship, n \textgreater{} 2 & New relationship relation & Collect participant keys, then determine a minimal identifier from the semantics \\
+\end{longtable}
+
+Establish complete entity identifiers first, then map regular relationships and multivalued attributes. \textbf{Not every diamond requires a new relation}, and not every relationship can be represented by one foreign key. Read uniqueness, nullability, and coverage back against the original model.
+
+\textbf{Every tuple in a separate relationship relation must have all its participants.} Every participating role's key must be non-NULL. Primary-key membership already guarantees this for included components; explicitly require it for the remaining components. Partial participation is represented by the absence of a relationship row, not by putting a NULL participant into an existing relationship row.
+
+\subsection{3. Step 1: strong entities and ordinary attributes}\label{04_er_to_relational_mapping_en-step-1-strong-entities-and-ordinary-attributes}
+
+Source: slides 35--37; derived attributes continue the ER material on slides 22--23 discussed in Chapter 02.
+
+Create a relation R for strong entity E. Include its simple attributes and the simple components of composite attributes. Use E's selected key as R's primary key. Preserve uniqueness of other candidate keys; selecting one primary key does not remove other identification rules.
+
+\textbf{Original example:} Student has key sid and unique email; composite address(city,street,postcode), multivalued phone, stored dateOfBirth, and derived age.
+
+\begin{StudyCode}
+Student(sid, name, email, city, street, postcode, dateOfBirth)
+PK{sid}; UNIQUE{email}
+\end{StudyCode}
+
+If email is mandatory in the requirements, also specify non-nullability. This step handles ordinary attributes:
+
+\begin{itemize}
+\tightlist
+\item
+  Flatten address into three attributes rather than mechanically storing a redundant address column as well.
+\item
+  Do not place phone in a set-valued cell or invent phone1 and phone2; handle it in Step 6.
+\item
+  Following the lecture's ER example, derive age from dateOfBirth and a reference date rather than automatically storing it again. Materialization would be an additional design choice to justify.
+\item
+  When an entity key is composite, copy all its components when referencing it elsewhere.
+\end{itemize}
+
+\subsection{4. Step 2: weak entities and identifying relationships}\label{04_er_to_relational_mapping_en-step-2-weak-entities-and-identifying-relationships}
+
+Source: slides 38--40.
+
+Create a relation for weak entity W containing its simple attributes and the simple components of composite attributes. Include the owner's complete primary key as a foreign key. Its primary key combines \textbf{the owner key and W's partial key}.
+
+\begin{StudyCode}
+Employee(empID, name)                       PK{empID}
+Dependent(empID, dependentName, dateOfBirth, kinship)
+  PK{empID, dependentName}
+  FK{empID} → Employee{empID}
+\end{StudyCode}
+
+This restates the lecture's Dependent example using consistent names. dependentName is unique only within one Employee's dependents, so it cannot be the sole primary key. empID is both a primary-key component and a foreign key; its non-nullability reflects the weak entity's required owner.
+
+The identifying relationship usually needs no separate relation repeating these keys. If it has attributes, they can accompany the reference in the weak entity's relation under this example's exactly-one-owner condition.
+
+\subsubsection{When the owner is itself weak}\label{04_er_to_relational_mapping_en-when-the-owner-is-itself-weak}
+
+\textbf{Original example:} roomNo identifies a Room within a Building; deskNo identifies a Desk within a Room.
+
+\begin{StudyCode}
+Building(buildingID, name)                 PK{buildingID}
+Room(buildingID, roomNo, floor)
+  PK{buildingID, roomNo}; FK{buildingID} → Building{buildingID}
+Desk(buildingID, roomNo, deskNo)
+  PK{buildingID, roomNo, deskNo}
+  FK{buildingID,roomNo} → Room{buildingID,roomNo}
+\end{StudyCode}
+
+Desk references Room through a two-attribute foreign key. Copying only roomNo loses the building context. Do not introduce a new global ID merely because the object is weak and then discard the original local-uniqueness requirements.
+
+\subsection{5. Step 3: binary 1:1 relationships}\label{04_er_to_relational_mapping_en-step-3-binary-11-relationships}
+
+Source: slides 41--43. Explicit uniqueness and coverage checks below supplement the mapping semantics.
+
+Let S and T represent the two entity types. Usually add the complete primary key of one side to the other as a foreign key, together with relationship attributes. The lecture recommends carrying the foreign key on the totally participating side when one exists.
+
+\textbf{Original example:} each Department must have exactly one Employee as manager; each Employee manages at most one Department. MANAGES has attribute startDate.
+
+\begin{StudyCode}
+Employee(empID, name)                      PK{empID}
+Department(deptID, name, managerID, managerStartDate)
+  PK{deptID}
+  FK{managerID} → Employee{empID}
+  UNIQUE{managerID}; NOT NULL{managerID}
+\end{StudyCode}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Meaning to preserve
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Rule expressing it
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+The manager is an existing Employee & Foreign key \\
+Every Department has exactly one manager & Single-valued managerID plus non-nullability and the foreign key \\
+Each Employee manages at most one Department & Uniqueness of managerID \\
+The starting date describes this management association & Store it in Department alongside the management reference \\
+\end{longtable}
+
+\textbf{A foreign key without UNIQUE permits several departments to select the same employee, producing N:1 instead of 1:1.} Slide 41 does not list every constraint declaration; that does not justify dropping the 1:1 semantics. Whether a relationship attribute is mandatory is a separate requirement, not an automatic consequence of total participation.
+
+\subsubsection{Both sides partial, or a separate relationship relation}\label{04_er_to_relational_mapping_en-both-sides-partial-or-a-separate-relationship-relation}
+
+One option is a nullable, unique foreign key on one side. Another is:
+
+\begin{StudyCode}
+Manages(deptID, empID, startDate)
+PK{deptID}; UNIQUE{empID}; NOT NULL{empID}
+FK{deptID} → Department{deptID}; FK{empID} → Employee{empID}
+\end{StudyCode}
+
+This permits at most one manager per department and at most one managed department per employee. Non-NULL empID ensures that every existing management association has an employee participant. It \textbf{does not require every Department to appear in Manages}. A totally participating side needs an additional coverage requirement when this separate-relation representation is used.
+
+The lecture also mentions merging both types where appropriate, especially when both participate totally and have no other relationships. Do not merge mechanically whenever a relationship is 1:1. Check whether identifiers, independent meanings, and other associations remain correctly represented.
+
+\subsection{6. Step 4: binary 1:N relationships}\label{04_er_to_relational_mapping_en-step-4-binary-1n-relationships}
+
+Source: slides 44--46.
+
+Add the \textbf{complete key of the 1 side to the N-side relation as a foreign key}. Place relationship attributes on the N side too. The original N-side primary key usually stays unchanged.
+
+\textbf{Original example:} Department:Employee = 1:N. Each Employee must work in one Department; WORKS\_FOR has attribute joinedOn.
+
+\begin{StudyCode}
+Department(deptID, name)                   PK{deptID}
+Employee(empID, name, deptID, joinedOn)
+  PK{empID}; FK{deptID} → Department{deptID}
+  NOT NULL{deptID}
+\end{StudyCode}
+
+\begin{itemize}
+\tightlist
+\item
+  Employee.deptID can repeat because a department can have several employees. Adding UNIQUE would incorrectly restrict the association to 1:1.
+\item
+  joinedOn describes the employee's association with that department and accompanies the foreign key in Employee.
+\item
+  Employee's total participation requires non-NULL deptID. If employees may have no department, allow a null reference and explain how relationship attributes are handled when no association exists.
+\item
+  If every Department must have an Employee, Employee.deptID being a non-NULL foreign key still does not guarantee that requirement. A Department could remain unreferenced.
+\end{itemize}
+
+\textbf{Do not store a list of employee IDs in one Department cell.} The course's flat relational model does not directly store such multivalued sets as attributes.
+
+\subsection{7. Step 5: binary M:N relationships}\label{04_er_to_relational_mapping_en-step-5-binary-mn-relationships}
+
+Source: slides 47--49.
+
+Create a relationship relation containing both complete participant keys as foreign keys, together with relationship attributes. Under ordinary ER semantics of one relationship instance per participant pair, use their combined keys as the primary key.
+
+\begin{StudyCode}
+Employee(empID, name)                     PK{empID}
+Project(projectID, title)                 PK{projectID}
+WorksOn(empID, projectID, timeFraction)
+  PK{empID, projectID}
+  FK{empID} → Employee{empID}
+  FK{projectID} → Project{projectID}
+\end{StudyCode}
+
+empID alone would allow at most one project per employee; projectID alone would allow at most one employee per project. timeFraction describes a pair's property and normally does not belong in the key. Including it would permit repeated pairs with different fractions.
+
+\textbf{Adding one foreign key to each entity relation also cannot represent arbitrary M:N pairings.} A relationship relation uses separate rows for the pairings without imposing a single-valued association on either participant.
+
+\subsubsection{What if the same pair can participate repeatedly?}\label{04_er_to_relational_mapping_en-what-if-the-same-pair-can-participate-repeatedly}
+
+If repeated borrowings of the same Book by the same Reader must be stored, explicitly model a Loan event and its identification. An original extension is \texttt{Loan(\allowbreak{}loanID,\allowbreak{}\ readerID,\allowbreak{}\ bookID,\allowbreak{}\ startDate,\allowbreak{}\ endDate)\allowbreak{}}, with primary key loanID, \texttt{FK\{readerID\}\ →\ Reader\{readerID\}}, and \texttt{FK\{bookID\}\ →\ Book\{bookID\}}. Require \texttt{NOT\ NULL\{readerID,bookID\}} so that each loan has both a reader and a book.
+
+A new event identifier needs a requirement-based justification. Do not arbitrarily add every relationship attribute to the key just to allow repeats. Ordinary M:N mapping and repeated-event modelling have different assumptions.
+
+\subsection{8. Step 6: multivalued attributes}\label{04_er_to_relational_mapping_en-step-6-multivalued-attributes}
+
+Source: slides 50--52.
+
+Create a separate relation containing the owner's complete key as a foreign key and the attribute value's simple components. Under the lecture's set semantics, and without an additional smaller identification rule, \textbf{owner key plus attribute value} forms the primary key.
+
+\subsubsection{A multivalued simple attribute}\label{04_er_to_relational_mapping_en-a-multivalued-simple-attribute}
+
+\begin{StudyCode}
+Department(deptID, name)                   PK{deptID}
+DepartmentPhone(deptID, phone)
+  PK{deptID, phone}; FK{deptID} → Department{deptID}
+\end{StudyCode}
+
+Using only deptID permits at most one phone per department. Using only phone additionally prohibits departments from sharing a number unless that is actually required. A department with no phone has no corresponding DepartmentPhone row, rather than a \texttt{(\allowbreak{}deptID,\allowbreak{}NULL)\allowbreak{}} row: phone is part of the primary key here.
+
+\subsubsection{A multivalued composite attribute}\label{04_er_to_relational_mapping_en-a-multivalued-composite-attribute}
+
+\textbf{Original example:} a Person can have several Addresses, each consisting of city, street, and postcode.
+
+\begin{StudyCode}
+PersonAddress(personID, city, street, postcode)
+PK{personID, city, street, postcode}
+FK{personID} → Person{personID}
+\end{StudyCode}
+
+The complete address value distinguishes addresses for the same person. This assumes the identifying components are available in full and no additional smaller identifier is specified. The same address cannot repeat for one person, matching the attribute's set semantics. Incomplete addresses, address IDs, labels, or independent history require explicit additional requirements before changing this design.
+
+\textbf{Slide naming clarification:} slide 34 labels the multivalued attribute Phone, whereas slide 52 names the final relation D\_number with Dnumber. This chapter consistently uses DepartmentPhone/phone to explain the mapping rather than treating that naming change as a newly required property.
+
+\subsection{9. Step 7: n-ary relationships and key selection}\label{04_er_to_relational_mapping_en-step-7-n-ary-relationships-and-key-selection}
+
+Source: slide 53. The ternary examples below explain the abbreviated key-selection rule; they are not original lecture questions.
+
+Create a relation for an n-ary relationship, collect each participating role's complete entity key as a foreign key, and add relationship attributes. \textbf{Selecting a key is not circling every column or simply looking for the entity labelled 1.}
+
+\subsubsection{A ternary relationship without additional uniqueness restrictions}\label{04_er_to_relational_mapping_en-a-ternary-relationship-without-additional-uniqueness-restrictions}
+
+\begin{StudyCode}
+Supply(supplierID, partID, projectID, quantity)
+PK{supplierID, partID, projectID}
+FK{supplierID} → Supplier{supplierID}
+FK{partID} → Part{partID}
+FK{projectID} → Project{projectID}
+\end{StudyCode}
+
+Assume at most one supply association per triple and that no pair of participants determines the third. The three participant keys form the primary key; quantity is a relationship attribute.
+
+\subsubsection{Suppose a fixed Supplier and Part have at most one Project}\label{04_er_to_relational_mapping_en-suppose-a-fixed-supplier-and-part-have-at-most-one-project}
+
+Then \texttt{(\allowbreak{}supplierID,\allowbreak{}partID)\allowbreak{}} already determines the supply association. Assuming no smaller unique group, choose \texttt{PK\{supplierID,partID\}}. projectID remains a foreign key but need not be part of the primary key. Explicitly add \texttt{NOT\ NULL\{projectID\}} so that every ternary association still has a Project participant; removing it from the primary key does not make that role optional within a relationship tuple.
+
+For example, \texttt{(\allowbreak{}S1,\allowbreak{}P1,\allowbreak{}J1,\allowbreak{}10)\allowbreak{}} and \texttt{(\allowbreak{}S1,\allowbreak{}P1,\allowbreak{}J2,\allowbreak{}20)\allowbreak{}} have different three-part keys. Using only the full triple as the key would not prevent one Supplier--Part pair from having two Projects. \textbf{Preserving the at-most-one rule requires uniqueness of the participant group that determines that project.}
+
+The exception wording on slide 53 does not spell out which roles are fixed before ``at most one'' is assessed. This chapter does not infer that the key of the side labelled 1 must alone be the primary key. Check minimal identifiers against explicit uniqueness rules and preserve other candidate-key uniqueness where several candidates exist.
+
+Likewise, do not automatically replace a ternary relationship with three binary ones: that can lose information about which three objects participate together. If the requirements are ambiguous, state which association meaning needs confirmation.
+
+\subsection{10. Worked example: the lecture's company model}\label{04_er_to_relational_mapping_en-worked-example-the-lectures-company-model}
+
+Source: slides 34--52. The following retains the entities and associations but uses consistent names: SSN → empID, Department.Name → deptName, Pnumber → projectID, and Dependent.Fname → dependentName. Department still uses its name as its key, as in the lecture; \textbf{no new deptID is invented}. This is a given assumption of this example, not a claim that all real department names are unique.
+
+\subsubsection{Input meaning}\label{04_er_to_relational_mapping_en-input-meaning}
+
+\begin{itemize}
+\tightlist
+\item
+  Strong entities: Employee, Department, and Project. Weak entity Dependent is identified through Employee and dependentName.
+\item
+  WORKS\_FOR: each Employee works in exactly one Department; a Department can have several employees.
+\item
+  MANAGES: each Department has exactly one manager; an Employee manages at most one Department. The relationship has attribute managerStartDate.
+\item
+  WORKS\_ON: Employee and Project have an M:N relationship with attribute timeFraction.
+\item
+  Department has multivalued phone; Dependent also has dateOfBirth and kinship.
+\end{itemize}
+
+\subsubsection{Final schemas and keys}\label{04_er_to_relational_mapping_en-final-schemas-and-keys}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Relation schema
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Primary key
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Foreign keys
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Employee(empID, firstName, lastName, dateOfBirth, deptName) & \texttt{\{empID\}} & \texttt{\{deptName\}\ →\ Department\{deptName\}} \\
+Department(deptName, location, managerID, managerStartDate) & \texttt{\{deptName\}} & \texttt{\{managerID\}\ →\ Employee\{empID\}} \\
+Project(projectID, projectName) & \texttt{\{projectID\}} & None \\
+Dependent(empID, dependentName, dateOfBirth, kinship) & \texttt{\{empID,dependentName\}} & \texttt{\{empID\}\ →\ Employee\{empID\}} \\
+WorksOn(empID, projectID, timeFraction) & \texttt{\{empID,projectID\}} & \texttt{\{empID\}\ →\ Employee\{empID\}}; \texttt{\{projectID\}\ →\ Project\{projectID\}} \\
+DepartmentPhone(deptName, phone) & \texttt{\{deptName,phone\}} & \texttt{\{deptName\}\ →\ Department\{deptName\}} \\
+\end{longtable}
+
+Also specify \texttt{UNIQUE\{Department.managerID\}}, \texttt{NOT\ NULL\{Department.managerID\}}, and \texttt{NOT\ NULL\{Employee.deptName\}}. Every primary key is already non-NULL. Decide nullability of other ordinary attributes from the requirements rather than guessing from their names.
+
+\subsubsection{Where did each ER association go?}\label{04_er_to_relational_mapping_en-where-did-each-er-association-go}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ER structure
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Mapping destination
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Separate relationship relation?
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Identifying relationship between Employee and Dependent & Dependent.empID and its composite primary key & Usually no \\
+MANAGES, 1:1 & Department.managerID and managerStartDate, with uniqueness & No \\
+WORKS\_FOR, Department:Employee = 1:N & Employee.deptName & No \\
+WORKS\_ON, M:N & WorksOn & Yes \\
+Department's multivalued phone & DepartmentPhone & Yes as an attribute relation, not a newly introduced ER binary relationship \\
+\end{longtable}
+
+Mutual references between Employee and Department are not automatically a design error: they represent different associations. They also \textbf{do not automatically ensure that a manager works in the department managed}. If that rule is additionally required, express it explicitly as discussed next.
+
+\subsection{11. Constraints to check after mapping}\label{04_er_to_relational_mapping_en-constraints-to-check-after-mapping}
+
+Source: reading back the semantics of slides 41, 44, 47, and 55; application context from Tutorial 1, Question 1(d). Mechanisms below are explanatory supplements, not implemented database features.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Business rule
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Do ordinary primary/foreign keys already suffice?
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Additional expression needed
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+An Employee manages at most one Department in a 1:1 relationship & No: a managerID foreign key permits repetition & Uniqueness of managerID \\
+Every tuple on the carrying side must have a target & A nullable foreign key is insufficient & Foreign-key non-nullability \\
+Every Department has at least one Employee & Employee's foreign key remains insufficient even if non-NULL & Global coverage: every department is referenced by an employee \\
+Every Project participates in an M:N association & WorksOn's primary key and two foreign keys are insufficient & Every Project occurs in at least one WorksOn tuple \\
+A manager works in the department managed & Keys for the two separate associations are insufficient & A cross-association rule requiring management pairs to be employment pairs \\
+startDate is no later than endDate & No & A constraint comparing values \\
+\end{longtable}
+
+Uniqueness and mandatory values can be expressed through corresponding declarations; date ordering can use a check constraint. Global coverage needs a suitable global check, trigger, or similar mechanism. The current foreign keys cannot be presented as already guaranteeing it.
+
+\textbf{One precise expression of the same-department manager rule:} in Section 10, Department's \texttt{(\allowbreak{}managerID,\allowbreak{}deptName)\allowbreak{}} must occur in Employee's \texttt{(\allowbreak{}empID,\allowbreak{}deptName)\allowbreak{}}. An implementation supporting the corresponding composite-key references can declare that Employee attribute group unique and add this composite foreign key. Alternatively, triggers or similar mechanisms must correctly cover the relevant changes.
+
+Thus ``the current single-column foreign keys are insufficient'' differs from ``no redesigned schema could ever express this through a composite foreign key.'' An answer to Tutorial 1(d) should specify its schema and mechanism rather than make unconditional impossibility claims about keys and foreign keys.
+
+\subsection{12. A practical answer-writing procedure}\label{04_er_to_relational_mapping_en-a-practical-answer-writing-procedure}
+
+Source: slides 54--56; the sequence below organizes the material into a workflow.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Record input constraints.} List entity keys, weak-entity owners, minima and maxima for every relationship, and extra written rules.
+\item
+  \textbf{Create entity relations first.} Flatten ordinary attributes of strong entities; give weak entities complete owner keys and partial keys.
+\item
+  \textbf{Map regular relationships.} Choose a carrying side and uniqueness for 1:1; use the N side for 1:N; create separate M:N and n-ary relations.
+\item
+  \textbf{Place relationship and multivalued attributes.} Store the former with their associations and the latter in separate relations. Include simple components of composite attributes.
+\item
+  \textbf{List primary keys and every foreign-key group.} State the target attribute group rather than marking an unexplained ``FK.''
+\item
+  \textbf{Read maxima and minima back.} Did 1:N accidentally become 1:1? Are uniqueness, non-nullability, or total-participation coverage missing?
+\item
+  \textbf{Try counterexamples.} Can two departments share one manager? Can a department exist without employees? If forbidden by the requirements but permitted by the schema, another constraint is needed.
+\item
+  \textbf{State mechanisms and assumptions.} Separate schema guarantees from checks still requiring implementation. Follow requested underlining and asterisk conventions.
+\end{enumerate}
+
+These are static schema checks, not SQL execution verification. Listing relation names alone does not establish preservation of all ER semantics.
+
+\subsection{13. Common distinctions}\label{04_er_to_relational_mapping_en-common-distinctions}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Pair
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Distinction
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Strong-entity key / weak-entity partial key & Complete independent identifier / identification requiring owner context \\
+Composite foreign key / several independent foreign keys & One group referencing one target key / independently targeted references \\
+Foreign key / uniqueness in 1:1 & Target existence / preventing several source tuples from selecting the same target \\
+N-side foreign key / list of IDs on the 1 side & One reference per tuple / incorrectly storing a multivalued set in one attribute \\
+Non-NULL foreign key / target-side total participation & Every referencing tuple has a target / every target has a referencing tuple \\
+Relationship attribute / identifying attribute & Property of an association / an identification role requiring a separate semantic justification \\
+M:N relation / multivalued-attribute relation & Participant pairings / multiple attribute values of one owner \\
+Complete triple of keys / ternary candidate key & Distinguishes triples / may not be minimal under stronger uniqueness rules \\
+Foreign-key arrows / complete constraint preservation & Reference directions / uniqueness, nullability, coverage, and remaining rules must also be checked \\
+\end{longtable}
+
+\subsection{14. Revision checklist and short-answer language}\label{04_er_to_relational_mapping_en-revision-checklist-and-short-answer-language}
+
+These are learning goals, not a formal practice paper or an official mark allocation.
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  State the seven mapping steps and their outputs without consulting the notes.
+\item[$\square$]
+  Flatten composite attributes and handle multivalued and derived attributes separately.
+\item[$\square$]
+  Write complete primary keys and grouped foreign keys for two levels of weak entities.
+\item[$\square$]
+  Explain why a 1:1 foreign key normally also needs uniqueness.
+\item[$\square$]
+  Place foreign keys and relationship attributes correctly for 1:N.
+\item[$\square$]
+  Select a combined key for an ordinary M:N relation without arbitrarily adding relationship attributes.
+\item[$\square$]
+  Map simple and composite multivalued attributes and explain how no value is represented.
+\item[$\square$]
+  Determine a minimal identifier from explicit ternary uniqueness rules rather than the location of a 1 label.
+\item[$\square$]
+  Read every key, reference, uniqueness rule, and mandatory value back in the worked example.
+\item[$\square$]
+  Identify total-participation or cross-association rules not yet guaranteed by the foreign keys and describe suitable mechanisms.
+\end{itemize}
+
+Useful short-answer formulations:
+
+\begin{quote}
+Map a strong entity type to a relation containing its simple attributes and the simple components of composite attributes.
+\end{quote}
+
+\begin{quote}
+The primary key of a weak entity's relation combines the owner's primary key with the weak entity's partial key.
+\end{quote}
+
+\begin{quote}
+For a binary 1:N relationship, place the foreign key and relationship attributes in the relation on the N side.
+\end{quote}
+
+\begin{quote}
+A foreign key alone does not preserve a 1:1 relationship; uniqueness must also be enforced.
+\end{quote}
+
+\begin{quote}
+Map a many-to-many relationship to a separate relation containing the keys of both participants and the relationship attributes.
+\end{quote}
+
+\begin{quote}
+A non-NULL foreign key ensures that each referencing tuple has a target, not that every target is referenced.
+\end{quote}
+
+\begin{quote}
+For an n-ary relationship, choose the key from the stated uniqueness constraints rather than from the diagram labels alone.
+\end{quote}
+
+\subsection{Sources and preparation record}\label{04_er_to_relational_mapping_en-sources-and-preparation-record}
+
+\begin{itemize}
+\tightlist
+\item
+  Main lecture deck: \href{../../../slides/Lecture2A.pptx}{Lecture2A.pptx}, slides 33--56. Text was read and original diagrams on slides 34, 37, 40, 43, 46, 49--50, 52--53, and 55 were visually inspected for key underlines, foreign-key arrows, participation lines, and multivalued-attribute naming.
+\item
+  Scope: \href{../../../syllabus/CSC5041_Teaching_Plan.pdf}{CSC5041\_Teaching\_Plan.pdf}, page 1, Week 3, and page 2, Tutorial 1. Supporting requirements: \href{../../../slides/Tutorial1.pdf}{Tutorial1.pdf}, page 1, Question 1(c)--(d). This chapter supplies neither a complete clinic solution nor a practice paper.
+\item
+  The Step 1 explanation of derived attributes continues ER slides 22--23 as discussed in \hyperref[02_er_modelling_en]{Chapter 02}. Original examples, consistent renaming, explicit constraint supplements, and clarifications of abbreviated slide rules are identified where used.
+\item
+  LaTeX edition prepared on 20 October 2026; original evidence status is retained. No new database execution is claimed.
+\item
+  Input SHA-256: Lecture2A \texttt{\seqsplit{cecf28254342cf35e9a0b1b86a007fba728ed17a900e9e05182f2f2616081ee0}}; Tutorial 1 \texttt{\seqsplit{316e8b6bb9581a5ecae3fb2f449e395a4ea8a19b4ee16c4191fc20a6079d2c44}}; syllabus teaching plan \texttt{\seqsplit{31380a7fe6504e46541b6db0bb2f24859c69188bfeb9681dca73354ebeb68295}}.
+\end{itemize}

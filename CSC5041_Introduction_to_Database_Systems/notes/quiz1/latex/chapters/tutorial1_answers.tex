@@ -1,0 +1,145 @@
+\clearpage
+\section{Tutorial 1 --- Compact Answers}\label{tutorial1_answers}
+
+\href{../../../slides/Tutorial1.pdf}{Question sheet}, p.~1, Q1(a)--(d). Model answers, not an official marking scheme.
+
+\subsection{Q1(a) Entities, attributes and keys}\label{tutorial1_answers-q1a-entities-attributes-and-keys}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Entity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Attributes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Full identifier
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Clinic & clinicID, address(city, street, postcode), phone & clinicID \\
+Veterinarian & empID, name, specialisation, salary & empID \\
+Owner & ownerID, name, phone, email & ownerID \\
+Pet (weak) & petNo, name, species, dateOfBirth & (ownerID, petNo) \\
+Treatment (weak) & treatmentNo, date, diagnosis, fee & (ownerID, petNo, treatmentNo) \\
+Medication & medCode, name, unitPrice & medCode \\
+\end{longtable}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+Weak entity & Partial key & Owner entity & Identifying relationship \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Pet & petNo & Owner & OWNS \\
+Treatment & treatmentNo & Pet & HAS\_TREATMENT \\
+\end{longtable}
+
+\subsection{Q1(b) Relationships and ER diagram}\label{tutorial1_answers-q1b-relationships-and-er-diagram}
+
+\texttt{(\allowbreak{}min,\allowbreak{}max)\allowbreak{}} counts counterparts for one entity on that side; \texttt{T/\allowbreak{}P} = total/partial participation.
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+Relationship (left : right) & Ratio & Left & Right \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Clinic --- EMPLOYS --- Veterinarian & 1:N & (1,N), T & (1,1), T \\
+Clinic --- MANAGES --- Veterinarian & 1:1 & (1,1), T & (0,1), P \\
+Clinic --- REGISTERS --- Owner & 1:N & (0,N), P & (1,1), T \\
+Owner --- OWNS --- Pet & 1:N & (1,N), T & (1,1), T \\
+Pet --- HAS\_TREATMENT --- Treatment & 1:N & (0,N), P & (1,1), T \\
+Veterinarian --- PERFORMS --- Treatment & 1:N & (0,N), P & (1,1), T \\
+Treatment --- USES --- Medication & M:N & (0,N), P & (0,N), P \\
+\end{longtable}
+
+\StudyFormula{\mathsf{MANAGES}\,\subseteq \,\mathsf{EMPLOYS}\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,[\mathsf{pairs}\,\mathsf{ordered}\,\mathsf{as}\,(\mathsf{clinicID},\mathsf{empID})]}
+\StudyFormula{\mathsf{USES}\,\mathsf{has}\,\mathsf{relationship}\,\mathsf{attribute}\,\mathsf{quantity}.}
+
+Assumptions: unspecified participation is partial; a pet may have zero treatments; one USES row per treatment--medication pair; equal-date treatments are allowed.
+
+\StudyLandscapeER
+
+Single/double lines = partial/total; double rectangle/diamond = weak entity/identifying relationship; solid/dashed underline = key/partial key. Clinic's MANAGES link is total; Veterinarian's is partial.
+
+\subsection{Q1(c) Relational schema}\label{tutorial1_answers-q1c-relational-schema}
+
+Underlined attributes form each primary key; \texttt{*} marks foreign-key attributes. Composite foreign keys are grouped below.
+
+\begin{itemize}
+\tightlist
+\item
+  Clinic(\(\underline{\mathsf{clinicID}}\), city, street, postcode, phone, managerID*)
+\item
+  Veterinarian(\(\underline{\mathsf{empID}}\), name, specialisation, salary, clinicID*)
+\item
+  Owner(\(\underline{\mathsf{ownerID}}\), name, phone, email, clinicID*)
+\item
+  Pet(\(\underline{\mathsf{ownerID}}\)*, \(\underline{\mathsf{petNo}}\), name, species, dateOfBirth)
+\item
+  Treatment(\(\underline{\mathsf{ownerID}}\)*, \(\underline{\mathsf{petNo}}\)*, \(\underline{\mathsf{treatmentNo}}\), date, diagnosis, fee, empID*)
+\item
+  Medication(\(\underline{\mathsf{medCode}}\), name, unitPrice)
+\item
+  Uses(\(\underline{\mathsf{ownerID}}\)*, \(\underline{\mathsf{petNo}}\)*, \(\underline{\mathsf{treatmentNo}}\)*, \(\underline{\mathsf{medCode}}\)*, quantity)
+\end{itemize}
+
+\StudyFormula{\mathsf{Clinic}.\mathsf{managerID}\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\rightarrow \,\mathsf{Veterinarian}.\mathsf{empID}}
+\StudyFormula{\mathsf{Veterinarian}.\mathsf{clinicID}\,\,\,\,\,\,\,\,\,\,\,\,\rightarrow \,\mathsf{Clinic}.\mathsf{clinicID}}
+\StudyFormula{\mathsf{Owner}.\mathsf{clinicID}\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\rightarrow \,\mathsf{Clinic}.\mathsf{clinicID}}
+\StudyFormula{\mathsf{Pet}.\mathsf{ownerID}\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\rightarrow \,\mathsf{Owner}.\mathsf{ownerID}}
+\StudyFormula{\mathsf{Treatment}.(\mathsf{ownerID},\mathsf{petNo})\,\,\,\,\,\,\,\,\rightarrow \,\mathsf{Pet}.(\mathsf{ownerID},\mathsf{petNo})}
+\StudyFormula{\mathsf{Treatment}.\mathsf{empID}\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\rightarrow \,\mathsf{Veterinarian}.\mathsf{empID}}
+\StudyFormula{\mathsf{Uses}.(\mathsf{ownerID},\mathsf{petNo},\mathsf{treatmentNo})\,\,\rightarrow \,\mathsf{Treatment}.(\mathsf{ownerID},\mathsf{petNo},\mathsf{treatmentNo})}
+\StudyFormula{\mathsf{Uses}.\mathsf{medCode}\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\rightarrow \,\mathsf{Medication}.\mathsf{medCode}}
+\StudyFormula{\mathsf{UNIQUE}(\mathsf{Clinic}.\mathsf{managerID})}
+\StudyFormula{\mathsf{NOT}\,\mathsf{NULL}:\,\mathsf{Clinic}.\mathsf{managerID},\,\mathsf{Veterinarian}.\mathsf{clinicID},}
+\StudyFormula{\mathsf{Owner}.\mathsf{clinicID},\,\mathsf{Treatment}.\mathsf{empID}}
+\StudyFormula{\mathsf{All}\,\mathsf{primary}-\mathsf{key}\,\mathsf{components}\,\mathsf{are}\,\mathsf{NOT}\,\mathsf{NULL}.}
+\StudyFormula{\forall c\,\in \,\mathsf{Clinic}:}
+\StudyFormula{\mathsf{Veterinarian}[c.\mathsf{managerID}].\mathsf{clinicID}\,=\,c.\mathsf{clinicID}}
+\StudyFormula{\text{[same-clinic manager: additional cross-relation check]}}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+ER relationship & Representation \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+EMPLOYS, REGISTERS & 1:N → foreign key on N side \\
+MANAGES & 1:1 → Clinic.managerID + UNIQUE + NOT NULL \\
+OWNS, HAS\_TREATMENT & Identifying → owner key in weak-entity PK/FK \\
+USES & M:N → separate Uses relation; quantity belongs here \\
+PERFORMS & 1:N → Treatment.empID \\
+\end{longtable}
+
+\subsection{Q1(d) Two constraints beyond keys/foreign keys alone}\label{tutorial1_answers-q1d-two-constraints-beyond-keysforeign-keys-alone}
+
+\textbf{1. Every owner has at least one pet.}
+
+\StudyFormula{\forall o\,\in \,\mathsf{Owner},\,\exists p\,\in \,\mathsf{Pet}:\,p.\mathsf{ownerID}\,=\,o.\mathsf{ownerID}}
+
+Mechanism: global assertion / transaction-end constraint trigger.
+
+\textbf{2. Treatment numbers respect chronological order within each pet.}
+
+\StudyFormula{\forall t,u\,\in \,\mathsf{Treatment}:}
+\StudyFormula{(t.\mathsf{ownerID},t.\mathsf{petNo})\,=\,(u.\mathsf{ownerID},u.\mathsf{petNo})}
+\StudyFormula{\land \,t.\mathsf{treatmentNo}\,<\,u.\mathsf{treatmentNo}}
+\StudyFormula{\Longrightarrow \,t.\mathsf{date}\,\le \,u.\mathsf{date}}
+
+Mechanism: assertion / trigger checking affected histories on INSERT/UPDATE.
+
+\emph{Same-clinic management in (c) also needs an extra check; alternatively, declare UNIQUE(empID,\allowbreak{}clinicID) on Veterinarian and add FK Clinic(managerID,clinicID) → Veterinarian(empID,clinicID).}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Source: Tutorial1.pdf p.~1; mapping/notation: \href{../../../slides/Lecture2A.pptx}{Lecture2A.pptx}, slides 3, 33--55. Question-sheet SHA-256: \texttt{\seqsplit{316e8b6bb9581a5ecae3fb2f449e395a4ea8a19b4ee16c4191fc20a6079d2c44}}. SQL execution: N/A; schemas/constraints are declarative answers.

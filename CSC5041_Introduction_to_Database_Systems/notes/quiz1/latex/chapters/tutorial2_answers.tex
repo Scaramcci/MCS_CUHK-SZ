@@ -1,0 +1,92 @@
+\clearpage
+\section{Tutorial 2 --- Compact Answers}\label{tutorial2_answers}
+
+\href{../../../slides/Tutorial\%202.pdf}{Question sheet}, p.~1, Q1(a)--(b). Model answers, not an official marking scheme.
+
+\StudyFormula{S\,=\,\mathsf{Student}\,\,\,\,\,C\,=\,\mathsf{Course}\,\,\,\,\,E\,=\,\mathsf{Enrolled}}
+\StudyFormula{I\,=\,\mathsf{Instructor}\,\,T\,=\,\mathsf{Teaches}}
+\StudyFormula{\bowtie \,=\,\mathsf{natural}\,\mathsf{join};\,\gamma \,=\,\mathsf{grouping}/\mathsf{aggregation};\,\leftarrow \,=\,\mathsf{intermediate}\,\mathsf{relation}.}
+
+\subsection{Q1(a) Relational algebra}\label{tutorial2_answers-q1a-relational-algebra}
+
+\subsubsection{(i)}\label{tutorial2_answers-i}
+
+\StudyFormula{\pi _{\mathsf{title}}(\sigma _{\mathsf{dept}=\texttt{'CS'}\,\land \,\mathsf{credits}>3}(C))}
+
+\subsubsection{(ii)}\label{tutorial2_answers-ii}
+
+\StudyFormula{\pi _{\mathsf{sname}}(S\,\bowtie \,E\,\bowtie \,\sigma _{\mathsf{iid}=\texttt{'I1'}}(T))}
+
+\(E\,\bowtie \,T\) matches both cid and term.
+
+\subsubsection{(iii)}\label{tutorial2_answers-iii}
+
+\StudyFormula{A\,\leftarrow \,\pi _{\mathsf{sid}}(E\,\bowtie \,\sigma _{\mathsf{dept}=\texttt{'CS'}}(C))}
+\StudyFormula{B\,\leftarrow \,\pi _{\mathsf{sid}}(E\,\bowtie \,\sigma _{\mathsf{dept}=\texttt{'Math'}}(C))}
+\StudyFormula{\mathsf{OR}:\,\,\,\,\pi _{\mathsf{sname}}(S\,\bowtie \,(A\,\cup \,B))}
+\StudyFormula{\mathsf{BOTH}:\,\,\pi _{\mathsf{sname}}(S\,\bowtie \,(A\,\cap \,B))}
+
+\subsubsection{(iv)}\label{tutorial2_answers-iv}
+
+\StudyFormula{\pi _{\mathsf{sname}}(S\,\bowtie \,(\pi _{\mathsf{sid}}(S)\,- \,\pi _{\mathsf{sid}}(E)))}
+
+\subsubsection{(v)}\label{tutorial2_answers-v}
+
+\StudyFormula{D\,\leftarrow \,\pi _{\mathsf{cid}}(\sigma _{\mathsf{dept}=\texttt{'CS'}}(C))}
+\StudyFormula{R\,\leftarrow \,\pi _{\mathsf{sid},\mathsf{cid}}(E)}
+\StudyFormula{U\,\leftarrow \,\pi _{\mathsf{sid}}(S)}
+\StudyFormula{Q\,\leftarrow \,U\,- \,\pi _{\mathsf{sid}}((U\,\times \,D)\,- \,R)}
+\StudyFormula{\mathsf{Answer}\,\leftarrow \,\pi _{\mathsf{sname}}(S\,\bowtie \,Q)}
+
+If D ≠ ∅: \(Q\,=\,U\,\cap \,(R\,\div \,D)\). If D = ∅: \texttt{Q\ =\ U}.
+
+\subsubsection{(vi)}\label{tutorial2_answers-vi}
+
+\StudyFormula{\gamma _{\mathsf{dept};\,\operatorname{COUNT}(\mathsf{cid})\rightarrow \mathsf{nCourses},\,\operatorname{AVG}(\mathsf{credits})\rightarrow \mathsf{avgCredits}}(C)}
+
+\Needspace{150pt}
+\subsection{Q1(b) SQL}\label{tutorial2_answers-q1b-sql}
+
+\subsubsection{(i)}\label{tutorial2_answers-i-1}
+
+\Needspace{75pt}
+\begin{lstlisting}[language=SQL]
+SELECT sname, level
+FROM Student
+WHERE major IN ('CS', 'Math');
+\end{lstlisting}
+
+\subsubsection{(ii)}\label{tutorial2_answers-ii-1}
+
+\Needspace{90pt}
+\begin{lstlisting}[language=SQL]
+SELECT s.sname, c.title, e.term
+FROM Enrolled AS e
+JOIN Student AS s ON s.sid = e.sid
+JOIN Course AS c ON c.cid = e.cid;
+\end{lstlisting}
+
+\subsubsection{(iii)}\label{tutorial2_answers-iii-1}
+
+\Needspace{90pt}
+\begin{lstlisting}[language=SQL]
+SELECT DISTINCT c.title
+FROM Course AS c
+JOIN Teaches AS t ON t.cid = c.cid
+WHERE t.iid = 'I1';
+\end{lstlisting}
+
+\subsubsection{(iv)}\label{tutorial2_answers-iv-1}
+
+\Needspace{75pt}
+\begin{lstlisting}[language=SQL]
+SELECT DISTINCT sid
+FROM Enrolled
+WHERE grade IS NULL;
+\end{lstlisting}
+
+\texttt{NULL\ \textless{}\textgreater{}\ \textquotesingle{}A\textquotesingle{}} is UNKNOWN, so WHERE does not retain those rows.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Sources: Tutorial 2.pdf p.~1; \href{../../../slides/Relational_Algebra.pptx}{Relational\_Algebra.pptx}, slides 5--59; \href{../../../slides/SQLpart1.pptx}{SQLpart1.pptx}, slides 13, 31--36, 44--58. Question-sheet SHA-256: \texttt{\seqsplit{72c016526c1c0ff02c10fcb5f7f964c1184999c684228671025800936a6cabac}}. Expressions/queries are statically derived; SQL has not been executed.

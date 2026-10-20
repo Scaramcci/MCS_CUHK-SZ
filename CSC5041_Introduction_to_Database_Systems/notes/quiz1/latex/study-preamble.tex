@@ -1,0 +1,98 @@
+% Adapted from templates/latex/报告模板.zip (XeLaTeX, unofficial CUHK-SZ report style).
+\usepackage{fontspec,xeCJK}
+\setmainfont{texgyretermes}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setsansfont{texgyreheros}[Extension=.otf,UprightFont=*-regular,BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+\setmonofont{Menlo}[Scale=0.84]
+\setCJKmainfont{Songti SC}[AutoFakeBold=2]
+\setCJKsansfont{Hiragino Sans GB}
+\setCJKmonofont{Hiragino Sans GB}
+\usepackage{microtype}
+\usepackage[a4paper,margin=25mm,headheight=22pt,headsep=8mm,footskip=12mm]{geometry}
+\usepackage{graphicx,amsmath,amssymb,mathtools}
+\usepackage{booktabs,longtable,tabularx,array,calc}
+\usepackage{enumitem,listings,fvextra,caption,fancyhdr,lastpage,titlesec,xcolor}
+\usepackage{etoolbox,float,adjustbox,pdflscape,needspace,soul,newunicodechar,seqsplit}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,fit,shapes.geometric,shapes.multipart,matrix}
+\usepackage[unicode,pdfencoding=auto,bookmarksnumbered=false]{hyperref}
+\definecolor{CUHKPurple}{HTML}{5C2267}
+\definecolor{CUHKGold}{HTML}{C99A2E}
+\definecolor{Ink}{HTML}{20242B}
+\definecolor{Muted}{HTML}{626B75}
+\definecolor{Rule}{HTML}{D8DCE0}
+\definecolor{CodeBg}{HTML}{F5F6F8}
+\color{Ink}
+\hypersetup{colorlinks=true,linkcolor=CUHKPurple,urlcolor=CUHKPurple,pdfauthor={CSC5041 Personal Study Materials},pdftitle={CSC5041 Revision Materials}}
+\setlist{leftmargin=*,itemsep=2pt,topsep=4pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\emergencystretch}{3em}
+\linespread{1.08}
+\setcounter{secnumdepth}{0}
+\setcounter{tocdepth}{2}
+\titleformat{\section}{\sffamily\LARGE\bfseries\color{CUHKPurple}}{}{0pt}{}
+\titleformat{\subsection}{\sffamily\large\bfseries\color{CUHKPurple}}{}{0pt}{}
+\titleformat{\subsubsection}{\sffamily\normalsize\bfseries\color{Ink}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{1em}{0.65em}
+\titlespacing*{\subsection}{0pt}{1em}{0.4em}
+\titlespacing*{\subsubsection}{0pt}{0.7em}{0.25em}
+\captionsetup{font=small,labelfont={bf,color=CUHKPurple},labelsep=period}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\sffamily\small\color{Muted}CSC5041 · Database Systems}
+\fancyhead[R]{\sffamily\small\color{Muted}\VolumeShort}
+\fancyfoot[L]{\sffamily\scriptsize\color{Muted}The Chinese University of Hong Kong, Shenzhen}
+\fancyfoot[R]{\sffamily\scriptsize\color{Muted}\thepage\ / \pageref*{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\newcommand{\VolumeShort}{Weeks 1--5}
+\fancypagestyle{cover}{\fancyhf{}\fancyfoot[R]{\sffamily\small 2026-10-20}\renewcommand{\headrulewidth}{0pt}}
+\newcommand{\StudyCover}[3]{%
+ \thispagestyle{cover}
+ \noindent\begin{minipage}[c]{0.12\textwidth}\includegraphics[width=0.82\linewidth]{assets/CUHK_Logo.png}\end{minipage}%
+ \begin{minipage}[c]{0.85\textwidth}{\sffamily\bfseries\large The Chinese University of Hong Kong, Shenzhen}\par{\sffamily\small\color{Muted}Personal study materials · Unofficial}\end{minipage}
+ \par\vspace{12pt}{\color{CUHKGold}\rule{\linewidth}{1.2pt}}\par\vspace{20mm}
+ {\sffamily\bfseries\Huge\color{CUHKPurple}#1}\par\vspace{9mm}
+ {\sffamily\LARGE #2}\par\vspace{5mm}{\large\color{Muted}#3}\par
+ \vfill{\small Adapted from the supplied academic report template.\par Original teaching materials remain unchanged.\par LaTeX edition: 20 October 2026.}\clearpage}
+\lstdefinestyle{studysql}{language=SQL,basicstyle=\ttfamily\small,keywordstyle=\color{CUHKPurple}\bfseries,stringstyle=\color{CUHKGold!65!black},commentstyle=\color{Muted},backgroundcolor=\color{CodeBg},frame=single,rulecolor=\color{Rule},breaklines=true,breakatwhitespace=false,columns=fullflexible,keepspaces=true,showstringspaces=false,tabsize=4,aboveskip=8pt,belowskip=8pt}
+\lstset{style=studysql}
+\DefineVerbatimEnvironment{StudyCode}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\small,frame=single,rulecolor=\color{Rule},framesep=6pt,baselinestretch=1.1}
+\newcommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\newcommand{\passthrough}[1]{#1}
+\newcommand{\pandocbounded}[1]{\begin{adjustbox}{max width=\linewidth,max totalheight=.78\textheight,keepaspectratio}#1\end{adjustbox}}
+\newcommand{\StudyFormula}[1]{\par\noindent\begin{adjustbox}{max width=\linewidth}\(\displaystyle #1\)\end{adjustbox}\par}
+\newcommand{\StudyVisual}[2]{\begin{figure}[H]\centering\StudyDiagram{#1}{#2}\end{figure}}
+\newcommand{\StudyLandscapeER}{\clearpage\begin{landscape}\thispagestyle{empty}\begin{center}{\sffamily\large\bfseries\color{CUHKPurple}Tutorial 1: complete ER diagram}\par\vspace{4mm}\includegraphics[width=\linewidth,height=.86\textheight,keepaspectratio]{figures/tutorial1_er.pdf}\end{center}\end{landscape}\clearpage}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.17}
+\AtBeginEnvironment{longtable}{\small}
+\setlength{\LTleft}{0pt}\setlength{\LTright}{0pt}
+\newunicodechar{σ}{\ensuremath{\sigma}}
+\newunicodechar{π}{\ensuremath{\pi}}
+\newunicodechar{ρ}{\ensuremath{\rho}}
+\newunicodechar{γ}{\ensuremath{\gamma}}
+\newunicodechar{θ}{\ensuremath{\theta}}
+\newunicodechar{⋈}{\ensuremath{\bowtie}}
+\newunicodechar{÷}{\ensuremath{\div}}
+\newunicodechar{∀}{\ensuremath{\forall}}
+\newunicodechar{∃}{\ensuremath{\exists}}
+\newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{∉}{\ensuremath{\notin}}
+\newunicodechar{⊆}{\ensuremath{\subseteq}}
+\newunicodechar{∪}{\ensuremath{\cup}}
+\newunicodechar{∩}{\ensuremath{\cap}}
+\newunicodechar{∧}{\ensuremath{\land}}
+\newunicodechar{∨}{\ensuremath{\lor}}
+\newunicodechar{¬}{\ensuremath{\neg}}
+\newunicodechar{≠}{\ensuremath{\ne}}
+\newunicodechar{∅}{\ensuremath{\varnothing}}
+\newunicodechar{≤}{\ensuremath{\le}}
+\newunicodechar{≥}{\ensuremath{\ge}}
+\newunicodechar{×}{\ensuremath{\times}}
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+\newunicodechar{←}{\ensuremath{\leftarrow}}
+\newunicodechar{⇒}{\ensuremath{\Longrightarrow}}
+\newunicodechar{−}{\ensuremath{-}}
+\newunicodechar{✓}{\ensuremath{\checkmark}}
+\newunicodechar{☐}{\ensuremath{\square}}
+\newunicodechar{☑}{\ensuremath{\boxtimes}}
+\input{figures/diagrams.tex}

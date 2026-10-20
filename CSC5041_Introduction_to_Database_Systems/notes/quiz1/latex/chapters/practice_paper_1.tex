@@ -1,0 +1,237 @@
+\clearpage
+\section{CSC5041 --- Practice Paper 1}\label{practice_paper_1}
+
+\textbf{Scope:} Weeks 1--5 · \textbf{Total:} 100 marks · \textbf{Suggested time:} 120 minutes
+
+Original practice questions based on the teaching plan and Tutorials 1--2. The time and marks are practice settings, not the lecturer's announced examination format. No answers are included.
+
+\subsection{Instructions}\label{practice_paper_1-instructions}
+
+\begin{itemize}
+\tightlist
+\item
+  Attempt all questions. Label answers by question and subpart.
+\item
+  Prefer formulas, schemas, diagrams, and SQL. Use at most one or two sentences when an explanation is requested.
+\item
+  Use the lecture's Chen ER notation. Underline primary keys and mark foreign-key attributes with \texttt{*}; state complete composite foreign-key groups and targets.
+\item
+  Relational algebra uses set semantics. You may use σ, π, ρ, ∪, ∩, −, ×, ⋈, ÷, and γ. Define any intermediate relations.
+\item
+  Write PostgreSQL-compatible SQL using ordinary SELECT, joins, aggregation, and subqueries. No window functions, recursive queries, or PL/pgSQL are needed.
+\item
+  Names and titles need not be unique. Unless stated otherwise, all attributes except explicitly nullable ones are non-NULL, and every declared foreign key is valid.
+\item
+  Each question is independent. Q2's ER model is not the schema used in Q3--Q5.
+\end{itemize}
+
+\subsection{Q1. Database fundamentals {[}10 marks{]}}\label{practice_paper_1-q1.-database-fundamentals-10-marks}
+
+\textbf{(a) {[}2 marks{]}} Distinguish a database from a DBMS. Give one short definition of each.
+
+\textbf{(b) {[}3 marks{]}} Name the three-schema level corresponding to each description:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A research assistant sees only the projects assigned to that assistant.
+\item
+  The complete logical definitions of Scientist, Project, and their constraints.
+\item
+  The organization of database records into disk pages and access paths.
+\end{enumerate}
+
+\textbf{(c) {[}3 marks{]}} Classify each change as demonstrating physical data independence, logical data independence, or neither. Assume any stated interface preservation is achieved successfully.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A file organization changes while relation definitions and application queries remain unchanged.
+\item
+  A logical relation is split into two, but suitable mappings preserve the existing external interfaces.
+\item
+  A scientist's phone number is replaced by a new value.
+\end{enumerate}
+
+\textbf{(d) {[}2 marks{]}} Classify \texttt{CREATE\ TABLE} and \texttt{UPDATE} as DDL or DML, using the course's terminology.
+
+\subsection{Q2. Conceptual design and relational mapping {[}30 marks{]}}\label{practice_paper_1-q2.-conceptual-design-and-relational-mapping-30-marks}
+
+A research organization maintains the following information.
+
+A research centre has a unique \texttt{centreID}, a name, an address consisting of city and street, and zero or more phone numbers. A centre employs one or more scientists. A scientist has a unique \texttt{scientistID}, a name, and a salary, and works at exactly one centre. Each centre has exactly one head, who must be a scientist employed at that centre. A scientist heads at most one centre.
+
+A project has a unique \texttt{projectID}, a title, and a budget, and is hosted by exactly one centre. A centre may host zero or more projects. Scientists may work on zero or more projects, and each project must have one or more scientists working on it. Record \texttt{hoursPerWeek} for each scientist--project association. Each recorded value is positive, and a scientist's total \texttt{hoursPerWeek} across all projects must not exceed 40. Scientists may work on projects hosted by other centres.
+
+A project may have zero or more experimental runs. Runs are numbered \texttt{1,\allowbreak{}2,\allowbreak{}3,\allowbreak{}.\allowbreak{}.\allowbreak{}.\allowbreak{}} within their project; different projects may use the same \texttt{runNo}. Each run has a date and an outcome and is led by exactly one scientist. A scientist may lead zero or more runs. No further condition connects leadership with project membership.
+
+A material has a unique \texttt{materialCode}, a name, and a unit cost. A run may consume zero or more materials; a material may be consumed by zero or more runs. Record the quantity consumed for each run--material pair. There is at most one such association per pair.
+
+\textbf{(a) {[}5 marks{]}} List entity types and attributes. Identify keys; for each weak entity give its partial key, owner, and full identifier.
+
+\textbf{(b) {[}9 marks{]}} Draw the ER diagram, including attributes, relationship attributes, cardinality ratios, participation constraints, and identifying relationships. State any additional assumptions.
+
+\textbf{(c) {[}12 marks{]}} Produce the relational schema using the standard mapping. Show all primary keys, foreign keys, and any uniqueness or non-null requirements needed to preserve the stated associations. State which relationships or attributes create separate relations.
+
+\textbf{(d) {[}4 marks{]}} Give two stated business constraints not guaranteed by the primary-key and foreign-key declarations in your mapping alone. Express each constraint as a formula or a short sentence, and name a suitable enforcement mechanism.
+
+\subsection{Q3. Relational integrity {[}10 marks{]}}\label{practice_paper_1-q3.-relational-integrity-10-marks}
+
+Use the following independent schema:
+
+\begin{StudyCode}
+Catalogue(supplierID, partNo, label)
+  PK{supplierID, partNo}
+
+Request(requestID, supplierID, partNo, quantity)
+  PK{requestID}
+  FK{supplierID,partNo} → Catalogue{supplierID,partNo}
+  All attributes NOT NULL; quantity is an integer with CHECK(quantity > 0).
+\end{StudyCode}
+
+Initial state:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Catalogue.supplierID & partNo & label \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+S1 & P1 & Sensor \\
+S2 & P2 & Cable \\
+\end{longtable}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+Request.requestID & supplierID & partNo & quantity \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+R1 & S1 & P1 & 2 \\
+\end{longtable}
+
+Assess each operation \textbf{independently from this initial state}. No automatic cascades or reference repairs are configured. State \textbf{valid/invalid} and the applicable constraint or reason. \textbf{{[}2 marks each{]}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Insert \texttt{(S1,P1,\textquotesingle{}Replacement\ sensor\textquotesingle{})} into Catalogue.
+\item
+  Insert \texttt{(\allowbreak{}R2,\allowbreak{}S1,\allowbreak{}P2,\allowbreak{}1)\allowbreak{}} into Request.
+\item
+  Insert \texttt{(\allowbreak{}NULL,\allowbreak{}S2,\allowbreak{}P2,\allowbreak{}1)\allowbreak{}} into Request.
+\item
+  Delete \texttt{(S1,P1,\textquotesingle{}Sensor\textquotesingle{})} from Catalogue.
+\item
+  Change the quantity of Request R1 from 2 to −1.
+\end{enumerate}
+
+\subsection{Schema for Q4 and Q5}\label{practice_paper_1-schema-for-q4-and-q5}
+
+\begin{StudyCode}
+Trainee(tid, tname, track, level)       PK{tid}
+Module(mid, title, area, hours)        PK{mid}
+Enrolment(tid, mid, term, score)       PK{tid,mid,term}
+Trainer(rid, rname, area)              PK{rid}
+Teaching(rid, mid, term)               PK{rid,mid,term}
+\end{StudyCode}
+
+\begin{itemize}
+\tightlist
+\item
+  Enrolment.tid references Trainee.tid; Enrolment.mid and Teaching.mid reference Module.mid; Teaching.rid references Trainer.rid.
+\item
+  A Teaching tuple states that a trainer teaches that module in that term. A module offering may have several trainers.
+\item
+  A trainee may take the same module in different terms. \texttt{score} is numeric and NULL until assessment. All other attributes are non-NULL.
+\item
+  Terms are strings such as \texttt{\textquotesingle{}2026F\textquotesingle{}}. Module hours are positive numbers. Names and titles may repeat.
+\item
+  ``Has taken'' means has an Enrolment tuple, whether or not score is available.
+\end{itemize}
+
+\subsection{Q4. Relational algebra {[}25 marks{]}}\label{practice_paper_1-q4.-relational-algebra-25-marks}
+
+\textbf{(a) {[}3 marks{]}} Return the titles of modules in area \texttt{\textquotesingle{}Data\textquotesingle{}} with more than 12 hours.
+
+\textbf{(b) {[}4 marks{]}} Return the names of trainees who took at least one module taught by trainer \texttt{\textquotesingle{}R7\textquotesingle{}} in the same term as their enrolment. Consider all terms.
+
+\textbf{(c) {[}5 marks{]}} Return the names of trainees who have taken:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  At least one \texttt{\textquotesingle{}Data\textquotesingle{}} module or at least one \texttt{\textquotesingle{}Systems\textquotesingle{}} module, using a set union.
+\item
+  At least one module from each of those two areas, using a set intersection.
+\end{enumerate}
+
+\textbf{(d) {[}4 marks{]}} Return the names of trainees who have never enrolled in any module. Use set difference.
+
+\textbf{(e) {[}6 marks{]}} Return the names of trainees who have taken every module in area \texttt{\textquotesingle{}Data\textquotesingle{}}. Enrolments may be in different terms, and additional modules in other areas are allowed. Assume at least one Data module exists. Use division, or a correct expression using basic operators.
+
+\textbf{(f) {[}3 marks{]}} For each area represented in Module, return the area, number of modules, and average number of hours. Use γ.
+
+\subsection{Q5. SQL {[}25 marks{]}}\label{practice_paper_1-q5.-sql-25-marks}
+
+\textbf{(a) {[}3 marks{]}} Return \texttt{mid}, \texttt{title}, and \texttt{hours} for Data modules with at least 12 hours. Sort by hours descending, then mid ascending.
+
+\textbf{(b) {[}5 marks{]}} Return distinct trainee IDs and names for trainees enrolled in term \texttt{\textquotesingle{}2026F\textquotesingle{}} in a module taught by trainer \texttt{\textquotesingle{}R7\textquotesingle{}} in that term. Write the complete joining conditions.
+
+\textbf{(c) {[}5 marks{]}} For each trainee who enrolled in at least two distinct modules in \texttt{\textquotesingle{}2026F\textquotesingle{}}, return \texttt{tid}, the number of distinct modules, and the average available score for that term. Unassessed enrolments count towards the module requirement. Return only groups that satisfy it, sorted by tid.
+
+\textbf{(d) {[}5 marks{]}} Return trainee IDs and names of trainees with no assessed enrolment in any term, including trainees with no enrolments. An enrolment is assessed exactly when score is non-NULL. Use NOT EXISTS.
+
+\textbf{(e) {[}7 marks{]}} This subpart uses only the following table:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+TestScore.attemptID & score \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+A1 & 90 \\
+A2 & 80 \\
+A3 & NULL \\
+A4 & 80 \\
+A5 & NULL \\
+\end{longtable}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Give the single result row of the following query. \textbf{{[}3 marks{]}}
+
+  \Needspace{60pt}
+  \begin{lstlisting}[language=SQL]
+  SELECT COUNT(*), COUNT(score), COUNT(DISTINCT score)
+  FROM TestScore;
+  \end{lstlisting}
+\item
+  Give the attempt IDs returned below, and explain the treatment of NULL in one sentence. \textbf{{[}2 marks{]}}
+
+  \Needspace{45pt}
+  \begin{lstlisting}[language=SQL]
+  SELECT attemptID FROM TestScore WHERE score <> 80;
+  \end{lstlisting}
+\item
+  Give the attempt IDs returned below, and justify the result in one sentence. \textbf{{[}2 marks{]}}
+
+  \Needspace{45pt}
+  \begin{lstlisting}[language=SQL]
+  SELECT attemptID FROM TestScore WHERE score NOT IN (90, NULL);
+  \end{lstlisting}
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{End of Paper 1 --- 100 marks.}
+
+Scope sources: \href{../../../syllabus/CSC5041_Teaching_Plan.pdf}{Teaching plan}, p.~1 Weeks 1--5 and p.~2 Tutorials 1--2; \href{../../../slides/Tutorial1.pdf}{Tutorial 1}, p.~1; \href{../../../slides/Tutorial\%202.pdf}{Tutorial 2}, p.~1. Questions, scenarios, data, timings, and mark allocations in this paper are original practice material.

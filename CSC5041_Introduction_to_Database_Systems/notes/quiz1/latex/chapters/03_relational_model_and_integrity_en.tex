@@ -1,0 +1,557 @@
+\clearpage
+\section{03 Relational Model and Integrity Constraints: English Study Notes}\label{03_relational_model_and_integrity_en}
+
+CSC5041 · In-class Test 1 revision · 19 October 2026
+
+\subsection{Scope and learning goals}\label{03_relational_model_and_integrity_en-scope-and-learning-goals}
+
+This chapter follows \hyperref[02_er_modelling_en]{02 ER Modelling}. It covers ``The Relational Data Model'' and ``integrity constraints'' in Week 3 on page 1 of the teaching plan. The main source is the lecturer's \href{../../../slides/Lecture2A.pptx}{Lecture2A.pptx}, slides 4--32. Unless another file is named, slide numbers below refer to their order in that deck.
+
+After studying this chapter, you should be able to interpret relation schemas and instances, explain set properties, identify keys and foreign-key directions, distinguish key constraints from entity and referential integrity, and assess insertions, deletions, and modifications. ER mapping begins on slide 33 and belongs to Chapter 04; relational algebra belongs to Chapter 05; SQL implementation details belong to Chapter 06.
+
+The student-enrolment data below is an \textbf{original teaching example}, not real student information, measured output, or examination questions. Clarifications of simplified slide statements are labelled explicitly.
+
+\subsection{1. From the ER model to the relational model}\label{03_relational_model_and_integrity_en-from-the-er-model-to-the-relational-model}
+
+Source: slides 4--7 and 32.
+
+Chapter 02 expresses application meaning through entities, attributes, and relationships. The relational model organizes information into a collection of interconnected \textbf{relations}. A relation can be visualized as a table; it is \textbf{not the same thing as an ER relationship} connecting entities.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Mathematical term
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Common data terminology
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Meaning
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Relation & Table & A set of tuples sharing an attribute structure \\
+Tuple & Row / record & Values for a collection of attributes \\
+Attribute & Column / field & A named property \\
+Domain & Allowed values & The set of values permitted for an attribute \\
+\end{longtable}
+
+For example, \texttt{Student(\allowbreak{}sid,\allowbreak{}\ name,\allowbreak{}\ email)\allowbreak{}} is a relation schema. \texttt{(\allowbreak{}S01,\allowbreak{}\ Amy,\allowbreak{}\ amy@example.\allowbreak{}test)\allowbreak{}} is a tuple written in that attribute order. The enrolment association between Student and Course can itself be represented by an Enrolment relation; placing tables next to each other does not encode the association.
+
+\subsection{2. Schemas, instances, degree, and cardinality}\label{03_relational_model_and_integrity_en-schemas-instances-degree-and-cardinality}
+
+Source: slides 8 and 32. The formal notation and degree/cardinality terminology below are explanatory supplements.
+
+\subsubsection{One relation}\label{03_relational_model_and_integrity_en-one-relation}
+
+\begin{StudyCode}
+Relation schema: Student(sid, name, email)
+
+A relation instance:
+sid   name   email
+S01   Amy    amy@example.test
+S02   Ben    ben@example.test
+\end{StudyCode}
+
+A relation schema specifies the relation name, attributes, and their domains. An instance is the actual set of tuples at a particular time. Common notation is \texttt{R(\allowbreak{}A1,\allowbreak{}\ .\allowbreak{}.\allowbreak{}.\allowbreak{},\allowbreak{}\ An)\allowbreak{}} and \texttt{r(\allowbreak{}R)\allowbreak{}}, or simply \texttt{r} when the schema is clear.
+
+In the classical definition without NULL, each tuple takes one value from each attribute domain, so \(r\,\subseteq \,\mathsf{dom}(\mathsf{A1})\,\times \,...\,\times \,\mathsf{dom}(\mathsf{An})\). This specifies where values come from and which combinations are included. It does not require storing every possible combination.
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Term & What it counts & Example above \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Degree / arity & Attributes & 3 \\
+Cardinality & Current tuples & 2 \\
+\end{longtable}
+
+An empty instance still has a schema: if Student has no rows, its degree remains 3 and its cardinality is 0. Here cardinality means \textbf{the actual number of rows}. The ER cardinality ratio in Chapter 02 constrains \textbf{the permitted number of associated entities}. Keep the meanings separate.
+
+\subsubsection{The database as a whole}\label{03_relational_model_and_integrity_en-the-database-as-a-whole}
+
+Slide 32 defines a relational database schema as \textbf{a collection of relation schemas together with integrity constraints}. Listing the columns of Student, Course, and Enrolment alone does not fully describe the database schema; primary keys, foreign keys, and other rules also matter.
+
+A database state contains instances of its relations. It is valid only when all relevant constraints hold. Invalid states discussed below explain why operations should be rejected; they are not states the system is expected to preserve.
+
+\subsection{3. Basic properties of a relation}\label{03_relational_model_and_integrity_en-basic-properties-of-a-relation}
+
+Source: slides 8--10. The SQL comparison additionally uses SQLpart1, slides 31--32.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Property
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Interpretation
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Tuples are unordered & Swapping displayed rows does not produce a different relation \\
+Complete tuples do not repeat & A classical relation is a set; identical tuples are not separate elements \\
+Each attribute position contains one atomic value & The course's flat relational model does not directly retain composite or multivalued ER attributes \\
+Attributes are distinguished by names & Attribute names must distinguish columns within one relation; different relations may reuse names \\
+Rearranging displayed columns preserves meaning & Move each column's name and its values together; do not arbitrarily exchange values within a tuple \\
+\end{longtable}
+
+\subsubsection{No semantic column order does not mean arbitrary value order}\label{03_relational_model_and_integrity_en-no-semantic-column-order-does-not-mean-arbitrary-value-order}
+
+Slide 10 rearranges PLAYER's column headings together with their corresponding values, preserving the relation. With named attributes, what matters is which value belongs to which attribute.
+
+However, under \texttt{Student(\allowbreak{}sid,\allowbreak{}\ name)\allowbreak{}}, \texttt{(\allowbreak{}S01,\allowbreak{}\ Amy)\allowbreak{}} differs from \texttt{(\allowbreak{}Amy,\allowbreak{}\ S01)\allowbreak{}}. Positional tuple notation must follow the declared attribute order. Rearranging the display is different from exchanging attribute values.
+
+\subsubsection{Atomic values and ER attributes}\label{03_relational_model_and_integrity_en-atomic-values-and-er-attributes}
+
+In Chapter 02, \texttt{address(\allowbreak{}city,\allowbreak{}\ street,\allowbreak{}\ postcode)\allowbreak{}} is composite and \texttt{\{phoneNumber\}} is multivalued. Slide 8 excludes these structures as direct attributes in the course's flat relations. Atomicity depends on the domains and operations adopted by the model; it does not mean that a string cannot be divided into characters. Chapter 04 covers the conversion.
+
+\subsubsection{Classical relations and SQL tables}\label{03_relational_model_and_integrity_en-classical-relations-and-sql-tables}
+
+Classical relations use set semantics. SQLpart1, slides 31--32, separately explains that SQL can retain duplicates and that DISTINCT removes duplicate query results. ``Relations have no duplicate tuples'' therefore does not mean that every SQL table automatically forbids duplicates. SQL syntax and explicit constraint declarations belong to Chapter 06.
+
+\subsection{4. Superkeys, candidate keys, and primary keys}\label{03_relational_model_and_integrity_en-superkeys-candidate-keys-and-primary-keys}
+
+Source: slides 12--15; continues Section 4 of Chapter 02.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Key
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Condition
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Original example: sid and email are each unique and mandatory
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Superkey & Uniquely determines a tuple & \texttt{\{sid\}}, \texttt{\{email\}}, \texttt{\{sid,\ name\}} \\
+Candidate key & A superkey containing no redundant attribute & \texttt{\{sid\}}, \texttt{\{email\}} \\
+Primary key & The selected candidate key & Choose \texttt{\{sid\}} \\
+Composite key & Consists of several attributes & Course's \texttt{\{dept,\ courseNo\}} in Section 8 \\
+\end{longtable}
+
+Minimality asks \textbf{whether removing an attribute destroys guaranteed uniqueness}. It does not mean selecting the smallest key among all candidate keys. A relation can have several candidate keys; choosing a primary key does not remove the uniqueness requirements of the others.
+
+Slide 13 explicitly \textbf{assumes that no two people share a name} before treating PLAYER.Name as a candidate key. Three different names in a sample do not establish that names are always unique in reality.
+
+\subsubsection{Why are key constraints needed if tuples cannot repeat?}\label{03_relational_model_and_integrity_en-why-are-key-constraints-needed-if-tuples-cannot-repeat}
+
+\begin{StudyCode}
+(S01, Amy, amy@example.test)
+(S01, Ada, ada@example.test)
+\end{StudyCode}
+
+These complete tuples differ, so set membership alone does not exclude their coexistence. They share sid, however, and violate a key constraint if sid is the primary key. \textbf{No duplicate complete rows} and \textbf{uniqueness of a specified key} are different requirements.
+
+\subsubsection{\texorpdfstring{Interpreting \texttt{2\^{}n\ −\ 1} on slide 15}{Interpreting 2\^{}n − 1 on slide 15}}\label{03_relational_model_and_integrity_en-interpreting-2n-1-on-slide-15}
+
+The slide lists all nonempty attribute subsets. An n-attribute set has \texttt{2\^{}n\ −\ 1} such subsets, \textbf{but not every subset uniquely identifies tuples}. This is not an unconditional formula for the number of superkeys.
+
+\textbf{Original counterexample:} R(A,B,C) has only candidate key \texttt{\{A\}}; B, C, and \texttt{\{B,C\}} do not guarantee uniqueness. Its superkeys are \texttt{\{A\}}, \texttt{\{A,B\}}, \texttt{\{A,C\}}, and \texttt{\{A,B,C\}}: four, not seven. All nonempty subsets are superkeys only under additional conditions, such as every individual attribute already being a key.
+
+\Needspace{11cm}
+\subsection{5. Foreign keys: direction, repetition, and composite references}\label{03_relational_model_and_integrity_en-foreign-keys-direction-repetition-and-composite-references}
+
+\StudyVisual{integrity}{en}
+
+Source: slides 16--19.
+
+A foreign key consists of one or more attributes in the referencing relation whose values reference a key in the referenced relation. This lecture section defines references to \textbf{primary keys}. This chapter follows that scope rather than claiming to give the complete rules of every SQL system.
+
+\begin{StudyCode}
+Referencing relation                        Referenced relation
+Enrolment.sid                  ─────────→   Student.sid
+Enrolment.(dept, courseNo)      ─────────→   Course.(dept, courseNo)
+\end{StudyCode}
+
+Write each reference as \textbf{referencing attribute group → key attribute group in the target relation}. Attribute names need not match, but corresponding domains must be compatible. Matching names or simply using strings on both sides does not automatically establish a foreign key.
+
+\subsubsection{Foreign-key values need not be unique}\label{03_relational_model_and_integrity_en-foreign-key-values-need-not-be-unique}
+
+Several enrolment rows can contain the same sid because one student may take several courses. Student.sid must be unique, but Enrolment.sid need not be unique merely because it is a foreign key. An attribute can also belong to both a foreign key and a primary key.
+
+\subsubsection{A composite foreign key must match as a combination}\label{03_relational_model_and_integrity_en-a-composite-foreign-key-must-match-as-a-combination}
+
+If Course contains only \texttt{(\allowbreak{}CS,\allowbreak{}101)\allowbreak{}} and \texttt{(\allowbreak{}Math,\allowbreak{}201)\allowbreak{}}, \texttt{(\allowbreak{}CS,\allowbreak{}201)\allowbreak{}} \textbf{does not} reference either tuple. CS and 201 occur separately, but not together in the corresponding key positions of \textbf{one target tuple}.
+
+Likewise, \texttt{(\allowbreak{}Department,\allowbreak{}\ Degree)\allowbreak{}} on slide 19 is \textbf{one composite foreign key}, not two independent foreign keys referencing COURSE. Omitting either component may fail to identify the course.
+
+\subsection{6. NULL and the limits of foreign-key rules}\label{03_relational_model_and_integrity_en-null-and-the-limits-of-foreign-key-rules}
+
+Source: slides 18, 20, 22, and 30. Chapter 02 explains NULL as unknown or inapplicable information.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Location
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Rule used in this chapter
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Any component of a primary key & Cannot be NULL, even when other components have values \\
+Non-primary-key attribute & Nullability depends on its mandatory-value constraints \\
+Nullable foreign key & Can use NULL for no reference only when other constraints permit it \\
+Foreign-key attribute also in a primary key & The foreign-key role does not override primary-key non-nullability \\
+\end{longtable}
+
+\textbf{Slides 18 and 22 require a composite foreign key to be either entirely NULL or entirely non-NULL and matching a referenced key.} This chapter follows that explicit lecture rule. It does not claim that this is the default behaviour of every SQL implementation.
+
+\textbf{Original small example:} \texttt{Plan(\allowbreak{}planID,\allowbreak{}\ dept,\allowbreak{}\ courseNo)\allowbreak{}} has primary key planID and a nullable foreign key \texttt{(\allowbreak{}dept,\allowbreak{}courseNo)\allowbreak{}} referencing Course from Section 5, using the rule above.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Foreign-key value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Decision
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{(\allowbreak{}CS,\allowbreak{}101)\allowbreak{}} & Valid: a complete match exists \\
+\texttt{(\allowbreak{}NULL,\allowbreak{}NULL)\allowbreak{}} & Valid assuming both columns permit missing values and no other rule requires a reference \\
+\texttt{(\allowbreak{}CS,\allowbreak{}NULL)\allowbreak{}} & Invalid under the lecture's all-NULL-or-all-non-NULL rule \\
+\texttt{(\allowbreak{}CS,\allowbreak{}201)\allowbreak{}} & Invalid: this combination does not exist \\
+\end{longtable}
+
+\textbf{Permission for a null reference does not establish that the business permits no association.} If every record must reference a target, the foreign key must additionally be non-NULL. Merely having a nullable foreign key does not fully encode total participation from Chapter 02.
+
+\subsection{7. What do the three integrity constraints check?}\label{03_relational_model_and_integrity_en-what-do-the-three-integrity-constraints-check}
+
+Source: slides 20--22 and 32.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Constraint
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Problem prevented
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Typical violation
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Key constraint & Distinct tuples share a candidate-key value & Two students have the same sid, or different sid values but the same unique email \\
+Entity integrity & A primary key cannot completely identify a tuple & One component of a composite primary key is NULL \\
+Referential integrity & A foreign key references a nonexistent target key & An enrolment references a student absent from the database \\
+\end{longtable}
+
+Primary-key \textbf{uniqueness} belongs to key constraints; primary-key \textbf{non-nullability} belongs to entity integrity. They jointly support identification, but distinguish them in answers. One operation may violate several rules; finding one violation does not establish that no others exist.
+
+\subsubsection{Domain and business constraints {[}explanatory supplement{]}}\label{03_relational_model_and_integrity_en-domain-and-business-constraints-explanatory-supplement}
+
+Domains on slides 6 and 8 restrict allowed values. For example, grade must be an allowed grade or permitted missing value; an integer identifier cannot arbitrarily contain free text. Other business rules may require nonnegative fees or a start date no later than the end date.
+
+The three constraints emphasized on slide 20 are \textbf{not an exhaustive list of every possible database constraint}. Valid primary and foreign keys alone do not guarantee a correct business state.
+
+\subsection{8. Running example: schema, constraints, and initial state}\label{03_relational_model_and_integrity_en-running-example-schema-constraints-and-initial-state}
+
+Everything in this section is an original teaching example. The schemas are given inputs; this is not an ER-mapping demonstration.
+
+\subsubsection{Schema and constraints}\label{03_relational_model_and_integrity_en-schema-and-constraints}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2500}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Relation schema
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Primary key (PK)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Other candidate keys
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Foreign keys (FK)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Student(sid, name, email) & \texttt{\{sid\}} & \texttt{\{email\}} & None \\
+Course(dept, courseNo, title) & \texttt{\{dept,\ courseNo\}} & No others specified here & None \\
+Enrolment(sid, dept, courseNo, term, grade) & \texttt{\{sid,\ dept,\ courseNo,\ term\}} & No others specified here & \texttt{\{sid\}\ →\ Student.sid}; \texttt{\{dept,courseNo\}\ →\ Course.\allowbreak{}(dept,\allowbreak{}courseNo)} \\
+\end{longtable}
+
+The example requires all three Student attributes and all three Course attributes. sid, email, dept, title, name, and term are strings; courseNo is a positive integer. Allowed term values are \texttt{2026F} and \texttt{2027S}. grade permits A, B, C, D, F, or NULL, with NULL meaning that a grade is not yet available. Every primary-key component is non-NULL.
+
+A student may take several courses and may repeat a course in another term. \textbf{At most one enrolment exists per student, course, and term.} This is the rule represented by Enrolment's four-attribute primary key. Neither dept nor courseNo alone identifies Course tuples.
+
+\subsubsection{Initial state}\label{03_relational_model_and_integrity_en-initial-state}
+
+Student:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+sid & name & email \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+S01 & Amy & amy@example.test \\
+S02 & Ben & ben@example.test \\
+\end{longtable}
+
+Course:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+dept & courseNo & title \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+CS & 101 & Database Basics \\
+Math & 201 & Linear Algebra \\
+\end{longtable}
+
+Enrolment:
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule\noalign{}
+sid & dept & courseNo & term & grade \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+S01 & CS & 101 & 2026F & A \\
+S02 & CS & 101 & 2026F & NULL \\
+\end{longtable}
+
+This state satisfies the stated constraints: both Student candidate keys are unique, primary keys are complete and non-NULL, and every foreign-key value has a target. Repetition of Enrolment.sid does not determine referential validity; the issue is whether it references an existing student.
+
+\textbf{Each operation below is assessed independently against this initial state, not executed in sequence.} The decisions are static deductions from the constraints, not results of database execution.
+
+\subsection{9. Insertion: check the new tuple and reference targets}\label{03_relational_model_and_integrity_en-insertion-check-the-new-tuple-and-reference-targets}
+
+Source: slides 21--28. Operations below use the original data from Section 8.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Proposed operation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Decision and reason
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Insert \texttt{(\allowbreak{}S01,\allowbreak{}\ Ada,\allowbreak{}\ ada@example.\allowbreak{}test)\allowbreak{}} into Student & Invalid: sid already exists; key constraint violation \\
+Insert \texttt{(\allowbreak{}S03,\allowbreak{}\ Chen,\allowbreak{}\ amy@example.\allowbreak{}test)\allowbreak{}} into Student & Invalid: candidate key email repeats; checking only the primary key is insufficient \\
+Insert \texttt{(\allowbreak{}S03,\allowbreak{}\ CS,\allowbreak{}\ 101,\allowbreak{}\ 2026F,\allowbreak{}\ A)\allowbreak{}} into Enrolment & Invalid: Student has no S03; referential integrity violation \\
+Insert \texttt{(\allowbreak{}S01,\allowbreak{}\ CS,\allowbreak{}\ 201,\allowbreak{}\ 2026F,\allowbreak{}\ B)\allowbreak{}} into Enrolment & Invalid: Course has no \texttt{(\allowbreak{}CS,\allowbreak{}201)\allowbreak{}}; components cannot be matched separately \\
+Insert \texttt{(\allowbreak{}S01,\allowbreak{}\ CS,\allowbreak{}\ 101,\allowbreak{}\ NULL,\allowbreak{}\ B)\allowbreak{}} into Enrolment & Invalid: primary-key component term is NULL; entity integrity violation \\
+Insert \texttt{(\allowbreak{}S01,\allowbreak{}\ CS,\allowbreak{}\ 101,\allowbreak{}\ 2026F,\allowbreak{}\ B)\allowbreak{}} into Enrolment & Invalid: the four-attribute primary key already exists, even though grade differs \\
+Insert \texttt{(\allowbreak{}S01,\allowbreak{}\ CS,\allowbreak{}\ 101,\allowbreak{}\ 2027S,\allowbreak{}\ NULL)\allowbreak{}} into Enrolment & Valid: a different term gives a different key, both foreign keys have targets, and grade permits NULL \\
+\end{longtable}
+
+A useful order is \textbf{domains and mandatory values → all candidate keys → primary-key non-nullability → each foreign-key group}. If asked for all violations, complete all relevant checks.
+
+In the lecturer's examples, slide 24 inserts the existing Person\#=2 into RESEARCHER to demonstrate a key conflict. Slide 26 inserts \texttt{(\allowbreak{}Comp.\allowbreak{}Sci.\allowbreak{},\allowbreak{}\ NULL)\allowbreak{}} into COURSE to demonstrate a missing composite-primary-key component. Slide 28 inserts an ENROLMENT with nonexistent Supervisee=6 to demonstrate a missing reference target.
+
+\subsection{10. Deletion: follow references in the reverse direction}\label{03_relational_model_and_integrity_en-deletion-follow-references-in-the-reverse-direction}
+
+Source: slides 29--30.
+
+When deleting, check not only the tuple itself, but also \textbf{whether other tuples reference its key}.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Proposed deletion from the initial state
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Effect of deleting without further action
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Student S01 & An Enrolment references S01; leaving that reference unchanged violates referential integrity \\
+Course \texttt{(\allowbreak{}CS,\allowbreak{}101)\allowbreak{}} & Two Enrolment tuples reference it; leaving them unchanged violates referential integrity \\
+Course \texttt{(\allowbreak{}Math,\allowbreak{}201)\allowbreak{}} & No tuple references it here; the remaining state satisfies the stated constraints \\
+S01's Enrolment tuple & No other relation references Enrolment here; the remaining state satisfies the stated constraints \\
+\end{longtable}
+
+``Primary keys cannot be deleted'' is therefore incorrect. Check dependencies and declared handling rules.
+
+Slide 30 discusses these responses:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Reject deletion:} retain the referenced tuple and avoid dangling references.
+\item
+  \textbf{Cascade to referencing tuples:} delete related tuples, checking whether further relations reference them.
+\item
+  \textbf{Set the reference to NULL:} possible only when the foreign key is nullable and other constraints permit it.
+\item
+  \textbf{Change to another valid reference:} the replacement must satisfy domains and all relevant constraints; an arbitrary placeholder identifier is insufficient.
+\end{itemize}
+
+In this example, both foreign-key groups in Enrolment are included in its primary key, so \textbf{setting them to NULL is not an available repair}. Cascading or changing a reference must also respect business meaning. Do not assume that the database automatically chooses a response.
+
+\subsection{11. Modification: consider both old and new values}\label{03_relational_model_and_integrity_en-modification-consider-both-old-and-new-values}
+
+Source: slide 31. The final paragraph clarifies the scope of its statements.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Modified attributes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Checks needed
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Example
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Primary or other candidate key & New duplicates, NULL in the primary key, and references to the old key & Changing Student S01's sid to S02 creates a key conflict; changing it to S03 instead leaves the old S01 reference without a target unless references are handled \\
+Foreign key & Complete target match, permitted nullability, and any simultaneous primary-key role & Changing courseNo from 101 to 201 in S01's enrolment creates nonexistent \texttt{(\allowbreak{}CS,\allowbreak{}201)\allowbreak{}} \\
+Non-key attribute & Domains, mandatory values, and other business constraints still apply & Changing grade to Z violates the allowed-grade rule despite changing no key \\
+\end{longtable}
+
+Changing S01's enrolment \texttt{(\allowbreak{}dept,\allowbreak{}courseNo)\allowbreak{}} together to \texttt{(\allowbreak{}Math,\allowbreak{}201)\allowbreak{}} has an existing target and creates no duplicate result key. It is valid under the example's constraints. \textbf{Check the entire resulting combination when modifying a composite foreign key.}
+
+The lecture compares changing a primary key to deleting the old key and inserting a new one. This helps remember old references and new conflicts; it does not require physically deleting and reinserting the student.
+
+\textbf{Clarifying the slides:} ``Not unless you're modifying the value of a key'' and ``all relational integrity constraints are to do with the key values'' on slide 31 should be read in the context of that slide's key-related constraints. They do not establish that every non-key update is safe: domains, mandatory attributes, and business rules may also be violated.
+
+\subsection{12. Common distinctions}\label{03_relational_model_and_integrity_en-common-distinctions}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Pair
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Distinction
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Relation / ER relationship & Set of tuples / association among entities \\
+Schema / instance & Structure and rules / contents at a particular time \\
+Degree / cardinality & Attribute count / current tuple count \\
+Relation cardinality / ER cardinality ratio & Actual row count / business limits on associations \\
+No duplicate tuples / key uniqueness & No complete-row repetition / no repeated specified key group across distinct rows \\
+Candidate key / primary key & Any minimal superkey / the selected candidate key \\
+Primary key / foreign key & Identifies this relation's tuples / references a target key; attributes may serve both roles \\
+Repeated foreign-key value / dangling reference & Several tuples referencing the same target is usually permitted / referencing a missing target is invalid \\
+Composite-key matching / separate column checks & Match the combination in one target tuple / separate occurrences do not establish validity \\
+Key constraint / entity integrity & Uniqueness / primary-key non-nullability \\
+NULL / zero / empty string & Missing-value marker / a numeric value / a string value \\
+Constraint-valid state / fully correct business state & Obeys declared rules / also depends on whether all necessary business rules have been declared \\
+\end{longtable}
+
+\subsection{13. Revision checklist and short-answer language}\label{03_relational_model_and_integrity_en-revision-checklist-and-short-answer-language}
+
+These are learning goals, not a formal practice test or an official mark allocation.
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  Identify relations, tuples, attributes, domains, schemas, and instances in given tables.
+\item[$\square$]
+  State degree and cardinality, including for an empty instance.
+\item[$\square$]
+  Explain the difference between rearranging displayed columns and exchanging tuple values.
+\item[$\square$]
+  Distinguish no duplicate rows, superkeys, candidate keys, and primary keys.
+\item[$\square$]
+  Explain why \texttt{2\^{}n\ −\ 1} is not an unconditional superkey-count formula.
+\item[$\square$]
+  Label the direction of every foreign key and check composite references as combinations.
+\item[$\square$]
+  Explain key constraints, entity integrity, and referential integrity separately.
+\item[$\square$]
+  Apply the lecture's rules to all-NULL, partly NULL, and nonmatching foreign keys.
+\item[$\square$]
+  Assess insertions, deletions, and modifications independently from one initial state, identifying conflicting tuples or missing targets.
+\item[$\square$]
+  State the conditions for cascading and setting references to NULL without assuming automatic actions.
+\end{itemize}
+
+Useful short-answer formulations:
+
+\begin{quote}
+A relation is a set of tuples defined over a collection of named attributes.
+\end{quote}
+
+\begin{quote}
+A relation schema describes the structure; a relation instance contains the tuples at a particular time.
+\end{quote}
+
+\begin{quote}
+A candidate key is a minimal superkey, and a primary key is a selected candidate key.
+\end{quote}
+
+\begin{quote}
+Entity integrity requires every component of a primary key to be non-NULL.
+\end{quote}
+
+\begin{quote}
+Referential integrity requires a non-NULL foreign-key value to match a referenced key value.
+\end{quote}
+
+\begin{quote}
+A composite foreign key must match the corresponding key components in the same referenced tuple.
+\end{quote}
+
+\begin{quote}
+Deleting a referenced tuple requires checking the tuples that refer to it.
+\end{quote}
+
+\subsection{Sources and preparation record}\label{03_relational_model_and_integrity_en-sources-and-preparation-record}
+
+\begin{itemize}
+\tightlist
+\item
+  Main lecture deck: \href{../../../slides/Lecture2A.pptx}{Lecture2A.pptx}, mainly slides 4--32. Text was read and original diagrams/tables on slides 7, 10, 15, 17, 19, 24, 26, 28--29, and 31 were visually inspected, including key underlines, composite references, and operation examples. Mapping steps on slides 33--55 are not developed here.
+\item
+  Additional comparison: \href{../../../slides/SQLpart1.pptx}{SQLpart1.pptx}, slides 31--32, only to distinguish classical set semantics from SQL duplicates; SQL querying is not taught here.
+\item
+  Scope: \href{../../../syllabus/CSC5041_Teaching_Plan.pdf}{CSC5041\_Teaching\_Plan.pdf}, page 1, Week 3. Explanations of degree/cardinality, domain and business constraints, original schemas/data, and limitations of slide wording are distinguished from the original material.
+\item
+  LaTeX edition prepared on 20 October 2026; original evidence status is retained. No new database execution is claimed.
+\item
+  Input SHA-256: Lecture2A \texttt{\seqsplit{cecf28254342cf35e9a0b1b86a007fba728ed17a900e9e05182f2f2616081ee0}}; SQLpart1 \texttt{\seqsplit{aa28c989fb3674e780418c78c483bba20ff5a50b7da067b0341e60410a68c8ed}}; syllabus teaching plan \texttt{\seqsplit{31380a7fe6504e46541b6db0bb2f24859c69188bfeb9681dca73354ebeb68295}}.
+\end{itemize}

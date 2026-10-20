@@ -1,0 +1,82 @@
+[
+  {
+    "source": "01_database_fundamentals_en.md",
+    "sha256": "aa14d96b9fbe1d125ab8ccbf397ac67f52d72dedee47b271d783cf7c4c0195ec",
+    "chapter": "chapters/01_database_fundamentals_en.tex"
+  },
+  {
+    "source": "01_database_fundamentals_zh.md",
+    "sha256": "3049dd84dd58309d47ef2ad1bd9d8fa62d525b15367f0441bac57fa164bc96d9",
+    "chapter": "chapters/01_database_fundamentals_zh.tex"
+  },
+  {
+    "source": "02_er_modelling_en.md",
+    "sha256": "2e9e44f31fa431e678f741e46ad896a2645280cc25f4f9df054785622f321b7c",
+    "chapter": "chapters/02_er_modelling_en.tex"
+  },
+  {
+    "source": "02_er_modelling_zh.md",
+    "sha256": "445c20ee0af382d6ce7fd4297741414bee1d7a2fec418f708d20ed16f8f1e35b",
+    "chapter": "chapters/02_er_modelling_zh.tex"
+  },
+  {
+    "source": "03_relational_model_and_integrity_en.md",
+    "sha256": "e959c7c9c3520f6555a610b4eedbd18cf48785985e6c6290b19537b6fa3bea31",
+    "chapter": "chapters/03_relational_model_and_integrity_en.tex"
+  },
+  {
+    "source": "03_relational_model_and_integrity_zh.md",
+    "sha256": "13b7503b163880397bc60ea9619e8d4b8112446ef0c2713307c8b7df249e2079",
+    "chapter": "chapters/03_relational_model_and_integrity_zh.tex"
+  },
+  {
+    "source": "04_er_to_relational_mapping_en.md",
+    "sha256": "cff950dd8377b3c5f455232c773bd40d758e5139cabe1af2ee188d90b3efdad0",
+    "chapter": "chapters/04_er_to_relational_mapping_en.tex"
+  },
+  {
+    "source": "04_er_to_relational_mapping_zh.md",
+    "sha256": "11f3814ceb9d7e623a2725a6eb32e3df0c6a2194c9723f1c3249633748f7537f",
+    "chapter": "chapters/04_er_to_relational_mapping_zh.tex"
+  },
+  {
+    "source": "05_relational_algebra_en.md",
+    "sha256": "7f18f89806596155e8405f98ad9bd7d60cf6e0fe6a74b2f57b59b0b39220c5ac",
+    "chapter": "chapters/05_relational_algebra_en.tex"
+  },
+  {
+    "source": "05_relational_algebra_zh.md",
+    "sha256": "d0b8bfc4d73cc09a497f56d1f0d22b7a234b1f681a294ae3e642c0cc2f6471db",
+    "chapter": "chapters/05_relational_algebra_zh.tex"
+  },
+  {
+    "source": "06_sql_queries_en.md",
+    "sha256": "f94935b1a1b591f5e2235f5e868b23661003ae2cf8d43ca5718be8b487997425",
+    "chapter": "chapters/06_sql_queries_en.tex"
+  },
+  {
+    "source": "06_sql_queries_zh.md",
+    "sha256": "4053285518f92af1678af72d11e57bc29cc19ad234ee417dce6a00098f067f4e",
+    "chapter": "chapters/06_sql_queries_zh.tex"
+  },
+  {
+    "source": "practice_paper_1.md",
+    "sha256": "5a56396ceec1c3f88ee554113566fb87a0fd514d9808ca5dcbcf6b747b2340c7",
+    "chapter": "chapters/practice_paper_1.tex"
+  },
+  {
+    "source": "practice_paper_2.md",
+    "sha256": "d10d0399fcab13cdd0c9bbe9deea1be8a0397208eb8f88937d951e0c8be48575",
+    "chapter": "chapters/practice_paper_2.tex"
+  },
+  {
+    "source": "tutorial1_answers.md",
+    "sha256": "0ac5e4bf9434f03f5b918f07dfad1486f4dd2664f668fea69ee5fee9bd66bebe",
+    "chapter": "chapters/tutorial1_answers.tex"
+  },
+  {
+    "source": "tutorial2_answers.md",
+    "sha256": "8c46acd37465b867ffa8d32a404ec12b5e97ff7156d1ec383f8d22097720e5b4",
+    "chapter": "chapters/tutorial2_answers.tex"
+  }
+]

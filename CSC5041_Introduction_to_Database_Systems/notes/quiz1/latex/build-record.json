@@ -1,0 +1,91 @@
+{
+  "timestamp": "2026-10-20T09:50:07.675622+08:00",
+  "author": "/root; diagrams: /root/latex_figures",
+  "scope": "Four-volume LaTeX reformat of 16 preserved Markdown originals; no mock-paper answers",
+  "compiler": "XeTeX 3.141592653-2.6-0.999997 (TeX Live 2025)",
+  "pandoc": "pandoc 3.7.0.2",
+  "command": "latexmk -xelatex -interaction=nonstopmode -halt-on-error -outdir=/tmp/csc5041-latex-build <main|notes_en|tutorial_answers|practice_papers>.tex",
+  "exit_status": {
+    "main": 0,
+    "notes_en": 0,
+    "tutorial_answers": 0,
+    "practice_papers": 0
+  },
+  "logs": "/tmp/csc5041-latex-build/",
+  "missing_characters": 0,
+  "overfull_boxes": 0,
+  "pdfs": {
+    "notes_en.pdf": {
+      "sha256": "b2813db041651935aad3647a036a14822ccaf7b6f64c10ed06273ce62995704b",
+      "pages": 67,
+      "bytes": 551012
+    },
+    "notes_zh.pdf": {
+      "sha256": "7b90d8ae61c7853f2b1c1f55ab0f31a15f2e44488826c13826f16d91b1af1f2f",
+      "pages": 61,
+      "bytes": 923972
+    },
+    "practice_papers.pdf": {
+      "sha256": "102f4506fab5046d4f8601c2dcb32c10a952b84aed465f5406e9b3331aa65d39",
+      "pages": 11,
+      "bytes": 251723
+    },
+    "tutorial_answers.pdf": {
+      "sha256": "9f60eb667f4e5c5e907f1fba684ce31524640aa16fb33fe682454604e41e9c3b",
+      "pages": 8,
+      "bytes": 292710
+    }
+  },
+  "source_sha256": {
+    "latex/README.md": "bea9cf7914d96a779a0755896e333caf76bb7b0047a2e1e09fc868359b7351bd",
+    "latex/assets/CUHK_Logo.png": "d1e52a64c934f542890e244c055243b3e7b78c362efcad0132c0d283a38a3765",
+    "latex/build.sh": "5f5fb7450cb93c55eb7367b53f68632916e00f12cb9aabc5ef547acf09a0202e",
+    "latex/chapters/01_database_fundamentals_en.tex": "75325343b5c249c553d90315b458e55c1a33229d6ebc5014fe7543fe01ebb1bd",
+    "latex/chapters/01_database_fundamentals_zh.tex": "fc5f4485d3f08d01133187c2d762c82cddbf1404c3259df62b37cd4334f3ffd3",
+    "latex/chapters/02_er_modelling_en.tex": "8ddd031f613c02f1eb4f0a8fd1728eab4ca68a4b2ae9b7f1a38818c434b3ef48",
+    "latex/chapters/02_er_modelling_zh.tex": "9516d3dec3240f2f5245476e3d7472e6e1c4f0661410eb864fd10ceb79afcec7",
+    "latex/chapters/03_relational_model_and_integrity_en.tex": "a4a1dfc650a2d8e23dfb115a3cfe8f9f700887b534f8002b5e83346db27a968b",
+    "latex/chapters/03_relational_model_and_integrity_zh.tex": "f2edfe414ca9d4729824ae1b1d29f1701336f28dae1404499a1e4f9bb47453d7",
+    "latex/chapters/04_er_to_relational_mapping_en.tex": "3fb069943d2b2ea61e0a6634f4bcd5a77229bafac138eaa68c6cc80a335003cc",
+    "latex/chapters/04_er_to_relational_mapping_zh.tex": "902156cd771064e28ddab490325e2413c60e7506d433ced1c5b493ffa4fd0da6",
+    "latex/chapters/05_relational_algebra_en.tex": "d53cebca2422b9120ad0cc97c83eee967fde43fd8210ffc39bc0f4785bd98b04",
+    "latex/chapters/05_relational_algebra_zh.tex": "5355f3dc3a0d0124f180ef2ada87b7eb82cc7781969ebe812711d4bf30042263",
+    "latex/chapters/06_sql_queries_en.tex": "8b39a15e102a03eb66f16b330e7352c5d709975b0c9bb38b3f3c4eead5fc288e",
+    "latex/chapters/06_sql_queries_zh.tex": "ae5de7ac3f0f46ab93fa5559b7ef597e3004349fa0b810162f0b16b6f32872ba",
+    "latex/chapters/practice_paper_1.tex": "52e2f594aa81fcfe04e4d125d109d7be46ac339fdc2bfe4a808d537b7c12edcb",
+    "latex/chapters/practice_paper_2.tex": "9f51224352a131f70df97a193f240ed1a86ee825034ca8506c0602ff1ad47f48",
+    "latex/chapters/tutorial1_answers.tex": "b3e8916b8f12d2eb3fe60f0ad4cb8c33cb19cc9784e07b5527b574b9080ab9f9",
+    "latex/chapters/tutorial2_answers.tex": "0cd0b6843677f2d0490ac0c55ffa0e04e4bbbdf7a693dabdfadee927a4d082fa",
+    "latex/figures/02_er_modelling_example.pdf": "ec7a2c92701a947941301e2e759a2ce6b2d88f7a816fbcaab4639d9fd28fb8f1",
+    "latex/figures/02_er_modelling_example.svg": "efa27706bb30614a0246acd280443720c8fc25c8834b3fc744ac9b8b198f5fbc",
+    "latex/figures/diagrams.tex": "961e24ec94f3d4e10cd547747fe248a3ba019bf0b51f03496952ba2f5c9436fc",
+    "latex/figures/tutorial1_er.pdf": "250fd35072997069857aae31c1fab2602fca7ca868227bffa7190f75d5ac4b3e",
+    "latex/figures/tutorial1_er.svg": "2e319306ed0eed7b896e7de4dde2fb2754c3aae84e197a01b68d275df4dbfb3c",
+    "latex/main.tex": "80ce5e7ced94a782e555f904adcebb0af82be4db9bfa3180b3386574db65ae03",
+    "latex/notes_en.tex": "5f38c9065ea07f7dea8b0e685bdd76788dae2024e93ef4554b7967cf6461ad24",
+    "latex/practice_papers.tex": "238c6f8adf16d07ce8750a21206714282b8908c8c80d971400b033731f11fc3a",
+    "latex/prepare_sources.py": "f6bb009d8fe74c5f9771de4f221a2a946299378917514d619f8d821b36e1d38e",
+    "latex/source-manifest.json": "96efab1e28c797b2c544cb7d86be1ea2aa755183b9b217149b5a2fd56c604166",
+    "latex/study-preamble.tex": "192f17decc5ccf7209dc2608286d377448640235abc24f51be09f41873d9bb20",
+    "latex/tutorial_answers.tex": "b01b855db53c8557cb0ddf1a8cfb48c0ba7bdf9525f38d74f16384c34c73f7c5"
+  },
+  "independent_technical_verification": {
+    "executor": "/root/latex_verify",
+    "status": "passed checked scope",
+    "evidence": "/tmp/csc5041-latex-verification/verification.md",
+    "checks": "40 SQL blocks unchanged, 16 chapter headings/marks/links, PK/FK notation, PDF binary comparison and selected renders",
+    "limits": "SQL not executed; technical preservation does not replace final visual/content review",
+    "report_text": "# Independent technical verification — CSC5041 LaTeX edition\n\nExecutor: /root/latex_verify (not a content author or implementation participant).\nDate: 2026-10-20 Asia/Shanghai.\nScope: formatting conversion and technical preservation; repository read only. All checker files and renders in /tmp/csc5041-latex-verification.\nInput version: 16 Markdown originals plus final LaTeX project and four frozen PDFs. SHA-256 of every LaTeX project file and final PDF is recorded in final-sha256.json. Markdown originals match all 16 source-manifest.json hashes.\n\n## Passed checks\n\n- Final notes_zh.pdf / notes_en.pdf / tutorial_answers.pdf / practice_papers.pdf exist, are valid readable PDFs, and have 61 / 67 / 8 / 11 pages respectively (pdfinfo). Their bytes equal the corresponding successful build outputs main.pdf / notes_en.pdf / tutorial_answers.pdf / practice_papers.pdf.\n- All 40 SQL code blocks match the Markdown Pandoc AST exactly after removing only the common list-layout indentation added by the LaTeX writer. Includes 15 Chinese note blocks, 15 English note blocks, 4 Tutorial 2 answer blocks, and 3 question-stem blocks in each practice paper.\n- All 16 chapter heading counts and all explicitly labelled mark values are preserved. PDF text confirms all ten Q1–Q5 question headings and marks in the two papers. The practice volume inputs only practice_paper_1 and practice_paper_2, with no answer chapters.\n- All source relative links resolve to existing files after URL decoding. Source references now use the matching extra parent depth for latex/pdf directories; inter-volume note links use the delivered PDF filenames.\n- Tutorial 1 relational schemas preserve underlined PK attributes and FK stars, including all components of composite PK/FKs. Formula source spot checks retain relational-algebra operators, subscripts, predicates, quantifiers, and aggregation arrows.\n- Editable figures are retained: diagrams.tex (TikZ), two SVG sources, and their vector PDF renderings. No raster substitution for ER graphs.\n- Latest four logs report successful PDF output and zero Missing character, Overfull, undefined, or fatal error lines (final-log-check.txt). Chinese extraction and selected renders are readable; no missing Chinese or operator glyphs observed.\n- Visual spot checks: Chinese notes pp. 28 and 47, English notes p. 17, Tutorial answers p. 4. The initial HAS_TREATMENT label collision was returned to the author and corrected; final p. 4 was re-rendered and visually inspected, with the label contained within the identifying diamond.\n\n## Failed checks\n\nNone in the checked technical scope for the recorded frozen version.\n\n## Warnings / coverage limits\n\n- This is technical preservation verification, not the independent final content/layout Reviewer approval. It does not re-solve all database examples or reassess every teacher claim.\n- No SQL/database execution performed; SQL examples retain their original evidence status.\n- Visual inspection is targeted, not a page-by-page visual approval of all 147 pages. The final Reviewer should inspect the exact delivered four PDFs.\n- No changes were made to source Markdown, LaTeX, or PDFs by this verifier.\n\n## Reproduction and evidence\n\nCommands actually run successfully: python3 /tmp/csc5041-latex-verification/check.py; pdfinfo on all four final PDFs; pdftotext -layout on four build PDFs; pdftoppm selected pages; read compiler logs and final-PDF binary comparison/hash script. Source checker exit status 0. Evidence: source-check-final.txt, final-log-check.txt, final-sha256.json, tutorial-p4-final.png. Initial SQL-only regex missed nested list blocks; the final AST-based checker supersedes it and correctly covers all 40.\n\nRequired fixes: none for the checked version. Next role: independent final Reviewer, using exact quiz1/pdf files identified by final-sha256.json.\n\n## Reverification after SQL pagination fix\n\nThe author added Needspace before SQL blocks, rebuilt all four volumes, and replaced the final PDFs. Re-ran the complete AST-based source checker (exit 0): all 40 SQL blocks, 16 chapter heading counts, mark labels, source targets, and original Markdown hashes remain correct. Rechecked final PDF byte identity with the successful builds, all four build logs, PDF validity/page counts, and SHA-256 for all LaTeX/PDF files. Logs retain zero missing glyph / overfull / undefined / fatal diagnostics. The current version hashes supersede the previous hashes in final-sha256.json.\n\n- notes_en.pdf: 67 pages; SHA256 b2813db041651935aad3647a036a14822ccaf7b6f64c10ed06273ce62995704b\n- notes_zh.pdf: 61 pages; SHA256 7b90d8ae61c7853f2b1c1f55ab0f31a15f2e44488826c13826f16d91b1af1f2f\n- practice_papers.pdf: 11 pages; SHA256 102f4506fab5046d4f8601c2dcb32c10a952b84aed465f5406e9b3331aa65d39\n- tutorial_answers.pdf: 8 pages; SHA256 b4296963275fce16ae45280a1e7a8f54ac39b62be75e0809c264961645f8d8b2\n\nFinal technical status: passed checked scope; no outstanding technical fixes. Unchanged limitations above apply. Final Reviewer should verify actual SQL page-break appearance.\n\n## Final Tutorial heading-pagination reverification\n\nOnly Tutorial heading pagination was revised (Needspace 150pt). Complete source check rerun, exit 0; all 40 SQL blocks, headings, marks, source links, and MD hashes still pass. Three other final PDFs are unchanged by SHA-256. Tutorial final PDF matches successful build bytes, remains 8 pages, and has zero missing-glyph/overfull/undefined/fatal log diagnostics. Final Tutorial SHA-256: `9f60eb667f4e5c5e907f1fba684ce31524640aa16fb33fe682454604e41e9c3b`. Current project/PDF hashes are refreshed in final-sha256.json. Technical checked scope passes; final visual pagination review remains Reviewer responsibility.\n"
+  },
+  "independent_final_review": {
+    "executor": "/root/review_er02",
+    "status": "Ready",
+    "evidence": "/tmp/csc5041-final-review.md",
+    "report_text": "# Independent final review — CSC5041 four-volume LaTeX edition\n\nReviewer: /root/review_er02; date: 2026-10-20 Asia/Shanghai.\nIndependence: not a LaTeX author and not /root/latex_verify; read-only review. No source or deliverable was edited.\n\n## Critical issues\nNone in the reviewed four-volume scope.\n\n## Major issues\nNone.\n\n## Minor issues\nNo unresolved delivery issue. The initially identified short SQL blocks split across pages were returned to the author, repaired, and visually rechecked. Tutorial Q1(b) heading and its first SQL block now stay together on physical page 8.\n\n## Checks and evidence\n- Read root AGENTS.md, agents/reviewer.md, LaTeX README, PDF skill, conversion source, TikZ diagrams, and independent technical verification report, including its final reverification sections.\n- Inspected every page through contact sheets (61 + 67 + 8 + 11 = 147 pages), enlarged Tutorial landscape ER/formula/SQL pages and Chinese/English relational-algebra and division diagrams; rechecked all affected Chinese/English SQL sections and practice contacts after pagination changes.\n- All 16 current Markdown source hashes match source-manifest.json. Existing reviewed concepts, examples, questions, formulas, PK underlines, FK stars/groups, and evidence-status statements are preserved in the conversion.\n- Template ZIP logo is retained byte-for-byte; purple/gold colors, A4 margins, headers/footers, and unofficial personal-study labels follow the supplied template.\n- Nine bilingual editable diagram families are semantically consistent with the notes. The complete Tutorial 1 Chen ER diagram is vector-rendered on a landscape page, with legible identifying-relationship label and correct weak entities/keys/cardinalities/participation.\n- Tutorial algebra/quantifiers/grouping formulas render correctly. English practice volume contains both question-only papers, with stated 100 marks each and no answer chapters or answer key.\n- Technical verifier independently checked all 40 SQL blocks, 16 chapter heading counts, marks, links, PDF/build identity, and zero missing glyph/overfull/undefined/fatal diagnostics; final report /tmp/csc5041-latex-verification/verification.md. Reviewer inspected the actual delivered PDFs rather than treating template conversion or compilation as content approval.\n- SQL/database execution: N/A; no database run or measured result is claimed. School submission/package/upload: N/A; these are local study deliverables.\n\n## Final readiness\nReady for the exact four PDFs below. Ready does not mean official teacher approval or school submission.\n\n| PDF | Pages | SHA-256 |\n|---|---:|---|\n| notes_zh.pdf | 61 | 7b90d8ae61c7853f2b1c1f55ab0f31a15f2e44488826c13826f16d91b1af1f2f |\n| notes_en.pdf | 67 | b2813db041651935aad3647a036a14822ccaf7b6f64c10ed06273ce62995704b |\n| tutorial_answers.pdf | 8 | 9f60eb667f4e5c5e907f1fba684ce31524640aa16fb33fe682454604e41e9c3b |\n| practice_papers.pdf | 11 | 102f4506fab5046d4f8601c2dcb32c10a952b84aed465f5406e9b3331aa65d39 |\n"
+  },
+  "editor_preview": {
+    "status": "compile-failed",
+    "reason": "Built-in Tectonic sandbox cannot open /System/Library/Fonts/Menlo.ttc. Local XeLaTeX builds all four PDFs successfully.",
+    "attempted": "compile_latex_document(main.tex)"
+  }
+}

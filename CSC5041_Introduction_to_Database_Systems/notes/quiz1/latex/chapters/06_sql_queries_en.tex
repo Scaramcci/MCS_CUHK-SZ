@@ -1,0 +1,620 @@
+\clearpage
+\section{06 SQL Queries: English Study Notes}\label{06_sql_queries_en}
+
+CSC5041 · In-class Test 1 revision · 19 October 2026
+
+\subsection{Scope and learning goals}\label{06_sql_queries_en-scope-and-learning-goals}
+
+This chapter follows \hyperref[05_relational_algebra_en]{05 Relational Algebra}. Its main sources are the lecturer's \href{../../../slides/SQLpart1.pptx}{SQLpart1.pptx}, slides 3--58, and the query material on slides 2--24 of \href{../../../slides/SQLpart2.pptx}{SQLpart2.pptx}. P1 and P2 below distinguish the decks; numbers refer to slide order.
+
+Week 5 on page 1 of the teaching plan includes SELECT--FROM--WHERE, sorting, aggregation, grouping, and nested queries. Tutorial 2 on page 2 explicitly lists GROUP BY, HAVING, NOT EXISTS, and NOT IN with NULLs. Stopping at the file named Part 1 would therefore omit listed topics. Advanced quantified comparisons, DDL/DML, views, and PL/pgSQL are distinguished rather than treating all Part 2 material as compulsory for Test 1.
+
+After studying this chapter, you should be able to choose a result granularity, specify complete joins, and handle duplicates, NULL, grouping, existence, and nonexistence. All data is original. \textbf{Query results are static deductions; no queries were executed in PostgreSQL or another database.} Supplementary official documentation checks semantics, not the lecturer's examination depth.
+
+\Needspace{11cm}
+\subsection{1. Six common clauses: written and logical order}\label{06_sql_queries_en-six-common-clauses-written-and-logical-order}
+
+\StudyVisual{sqlflow}{en}
+
+Source: P1 slides 13, 26--27, and 44--45; P2 slides 18 and 22--24.
+
+\begin{StudyCode}
+SELECT output columns or expressions
+FROM input tables and joins
+WHERE row conditions
+GROUP BY grouping attributes
+HAVING group conditions
+ORDER BY ordering attributes;
+\end{StudyCode}
+
+Use WHERE, GROUP BY, HAVING, and ORDER BY as needed. P2 slide 24 presents the course framework, not an exhaustive upper limit on modern SQL syntax.
+
+For ordinary queries, use these \textbf{logical stages}:
+
+\begin{StudyCode}
+FROM / JOIN → WHERE → GROUP BY / aggregation → HAVING
+            → SELECT → DISTINCT (if specified) → ORDER BY
+\end{StudyCode}
+
+This is not a mandatory physical execution order. WHERE filters before groups form, so \texttt{AVG(\allowbreak{}score)\allowbreak{}} cannot directly be a same-level row condition. Do not use an output alias in the same-level WHERE; ORDER BY can use output aliases.
+
+SQL querying is generally declarative: specify the desired result. A computed SELECT expression changes the output, not the stored values as UPDATE would.
+
+\subsection{2. Running example: add terms and missing scores to Chapter 05}\label{06_sql_queries_en-running-example-add-terms-and-missing-scores-to-chapter-05}
+
+These are original inputs, \textbf{not the tutorial schema}, and the simplified Takes relation from Chapter 05 is not reused as a full enrolment table.
+
+\begin{StudyCode}
+Student(sid, sname, major)                 PK{sid}
+Course(cid, title, dept, credits)          PK{cid}
+Enrolment(sid, cid, term, score)           PK{sid,cid,term}
+Enrolment.sid → Student.sid; Enrolment.cid → Course.cid
+\end{StudyCode}
+
+All columns except score are mandatory. score is nullable numeric data; NULL means a score is not yet available, not zero. term is a string.
+
+Student:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+sid & sname & major \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+S1 & Amy & CS \\
+S2 & Ben & Math \\
+S3 & Amy & CS \\
+S4 & Dana & Math \\
+\end{longtable}
+
+Course:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+cid & title & dept & credits \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+C1 & Databases & CS & 4 \\
+C2 & AI & CS & 3 \\
+C3 & Linear Algebra & Math & 4 \\
+\end{longtable}
+
+Enrolment:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+sid & cid & term & score \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+S1 & C1 & 2026F & 90 \\
+S1 & C2 & 2026F & 80 \\
+S1 & C1 & 2027S & NULL \\
+S2 & C1 & 2026F & NULL \\
+S2 & C3 & 2026F & 80 \\
+S3 & C3 & 2026F & NULL \\
+\end{longtable}
+
+There are six enrolments, three non-NULL scores, and two distinct non-NULL scores: 80 and 90. S1 repeats C1, S1 and S3 share a name, and S4 has no enrolments. Unless an explicit hypothetical change is stated, each example independently uses these inputs.
+
+\subsection{3. Basic queries, aliases, strings, and DISTINCT}\label{06_sql_queries_en-basic-queries-aliases-strings-and-distinct}
+
+Source: P1 slides 12--13, 18--25, and 28--40.
+
+\Needspace{75pt}
+\begin{lstlisting}[language=SQL]
+SELECT c.cid, c.title, c.credits * 2 AS doubled_credits
+FROM Course AS c
+WHERE c.dept = 'CS' AND c.credits > 3;
+\end{lstlisting}
+
+The result is \texttt{(\allowbreak{}C1,\allowbreak{}Databases,\allowbreak{}8)\allowbreak{}}; the stored credits value remains 4. Use straight single quotes for strings and double an embedded quote, as in \texttt{\textquotesingle{}O\textquotesingle{}\textquotesingle{}Brien\textquotesingle{}}. Do not paste typographic quotation marks from slides into executable SQL.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Expression
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Meaning
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{=}, \texttt{\textless{}\textgreater{}}, \texttt{\textless{}}, \texttt{\textless{}=}, \texttt{\textgreater{}}, \texttt{\textgreater{}=} & Comparisons; these notes use \texttt{\textless{}\textgreater{}} for inequality \\
+\texttt{IN\ (\textquotesingle{}CS\textquotesingle{},\textquotesingle{}Math\textquotesingle{})} & Membership in a value list \\
+\texttt{LIKE\ \textquotesingle{}A\%\textquotesingle{}} & Starts with A; \texttt{\%} matches zero or more characters \\
+\texttt{LIKE\ \textquotesingle{}\_e\%\textquotesingle{}} & Has e as its second character; \texttt{\_} matches one character \\
+\texttt{BETWEEN\ 3\ AND\ 4} & Inclusive range comparison \\
+\end{longtable}
+
+BETWEEN is supplementary syntax. Parenthesize combined AND/OR conditions explicitly, for example \texttt{(major=\textquotesingle{}CS\textquotesingle{}\ OR\ major=\textquotesingle{}Math\textquotesingle{})\ AND\ sid\textless{}\textgreater{}\textquotesingle{}S4\textquotesingle{}}.
+
+\subsubsection{SQL retains output duplicates by default}\label{06_sql_queries_en-sql-retains-output-duplicates-by-default}
+
+\Needspace{60pt}
+\begin{lstlisting}[language=SQL]
+SELECT s.sname FROM Student AS s;
+SELECT DISTINCT s.sname FROM Student AS s;
+\end{lstlisting}
+
+The first outputs Amy twice, Ben once, and Dana once. The second returns three distinct names. No row order is guaranteed without ORDER BY. \texttt{DISTINCT\ sid,\allowbreak{}sname} deduplicates the \textbf{complete output tuple}, not each column independently.
+
+Requesting names does not make names identifiers. Prefer sid for joins and identity-based set decisions.
+
+\Needspace{11cm}
+\subsection{4. NULL and three-valued logic}\label{06_sql_queries_en-null-and-three-valued-logic}
+
+\StudyVisual{null}{en}
+
+Source: P1 slides 18 and 35--36; additional check: \href{https://www.postgresql.org/docs/18/functions-comparison.html}{PostgreSQL comparison documentation}.
+
+Ordinary comparisons with NULL generally produce \textbf{UNKNOWN}. WHERE retains only TRUE rows. FALSE and UNKNOWN are both rejected, but they are different logical results.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Expression & Result \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{NULL\ =\ NULL}, \texttt{NULL\ \textless{}\textgreater{}\ NULL}, \texttt{NULL\ \textgreater{}\ 80} & UNKNOWN \\
+\texttt{NOT\ UNKNOWN} & UNKNOWN \\
+\texttt{TRUE\ AND\ UNKNOWN} & UNKNOWN \\
+\texttt{FALSE\ AND\ UNKNOWN} & FALSE \\
+\texttt{TRUE\ OR\ UNKNOWN} & TRUE \\
+\texttt{FALSE\ OR\ UNKNOWN} & UNKNOWN \\
+\end{longtable}
+
+\textbf{Slide clarification:} do not memorize ``Comparison against NULL yields FALSE'' on P1 slide 18 as a logical law. Slide 35 explicitly gives UNKNOWN. Rejection by WHERE does not make the expression itself FALSE.
+
+\Needspace{75pt}
+\begin{lstlisting}[language=SQL]
+SELECT sid, cid, term
+FROM Enrolment
+WHERE score IS NULL;
+\end{lstlisting}
+
+The result contains \texttt{(\allowbreak{}S1,\allowbreak{}C1,\allowbreak{}2027S)\allowbreak{}}, \texttt{(\allowbreak{}S2,\allowbreak{}C1,\allowbreak{}2026F)\allowbreak{}}, and \texttt{(\allowbreak{}S3,\allowbreak{}C3,\allowbreak{}2026F)\allowbreak{}}, without a guaranteed order. \texttt{score\ =\ NULL} is not a replacement. Nor does \texttt{score\ \textless{}\textgreater{}\ 90} retrieve missing scores: those comparisons are UNKNOWN.
+
+To include scores other than 90 together with missing scores, write \texttt{score\ \textless{}\textgreater{}\ 90\ OR\ score\ IS\ NULL}. Zero is a known numeric score; replacing missing values with zero requires a substantive justification.
+
+\subsection{5. Multiple-table joins: identify the full association}\label{06_sql_queries_en-multiple-table-joins-identify-the-full-association}
+
+Source: P1 slides 41--49 and 52--58.
+
+\Needspace{105pt}
+\begin{lstlisting}[language=SQL]
+SELECT s.sid, s.sname, c.title, e.term
+FROM Student AS s
+JOIN Enrolment AS e ON e.sid = s.sid
+JOIN Course AS c ON c.cid = e.cid
+WHERE c.dept = 'CS';
+\end{lstlisting}
+
+There are four rows: S1's two C1 terms and one C2 term, plus S2's C1 term. Selecting only names would produce Amy three times and Ben once. If distinct students are required, use \texttt{DISTINCT\ s.\allowbreak{}sid,\allowbreak{}s.\allowbreak{}sname} rather than masking an incorrect join.
+
+Missing join conditions can create a Cartesian product. With two name columns, \texttt{name=name} can also be ambiguous. Qualify columns with aliases to make every association explicit.
+
+\subsubsection{NATURAL JOIN risks}\label{06_sql_queries_en-natural-join-risks}
+
+It matches \textbf{all common column names} and merges those columns. P1 slides 55--57 explain that instructor and course departments need not agree. Prefer clear JOIN\ldots ON conditions for the business association actually required.
+
+Tutorial 2's Enrolled and Teaches contain both cid and term. Relating teaching assignments to enrolments requires \texttt{e.\allowbreak{}cid=t.\allowbreak{}cid\ AND\ e.\allowbreak{}term=t.\allowbreak{}term}. Joining only cid mixes offerings from different terms. This chapter has no Teaching table, so that condition is not presented as a complete runnable query on these inputs.
+
+Some INNER JOIN conditions can move between ON and WHERE without changing the result. This does not dictate physical execution order and does not generalize to all outer joins, which introduce NULL-extended rows.
+
+\subsection{6. Self-joins and ordering}\label{06_sql_queries_en-self-joins-and-ordering}
+
+Source: P1 slides 50--51 and P2 slide 23.
+
+Pairs of different students sharing a major:
+
+\Needspace{105pt}
+\begin{lstlisting}[language=SQL]
+SELECT a.sid AS sid1, b.sid AS sid2
+FROM Student AS a
+JOIN Student AS b ON a.major = b.major
+WHERE a.sid < b.sid
+ORDER BY sid1, sid2;
+\end{lstlisting}
+
+Under the example's ordinary character ordering of IDs, the result is \texttt{(\allowbreak{}S1,\allowbreak{}S3)\allowbreak{}}, then \texttt{(\allowbreak{}S2,\allowbreak{}S4)\allowbreak{}}. \texttt{\textless{}} excludes self-pairs and reverse duplicates; \texttt{\textless{}\textgreater{}} alone retains both directions.
+
+\Needspace{75pt}
+\begin{lstlisting}[language=SQL]
+SELECT cid, title, credits
+FROM Course
+ORDER BY credits DESC, cid ASC;
+\end{lstlisting}
+
+The course order is C1, C3, C2. Ordering only by credits leaves the tie between C1 and C3 unresolved. Add an explicit secondary key when a definite order is required. Ordering does not eliminate duplicates or change tuple identity.
+
+\subsection{7. Aggregates: COUNT, SUM, AVG, and NULL}\label{06_sql_queries_en-aggregates-count-sum-avg-and-null}
+
+Source: P2 slides 12--16; additional check: \href{https://www.postgresql.org/docs/18/functions-aggregate.html}{PostgreSQL aggregate documentation}.
+
+\Needspace{120pt}
+\begin{lstlisting}[language=SQL]
+SELECT COUNT(*) AS n_rows,
+       COUNT(score) AS n_scored,
+       COUNT(DISTINCT score) AS n_distinct_scores,
+       SUM(score) AS total_score,
+       AVG(score) AS mean_score
+FROM Enrolment;
+\end{lstlisting}
+
+The result is \texttt{(\allowbreak{}6,\allowbreak{}3,\allowbreak{}2,\allowbreak{}250,\allowbreak{}250/\allowbreak{}3)\allowbreak{}}, with a mean of approximately 83.33; displayed precision depends on the numeric type.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Expression
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+What is counted or how NULL is handled
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{COUNT(\allowbreak{}*)\allowbreak{}} & All input rows, including rows with missing score \\
+\texttt{COUNT(\allowbreak{}score)\allowbreak{}} & Non-NULL score occurrences, including repeated values \\
+\texttt{COUNT(\allowbreak{}DISTINCT\ score)\allowbreak{}} & Distinct non-NULL score values \\
+\texttt{SUM/\allowbreak{}AVG/\allowbreak{}MIN/\allowbreak{}MAX(\allowbreak{}score)\allowbreak{}} & Calculated from non-NULL input values \\
+\end{longtable}
+
+AVG divides by three non-NULL scores, not six enrolments. \texttt{AVG(\allowbreak{}DISTINCT\ score)\allowbreak{}} instead gives \texttt{(\allowbreak{}80+90)\allowbreak{}/\allowbreak{}2=85}, changing the statistical question rather than providing a general duplicate repair.
+
+\subsubsection{Empty input and all-NULL input}\label{06_sql_queries_en-empty-input-and-all-null-input}
+
+Without GROUP BY, an aggregate query still returns one row for no matching input: COUNT is zero, while SUM, AVG, MIN, and MAX are NULL. If matching rows exist but every score is NULL, COUNT(*) counts those rows, COUNT(score)=0, and the other four score aggregates remain NULL.
+
+Filtering to \texttt{sid=\textquotesingle{}S3\textquotesingle{}}, for example, gives COUNT(*)=1, COUNT(score)=0, and AVG(score)=NULL. Missing summaries are not automatically zero; choosing a zero display requires appropriate business meaning.
+
+\subsection{8. GROUP BY and HAVING: one row per group}\label{06_sql_queries_en-group-by-and-having-one-row-per-group}
+
+Source: P2 slides 17--22.
+
+\Needspace{120pt}
+\begin{lstlisting}[language=SQL]
+SELECT e.sid, COUNT(*) AS n_enrolments,
+       COUNT(e.score) AS n_scored, AVG(e.score) AS mean_score
+FROM Enrolment AS e
+GROUP BY e.sid
+HAVING COUNT(*) >= 2
+ORDER BY e.sid;
+\end{lstlisting}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+sid & n\_enrolments & n\_scored & mean\_score \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+S1 & 3 & 2 & 85 \\
+S2 & 2 & 1 & 80 \\
+\end{longtable}
+
+WHERE filters input rows; HAVING filters formed groups. Adding \texttt{WHERE\ score\ IS\ NOT\ NULL} changes COUNT(*) to a count of scored enrolments. S2 then fails the two-row requirement, so this is not equivalent to the original query.
+
+Use the course's explicit writing rule: include nonaggregated SELECT columns in GROUP BY. Do not select \texttt{sid,\allowbreak{}cid,\allowbreak{}AVG(\allowbreak{}score)\allowbreak{}} while grouping only by sid and arbitrarily choose a course for each student. Some implementations recognize functional-dependency exceptions; writing the grouping explicitly avoids relying on them here.
+
+\subsubsection{Counted objects and zero enrolments}\label{06_sql_queries_en-counted-objects-and-zero-enrolments}
+
+S1 has three enrolments but only two different courses; use \texttt{COUNT(\allowbreak{}DISTINCT\ cid)\allowbreak{}} for course count. Joining Enrolment can also repeat a course across students. Decide whether the query counts enrolment records or distinct courses first.
+
+The query does not generate a zero-count group for S4. Covering all students, including zero enrolments, needs another query design, usually involving an outer join. Do not claim that the current inner-join/grouping result includes S4.
+
+\subsection{9. Subqueries: scalar versus multiple rows}\label{06_sql_queries_en-subqueries-scalar-versus-multiple-rows}
+
+Source: P2 slides 2--5; cardinality boundaries additionally checked against \href{https://www.postgresql.org/docs/18/functions-subquery.html}{PostgreSQL subquery documentation}.
+
+\subsubsection{Scalar subquery}\label{06_sql_queries_en-scalar-subquery}
+
+\Needspace{75pt}
+\begin{lstlisting}[language=SQL]
+SELECT cid, title
+FROM Course
+WHERE credits > (SELECT AVG(credits) FROM Course);
+\end{lstlisting}
+
+The mean credits value is 11/3, so C1 and C3 qualify. The inner aggregate returns one column and one row, making it suitable as one value.
+
+A scalar position requires one column and at most one row. Zero rows mean NULL; multiple rows are an error under PostgreSQL/standard scalar semantics, not an instruction to take the first row. Replacing the inner query with \texttt{SELECT\ credits\ FROM\ Course\ WHERE\ dept=\textquotesingle{}CS\textquotesingle{}} returns two rows and is invalid as a scalar. The inner AVG does not need an outer alias reference.
+
+\subsubsection{IN: value membership}\label{06_sql_queries_en-in-value-membership}
+
+\Needspace{135pt}
+\begin{lstlisting}[language=SQL]
+SELECT s.sid, s.sname
+FROM Student AS s
+WHERE s.sid IN (
+    SELECT e.sid
+    FROM Enrolment AS e
+    WHERE e.score >= 85
+);
+\end{lstlisting}
+
+Only S1 qualifies. A scalar IN subquery returns one column. Repeated right-side values do not multiply an outer row. Section 11 discusses NULL effects.
+
+\subsection{10. EXISTS, NOT EXISTS, and correlation}\label{06_sql_queries_en-exists-not-exists-and-correlation}
+
+Source: P2 slide 6; the Tutorial 2 topic list includes NOT EXISTS.
+
+A correlated subquery references the current outer row, as in \texttt{e.\allowbreak{}sid=s.\allowbreak{}sid}. Interpret it as asking an existence question for each student; this does not require the engine to execute the complete inner query once per row.
+
+\Needspace{135pt}
+\begin{lstlisting}[language=SQL]
+SELECT s.sid, s.sname
+FROM Student AS s
+WHERE EXISTS (
+    SELECT 1
+    FROM Enrolment AS e
+    WHERE e.sid = s.sid AND e.score IS NULL
+);
+\end{lstlisting}
+
+S1, S2, and S3 qualify. EXISTS tests for rows, not the selected constant 1. In this ordinary existence query, multiple inner matches still produce one result per outer student. EXISTS does not independently remove duplicates already present in the outer input.
+
+\Needspace{135pt}
+\begin{lstlisting}[language=SQL]
+SELECT s.sid, s.sname
+FROM Student AS s
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM Enrolment AS e
+    WHERE e.sid = s.sid
+);
+\end{lstlisting}
+
+Only S4 qualifies. ``Never'' means \textbf{no matching row}, not one row with \texttt{cid\ \textless{}\textgreater{}\ \textquotesingle{}C1\textquotesingle{}}. Omitting the correlation can make any enrolment in the entire table determine the condition for all students.
+
+\subsection{11. NOT IN with NULL: explain the counterexample}\label{06_sql_queries_en-not-in-with-null-explain-the-counterexample}
+
+Source: Tutorial 2 on page 2 of the plan; additional reference: \href{https://www.postgresql.org/docs/18/functions-subquery.html\#FUNCTIONS-SUBQUERY-NOTIN}{PostgreSQL IN/NOT IN}.
+
+For non-NULL numbers, \texttt{80\ NOT\ IN\ (\allowbreak{}90,\allowbreak{}NULL)\allowbreak{}} is \texttt{80\textless{}\textgreater{}90\ AND\ 80\textless{}\textgreater{}NULL}, yielding UNKNOWN and rejection by WHERE. \texttt{90\ NOT\ IN\ (\allowbreak{}90,\allowbreak{}NULL)\allowbreak{}} is FALSE because an equal value exists. \textbf{A NULL on the right does not force every NOT IN result to be identical.}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Situation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Scalar membership result
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+An equal right-side value exists & IN is TRUE; NOT IN is FALSE \\
+No equal value, NULL participates, and the right side is nonempty & Can be UNKNOWN rather than definite nonmembership \\
+Right side empty & IN is FALSE; NOT IN is TRUE \\
+\end{longtable}
+
+This particular query for unenrolled students is safe under the running example:
+
+\Needspace{75pt}
+\begin{lstlisting}[language=SQL]
+SELECT s.sid, s.sname
+FROM Student AS s
+WHERE s.sid NOT IN (SELECT e.sid FROM Enrolment AS e);
+\end{lstlisting}
+
+Both sid columns are guaranteed non-NULL, so S4 is returned. Replacing them with nullable columns invalidates that reasoning. Filtering NULL out of the right side does not automatically settle a NULL left side's meaning. Correlated NOT EXISTS also requires an explicit interpretation of NULL-key matching; it is not unconditionally equivalent to NOT IN.
+
+\subsection{12. UNION, INTERSECT, EXCEPT, and identity}\label{06_sql_queries_en-union-intersect-except-and-identity}
+
+Source: P2 slide 9; corresponds to set operations in Chapter 05.
+
+\Needspace{165pt}
+\begin{lstlisting}[language=SQL]
+SELECT e.sid
+FROM Enrolment AS e
+JOIN Course AS c ON c.cid = e.cid
+WHERE c.dept = 'CS'
+INTERSECT
+SELECT e.sid
+FROM Enrolment AS e
+JOIN Course AS c ON c.cid = e.cid
+WHERE c.dept = 'Math';
+\end{lstlisting}
+
+The result is S2. The two department conditions need not hold for one enrolment row: each side finds students separately, then intersects their identities.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Operation
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Default behaviour
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+UNION & Combine and remove duplicate output tuples \\
+UNION ALL & Combine and retain multiplicities \\
+INTERSECT & Common tuples, deduplicated \\
+EXCEPT & Left tuples absent from the right, deduplicated; direction matters \\
+\end{longtable}
+
+Inputs require equal column counts and compatible types at corresponding positions. SQL set operations align columns positionally; unlike the course's named relational-algebra convention, equal column names are not required. INTERSECT ALL and EXCEPT ALL have multiplicity semantics; distinguish them from the default deduplicated forms rather than treating ALL as decorative.
+
+Projecting sname on each side first would combine S1's CS enrolments with S3's Math enrolment through the shared name Amy. Work with sid first, then join or use IN/EXISTS to obtain names.
+
+\subsection{13. Every target: no required match is missing}\label{06_sql_queries_en-every-target-no-required-match-is-missing}
+
+Source: P2 slides 10--11. This original example translates Chapter 05's method into SQL; it is not a tutorial answer sheet.
+
+Start with Student candidates and exclude anyone for whom a CS course exists without a corresponding enrolment:
+
+\Needspace{210pt}
+\begin{lstlisting}[language=SQL]
+SELECT s.sid, s.sname
+FROM Student AS s
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM Course AS c
+    WHERE c.dept = 'CS'
+      AND NOT EXISTS (
+          SELECT 1
+          FROM Enrolment AS e
+          WHERE e.sid = s.sid AND e.cid = c.cid
+      )
+);
+\end{lstlisting}
+
+Only S1 qualifies. The innermost query looks for a student--course match; the middle query looks for a target with a missing match; the outer query requires no such target. This example explicitly allows enrolment in any term. If a specific term is required, state the corresponding target and enrolment scope.
+
+Every target must be covered, but extra non-CS courses are allowed. Repeating one course cannot compensate for a missing course. Derive targets from complete Course, not only courses someone has already taken.
+
+If hypothetically no CS courses exist, this returns all Students, including S4: no target can be missing. Add a nonempty-target requirement if the question demands one. P2 slide 11 enumerates candidates from Sells and therefore returns only bars occurring in Sells when its target set is empty. That differs from starting with all Student candidates here; connect this to Chapter 05's empty-divisor discussion.
+
+\subsection{14. Remaining slide material and scope}\label{06_sql_queries_en-remaining-slide-material-and-scope}
+
+\subsubsection{ANY / ALL {[}recognition supplement{]}}\label{06_sql_queries_en-any-all-recognition-supplement}
+
+Source: P2 slides 7--8. Week 6 lists advanced subqueries and set comparison. This section only identifies the notation rather than imposing extra Test 1 depth.
+
+\texttt{x\ \textgreater{}\ ANY\ (subquery)} asks whether at least one comparison is TRUE; \texttt{x\ \textgreater{}\ ALL\ (subquery)} asks whether all are TRUE. For an empty right side, ANY is FALSE and ALL is TRUE. NULL may produce UNKNOWN. Replacing ALL with a MAX comparison is not unconditional because empty or NULL input can change the meaning.
+
+\subsubsection{DDL, data modification, views, and PL/pgSQL}\label{06_sql_queries_en-ddl-data-modification-views-and-plpgsql}
+
+P2 slides 25--52 also cover CREATE TABLE, keys, INSERT, DELETE, UPDATE, views, and schema changes. Connect these to Chapters 03--04 without assuming that every topic in that file is a Test 1 query priority:
+
+\begin{itemize}
+\tightlist
+\item
+  PRIMARY KEY combines uniqueness and non-nullability. FOREIGN KEY does not automatically require non-NULL values, and one ordinary foreign key alone does not preserve 1:1.
+\item
+  DELETE removes rows; DROP TABLE removes the table structure. UPDATE without WHERE affects the whole table. These commands are explained, not executed.
+\item
+  An ordinary view is an interface defined by a query. Do not read ``does not take up space'' as claiming that even its definition metadata occupies no storage; it also differs from a materialized view storing results.
+\item
+  PL/pgSQL, indexes, transactions, and normalization are outside this chapter.
+\end{itemize}
+
+\subsection{15. Query-writing checks and revision checklist}\label{06_sql_queries_en-query-writing-checks-and-revision-checklist}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Specify result granularity.} One row per student, enrolment, distinct course, or group?
+\item
+  \textbf{Check schemas and complete join keys.} Pay attention to sid, cid, and term; distinguish student majors from course departments.
+\item
+  \textbf{Write row predicates and handle NULL.} WHERE retains only TRUE; choose IS NULL, IN, or EXISTS appropriately.
+\item
+  \textbf{Decide duplicate requirements.} Is DISTINCT appropriate to the result, or masking a faulty join?
+\item
+  \textbf{Group before filtering groups.} Explicitly group ordinary selected columns and distinguish COUNT(*), COUNT(column), and COUNT(DISTINCT column).
+\item
+  \textbf{Check subquery shape and correlation.} Is a scalar result at most one row? Does existence concern the current outer entity?
+\item
+  \textbf{Check boundaries.} Namesakes, repeated enrolments, missing scores, no matches, multiple matches, and empty targets; add ORDER BY when order matters.
+\end{enumerate}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Common confusion
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Distinction
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+UNKNOWN / FALSE & Different logical results; WHERE retains neither \\
+DISTINCT / GROUP BY & Output deduplication / forming statistical groups; not mechanical substitutes \\
+WHERE / HAVING & Filter rows before grouping / filter groups after aggregation \\
+COUNT(*) / COUNT(score) & All input rows / non-NULL score rows \\
+EXISTS / scalar subquery & Any rows? / treat the result as one value \\
+NOT IN / NOT EXISTS & Compare a value set / test correlated matches; not unconditionally equivalent with NULL \\
+Every / only & Cover all required targets / exclude associations outside the target \\
+SQL set operation / ordinary SELECT & Deduplicates by default / retains duplicates by default \\
+\end{longtable}
+
+These are learning goals, not a formal practice paper or an official mark allocation:
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  State the written clause order and logical query stages.
+\item[$\square$]
+  Work out basic queries, DISTINCT, self-joins, and ordering with secondary keys.
+\item[$\square$]
+  Explain with three-valued logic why missing scores do not satisfy \texttt{score\textless{}\textgreater{}90}.
+\item[$\square$]
+  Check complete conditions for ordinary and cross-term joins.
+\item[$\square$]
+  Calculate the three COUNT variants and all-NULL/empty-input aggregates.
+\item[$\square$]
+  Explain how WHERE and HAVING change the statistical result.
+\item[$\square$]
+  Distinguish scalar, IN, and EXISTS subquery requirements.
+\item[$\square$]
+  Explain the NULL counterexample for NOT IN and the safe non-NULL sid case.
+\item[$\square$]
+  Perform identity-based set operations before projecting names.
+\item[$\square$]
+  Explain all three levels of double NOT EXISTS and its empty-target behaviour.
+\end{itemize}
+
+Useful short-answer formulations:
+
+\begin{quote}
+WHERE retains only rows for which its condition evaluates to TRUE.
+\end{quote}
+
+\begin{quote}
+COUNT(*) counts rows, whereas COUNT(column) counts non-NULL values in that column.
+\end{quote}
+
+\begin{quote}
+WHERE filters input rows; HAVING filters groups after aggregation.
+\end{quote}
+
+\begin{quote}
+EXISTS tests whether a subquery returns any rows, not the values in its SELECT list.
+\end{quote}
+
+\begin{quote}
+A NOT IN comparison can evaluate to UNKNOWN when NULL participates and no equal value is found.
+\end{quote}
+
+\begin{quote}
+A universal requirement can be expressed as the absence of a required target without a matching association.
+\end{quote}
+
+\subsection{Sources and preparation record}\label{06_sql_queries_en-sources-and-preparation-record}
+
+\begin{itemize}
+\tightlist
+\item
+  Lecturer's decks: \href{../../../slides/SQLpart1.pptx}{SQLpart1.pptx} and \href{../../../slides/SQLpart2.pptx}{SQLpart2.pptx}. Core sources are P1 slides 3--58 and P2 slides 2--24. Text was read and original slides P1 18, 31, 35--36, 51, 55, 58 and P2 2, 6, 9, 11, 15--16, 20, 22, 24 were visually inspected. P2 slides 25--52 are used only for scope recognition.
+\item
+  Teaching scope: \href{../../../syllabus/CSC5041_Teaching_Plan.pdf}{CSC5041\_Teaching\_Plan.pdf}, page 1, Weeks 5--6, and page 2, Tutorial 2. Supporting questions: \href{../../../slides/Tutorial\%202.pdf}{Tutorial 2.pdf}, page 1. Chapter 05 records the sheet's Week 6 versus plan's Week 5 discrepancy; this chapter infers no rescheduling.
+\item
+  Additional checks: PostgreSQL 18 official documentation on \href{https://www.postgresql.org/docs/18/functions-comparison.html}{comparisons}, \href{https://www.postgresql.org/docs/18/functions-subquery.html}{subqueries}, \href{https://www.postgresql.org/docs/18/functions-aggregate.html}{aggregates}, and \href{https://www.postgresql.org/docs/18/queries-table-expressions.html}{table expressions}, read online this turn for NULL, subquery cardinality, aggregation, and related boundaries. This does not imply that the lecturer requires PostgreSQL 18.
+\item
+  LaTeX edition prepared on 20 October 2026; original evidence status is retained. No new database execution is claimed.
+\item
+  Input SHA-256: SQLpart1 \texttt{\seqsplit{aa28c989fb3674e780418c78c483bba20ff5a50b7da067b0341e60410a68c8ed}}; SQLpart2 \texttt{\seqsplit{acd25cbd4bbd246f8901ada4c437c3f2d00873385961475cd4c941e9089bf45c}}; Tutorial 2 \texttt{\seqsplit{72c016526c1c0ff02c10fcb5f7f964c1184999c684228671025800936a6cabac}}; syllabus teaching plan \texttt{\seqsplit{31380a7fe6504e46541b6db0bb2f24859c69188bfeb9681dca73354ebeb68295}}.
+\end{itemize}
