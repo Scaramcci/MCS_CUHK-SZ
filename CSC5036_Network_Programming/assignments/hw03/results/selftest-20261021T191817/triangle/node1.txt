@@ -1,0 +1,17 @@
+[CONNECT] Successfully bind with the port: 57995
+[FILE] Enter the File Name for Search: 
+Message received, size: 140
+[SERVER INFO] Received new packet: CONNECT packet
+[NEIGHBOR] New neighbor connecting request. From address: 127.0.0.1:57264
+[NEIGHBOR] New neighbor connected!
+Message received, size: 140
+[SERVER INFO] Received new packet: CONNECT packet
+[NEIGHBOR] New neighbor connecting request. From address: 127.0.0.1:33441
+[NEIGHBOR] New neighbor connected!
+[CONNECT] Destination IP: 127.0.0.1, Port: 57264
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[CONNECT] Destination IP: 127.0.0.1, Port: 33441
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[FILE] Enter the File Name for Search: 

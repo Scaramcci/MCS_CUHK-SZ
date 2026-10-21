@@ -1,0 +1,26 @@
+{
+  "status": "failed",
+  "checks": [
+    "original Makefile C17 build",
+    "PermissionError(1, 'Operation not permitted')"
+  ],
+  "timestamp": "2026-10-21T19:18:12+0800",
+  "command": "python3 tests/integration.py",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "python": "3.14.7",
+  "machine": "x86_64",
+  "compiler": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+  "make": "GNU Make 4.4.1",
+  "sources_sha256": {
+    "server.c": "4f5e5189b860c23cb3d36bf6cfa3ee920d38dc13448befa5795f2884d3f3548f",
+    "server.h": "b3e6a6b048dca78d35502c740371a69365e74df379093f0a658d59c3befbf9f3",
+    "utils.c": "7f0014075c34556087e9226899031b49cdfa0bb178818ff5e86cff0f77444f4a",
+    "network.c": "7f87b1e5e3ccecbce500b38b2f9378a6506021ab701ff97b41f19b4c7b26829d",
+    "network.h": "7125cf841c994a7985ef9dd1fdebd42bfdf3882cb105a8c437d5abbce0aa4ec7",
+    "main.c": "a84b1312cc58f3552398a63c4fad83f0bda64e96149a2dec7663934fafdcf879",
+    "Makefile": "6d0c2a9780f19979441cd60fa03a9905e8e8b6aa9eb3fd171067d6839267d311",
+    "utils.h": "e5c3f0b1278cb32c1eb0e7332c9e2240208d46aa0bb230bab676c4869337fef1"
+  },
+  "original_zip_sha256": "6ae69bd09fe08b7450502f167e6858bd56b8a94d667fb690c27f2e94ee0f73a8",
+  "randomness": "starter time/PID seeded query IDs; ports allocated by OS"
+}

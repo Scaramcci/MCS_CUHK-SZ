@@ -1,0 +1,4 @@
+make: Entering directory '/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw03/src/Assignment-3'
+gcc utils.c -o utils.o -c -g -std=c17
+gcc main.o server.o utils.o network.o -o p2p_server -lpthread -g
+make: Leaving directory '/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw03/src/Assignment-3'

@@ -1,0 +1,41 @@
+{
+  "cwd": "src/Assignment-3",
+  "commands": [
+    [
+      "stdbuf",
+      "-oL",
+      "./p2p_server",
+      "57995",
+      "64",
+      "dir1"
+    ],
+    [
+      "stdbuf",
+      "-oL",
+      "./p2p_server",
+      "57264",
+      "2",
+      "dir2",
+      "127.0.0.1",
+      "57995"
+    ],
+    [
+      "stdbuf",
+      "-oL",
+      "./p2p_server",
+      "33441",
+      "2",
+      "dir3",
+      "127.0.0.1",
+      "57264",
+      "127.0.0.1",
+      "57995"
+    ]
+  ],
+  "shutdown": "SIGTERM after assertions",
+  "returncodes": [
+    -15,
+    -15,
+    -15
+  ]
+}

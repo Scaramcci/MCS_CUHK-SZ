@@ -1,0 +1,94 @@
+[NEIGHBOR] HostIPaddr: 16777343
+[NEIGHBOR] Current neighbors
+[NEIGHBOR] Number of neighbors: 1
+[NEIGHBOR] Neighbor list:
+[NEIGHBOR] Neighbor 1: IP 127.0.0.1, Port 59002
+[NEIGHBOR] Sent connection request to neighbor with address 127.0.0.1:53653 
+[NEIGHBOR] HostIPaddr: 16777343
+[NEIGHBOR] Current neighbors
+[NEIGHBOR] Number of neighbors: 2
+[NEIGHBOR] Neighbor list:
+[NEIGHBOR] Neighbor 1: IP 127.0.0.1, Port 59002
+[NEIGHBOR] Neighbor 2: IP 127.0.0.1, Port 42648
+[NEIGHBOR] Sent connection request to neighbor with address 127.0.0.1:53653 
+[CONNECT] Successfully bind with the port: 53653
+[CONNECT] Destination IP: 127.0.0.1, Port: 59002
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[CONNECT] Destination IP: 127.0.0.1, Port: 42648
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[FILE] Enter the File Name for Search: 
+Message received, size: 140
+[SERVER INFO] Received new packet: CONNECT packet
+[NEIGHBOR] New neighbor connecting request. From address: 127.0.0.1:43591
+[NEIGHBOR] New neighbor connected!
+[CONNECT] Destination IP: 127.0.0.1, Port: 59002
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[CONNECT] Destination IP: 127.0.0.1, Port: 42648
+[CONNECT] Socket created successfully
+Message received, size: 140
+[CONNECT] Packet sent size: 140
+[CONNECT] Destination IP: 127.0.0.1, Port: 43591
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[FILE] Enter the File Name for Search: 
+[SERVER INFO] Received new packet: QUERY packet
+[CONNECT] Destination IP: 127.0.0.1, Port: 59002
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[CONNECT] Destination IP: 127.0.0.1, Port: 42648
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[TTL] Forwarding packet with TTL=7
+Message received, size: 140
+[SERVER INFO] Received new packet: QUERY packet
+[CONNECT] Destination IP: 127.0.0.1, Port: 59002
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[RESPON] File file4 found, responding to query.
+Message received, size: 140
+[SERVER INFO] Received new packet: QUERY packet
+[CONNECT] Destination IP: 127.0.0.1, Port: 59002
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[CONNECT] Destination IP: 127.0.0.1, Port: 43591
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[TTL] Forwarding packet with TTL=7
+Message received, size: 140
+[SERVER INFO] Received new packet: QUERY packet
+[DUPLICATE ID] Duplicate packet with ID 1590335214 detected. Ignoring and discarding.
+Message received, size: 140
+[SERVER INFO] Received new packet: RESPONSE packet
+
+[FILE] File file1 found on address 127.0.0.1, with port 42648
+
+Message received, size: 140
+[SERVER INFO] Received new packet: QUERY packet
+[DUPLICATE ID] Duplicate packet with ID 1683399028 detected. Ignoring and discarding.
+Message received, size: 140
+[SERVER INFO] Received new packet: QUERY packet
+[DUPLICATE ID] Duplicate packet with ID 1635476278 detected. Ignoring and discarding.
+Message received, size: 140
+[SERVER INFO] Received new packet: QUERY packet
+[DUPLICATE ID] Duplicate packet with ID 1683399028 detected. Ignoring and discarding.
+Message received, size: 140
+[SERVER INFO] Received new packet: QUERY packet
+[CONNECT] Destination IP: 127.0.0.1, Port: 59002
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[CONNECT] Destination IP: 127.0.0.1, Port: 42648
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[CONNECT] Destination IP: 127.0.0.1, Port: 43591
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[TTL] Forwarding packet with TTL=6
+Message received, size: 140
+[SERVER INFO] Received new packet: QUERY packet
+[DUPLICATE ID] Duplicate packet with ID 1590335214 detected. Ignoring and discarding.
+Message received, size: 140
+[SERVER INFO] Received new packet: QUERY packet
+[DUPLICATE ID] Duplicate packet with ID 1108205803 detected. Ignoring and discarding.

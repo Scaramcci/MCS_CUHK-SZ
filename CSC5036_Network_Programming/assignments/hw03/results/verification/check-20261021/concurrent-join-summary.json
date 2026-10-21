@@ -1,0 +1,68 @@
+{
+  "status": "passed",
+  "checks": [
+    "four leaves join concurrently while root originates 50 queries",
+    "all joined leaves find root file; root finds last joined leaf file"
+  ],
+  "command": "python3 results/verification/check-20261021/connect_query.py",
+  "cwd": "results/verification/check-20261021/local_artifacts/work",
+  "commands": [
+    [
+      "stdbuf",
+      "-oL",
+      "./p2p_server",
+      "52085",
+      "8",
+      "dir1"
+    ],
+    [
+      "stdbuf",
+      "-oL",
+      "./p2p_server",
+      "45294",
+      "8",
+      "dir2",
+      "127.0.0.1",
+      "52085"
+    ],
+    [
+      "stdbuf",
+      "-oL",
+      "./p2p_server",
+      "41570",
+      "8",
+      "dir3",
+      "127.0.0.1",
+      "52085"
+    ],
+    [
+      "stdbuf",
+      "-oL",
+      "./p2p_server",
+      "57082",
+      "8",
+      "dir4",
+      "127.0.0.1",
+      "52085"
+    ],
+    [
+      "stdbuf",
+      "-oL",
+      "./p2p_server",
+      "52250",
+      "8",
+      "dir5",
+      "127.0.0.1",
+      "52085"
+    ]
+  ],
+  "returncodes": [
+    -15,
+    -15,
+    -15,
+    -15,
+    -15
+  ],
+  "shutdown": "SIGTERM after assertions",
+  "time": "2026-10-21T19:21:24+0800"
+}

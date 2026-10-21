@@ -1,0 +1,24 @@
+[NEIGHBOR] HostIPaddr: 16777343
+[NEIGHBOR] Current neighbors
+[NEIGHBOR] Number of neighbors: 1
+[NEIGHBOR] Neighbor list:
+[NEIGHBOR] Neighbor 1: IP 127.0.0.1, Port 33678
+[NEIGHBOR] Sent connection request to neighbor with address 127.0.0.1:41204 
+[CONNECT] Successfully bind with the port: 41204
+[CONNECT] Destination IP: 127.0.0.1, Port: 33678
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[FILE] Enter the File Name for Search: 
+Message received, size: 140
+[SERVER INFO] Received new packet: CONNECT packet
+[NEIGHBOR] New neighbor connecting request. From address: 127.0.0.1:35827
+[NEIGHBOR] New neighbor connected!
+Message received, size: 140
+[SERVER INFO] Received new packet: QUERY packet
+[CONNECT] Destination IP: 127.0.0.1, Port: 33678
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[CONNECT] Destination IP: 127.0.0.1, Port: 35827
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[TTL] Forwarding packet with TTL=1

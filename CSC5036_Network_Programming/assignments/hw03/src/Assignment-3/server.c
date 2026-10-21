@@ -1,0 +1,195 @@
+#include <string.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include "network.h"
+#include "utils.h"
+#include "server.h"
+#include <stdio.h>
+#include <dirent.h>
+#include <pthread.h>
+
+
+/* Auxiliary handshake: CONNECT is sent only after the receiver is bound. */
+static pthread_mutex_t startupMutex = PTHREAD_MUTEX_INITIALIZER;
+static pthread_cond_t startupCondition = PTHREAD_COND_INITIALIZER;
+static int startupReady = 0;
+
+void waitForServer(void) {
+  pthread_mutex_lock(&startupMutex);
+  while (!startupReady) {
+    pthread_cond_wait(&startupCondition, &startupMutex);
+  }
+  pthread_mutex_unlock(&startupMutex);
+}
+
+static void notifyServerReady(void) {
+  pthread_mutex_lock(&startupMutex);
+  if (!startupReady) {
+    startupReady = 1;
+    pthread_cond_signal(&startupCondition);
+  }
+  pthread_mutex_unlock(&startupMutex);
+}
+
+
+void *server(void *arg) {
+  serverArg_t *_arg = (serverArg_t *)arg;
+  IDlist_t *idList = _arg->idList;
+  int portNum = _arg->port;
+  char *directory = _arg->directory;
+  neighbors_t *neighbors = _arg->neighbors;
+  pthread_mutex_t *mutex = _arg->lock;
+
+  int socketfd = createNewSock();
+  packet_t packet;
+  unsigned long clientIpAddress;
+
+  if (bindSocket(socketfd, portNum) == -1){
+    ERROR("Error: wrong port binding. \n");
+  }
+  printf("[CONNECT] Successfully bind with the port: %d\n", portNum);
+
+  while (1) {
+    // TODO: receive packet
+    // Hint: You can reuse the functions provided in network.c.
+    notifyServerReady();
+    clientIpAddress = recvFromSocket(socketfd, &packet, sizeof(packet));
+    if (packet.descriptor > RESPONSE) {
+      continue;
+    }
+    packet.message[MAX_STRLEN - 1] = '\0';
+    packet.hostname[MAX_STRLEN - 1] = '\0';
+    /* Preserve the query origin across hops; responses come directly from the holder. */
+    pthread_mutex_lock(mutex);
+    if (packet.hostname[0] == '\0' || packet.descriptor == RESPONSE) {
+      snprintf(packet.hostname, sizeof(packet.hostname), "%s", getHostIp(clientIpAddress));
+    }
+    pthread_mutex_unlock(mutex);
+  
+    unsigned char type = packet.descriptor;   
+
+    char *packetType;
+    switch(type) {
+      case 0: packetType = "CONNECT"; break;
+      case 1: packetType = "QUERY"; break;
+      case 2: packetType = "RESPONSE"; break;
+    }
+    printf("[SERVER INFO] Received new packet: %s packet\n", packetType);
+
+    if (type == CONNECT){
+      // TODO: handle server connect
+      serverHandleConnect(neighbors, &packet, mutex);
+      
+    }
+    else if (type == QUERY){
+      // TODO: handle server query
+      serverHandleQuery(_arg, &packet);
+      
+    }
+    else if (type == RESPONSE){
+      // TODO: handle server response
+      serverHandleResponse(&packet);
+      
+    }
+  }
+}
+
+int serverHandleConnect(neighbors_t *neighbors, packet_t *packet, pthread_mutex_t *mutex) {
+  unsigned long hostIpAddress;
+  int portNum;
+  /*
+   * TODO: update neighbor list
+   * Hint: functions in utils.c and network.c may be helpful
+   * Hint: use mutex to ensure thread safety
+   */
+
+  // Your code starts here
+  pthread_mutex_lock(mutex);
+  hostIpAddress = getHostAddr(packet->hostname);
+  portNum = packet->port;
+  if (hostIpAddress == 0 || portNum < 1 || portNum > 65535) {
+    pthread_mutex_unlock(mutex);
+    return -1;
+  }
+  for (int i = 0; i < neighbors->num_neighbors; ++i) {
+    if (neighbors->neighbor_list[i].inaddr == hostIpAddress &&
+        neighbors->neighbor_list[i].port == portNum) {
+      pthread_mutex_unlock(mutex);
+      return 0;
+    }
+  }
+  addNeighbor(neighbors, hostIpAddress, portNum);
+  /* The following neighbor logs also use the shared address conversion buffer. */
+  // Your code ends here
+
+  for (int logOnce = 1; logOnce; pthread_mutex_unlock(mutex), logOnce = 0) {
+  printf("[NEIGHBOR] New neighbor connecting request. From address: %s:%d\n", 
+    getHostIp(hostIpAddress), portNum);
+
+  printf("[NEIGHBOR] New neighbor connected!\n");
+  }
+  return 0;
+}
+
+int serverHandleQuery(serverArg_t *args, packet_t *packet) {
+  /*
+   * Handle QUERY packets using the steps below.
+   * Hint: Ensure thread safety when accessing shared data.
+   * You may add control flow around the provided log statements
+   * so that each message is printed only when appropriate.
+   */
+
+  
+  // TODO: If the ID is already recorded, print the message below and return.
+  // Otherwise, record the ID and continue processing.
+  pthread_mutex_lock(args->lock);
+  if (findInList(args->idList, packet->ID)) {
+
+  printf("[DUPLICATE ID] Duplicate packet with ID %d detected. Ignoring and discarding.\n", packet->ID);
+
+    pthread_mutex_unlock(args->lock);
+    return 0;
+  }
+  addToDataList(args->idList, packet->ID);
+
+  // TODO: if file found in directory, return the msg back to query host
+  if (findInDirectory(args->directory, packet->message) == 1) {
+    packet_t response = *packet;
+    response.descriptor = RESPONSE;
+    response.port = args->port;
+    response.hostname[0] = '\0';
+    response.TTL = 0;
+    sendToSocket(getHostAddr(packet->hostname), packet->port, &response, sizeof(response));
+
+  printf("[RESPON] File %s found, responding to query.\n", packet->message);
+    
+    pthread_mutex_unlock(args->lock);
+    return 0;
+  }
+
+  // TODO: TTL check
+  if (packet->TTL <= 1) {
+  
+  printf("[TTL] Packet TTL expired, stopping forwarding.\n");
+  
+    pthread_mutex_unlock(args->lock);
+    return 0;
+  }
+
+  // TODO: else not found, flood to neighbors
+  --packet->TTL;
+  floodRequest(args->neighbors, args->port, packet, sizeof(*packet));
+  pthread_mutex_unlock(args->lock);
+
+  printf("[TTL] Forwarding packet with TTL=%d\n", packet->TTL);
+  
+  return 0;
+}
+
+int serverHandleResponse(packet_t *packet) {
+  printf("\n[FILE] File %s found on address %s, with port %d\n\n",
+          packet->message, packet->hostname,
+          packet->port);
+  return 0;
+}

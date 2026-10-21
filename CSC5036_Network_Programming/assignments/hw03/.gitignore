@@ -1,0 +1,5 @@
+/src/Assignment-3/*.o
+/src/Assignment-3/p2p_server
+# Original empty teacher fixtures stay local; final ZIP still includes them.
+/src/Assignment-3/dir[1-5]/
+/submission/Assignment-3/dir[1-5]/

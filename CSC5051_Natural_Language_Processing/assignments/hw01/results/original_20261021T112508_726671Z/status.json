@@ -1,0 +1,10 @@
+{
+  "status": "completed",
+  "command": "env -u PYTHONPATH PYTHONNOUSERSITE=1 /home/scarramcci/miniconda3/envs/NLP/bin/python -s -u notes/execute_original.py",
+  "started_utc": "2026-10-21T11:25:08.745704+00:00",
+  "kernel": "nlp",
+  "executor": "primary session / implementer self-check",
+  "input_sha256": "a933cf55dd234616a69965fb50898bd7ec569a7d6363a9799244f7ae148db01d",
+  "finished_utc": "2026-10-21T11:26:11.783306+00:00",
+  "output_sha256": "0973ea309b8fa0caf5feb4ba1e2dcd5c85c4c7c3386a6e19446f92b3da2118ed"
+}

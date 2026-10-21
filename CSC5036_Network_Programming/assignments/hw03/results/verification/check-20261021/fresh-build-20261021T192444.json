@@ -1,0 +1,48 @@
+{
+  "executor": "/root/hw03_verifier",
+  "timestamp": "2026-10-21T19:24:44+0800",
+  "command": [
+    "make"
+  ],
+  "cwd": "results/verification/check-20261021/local_artifacts/fresh-build-20261021T192444",
+  "copied_files": [
+    "Makefile",
+    "dir1/file1",
+    "dir1/file2",
+    "dir2/file3",
+    "dir3/file4",
+    "dir4/file5",
+    "dir4/file6",
+    "dir5/file7",
+    "main.c",
+    "network.c",
+    "network.h",
+    "server.c",
+    "server.h",
+    "utils.c",
+    "utils.h"
+  ],
+  "input_sha256": {
+    "main.c": "a84b1312cc58f3552398a63c4fad83f0bda64e96149a2dec7663934fafdcf879",
+    "server.c": "4f5e5189b860c23cb3d36bf6cfa3ee920d38dc13448befa5795f2884d3f3548f",
+    "utils.c": "7f0014075c34556087e9226899031b49cdfa0bb178818ff5e86cff0f77444f4a",
+    "network.c": "7f87b1e5e3ccecbce500b38b2f9378a6506021ab701ff97b41f19b4c7b26829d",
+    "server.h": "b3e6a6b048dca78d35502c740371a69365e74df379093f0a658d59c3befbf9f3",
+    "utils.h": "e5c3f0b1278cb32c1eb0e7332c9e2240208d46aa0bb230bab676c4869337fef1",
+    "network.h": "7125cf841c994a7985ef9dd1fdebd42bfdf3882cb105a8c437d5abbce0aa4ec7",
+    "Makefile": "6d0c2a9780f19979441cd60fa03a9905e8e8b6aa9eb3fd171067d6839267d311",
+    "dir1/file1": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dir1/file2": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dir2/file3": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dir3/file4": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dir4/file5": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dir4/file6": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dir5/file7": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "returncode": 0,
+  "stdout": "results/verification/check-20261021/fresh-build-20261021T192444.stdout.txt",
+  "stderr": "results/verification/check-20261021/fresh-build-20261021T192444.stderr.txt",
+  "new_build": true,
+  "no_prior_object_or_executable": true,
+  "compiler": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+}

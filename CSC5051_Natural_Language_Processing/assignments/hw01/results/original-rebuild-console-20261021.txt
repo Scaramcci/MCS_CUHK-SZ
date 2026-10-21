@@ -1,0 +1,192 @@
+Evidence: /home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw01/results/original_20261021T112508_726671Z
+[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption.
+START 0
+START 1
+START 2
+DONE 2
+START 3
+START 4
+START 5
+START 6
+START 7
+START 8
+Archive:  quora.zip
+  inflating: train.csv               
+[nltk_data] Downloading package punkt to
+[nltk_data]     /home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_L
+[nltk_data]     anguage_Processing/assignments/hw01/data/downloads/nlt
+[nltk_data]     k_data...
+[nltk_data]   Unzipping tokenizers/punkt.zip.
+DONE 8
+START 9
+START 10
+50000
+  0%|          | 0/50000 [00:00<?, ?it/s]  5%|▍         | 2372/50000 [00:00<00:02, 23709.90it/s] 10%|▉         | 4784/50000 [00:00<00:01, 23948.46it/s] 15%|█▍        | 7251/50000 [00:00<00:01, 24275.11it/s] 19%|█▉        | 9685/50000 [00:00<00:01, 24298.24it/s] 24%|██▍       | 12115/50000 [00:00<00:01, 24154.91it/s] 29%|██▉       | 14588/50000 [00:00<00:01, 24348.15it/s] 34%|███▍      | 17068/50000 [00:00<00:01, 24492.90it/s] 39%|███▉      | 19518/50000 [00:00<00:01, 24387.66it/s] 44%|████▍     | 21968/50000 [00:00<00:01, 24420.49it/s] 49%|████▉     | 24415/50000 [00:01<00:01, 24433.64it/s] 54%|█████▍    | 26900/50000 [00:01<00:00, 24558.70it/s] 59%|█████▊    | 29356/50000 [00:01<00:00, 24541.94it/s] 64%|██████▎   | 31819/50000 [00:01<00:00, 24566.84it/s] 69%|██████▊   | 34309/50000 [00:01<00:00, 24667.03it/s] 74%|███████▎  | 36776/50000 [00:01<00:00, 24569.31it/s] 79%|███████▊  | 39262/50000 [00:01<00:00, 24654.05it/s] 83%|████████▎ | 41728/50000 [00:01<00:00, 24585.16it/s] 88%|████████▊ | 44187/50000 [00:01<00:00, 24475.21it/s] 93%|█████████▎| 46635/50000 [00:01<00:00, 24413.17it/s] 98%|█████████▊| 49104/50000 [00:02<00:00, 24494.52it/s]100%|██████████| 50000/50000 [00:02<00:00, 24451.72it/s]
+DONE 10
+START 11
+['what', 'is', 'the', 'step', 'by', 'step', 'guide', 'to', 'invest', 'in', 'share', 'market', 'in', 'india', '?']
+DONE 11
+START 12
+START 13
+Vocabulary size: 7226
+Tokens count: 623563
+Unknown tokens appeared: 35607
+Most freq words: ['?', 'the', 'what', 'is', 'how', 'i', 'a', 'to', 'in', 'do', 'of', 'are', 'and', 'can', 'for', ',', 'you', 'why', 'it', 'best']
+DONE 13
+START 14
+START 15
+DONE 15
+START 16
+START 17
+DONE 17
+START 18
+START 19
+DONE 19
+START 20
+START 21
+START 22
+START 23
+DONE 23
+START 24
+START 25
+Initializing batches generator with 12380 batches per epoch
+DONE 25
+START 26
+START 27
+DONE 27
+START 28
+START 29
+DONE 29
+START 30
+START 31
+Initializing batches generator with 3095 batches per epoch
+Epoch = 0, Step = 2999, Avg Loss = 6.4641, Time = 1.85s
+Initializing batches generator with 3095 batches per epoch
+Epoch = 1, Step = 2904, Avg Loss = 5.5298, Time = 1.55s
+Initializing batches generator with 3095 batches per epoch
+Epoch = 2, Step = 2809, Avg Loss = 5.2280, Time = 1.50s
+Initializing batches generator with 3095 batches per epoch
+Epoch = 3, Step = 2714, Avg Loss = 5.0397, Time = 1.47s
+DONE 31
+START 32
+START 33
+DONE 33
+START 34
+START 35
+START 36
+DONE 36
+START 37
+START 38
+[t-SNE] Computing 91 nearest neighbors...
+[t-SNE] Indexed 100 samples in 0.000s...
+[t-SNE] Computed neighbors for 100 samples in 0.028s...
+[t-SNE] Computed conditional probabilities for sample 100 / 100
+[t-SNE] Mean sigma: 4.056620
+[t-SNE] KL divergence after 250 iterations with early exaggeration: 59.820999
+[t-SNE] KL divergence after 1000 iterations: 0.629743
+/home/scarramcci/miniconda3/envs/NLP/lib/python3.10/site-packages/sklearn/preprocessing/_data.py:265: UserWarning: Numerical issues were encountered when centering the data and might not be solved. Dataset may contain too large values. You may need to prescale your features.
+  warnings.warn(
+/home/scarramcci/miniconda3/envs/NLP/lib/python3.10/site-packages/sklearn/preprocessing/_data.py:284: UserWarning: Numerical issues were encountered when scaling the data and might not be solved. The standard deviation of the data is probably very close to 0. 
+  warnings.warn(
+DONE 38
+START 39
+START 40
+DONE 40
+START 41
+Loaded vocab size 1193514
+DONE 41
+START 42
+START 43
+DONE 43
+START 44
+START 45
+DONE 45
+START 46
+Shuffling words ...
+Putting 10000 words into word2Ind and matrix M...
+Done.
+Running Truncated SVD over 10010 words...
+Done.
+/tmp/ipykernel_57737/3415616940.py:20: DeprecationWarning: Call to deprecated `word_vec` (Use get_vector instead).
+  M.append(wv_from_bin.word_vec(w))
+/tmp/ipykernel_57737/3415616940.py:27: DeprecationWarning: Call to deprecated `word_vec` (Use get_vector instead).
+  M.append(wv_from_bin.word_vec(w))
+DONE 46
+START 47
+START 48
+DONE 48
+START 49
+START 50
+DONE 50
+START 51
+START 52
+START 53
+bank [('unit', 0.8722262978553772), ('service', 0.8568196892738342), ('office', 0.8555631637573242), ('reg', 0.8434539437294006), ('program', 0.8430007696151733), ('company', 0.8412134051322937), ('open', 0.8405929803848267), ('target', 0.8367257714271545), ('bp', 0.8303275108337402), ('private', 0.8243083953857422)]
+apple [('windows', 0.8948712944984436), ('microsoft', 0.8858076333999634), ('google', 0.8823867440223694), ('galaxy', 0.8806391358375549), ('flash', 0.8793812394142151), ('android', 0.8782057762145996), ('nokia', 0.8770236372947693), ('samsung', 0.8697316646575928), ('chrome', 0.8691699504852295), ('ipad', 0.8670315742492676)]
+spring [('summer', 0.9507137537002563), ('winter', 0.9442874789237976), ('saturday', 0.8899416923522949), ('tonight', 0.8866020441055298), ('beach', 0.884717583656311), ('opening', 0.8823341131210327), ('today', 0.8797439932823181), ('holiday', 0.8779107928276062), ('friday', 0.8769242763519287), ('home', 0.8743504881858826)]
+light [('dark', 0.9217612147331238), ('deep', 0.9195147156715393), ('cross', 0.9112328886985779), ('sun', 0.9087563157081604), ('heavy', 0.9079349040985107), ('clear', 0.9014251232147217), ('shadow', 0.9007907509803772), ('edge', 0.8986004590988159), ('inside', 0.8943150043487549), ('side', 0.8934881091117859)]
+DONE 53
+START 54
+START 55
+START 56
+Synonyms happy, cheerful have cosine distance: 0.5665353238582611
+Antonyms happy, sad have cosine distance: 0.26295608282089233
+DONE 56
+START 57
+START 58
+START 59
+START 60
+DONE 60
+START 61
+START 62
+DONE 62
+START 63
+START 64
+DONE 64
+START 65
+START 66
+DONE 66
+START 67
+START 68
+DONE 68
+START 69
+START 70
+START 71
+DONE 71
+START 72
+START 73
+START 74
+DONE 74
+START 75
+START 76
+DONE 76
+START 77
+START 78
+DONE 78
+START 79
+DONE 79
+START 80
+START 81
+DONE 81
+START 82
+START 83
+DONE 83
+START 84
+START 85
+START 86
+[('maths', 0.7983574867248535), ('basis', 0.7973601818084717), ('humør', 0.7948898673057556), ('cert', 0.7902684807777405), ('mulig', 0.7874146699905396), ('spændende', 0.7728654742240906), ('dårligt', 0.7700908184051514), ('latter', 0.7676339745521545), ('noget', 0.7676041126251221), ('vet', 0.7675378918647766)]
+
+[('representation', 0.871566116809845), ('encourages', 0.8626720309257507), ('empowering', 0.8612703084945679), ('intellectual', 0.8564386963844299), ('influences', 0.8559868931770325), ('ethical', 0.8550472259521484), ('affairs', 0.8541139960289001), ('behaviors', 0.8481355905532837), ('advocacy', 0.8439522981643677), ('critic', 0.8406822085380554)]
+DONE 86
+START 87
+START 88
+homemaker: woman=0.200550, man=-0.096672, difference=0.297222
+nurse: woman=0.635092, man=0.462567, difference=0.172525
+engineer: woman=0.477637, man=0.381555, difference=0.096082
+programmer: woman=0.356278, man=0.184690, difference=0.171588
+DONE 88
+START 89
+START 90
+START 91
+START 92
+Final status: completed

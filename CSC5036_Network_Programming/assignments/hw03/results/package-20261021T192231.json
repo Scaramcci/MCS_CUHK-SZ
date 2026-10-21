@@ -1,0 +1,91 @@
+{
+  "executor": "/root, assembly only; independent Reviewer verdict is separate",
+  "time": "2026-10-21T19:22:31+0800",
+  "command": "python3 tests/prepare_submission.py 226040255",
+  "exit_status": 0,
+  "original_zip_sha256": "6ae69bd09fe08b7450502f167e6858bd56b8a94d667fb690c27f2e94ee0f73a8",
+  "submission": "submission/226040255_hw3.zip",
+  "submission_sha256": "c30d31fd5c2f386599ccc05dbed6ee3f1f1757f3772b8dd574b20c6b6dfb4790",
+  "changed_from_teacher": [
+    "Assignment-3/main.c",
+    "Assignment-3/server.c",
+    "Assignment-3/utils.c"
+  ],
+  "entries": [
+    {
+      "path": "Assignment-3/main.c",
+      "size": 4618,
+      "sha256": "a84b1312cc58f3552398a63c4fad83f0bda64e96149a2dec7663934fafdcf879"
+    },
+    {
+      "path": "Assignment-3/server.c",
+      "size": 5774,
+      "sha256": "4f5e5189b860c23cb3d36bf6cfa3ee920d38dc13448befa5795f2884d3f3548f"
+    },
+    {
+      "path": "Assignment-3/utils.c",
+      "size": 5443,
+      "sha256": "7f0014075c34556087e9226899031b49cdfa0bb178818ff5e86cff0f77444f4a"
+    },
+    {
+      "path": "Assignment-3/network.c",
+      "size": 2820,
+      "sha256": "7f87b1e5e3ccecbce500b38b2f9378a6506021ab701ff97b41f19b4c7b26829d"
+    },
+    {
+      "path": "Assignment-3/server.h",
+      "size": 688,
+      "sha256": "b3e6a6b048dca78d35502c740371a69365e74df379093f0a658d59c3befbf9f3"
+    },
+    {
+      "path": "Assignment-3/utils.h",
+      "size": 2931,
+      "sha256": "e5c3f0b1278cb32c1eb0e7332c9e2240208d46aa0bb230bab676c4869337fef1"
+    },
+    {
+      "path": "Assignment-3/network.h",
+      "size": 684,
+      "sha256": "7125cf841c994a7985ef9dd1fdebd42bfdf3882cb105a8c437d5abbce0aa4ec7"
+    },
+    {
+      "path": "Assignment-3/Makefile",
+      "size": 518,
+      "sha256": "6d0c2a9780f19979441cd60fa03a9905e8e8b6aa9eb3fd171067d6839267d311"
+    },
+    {
+      "path": "Assignment-3/dir1/file1",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Assignment-3/dir1/file2",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Assignment-3/dir2/file3",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Assignment-3/dir3/file4",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Assignment-3/dir4/file5",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Assignment-3/dir4/file6",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Assignment-3/dir5/file7",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}
