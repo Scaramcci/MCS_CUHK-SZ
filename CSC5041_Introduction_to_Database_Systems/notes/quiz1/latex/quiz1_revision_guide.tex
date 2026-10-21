@@ -1,0 +1,94 @@
+% !TEX program = xelatex
+% Author: /root, 2026-10-21. Source: TA Quiz 1 Revision Sheet p.1.
+% Pure document task; no experiment or SQL execution. Reviewer checks exact final PDF.
+\documentclass[11pt,a4paper]{article}
+\input{study-preamble.tex}
+\renewcommand{\VolumeShort}{复习重点与题目清单}
+\fancyfoot[L]{\sffamily\scriptsize 根据助教 Revision Sheet 第 1 页整理 · 2026-10-21}
+\newcommand{\ck}{\(\square\)\;}
+\newcommand{\zhp}[1]{\href{notes_zh.pdf}{中 #1}}
+\newcommand{\enp}[1]{\href{notes_en.pdf}{英 #1}}
+\begin{document}
+{\sffamily\LARGE\bfseries\color{CUHKPurple}Quiz 1：复习重点与做题清单}\par
+\textbf{使用依据：}\href{../Quiz_1_Revision_Sheet(1)(1).pdf}{助教 Quiz 1 Revision Sheet}，唯一一页的第 1--4 部分。\textbf{页码均指现有四册 PDF 的实际页码（含封面），不是章节内页码。}中英两册内容对应，不必重复通读；先用中文理解，再练英文术语与作答。
+
+\section{1. 先复习什么：把这些位置标为第一优先}
+\textbf{A = sheet 明确列出的内容，全部应掌握；B = 辅助或 sheet 未单列，第二轮补看。}A/B 是学习安排，不是官方题型、分值或不考声明。
+
+{\small\begin{longtable}{@{}p{.08\linewidth}p{.33\linewidth}p{.23\linewidth}p{.27\linewidth}@{}}
+\toprule 标记 & 需要掌握 & 笔记位置与页码 & 复习到什么程度 \\
+\midrule\endhead
+\ck A & DBMS、metadata、schema / instance & 01 §1、3--4；\zhp{5--8}，\enp{5--8} & 能区分概念与例子，知道模式与当前数据的区别。\\
+\ck A & 三级模式、两个 mapping、逻辑/物理数据独立性 & 01 §7--8；\zhp{9--10}，\enp{10--11} & 能画三级结构、标两个映射、判断变化影响哪一层。\\
+\ck A & ER 基本构件、四类属性、各类键与弱实体 & 02 §2--6；\zhp{13--17}，\enp{14--19} & 区分 type / instance；找候选键、部分键、owner、完整标识。\\
+\ck A & degree、基数、参与约束、Chen 图形符号 & 02 §6--11；\zhp{17--20}，\enp{18--22} & 每条关系逐边写“最多/至少”，能从文字画完整 ER 图。\\
+\ck A & 关系的集合性质；domain / key / entity / referential 四类约束 & 03 §3--7；\zhp{23--26}，\enp{25--29} & 能说明四种约束；复合 FK 必须整组匹配，PK 各分量非空。\\
+\ck A & 强实体、复合/派生/多值属性、弱实体的映射 & 04 §2--4、8；\zhp{32--33、35--36}，\enp{35--37、39--40} & 会拆复合属性；多值另建表；弱实体继承完整 owner key。\\
+\ck A & 1:1、1:N、M:N、n 元关系的映射 & 04 §5--9；\zhp{34--37}，\enp{37--41} & 写全 PK、FK 组与目标；1:1 检查 UNIQUE；看参与约束决定非空。\\
+\ck A & 全部关系代数算子与英文题意翻译 & 05 §1--11、13；\zhp{41--49}，\enp{45--53} & 能写表达式并手算小表；重点见下一页。\\
+\bottomrule
+\end{longtable}}
+
+\textbf{尤其注意：}01 §7--8 原来标着“补充”，但助教现在\textbf{明确列出}三级模式和数据独立性，应升为必复习。
+
+\textbf{B：时间紧时后看。}01 §5--6、9--10（设计阶段、语言/用户、组件细节、类型）；05 §12 的系统性等价改写；除法空目标的边界细节。03 §8--11 的插删改是四类约束的应用，建议做题巩固，不需要逐字背案例。
+
+\textbf{SQL 单独安排：}sheet 没有 SQL 专节。06、Tutorial 2 Q1(b)、两卷 Q5 先列 B；这\textbf{不等于已确认不考}。其中 FK 的 NULL 规则仍属 A，不能连同 SQL 三值逻辑一起跳过。
+
+\clearpage
+\section{2. 看哪些题：先遮答案做，再核对}
+题号按教师原题与现有模拟卷；\textbf{以下“先做/后做”是本清单建议，不是助教指定题目。}
+
+{\small\begin{longtable}{@{}p{.26\linewidth}p{.43\linewidth}p{.23\linewidth}@{}}
+\toprule 标记与题目 & 练什么 / 做到什么 & 在哪里看 \\
+\midrule\endhead
+\ck A：Tutorial 1 Q1(a)--(c) 全做 & 实体与键、两层弱实体、Chen ER 图、各类关系映射。先独立画图，再逐项检查 PK/FK 与参与约束。 & \href{../../../slides/Tutorial1.pdf}{原题 p.1}；\href{tutorial_answers.pdf}{答案册 pp.3--5}，全图 p.4。\\
+\ck B：Tutorial 1 Q1(d) & 业务约束不能全由 PK/FK 保证；是对映射的深化，sheet 未单列执行机制。 & 原题 p.1；答案册 pp.5--6。\\
+\ck A：Tutorial 2 Q1(a)(i)--(vi) 全做 & (i) 选择+投影；(ii) 连接，保留 term；(iii) 并与交，先算 ID；(iv) 从未：差；(v) 每个：除法/差集展开；(vi) 分组计数与平均。 & \href{../../../slides/Tutorial 2.pdf}{原题 p.1}；答案册 p.7。\\
+\ck A：模拟卷 1 Q1(a)--(c) & DB / DBMS、三级模式、逻辑与物理数据独立性。 & \href{practice_papers.pdf}{模拟卷册 p.3}。\\
+\ck A：模拟卷 2 Q1(a)--(b) & 候选键/超键、schema / instance。 & 模拟卷册 p.7。\\
+\ck A：两卷 Q2(a)--(c) & 换场景重做 ER 与映射；卷 1 补多值属性，卷 2 强化两层弱实体与重复事件。 & 卷 1 pp.3--4；卷 2 pp.7--8。\\
+\ck A：两卷 Q3 全做 & 四类完整性约束、复合 FK、NULL、删除引用目标。\textbf{每次操作从题给初始状态独立判断。} & 卷 1 pp.4--5；卷 2 pp.8--9。\\
+\ck A：两卷 Q4(a)--(f) 全做 & 完整覆盖 Tutorial 2 的六类 RA 题；重点检查同名不同人、完整连接键、目标集与额外选课。 & 卷 1 p.5；卷 2 pp.9--10。\\
+\ck B：其余题 & 卷 1 Q1(d)、卷 2 Q1(c)--(d)、两卷 Q2(d)；SQL：T2 Q1(b)、两卷 Q5。 & 答案册 p.8；模拟卷册 pp.3--11。\\
+\bottomrule
+\end{longtable}}
+
+\subsection{关系代数：需要额外补练的三个题型}
+T2(a) 和两卷 Q4 的结构相近，\textbf{不能只因这些题会做，就认为 sheet 全覆盖}。下面三题为本清单自编补练，英文题干、暂不附答案。
+
+\textbf{S1. Rename and self-join.} Given Employee(eid, name, dept, salary), where eid is the key, return the names of employees who share a department with at least one \emph{other} employee. Use two renamed copies and a join. Names may repeat.
+
+\textbf{S2. Largest / most.} For the same Employee relation, return each department and its number of employees, but keep only departments with the largest employee count. Return all ties. Use aggregation and relational algebra; no SQL.
+
+\textbf{S3. Count the right object.} Given Enrolled(sid, cid, term), with key (sid,cid,term), return each sid appearing in Enrolled and the number of distinct courses that student has taken across all terms. Use relational algebra. Retaking one course must not increase its count.
+
+\textbf{补看笔记：}\,重命名/自连接：05 §5、7（中 p.44--45 / 英 p.48--49）；聚合及统计对象：05 §11（中 p.47--48 / 英 p.52）；S2 可用两次聚合或“排除有更大计数者”的思路。无需背固定变量名。
+
+\clearpage
+\section{3. 关系代数与映射：这些地方要单独标红}
+以下是对 sheet 的适用边界说明，不是新增官方范围。
+
+\begin{enumerate}
+\item \textbf{“both”不必机械地用除法。}sheet 将 all / every / both 放在一起提示除法；但 T2(a)(iii) 明确要求\textbf{交集}。两类分别至少一个，用两个 ID 集合的交；目标集合中的每一个对象都满足，才是标准除法模式。
+\item \textbf{“how many”要数对对象。}RA 先投影去重，再用 $\gamma$ 计数可表达 distinct 计数；不是所有计数都必须去重。join 产生多行时，先判断要数人、课程、选课还是连接后的配对。单独 $\pi$ 不会给出计数。
+\item \textbf{“more than one”不总是只靠 $\ne$。}自连接要同时满足\textbf{业务配对条件}与“不同对象”的键不等条件；例如同部门并且 eid 不同。也可在适用时用分组计数判断数量。
+\item \textbf{n 元关系的主键要从唯一性推。}sheet 的 N-side keys 提示不能当成任意 n 元关系的通用最小键算法。复习 04 §9：先问“固定哪些参与者，剩下的是否唯一”，再定候选键；无额外唯一性约束时，通常组合全部参与者键。多个 1 侧时尤其要逐个检查，不能只凭字母删键。
+\item \textbf{派生属性按本课映射题不单独存。}sheet 写 derived attribute never stored；本轮标准映射按此处理。不要把这句话扩展成所有实际数据库都绝对禁止存储计算结果。
+\item \textbf{复合外键遵从 sheet 的课堂规则。}要么整组匹配同一目标键，要么整组 NULL；若属性另有 NOT NULL 或属于 PK，则不能用 NULL。不要把不同目标行里的各个分量拼起来，也不要套用某产品默认行为。
+\item \textbf{投影最后输出名字。}并、交、差、除法先保留 ID 粒度，最后连接实体表并输出名字；同名可能属于不同对象。自然连接匹配\textbf{所有同名列}，不一定等于题目所需连接。
+\item \textbf{边界与输出属性必须看清。}below 100 用 $<100$，不是 $\le100$；“所有 CS 课程”允许选过额外课程；只投影名字会丢掉身份、只投影数值可能合并不同对象。
+\end{enumerate}
+
+\subsection{做完这几项，才算第一轮复习完成}
+\ck 不看笔记，画 external / conceptual / internal 与两个 mapping，并各举一个逻辑/物理独立性例子。\par
+\ck 能手画全部 Chen 符号，解释 degree、cardinality、participation 三者的差别。\par
+\ck 独立完成 T1(a)--(c)，检查弱实体的完整键、多值属性单独表、1:1 的唯一性、1:N 的 FK 方向。\par
+\ck 能分别给出 domain / key / entity / referential 违规例子，完成两卷 Q3。\par
+\ck 独立完成 T2(a)(i)--(vi)，再做一套 Q4，并补练 S1--S3；能解释每个中间关系的属性与含义。\par
+\ck 自测 n 元映射：给定 R(A,B,C)，若固定 A、B 至多一个 C，写出一个由该约束保证的候选键，并说明还需哪些最小性假设。\par
+
+\textbf{建议顺序：}\,01 重点概念 $\rightarrow$ 02+04 与 T1 $\rightarrow$ 03 与两卷 Q3 $\rightarrow$ 05 与 T2(a) $\rightarrow$ 一卷 Q4+S1--S3 $\rightarrow$ 另一卷查漏 $\rightarrow$ SQL 与 B 类补充。\textbf{没有官方分值信息，不按旧模拟卷的分值推断真实试卷比例。}
+
+{\footnotesize\color{Muted}来源与版本：助教 sheet p.1 §1--4；Tutorial1.pdf p.1 Q1(a)--(d)；Tutorial 2.pdf p.1 Q1(a)--(b)；现有四册 PDF 2026-10-20 版。自编补练与复习优先级由本清单给出，未修改助教原件或原有四册。编译：在 latex/ 执行 latexmk -xelatex -outdir=/tmp/csc5041-revision-guide quiz1\_revision\_guide.tex。}
+\end{document}
