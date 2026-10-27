@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/.venv312/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "p2",
+    "-v"
+  ],
+  "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/results/final-audit-20261027/.cache/extracted/Zhong-Kunyuan-hw2",
+  "started_utc": "2026-10-27T11:36:56.425174+00:00",
+  "environment_adjustments": {
+    "PYTHONPATH": "removed",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MPLCONFIGDIR": "audit-local cache"
+  },
+  "exit_code": 0,
+  "elapsed_seconds": 0.13401217799992082,
+  "finished_utc": "2026-10-27T11:36:56.559200+00:00"
+}

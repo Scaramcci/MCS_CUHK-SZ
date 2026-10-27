@@ -1,0 +1,19 @@
+{
+  "executor": "independent Verifier /root/verifier",
+  "command": [
+    "env",
+    "-u",
+    "PYTHONPATH",
+    "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/results/verification/20261027-independent/venv/bin/python",
+    "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/results/verification/20261027-independent/src/p2/run.py",
+    "--data-dir",
+    "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/data",
+    "--output-dir",
+    "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/results/verification/20261027-independent/p2-full"
+  ],
+  "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/results/verification/20261027-independent",
+  "started_utc": "2026-10-27T11:02:37.829580+00:00",
+  "finished_utc": "2026-10-27T11:02:44.051754+00:00",
+  "elapsed_seconds": 6.222183986999994,
+  "exit_code": 0
+}

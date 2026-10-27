@@ -1,0 +1,241 @@
+{
+  "source_fidelity": {
+    "passed": true,
+    "teacher_text_files": 9,
+    "unchanged_framework_runner_tests_requirements": 7,
+    "source_snapshot_unchanged": true
+  },
+  "p2_generalized_gradient_and_stability": {
+    "passed": true,
+    "random_shape_cases": 4,
+    "max_gradient_finite_difference": 7.176753358262289e-10,
+    "gradient_atol": 2e-08,
+    "finite_extreme_logits": 1e+100,
+    "readonly_noncontiguous_inputs": true,
+    "single_class": true
+  },
+  "p2_nonlinear_update_oracle": {
+    "passed": true,
+    "nesterov_steps": [
+      1,
+      2,
+      3,
+      999
+    ],
+    "atol": 1e-14,
+    "gradient_calls_per_step": 1
+  },
+  "p2_dataset_independent_reconstruction": {
+    "passed": true,
+    "datasets": {
+      "digits": {
+        "train": 1437,
+        "test": 360,
+        "duplicates_removed": 0,
+        "parameter_shape": [
+          65,
+          10
+        ]
+      },
+      "dry_bean": {
+        "train": 10834,
+        "test": 2709,
+        "duplicates_removed": 68,
+        "parameter_shape": [
+          17,
+          7
+        ]
+      }
+    },
+    "csv_sha256": "c91a086bb4357e69409d23287ec22be1be9512145cead1d8ca988c918be38fcb"
+  },
+  "p2_no_test_leakage_and_update_count": {
+    "passed": true,
+    "gradient_calls": {
+      "gd": 1000,
+      "momentum": 1000,
+      "nesterov": 1000
+    },
+    "perturbed_test_inputs_and_labels": true,
+    "trained_parameters_bitwise_equal": true
+  },
+  "p3_quadrature_tails_batches_and_minimal_full_rank_fit": {
+    "passed": true,
+    "quadrature_cases": 5,
+    "max_quadrature_difference": 2.9665159217984183e-13,
+    "quadrature_tolerance": 1e-10,
+    "max_fit_coefficient_difference": 1.7763568394002505e-15,
+    "fit_tolerance": 1e-11,
+    "readonly_inputs": true
+  },
+  "p3_all_trials_mean_and_paired_grid_overlap": {
+    "passed": true,
+    "shape_q": [
+      1000,
+      21,
+      50
+    ],
+    "shape_v": [
+      1000,
+      21,
+      41
+    ],
+    "total_cell_trial_observations": 1911000,
+    "all_finite": true,
+    "means_exact": true,
+    "overlap_exact": true,
+    "max_raw_rho_q": 430779710.57433844,
+    "max_raw_rho_v": 1716522871.6084874
+  },
+  "full_clean_room_reproduction": {
+    "passed": true,
+    "comparisons": {
+      "p2": {
+        "files": {
+          "digits_gd_history.csv": {
+            "byte_equal": true
+          },
+          "digits_gd_theta.npy": {
+            "shape": [
+              65,
+              10
+            ],
+            "exact_equal": true
+          },
+          "digits_momentum_history.csv": {
+            "byte_equal": true
+          },
+          "digits_momentum_theta.npy": {
+            "shape": [
+              65,
+              10
+            ],
+            "exact_equal": true
+          },
+          "digits_nesterov_history.csv": {
+            "byte_equal": true
+          },
+          "digits_nesterov_theta.npy": {
+            "shape": [
+              65,
+              10
+            ],
+            "exact_equal": true
+          },
+          "dry_bean_gd_history.csv": {
+            "byte_equal": true
+          },
+          "dry_bean_gd_theta.npy": {
+            "shape": [
+              17,
+              7
+            ],
+            "exact_equal": true
+          },
+          "dry_bean_momentum_history.csv": {
+            "byte_equal": true
+          },
+          "dry_bean_momentum_theta.npy": {
+            "shape": [
+              17,
+              7
+            ],
+            "exact_equal": true
+          },
+          "dry_bean_nesterov_history.csv": {
+            "byte_equal": true
+          },
+          "dry_bean_nesterov_theta.npy": {
+            "shape": [
+              17,
+              7
+            ],
+            "exact_equal": true
+          },
+          "summary.csv": {
+            "byte_equal": true
+          }
+        },
+        "manifest_equal_except_elapsed_seconds": true
+      },
+      "p3": {
+        "files": {
+          "grid_means.npz": {
+            "ns": {
+              "shape": [
+                21
+              ],
+              "exact_equal": true
+            },
+            "qs": {
+              "shape": [
+                50
+              ],
+              "exact_equal": true
+            },
+            "variances": {
+              "shape": [
+                41
+              ],
+              "exact_equal": true
+            },
+            "mean_q": {
+              "shape": [
+                21,
+                50
+              ],
+              "exact_equal": true
+            },
+            "mean_v": {
+              "shape": [
+                21,
+                41
+              ],
+              "exact_equal": true
+            }
+          },
+          "noise_variance.csv": {
+            "byte_equal": true
+          },
+          "target_complexity.csv": {
+            "byte_equal": true
+          },
+          "trial_values.npz": {
+            "rho_q": {
+              "shape": [
+                1000,
+                21,
+                50
+              ],
+              "exact_equal": true
+            },
+            "rho_v": {
+              "shape": [
+                1000,
+                21,
+                41
+              ],
+              "exact_equal": true
+            },
+            "risk2_q20": {
+              "shape": [
+                1000,
+                21
+              ],
+              "exact_equal": true
+            },
+            "risk10_q20": {
+              "shape": [
+                1000,
+                21
+              ],
+              "exact_equal": true
+            }
+          }
+        },
+        "manifest_equal_except_elapsed_seconds": true
+      }
+    },
+    "all_numeric_arrays_and_csvs_bitwise_equal": true
+  }
+}

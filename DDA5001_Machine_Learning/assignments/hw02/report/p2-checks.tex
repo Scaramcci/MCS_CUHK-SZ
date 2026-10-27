@@ -1,0 +1,22 @@
+\textbf{Gradient check.} The supplied four-sample input, labels and parameter matrix were used:
+\[
+X=\begin{pmatrix}1&-1&1\\2&0.5&1\\-1&2&1\\0.5&0.2&1\end{pmatrix},\quad
+Y=\begin{pmatrix}1&0&0\\0&1&0\\0&0&1\\0&1&0\end{pmatrix},\quad
+\Th=\begin{pmatrix}0.1&-0.2&0.05\\0.3&-0.1&0.2\\0.02&0.1&-0.1\end{pmatrix}.
+\]
+For each entry, the central difference is
+\[
+(G_{\rm FD})_{ab}=\frac{L(\Th+10^{-6}E_{ab})-L(\Th-10^{-6}E_{ab})}{2\times10^{-6}}.
+\]
+The computed analytic and numerical matrices are, respectively,
+\[G_{\rm analytic}=\begin{pmatrix}-0.0050469778 & -0.4493466297 & 0.4543936075\\0.4507050638 & -0.0919780778 & -0.3587269860\\0.1365728698 & -0.2029764344 & 0.0664035646\end{pmatrix}\]
+\[G_{\rm FD}=\begin{pmatrix}-0.0050469777 & -0.4493466297 & 0.4543936075\\0.4507050638 & -0.0919780777 & -0.3587269860\\0.1365728699 & -0.2029764343 & 0.0664035645\end{pmatrix}\]
+The maximum entrywise absolute difference, before rounding the displayed matrices, is $1.174011\times10^{-10}$. This is below $10^{-8}$ and supports agreement with the mean-loss gradient in part (a).
+
+\textbf{One accelerated update.} Set $\Th_{\rm previous}=\Th-0.02$ entrywise, $\mu=0.05$, $\beta=0.90$, $k=3$ and $G(A)=2A$. Momentum evaluates $G$ at the current matrix $\Th$ displayed above and returns
+\[\Th^+_{\rm Momentum}=\begin{pmatrix}0.1080 & -0.1620 & 0.0630\\0.2880 & -0.0720 & 0.1980\\0.0360 & 0.1080 & -0.0720\end{pmatrix}.\]
+Nesterov uses $(k-1)/(k+2)=2/5$, so its recorded gradient point is\[W=\Th+0.008=\begin{pmatrix}0.1080 & -0.1920 & 0.0580\\0.3080 & -0.0920 & 0.2080\\0.0280 & 0.1080 & -0.0920\end{pmatrix},\]
+and its computed updated parameter is\[\Th^+_{\rm Nesterov}=\begin{pmatrix}0.0972 & -0.1728 & 0.0522\\0.2772 & -0.0828 & 0.1872\\0.0252 & 0.0972 & -0.0828\end{pmatrix}.\]
+These match the separate formula calculations $0.9\Th+0.018$ and $0.9(\Th+0.008)$. Both gradient points match their expectations exactly in the check; both update discrepancies are $2.776\times10^{-17}$ (rounding), with one gradient call each. Momentum uses the current point and adds the previous displacement afterward. Nesterov extrapolates first and evaluates the gradient at that extrapolated point.
+
+\textbf{Additional checks.} All seven supplied P2 tests passed before the full runs. The loss on logits $(1000,-1000)$ with the second class true is $2000$ (expected $2000$); zero logits with three classes give $\log3=1.0986122887$. Stability, shift invariance, first-update equality and unchanged inputs also passed. The included \method{p2/verify.py} prints these numerical checks without downloading a dataset.

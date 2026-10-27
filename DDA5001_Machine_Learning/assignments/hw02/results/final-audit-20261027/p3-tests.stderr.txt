@@ -1,0 +1,13 @@
+test_multiple_label_columns_and_no_mutation (test_p3.FittingTests.test_multiple_label_columns_and_no_mutation) ... ok
+test_nested_training_errors (test_p3.FittingTests.test_nested_training_errors) ... ok
+test_noiseless_recovery_for_both_models (test_p3.FittingTests.test_noiseless_recovery_for_both_models) ... ok
+test_independent_gaussian_quadrature_check (test_p3.PopulationErrorTests.test_independent_gaussian_quadrature_check) ... ok
+test_multiple_columns_and_no_mutation (test_p3.PopulationErrorTests.test_multiple_columns_and_no_mutation) ... ok
+test_target_tail_and_model_tail (test_p3.PopulationErrorTests.test_target_tail_and_model_tail) ... ok
+test_uniform_density_and_already_normalized_target (test_p3.PopulationErrorTests.test_uniform_density_and_already_normalized_target) ... ok
+test_random_bank_and_generated_data (test_p3.ProvidedFrameworkTests.test_random_bank_and_generated_data) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.035s
+
+OK

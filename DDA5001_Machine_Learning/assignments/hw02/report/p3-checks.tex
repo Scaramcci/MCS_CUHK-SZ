@@ -1,0 +1,28 @@
+\textbf{Implementation.} The fitting function uses least squares directly on the raw Legendre design. The population-error function pads only the degree axis with zeros and sums squared coefficient differences with weights $1/(2q+1)$. For a batch, it returns one risk for each column. Inputs are not modified and targets are not normalized again.
+
+\textbf{Fitting verification.} Use $x_i$ as 40 equally spaced points from $-0.95$ to $0.95$ and noiseless labels $y_i=0.3L_0(x_i)-0.7L_1(x_i)+0.2L_2(x_i)$. The expected degree-2 coefficients are $(0.3,-0.7,0.2)$; degree 10 has the same first three coefficients and eight zeros. Actual fitted coefficients are:
+\begin{center}\small
+\begin{tabular}{@{}rrrr@{}}\toprule
+Degree index & Expected & Computed $K=2$ & Computed $K=10$\\\midrule
+0 & 0.3 & 0.3000000000000000 & 0.2999999999999975\\
+1 & -0.7 & -0.7000000000000001 & -0.7000000000000006\\
+2 & 0.2 & 0.2000000000000012 & 0.1999999999999998\\
+3 & 0 & -- & $4.040781\times10^{-16}$\\
+4 & 0 & -- & $-5.334285\times10^{-16}$\\
+5 & 0 & -- & $2.982244\times10^{-16}$\\
+6 & 0 & -- & $-5.642959\times10^{-16}$\\
+7 & 0 & -- & $2.632139\times10^{-16}$\\
+8 & 0 & -- & $-2.322173\times10^{-16}$\\
+9 & 0 & -- & $2.163094\times10^{-16}$\\
+10 & 0 & -- & $-1.798246\times10^{-16}$\\
+\bottomrule\end{tabular}\end{center}
+The largest coefficient differences are $1.221\times10^{-15}$ ($K=2$) and $2.498\times10^{-15}$ ($K=10$), below $10^{-11}$. The expected clean-target risk is zero; the computed risks are $3.024\times10^{-31}$ and $6.495\times10^{-30}$. Recovery checks the fitting function without noise or missing target terms.
+
+\textbf{Error verification.} Use model coefficients $w=(0.5,-0.3,0.2)$ and an already-normalized target $c=(0.1,0.2,-0.1,0.4)$. The expected error is
+\[
+0.4^2+\frac{(-0.5)^2}{3}+\frac{0.3^2}{5}+\frac{(-0.4)^2}{7}
+=0.2841904761904762.
+\]
+The implemented analytic result is $0.2841904761904762$. Independent 80-point Gauss--Legendre quadrature of $(f-g)^2/2$ gives $0.28419047619047905$, a difference of $2.831\times10^{-15}$, below $10^{-10}$. This compares evaluation in input space with the coefficient formula, including the missing degree-3 term and the uniform density. Additional scalar checks give expected/computed values $1/1$ for constant residual one, $4/7\,/\,4/7$ for a target-only tail, and $9/5\,/\,9/5$ for a model-only tail. All eight supplied P3 tests and batched-column checks passed.
+
+\textbf{Fixed full experiment.} The two original grids were run with seed 666 and 1000 independent trial rows per cell. Each pair of models fits exactly the same labels. Across cells, the provided random bank reuses input/coefficient prefixes and noise to form paired comparisons. Each cell reports the arithmetic mean of all 1000 values of $\rho_e=\Eout(f_{10})-\Eout(f_2)$. No trial was discarded, no regularization was added, and no numerical error was clipped or smoothed. Across all fits, the recorded maximum violation of $\Ein(f_{10})\le\Ein(f_2)$ was $0$.

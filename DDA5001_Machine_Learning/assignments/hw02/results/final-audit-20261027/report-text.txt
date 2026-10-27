@@ -1,0 +1,589 @@
+DDA5001 Machine Learning                                                                         Homework 2
+
+
+                                      DDA5001 Homework 2
+                             The Chinese University of Hong Kong, Shenzhen
+                                   Kunyuan Zhong      Student ID: 226040255
+
+
+
+
+Problem 1: Concepts and fundamental knowledge
+
+(a) VC dimension. The VC dimension is d + 1 for aﬀine binary linear classifiers in Rd , where the appended
+constant feature supplies the intercept. The d + 1 aﬀinely independent vertices of a simplex can be shattered.
+The standard upper bound for aﬀine halfspaces rules out shattering d + 2 points. The feature count d here
+excludes the constant coordinate.
+(b) Test error versus out-of-sample error. For a fixed learned classifier h, its out-of-sample classification
+error is the population probability
+
+                                      Eout (h) = P(x,y)∼P {h(x) ̸= y}.
+
+The test error is the observed fraction of mistakes on a finite held-out test sample:
+
+                                                   1 X
+                                                      m
+                                     Etest (h) =       1{h(xj ) ̸= yj }.
+                                                   m
+                                                     j=1
+
+It varies with the test sample and estimates the population error; with i.i.d. test examples independent of
+learning, its expectation conditional on the fixed h equals Eout (h). The two quantities need not be numeri-
+cally equal.
+(c) Gradient descent: statement 2 is false.
+1) True. Convexity gives L(u) ≥ L(θ) + ∇L(θ)⊤ (u − θ). A zero gradient therefore implies L(u) ≥ L(θ)
+   for every u.
+2) False. For L(θ) = θ2 , one update is θ+ = (1 − 2µ)θ. If µ > 1 and θ ̸= 0, then L(θ+ ) > L(θ).
+   Convexity alone cannot control an arbitrarily large step.
+3) True. For g = ∇L(θ) ̸= 0, differentiability gives L(θ − αg) = L(θ) − α∥g∥2 + o(α). This decreases
+   for suﬀiciently small positive α.
+4) True. The iterate displacement is µ∥∇L(θ)∥ and can be tiny because µ is tiny. For the same quadratic,
+   an arbitrarily small learning rate can give a tiny displacement far from the minimizer 0.
+(d) Softmax: statement 3 is false.
+1) True. Exponentiation preserves ordering and all classes share the same positive denominator; the sets
+   of maximizers, including ties, coincide.
+2) True. Adding c multiplies numerator and denominator by ec , which cancels.
+3) False. Scaling scores changes their differences and typically changes the probabilities. For scores (0, 1),
+   the second probability is e/(1 + e); after scaling by 2 it is e2 /(1 + e2 ). A positive scale preserves the
+   predicted class, but not these probabilities.
+4) True. If the true class is y, one-hot cross-entropy reduces to − log qy .
+
+
+
+
+                                                                                                         1/12
+DDA5001 Machine Learning                                                                           Homework 2
+
+
+Problem 2(a): Analytic mean cross-entropy gradient
+                                                                        P
+For one sample, use z = Θ⊤ x, q = softmax(z) and one-hot p with             j pj = 1. Softmax probabilities are
+strictly positive in exact arithmetic.
+Step 1: differentiate cross-entropy.
+                                            X
+                                            K
+                                                                     ∂H    pj
+                              H(p, q) = −         pj log qj ,            =− .
+                                                                     ∂qj   qj
+                                            j=1
+
+Step 2: differentiate with respect to the logits. Separating j = k from the other terms in the chain rule
+gives
+                     ∂H       pk               X  pj 
+                          = − qk (1 − qk ) +           −    (−qj qk )
+                     ∂zk      qk                         qj
+                                                j̸=k
+                                               X                  X
+                          = −pk + pk qk + qk        pj = −pk + qk     p j = q k − pk .
+                                                  j̸=k                  j
+
+Hence ∇z H = q − p ∈ RK .
+Step 3: differentiate the parameter columns. Since zk = θk⊤ x and only column θk affects zk ,
+
+                        ∇θk H = x(qk − pk ),             ∇Θ H = x(q − p)⊤ ∈ Rd×K .
+The outer product has features as rows and classes as columns.
+Step 4: average over samples.
+
+                                      1X
+                                            n
+                                                         1
+                            ∇Θ L(Θ) =    xi (qi − 1i )⊤ = X ⊤ (P − Y ).
+                                      n                  n
+                                            i=1
+
+Here X ∈ Rn×d has sample rows; P = softmax(XΘ) and Y ∈ Rn×K have probability and one-hot rows.
+The factor 1/n corresponds to the mean loss, not a sum loss.
+
+
+Problem 2(b): Implementation and fixed experiment
+
+The six functions areP  in p2/algorithms.py.
+                                          P z Softmax subtracts each row maximum m before exponenti-
+ation. Since e z j −m / ℓe  z ℓ −m    z
+                                   = e / ℓ e ℓ , this is the same distribution. The loss uses
+                                        j
+
+                                                               X
+                                      log qj = (zj − m) − log      ezℓ −m ,
+                                                                 ℓ
+                P
+then averages − j pj log qj . Thus it avoids log(0) after probability underflow, without clipping. Training
+uses the analytic matrix gradient, no autodiff, ready-made optimizer or classifier. All updates return new
+arrays.
+For updates k = 1, . . . , 1000, with Θ0 = Θ1 = 0, µ = 0.05 and β = 0.90,
+                      GD:    Θk+1 = Θk − µ∇L(Θk ),
+              Momentum:       Θk+1 = Θk − µ∇L(Θk ) + β(Θk − Θk−1 ),
+                                           k−1
+                 Nesterov: Wk = Θk +              (Θk − Θk−1 ), Θk+1 = Wk − µ∇L(Wk ).
+                                           k+2
+Each update uses exactly one full-training-set gradient. The original framework fixes seed 666, stratified
+80/20 splitting after exact deduplication, training-only standardization and an appended constant feature,
+without regularization. No test observations enter a gradient. Parameters have shapes 65 × 10 (Digits) and
+17 × 7 (Dry Bean). The recorded iteration is the number of completed updates.
+
+                                                                                                           2/12
+DDA5001 Machine Learning                                                                       Homework 2
+
+
+Problem 2(b): Numerical verification before training
+
+Gradient check. The supplied four-sample input, labels and parameter matrix were used:
+                                                   
+                     1 −1 1                  1 0 0                                  
+                  2 0.5 1                0 1 0                  0.1 −0.2 0.05
+            X=                                     
+                 −1 2 1 , Y = 0 0 1 , Θ = 0.3 −0.1 0.2 .
+                                                                                    
+                                                                   0.02 0.1 −0.1
+                   0.5 0.2 1                 0 1 0
+
+For each entry, the central difference is
+
+                                            L(Θ + 10−6 Eab ) − L(Θ − 10−6 Eab )
+                             (GFD )ab =                                         .
+                                                        2 × 10−6
+The computed analytic and numerical matrices are, respectively,
+                                                                     
+                             −0.0050469778 −0.4493466297 0.4543936075
+                Ganalytic =  0.4507050638 −0.0919780778 −0.3587269860
+                              0.1365728698 −0.2029764344 0.0664035646
+                                                                    
+                            −0.0050469777 −0.4493466297 0.4543936075
+                     GFD =  0.4507050638 −0.0919780777 −0.3587269860
+                             0.1365728699 −0.2029764343 0.0664035645
+The maximum entrywise absolute difference, before rounding the displayed matrices, is 1.174011 × 10−10 .
+This is below 10−8 and supports agreement with the mean-loss gradient in part (a).
+One accelerated update. Set Θprevious = Θ − 0.02 entrywise, µ = 0.05, β = 0.90, k = 3 and G(A) = 2A.
+Momentum evaluates G at the current matrix Θ displayed above and returns
+                                                                      
+                                           0.1080 −0.1620 0.0630
+                          Θ+             0.2880 −0.0720 0.1980  .
+                            Momentum =
+                                           0.0360 0.1080 −0.0720
+
+Nesterov uses (k − 1)/(k + 2) = 2/5, so its recorded gradient point is
+                                                                      
+                                               0.1080 −0.1920 0.0580
+                        W = Θ + 0.008 = 0.3080 −0.0920 0.2080  ,
+                                               0.0280 0.1080 −0.0920
+
+and its computed updated parameter is
+                                                                 
+                                            0.0972 −0.1728 0.0522
+                               Θ+          0.2772 −0.0828 0.1872  .
+                                Nesterov =
+                                            0.0252 0.0972 −0.0828
+
+These match the separate formula calculations 0.9Θ + 0.018 and 0.9(Θ + 0.008). Both gradient points
+match their expectations exactly in the check; both update discrepancies are 2.776 × 10−17 (rounding), with
+one gradient call each. Momentum uses the current point and adds the previous displacement afterward.
+Nesterov extrapolates first and evaluates the gradient at that extrapolated point.
+Additional checks. All seven supplied P2 tests passed before the full runs. The loss on logits
+(1000, −1000) with the second class true is 2000 (expected 2000); zero logits with three classes give
+log 3 = 1.0986122887. Stability, shift invariance, first-update equality and unchanged inputs also passed.
+The included p2/verify.py prints these numerical checks without downloading a dataset.
+
+
+
+
+                                                                                                      3/12
+DDA5001 Machine Learning                                                                             Homework 2
+
+
+Problem 2(b): Digits learning curves
+
+
+
+
+Figure 1: Digits mean cross-entropy on a logarithmic vertical axis. Each of the three methods has a training curve
+and a test curve.
+
+
+
+
+Figure 2: Digits accuracy. Solid lines are training and dashed lines are test. Values are recorded after updates
+0, 5, . . . , 1000.
+
+
+
+
+                                                                                                             4/12
+DDA5001 Machine Learning                                                                             Homework 2
+
+
+Problem 2(b): Dry Bean learning curves
+
+
+
+
+Figure 3: Dry Bean mean cross-entropy on a logarithmic vertical axis, using the same fixed methods and settings as
+Digits.
+
+
+
+
+Figure 4: Dry Bean accuracy. Each figure contains all six training/test curves; the held-out set is used only for
+evaluation.
+
+
+
+
+                                                                                                             5/12
+DDA5001 Machine Learning                                                                            Homework 2
+
+
+Problem 2(b): Results and interpretation
+
+Dataset sizes. Digits has 1437 training and 360 test examples, with no exact duplicates removed. Dry Bean
+has 10834 training and 2709 test examples after removing 68 duplicates (13543 remaining). These sizes
+and the train/test hashes were recorded by the unmodified framework.
+
+      Table 1: Metrics after exactly 1000 updates. CE denotes mean cross-entropy; accuracy is a percentage.
+
+                    Dataset     Method         Train CE     Test CE    Train acc.   Test acc.
+                    Digits      GD            0.122606     0.157478     97.912%     95.833%
+                    Digits      Momentum      0.029333     0.115559     99.861%     96.667%
+                    Digits      Nesterov      0.002176     0.167670    100.000%     96.944%
+                    Dry Bean    GD            0.311315     0.312644     91.748%     91.399%
+                    Dry Bean    Momentum      0.219241     0.227494     92.431%     92.174%
+                    Dry Bean    Nesterov      0.209742     0.218661     92.524%     92.174%
+
+(i) Which method reduces training loss faster? In these runs, Nesterov eventually reduces training loss
+fastest, Momentum is next, and GD is slowest on both datasets. At update 100, the training CE values for
+GD/Momentum/Nesterov are 0.439801/0.108877/0.086856 on Digits and 0.734252/0.294142/0.262083
+on Dry Bean. The final training losses have the same ordering. This is a comparison at equal gradient-update
+budgets, rather than a claim that one curve is lower at every early iteration.
+(ii) Which method has the best final test metrics? On Digits, Momentum has the lowest test CE
+(0.115559), while Nesterov has the highest test accuracy (96.944%). Nesterov has the lowest training CE
+but a higher test CE (0.167670) than both other methods. Accuracy measures only the winning class; CE
+also penalizes confident incorrect predictions, so their rankings can differ. On Dry Bean, Nesterov has the
+lowest test CE (0.218661), and Nesterov and Momentum tie for the highest test accuracy (92.174%, exactly
+the same accuracy before rounding). Thus the lowest-training-loss method is best on test CE for Dry Bean,
+but not for Digits.
+(iii) Is there evidence of overfitting? On Digits, Nesterov’s smallest recorded test CE is 0.115969 at update
+185; its training CE there is 0.041322. By update 1000, training CE falls to 0.002176 while test CE rises to
+0.167670. Momentum has a weaker instance: after its test CE minimum of 0.114851 at update 730, training
+CE falls from 0.036272 to 0.029333, while test CE increases to 0.115559. The loss curves therefore show
+a divergence between continued fitting of training examples and held-out log-loss performance. In the last
+100 updates, test CE increases by 0.004749 for Nesterov and 0.000392 for Momentum while each training
+CE decreases.
+For Dry Bean, no sustained late training/test loss divergence is observed. All three methods attain their low-
+est recorded test CE at update 1000, and both losses decrease over the last 100 updates. This does not prove
+that the models cannot overfit with a different training duration or setting. Test minima above are descrip-
+tive observations only; the prescribed final update remains 1000 and no stopping rule or hyperparameter
+was selected using the test set.
+
+
+
+
+                                                                                                              6/12
+DDA5001 Machine Learning                                                                               Homework 2
+
+
+Problem 2(b): AI collaboration case
+
+Decision being checked. This case concerns whether the Nesterov implementation evaluates its gradient at
+the prescribed lookahead point. Implementation and checks preceded this student verification discussion.
+The actual student–Codex messages below are translated from Chinese; the originals are retained in this
+chat and locally. Tool: Codex; no more specific model identifier was displayed.
+Student’s initial concern and actual prompt.
+
+      “Why does Nesterov evaluate the gradient at the lookahead point, and can the existing k = 3 check
+      distinguish an incorrect evaluation point?”
+
+Relevant response excerpt (English translation).
+
+      “Nesterov first uses the previous displacement to form a lookahead point W , then corrects it using the
+      gradient at W ; this is the update formula specified in this assignment. Evaluating the gradient at the
+      current parameter Θ instead would give a different update.”
+
+Codex then explained the existing prescribed check: Θ − Θprevious = 0.02 entrywise, k = 3, µ = 0.05, and
+G(A) = 2A. Thus W = Θ + (2/5)(0.02) = Θ + 0.008 and
+
+                 W − 0.05(2W ) = 0.9Θ + 0.0072,               W − 0.05(2Θ) = 0.9Θ + 0.008.
+                 |    {z     }                                |    {z    }
+                       correct                                wrong gradient point
+
+The incorrect result differs by 0.0008 in every entry. Codex reported that the implemented function recorded
+the point W and that its update differed from the correct formula by only 2.78 × 10−17 . It also explained
+why a first-step-only check would miss the distinction: the first extrapolation coeﬀicient is zero.
+Numerical evidence brought back and focused follow-up. After this response, the student asked (English
+translation):
+
+      “The result shows a one-step error of only 2.78 × 10−17 , whereas an incorrect evaluation point would
+      differ by 0.0008: is this enough to retain the current code, and what else needs checking?”
+
+This follow-up was selected and submitted by the student from a suggested question in the chat. The nu-
+merical evidence was calculated by the verification script, rather than being claimed as a manual student
+calculation.
+Relevant follow-up response and final action. Codex answered that these values support retaining the
+gradient location, while one check alone does not establish correctness of the whole program. It identified
+the analytic gradient, update count, one gradient call per update, nonmutation and exclusion of test data from
+training as further checks. It then reported that all 15 supplied tests passed and a separate Verifier checked
+other iterations and data leakage and reproduced both complete experiments in a fresh environment, with
+identical results. Codex’s actual concluding decision was (English translation):
+
+      “Therefore I will retain the current code without modification, and include your numerical follow-up and
+      this decision in the AI case.”
+
+Final decision (AI-assisted wording). When asked to state the final decision, the student replied, “Please
+write it for me” (English translation). At that explicit request, Codex drafted: Retain the current implemen-
+tation because the k = 3 check records the gradient at the prescribed point, its update discrepancy is at
+floating-point rounding scale, and the other tests and independent full reproductions passed. The code was
+retained without modification. This is disclosed as assisted drafting, not an independently worded student en-
+dorsement. The matrices and unrounded discrepancies are on page 3 and are regenerated by p2/verify.py.
+The gradient discrepancy is 1.174011 × 10−10 (tolerance 10−8 ); the update tolerance is 10−14 . No bug,
+student calculation or extra exchange was invented.
+
+                                                                                                                 7/12
+DDA5001 Machine Learning                                                                                  Homework 2
+
+
+Problem 3(a): Least-squares Legendre fits
+
+For degree K, define
+                                                                                               
+                   L0 (x1 ) L1 (x1 ) · · ·          LK (x1 )               w0                    y1
+                  L0 (x2 ) L1 (x2 ) · · ·
+                                                   LK (x2 ) 
+                                                             
+                                                                          w1 
+                                                                          
+                                                                                                y2 
+                                                                                                
+            AK =  .            ..                     ..    ,   w(K) =  .  ,           y =  . .
+                  ..            .                      .                ..                  .. 
+                   L0 (xn ) L1 (xn ) · · ·          LK (xn )                       wK                yn
+
+Then AK ∈ Rn×(K+1) , w(K) ∈ RK+1 and y ∈ Rn . In particular, A2 has rows (1, xi , (3x2i − 1)/2) and A10
+has rows (L0 (xi ), . . . , L10 (xi )).
+A nonzero linear combination of these basis polynomials has degree at most K, so it cannot vanish at K + 1
+distinct inputs. Thus the assumed n ≥ K + 1 distinct samples imply full column rank. Differentiating the
+mean squared training error gives
+                                                 
+                                  1                   2
+                             ∇w     ∥AK w − y∥2 = A⊤
+                                                2
+                                                            (AK w − y) = 0.
+                                  n                   n K
+Since A⊤
+       K AK is positive definite, the unique minimizer is
+
+                         b(2) = (A⊤
+                         w              −1 ⊤
+                                  2 A2 ) A2 y,             b(10) = (A⊤
+                                                           w                 −1 ⊤
+                                                                     10 A10 ) A10 y.
+
+These inverses describe the mathematical solution. The implementation uses numpy.linalg.lstsq(A,
+y, rcond=None) to solve it numerically without forming the normal-equation inverse. For batched labels,
+each column is fitted independently using the same AK . No oracle target coeﬀicients enter fitting.
+
+
+Problem 3(b): Analytic out-of-sample error
+
+Let cq = aq /CQ for 0 ≤ q ≤ Qg and cq = 0 above Qg . Similarly set w
+                                                                   eq = wq for q ≤ K and 0 above K.
+With M = max(K, Qg ),
+                                                X
+                                                M
+                               fK (x) − g(x) =     (weq − cq )Lq (x).
+                                                         q=0
+
+Using density 1/2 for x ∼ Uniform[−1, 1] and the supplied orthogonality,
+                                                                       Z 1
+                                    1 XX
+                                      M    M
+                       Eout (fK ) =       eq − cq )(w
+                                         (w         ej − cj )                  Lq (x)Lj (x) dx
+                                    2                                     −1
+                                     q=0 j=0
+
+                                    1X                      X (w
+                                      M                               M
+                                                      2        eq − cq )2
+                                =       eq − cq )2
+                                       (w                 =               .
+                                    2              2q + 1       2q + 1
+                                     q=0                              q=0
+
+Thus, with empty sums equal to zero and cq = 0 when q > Qg ,
+
+                                              X
+                                              2    (2)
+                                                 bq − cq )2
+                                                (w                    X
+                                                                      Qg
+                                                                              c2q
+                               Eout (f2 ) =                       +                ,
+                                                       2q + 1               2q + 1
+                                              q=0                     q=3
+
+                                              X
+                                              10       (10)
+                                                     bq − cq )2
+                                                    (w            Xg   Q
+                                                                       c2q
+                              Eout (f10 ) =                     +           .
+                                                        2q + 1       2q + 1
+                                              q=0                     q=11
+
+The framework already supplies cq = aq /CQ ; dividing by CQ again would be incorrect. This error is against
+the clean fixed target, so no observation-noise variance is added. The normalization ensures Ea,x [g(x)2 ] =
+1, not unit energy for every target draw.
+
+                                                                                                                8/12
+DDA5001 Machine Learning                                                                         Homework 2
+
+
+Problem 3(c): Implementation, checks and protocol
+
+Implementation. The fitting function uses least squares directly on the raw Legendre design. The
+population-error function pads only the degree axis with zeros and sums squared coeﬀicient differences
+with weights 1/(2q + 1). For a batch, it returns one risk for each column. Inputs are not modified and
+targets are not normalized again.
+Fitting verification. Use xi as 40 equally spaced points from −0.95 to 0.95 and noiseless labels yi =
+0.3L0 (xi ) − 0.7L1 (xi ) + 0.2L2 (xi ). The expected degree-2 coeﬀicients are (0.3, −0.7, 0.2); degree 10 has
+the same first three coeﬀicients and eight zeros. Actual fitted coeﬀicients are:
+
+                  Degree index    Expected        Computed K = 2         Computed K = 10
+                             0          0.3    0.3000000000000000     0.2999999999999975
+                             1         -0.7   -0.7000000000000001    -0.7000000000000006
+                             2          0.2    0.2000000000000012     0.1999999999999998
+                             3            0                     –        4.040781 × 10−16
+                             4            0                     –      −5.334285 × 10−16
+                             5            0                     –        2.982244 × 10−16
+                             6            0                     –      −5.642959 × 10−16
+                             7            0                     –        2.632139 × 10−16
+                             8            0                     –      −2.322173 × 10−16
+                             9            0                     –        2.163094 × 10−16
+                            10            0                     –      −1.798246 × 10−16
+
+
+The largest coeﬀicient differences are 1.221 × 10−15 (K = 2) and 2.498 × 10−15 (K = 10), below 10−11 .
+The expected clean-target risk is zero; the computed risks are 3.024 × 10−31 and 6.495 × 10−30 . Recovery
+checks the fitting function without noise or missing target terms.
+Error verification. Use model coeﬀicients w = (0.5, −0.3, 0.2) and an already-normalized target c =
+(0.1, 0.2, −0.1, 0.4). The expected error is
+
+                                (−0.5)2 0.32 (−0.4)2
+                       0.42 +          +    +        = 0.2841904761904762.
+                                  3      5     7
+The implemented analytic result is 0.2841904761904762. Independent 80-point Gauss–Legendre quadra-
+ture of (f −g)2 /2 gives 0.28419047619047905, a difference of 2.831×10−15 , below 10−10 . This compares
+evaluation in input space with the coeﬀicient formula, including the missing degree-3 term and the uniform
+density. Additional scalar checks give expected/computed values 1/1 for constant residual one, 4/7 / 4/7
+for a target-only tail, and 9/5 / 9/5 for a model-only tail. All eight supplied P3 tests and batched-column
+checks passed.
+Fixed full experiment. The two original grids were run with seed 666 and 1000 independent trial rows
+per cell. Each pair of models fits exactly the same labels. Across cells, the provided random bank reuses
+input/coeﬀicient prefixes and noise to form paired comparisons. Each cell reports the arithmetic mean of
+all 1000 values of ρe = Eout (f10 ) − Eout (f2 ). No trial was discarded, no regularization was added, and no
+numerical error was clipped or smoothed. Across all fits, the recorded maximum violation of Ein (f10 ) ≤
+Ein (f2 ) was 0.
+
+
+
+
+                                                                                                         9/12
+DDA5001 Machine Learning                                                                                        Homework 2
+
+
+Problem 3(c): Required heat maps
+
+
+
+
+Figure 5: Target-complexity grid at fixed σ 2 = 0.1: horizontal axis n = 20, 25, . . . , 120, vertical axis Qg = 1, . . . , 50.
+Each cell averages all 1000 trials.
+
+
+
+
+Figure 6: Noise-variance grid at fixed Qg = 20: the same horizontal sample counts and vertical axis σ 2 =
+0, 0.05, . . . , 2.
+
+
+
+
+                                                                                                                        10/12
+DDA5001 Machine Learning                                                                           Homework 2
+
+
+Problem 3(c): Interpretation
+
+Colors and the zero contour. Red means positive mean ρe : the degree-10 model has a larger clean-target
+error than the degree-2 model despite having no larger optimal training error. Blue means negative mean
+ρe , so degree 10 generalizes better in this particular comparison. White is near zero and the black contour
+marks the empirical zero-mean boundary. A negative value does not prove the degree-10 model cannot
+overfit relative to another model.
+Colors saturate at ±0.25 for visibility. The actual complexity-grid means range from −0.296410 to
+1.032363 × 106 , and noise-grid means from −0.146917 to 4.812316 × 106 . These values were not
+clipped. Some finite-sample Legendre designs are poorly conditioned: the smallest recorded degree-10
+design singular value is 1.304 × 10−5 . Large fitted coeﬀicients can therefore amplify noise or model
+misspecification into large population errors, particularly where sample coverage is poor. All trials,
+including these extreme ones, contribute to the required arithmetic mean.
+Sample count. More observations generally reduce the estimation instability of the flexible model in the
+observed grids and allow its approximation advantage to emerge. For example, at Qg = 20, σ 2 = 0.1, the
+mean error difference changes from about 968028.958439 at n = 20, to 11.581522 at n = 40, to 2.483317
+at n = 60, and to −0.119340 at n = 120. At n = 120, the mean risks are 0.409165 for degree 2 and
+0.289825 for degree 10. This is an observed tendency, not a theorem of monotonicity for each sample or
+every grid cell.
+Noise variance. Noise can be fitted by the extra coeﬀicients of f10 and increase estimation variance. At
+Qg = 20, n = 120, the means below move from a degree-10 advantage to a disadvantage as noise increases:
+
+                               σ2              0          0.1           1           2
+                          Mean ρe    −0.146917     −0.119340    0.037381    0.196897
+
+Finite paired Monte Carlo estimates need not be monotone at every cell. For example, at n = 40 the zero-
+noise mean is 11.665551 and the variance-0.1 mean is 11.581522. Sample-specific cross terms can make
+such local comparisons nonmonotone; they are not grounds for discarding trials or changing the prescribed
+mean.
+Target complexity. Increasing Qg is not always harmful. At σ 2 = 0.1, n = 120, the mean ρe is 0.014199
+for Qg = 1, −0.071197 for Qg = 3, −0.296410 for Qg = 10, and −0.119340 for Qg = 20. For targets
+of degree at most 2, both model classes contain the target and the extra coeﬀicients mainly add noise-fitting
+variance. For intermediate degrees up to 10, the larger model can represent structure that the quadratic omits.
+Above degree 10, both models are misspecified; estimation error, omitted high-order components and the
+degree-dependent target normalization all matter. Consequently target degree alone does not determine the
+relative error.
+Can positive relative overfitting occur without observation noise? Yes. The noise-grid mean at σ 2 =
+0, Qg = 20, n = 20 is 558740.582041 > 0, whereas at n = 120 it is −0.146917. With degree 20 the target
+is outside both fitted model classes, and fitting its values at a limited random set of inputs can induce a poor
+degree-10 approximation elsewhere, especially when the design is ill-conditioned. Observation noise is
+therefore not necessary. If the noiseless target were contained in the degree-10 class and the design had full
+column rank, an exact fit would instead recover it in exact arithmetic; this positive-error argument concerns
+the misspecified target case.
+Limits of the contour. The displayed boundary is an empirical comparison of two models under this fixed
+random bank. The grids share random numbers, so adjacent cells are paired rather than independent. Within
+each cell there are 1000 independent trials, but rare large errors can strongly affect the mean: at Qg =
+20, σ 2 = 0.1, n = 20, its standard error is about 498426.190234. The black line is not evidence of a
+universal sharp transition, nor a guarantee about an individual fitted model.
+
+
+
+                                                                                                          11/12
+DDA5001 Machine Learning                                                                       Homework 2
+
+
+Execution and assistance disclosure
+
+The fixed experiments were actually executed on 27 October 2026 using Python 3.12.14, NumPy 2.2.6,
+SciPy 1.15.3, scikit-learn 1.7.2, Matplotlib 3.10.6 and threadpoolctl 3.7.0, on a CPU with numerical-library
+thread count limited to one by the original frameworks. The source functions, verification scripts, original
+runners/frameworks/tests and dependency list accompany this PDF. The small verification scripts require no
+datasets. Digits is included in scikit-learn; Dry Bean is downloaded from the fixed UCI URL and checked
+against the teacher’s SHA-256. Data and raw trial archives are excluded from the submission as instructed.
+Codex assisted with mathematical derivation, numerical implementation, test execution, experiment execu-
+tion and English drafting. The dedicated AI page records the actual student–Codex verification question
+and numerical follow-up, translated from Chinese into English, with the source of the numerical evidence
+identified. Earlier coordinating-agent/coding-agent exchanges are also retained locally. Separate agents
+performed technical verification and final package review. The student remains responsible for understand-
+ing the submitted work and expressing mathematical derivations and explanations in their own words, as
+required by the assignment. This AI-assisted draft does not establish that a personal wording review has
+already occurred.
+
+
+
+
+                                                                                                      12/12
+

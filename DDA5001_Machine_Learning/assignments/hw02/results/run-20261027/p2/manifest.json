@@ -1,0 +1,86 @@
+{
+  "python": "3.12.14",
+  "numpy": "2.2.6",
+  "sklearn": "1.7.2",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "iterations": 1000,
+  "learning_rate": 0.05,
+  "momentum_beta": 0.9,
+  "nesterov_coefficient": "(k-1)/(k+2), k=1,...,1000",
+  "evaluate_every": 5,
+  "regularization": null,
+  "batch": "full training set",
+  "datasets": [
+    {
+      "dataset": "digits",
+      "raw_samples": 1797,
+      "raw_features": 64,
+      "raw_feature_hash": "544ac5eb50aff552314a7179888aba8b052d7eb04b83dde77ee9c5953dce7602",
+      "duplicates_removed": 0,
+      "samples_after_deduplication": 1797,
+      "classes": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "train_samples": 1437,
+      "test_samples": 360,
+      "parameter_shape": [
+        65,
+        10
+      ],
+      "seed": 666,
+      "test_size": 0.2,
+      "standardization": "training mean and population std only",
+      "constant_feature": true,
+      "initialization": "all zeros; reset before each method",
+      "train_index_hash": "15c9d1803d0725f40faeef407681bb66a008cf7f1592349533467e1ab674de74",
+      "test_index_hash": "55728d4d97f07ba64795cf140be3a0b79de92b946e4ae195967168b055a95fe6",
+      "train_feature_hash": "86459850d55db3b6ab3a98feb319e19777343475ad3f18a5ad78d042217daea5",
+      "test_feature_hash": "ed0199a7185a085f4c148ba9673bf49bed346ab64b98ef6c45971f01b2b75d17",
+      "train_label_hash": "83b7674915b91f7cd07da6f7a0f46235827add2d5c8de44989bbc36344582612",
+      "test_label_hash": "a25213b2bffc07876e5c2a0399dcb90894d368525b5eda80cc47db80ecff192c"
+    },
+    {
+      "dataset": "dry_bean",
+      "raw_samples": 13611,
+      "raw_features": 16,
+      "raw_feature_hash": "2ee35eb299367deec791a4c72f5fc2f7d910b87c227c6d98f32871191c3dbe66",
+      "duplicates_removed": 68,
+      "samples_after_deduplication": 13543,
+      "classes": [
+        "BARBUNYA",
+        "BOMBAY",
+        "CALI",
+        "DERMASON",
+        "HOROZ",
+        "SEKER",
+        "SIRA"
+      ],
+      "train_samples": 10834,
+      "test_samples": 2709,
+      "parameter_shape": [
+        17,
+        7
+      ],
+      "seed": 666,
+      "test_size": 0.2,
+      "standardization": "training mean and population std only",
+      "constant_feature": true,
+      "initialization": "all zeros; reset before each method",
+      "train_index_hash": "ff496986c8d56d6f62c001a4d518b753b58a3dd8d530b541b69ef8fc4f182bbe",
+      "test_index_hash": "317ca8a2993dd3447de887d924ee8113bc9b8a6adae3a1a61529331b24ab3a60",
+      "train_feature_hash": "4e8524159605e88d9bb200c9b3d313782492b33028e6c2f56b568ceeb48eee04",
+      "test_feature_hash": "4625f90477f1f523d5c03b1f55137da9820edee0b529fba2cf4e620069f9d1f0",
+      "train_label_hash": "5e805f9b039e304709bd6b3e9027dbd15af9ac600fc51b80781358744667701f",
+      "test_label_hash": "1636dfdae26bd9b63ab928bcceba8ca3e871c94bf6c06ca7ba9ff8b3a874921d"
+    }
+  ]
+}

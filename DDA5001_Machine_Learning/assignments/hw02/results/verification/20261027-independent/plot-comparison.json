@@ -1,0 +1,34 @@
+{
+  "p2/comparison.png": {
+    "sha256": "34281dd93f0b0759133c92315cd442e240df88720ae79aeff2e8f2aa9e9268bc",
+    "byte_equal": true
+  },
+  "p2/dry_bean_accuracy.png": {
+    "sha256": "3c68456d0dae7049436cbbbe6ae5b2c0002ba0c94339a7e294f5ec59723f4bc0",
+    "byte_equal": true
+  },
+  "p2/digits_accuracy.png": {
+    "sha256": "016bbc14f9b54b23724d9a0a64ee864024cbaab7157d6abe0bc1dcf8f9e96f3a",
+    "byte_equal": true
+  },
+  "p2/dry_bean_loss.png": {
+    "sha256": "e5c15eb36a55396429f2d27b6b10c32252421047b8ea12f300c71709f5e497ec",
+    "byte_equal": true
+  },
+  "p2/digits_loss.png": {
+    "sha256": "7bcb115c3f0a503cf1391ff0aa530aa1024b7e4c6a257d80f360512789499f81",
+    "byte_equal": true
+  },
+  "p3/comparison.png": {
+    "sha256": "b71c8559c0d61ab8dcf83ec90bacb50390d0d04ee16e0c800ff4b76e028a68ea",
+    "byte_equal": true
+  },
+  "p3/noise_variance.png": {
+    "sha256": "b9edc1da98ae45e1882b971229372e0bd16a35976f5b8391d6312e994b26f92f",
+    "byte_equal": true
+  },
+  "p3/target_complexity.png": {
+    "sha256": "d94cf79a007a62fc10c98877bac16e79e71a4cd18aac8bbdad1525b873ca0a90",
+    "byte_equal": true
+  }
+}

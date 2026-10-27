@@ -1,0 +1,5 @@
+# Local isolated runtimes, plotting cache and default runner caches
+.venv312/
+.venv-reproduction/
+**/mpl_cache/
+**/data_cache/

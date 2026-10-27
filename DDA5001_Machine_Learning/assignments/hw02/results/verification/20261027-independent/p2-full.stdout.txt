@@ -1,0 +1,8 @@
+digits: train=1437, test=360, theta=[65, 10]
+  gd        train/test CE=0.122606/0.157478, train/test accuracy=97.91%/95.83%
+  momentum  train/test CE=0.029333/0.115559, train/test accuracy=99.86%/96.67%
+  nesterov  train/test CE=0.002176/0.167670, train/test accuracy=100.00%/96.94%
+dry_bean: train=10834, test=2709, theta=[17, 7]
+  gd        train/test CE=0.311315/0.312644, train/test accuracy=91.75%/91.40%
+  momentum  train/test CE=0.219241/0.227494, train/test accuracy=92.43%/92.17%
+  nesterov  train/test CE=0.209742/0.218661, train/test accuracy=92.52%/92.17%

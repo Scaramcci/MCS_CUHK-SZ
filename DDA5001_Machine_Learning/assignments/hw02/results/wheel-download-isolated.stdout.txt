@@ -1,0 +1,76 @@
+Collecting cloudpickle==3.1.2 (from -r DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt (line 1))
+  Downloading cloudpickle-3.1.2-py3-none-any.whl.metadata (7.1 kB)
+Collecting contourpy==1.4.0 (from -r DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt (line 2))
+  Downloading contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Collecting cycler==0.12.1 (from -r DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt (line 3))
+  Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting fonttools==4.67.0 (from -r DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt (line 4))
+  Downloading fonttools-4.67.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (137 kB)
+Collecting joblib==1.6.0 (from -r DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt (line 5))
+  Downloading joblib-1.6.0-py3-none-any.whl.metadata (6.5 kB)
+Collecting kiwisolver==1.5.1 (from -r DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt (line 6))
+  Downloading kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.2 kB)
+Collecting matplotlib==3.10.6 (from -r DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt (line 7))
+  Downloading matplotlib-3.10.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (11 kB)
+Collecting numpy==2.2.6 (from -r DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt (line 8))
+  Downloading numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (62 kB)
+Collecting packaging==26.3 (from -r DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt (line 9))
+  Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting pillow==13.0.0 (from -r DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt (line 10))
+  Downloading pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+Collecting pyparsing==3.3.3 (from -r DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt (line 11))
+  Downloading pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)
+Collecting python-dateutil==3.0.0 (from -r DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt (line 12))
+  Downloading python_dateutil-3.0.0-py2.py3-none-any.whl.metadata (8.2 kB)
+Collecting scikit-learn==1.7.2 (from -r DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt (line 13))
+  Downloading scikit_learn-1.7.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (11 kB)
+Collecting scipy==1.15.3 (from -r DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt (line 14))
+  Downloading scipy-1.15.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+Collecting six==1.17.0 (from -r DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt (line 15))
+  Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting threadpoolctl==3.7.0 (from -r DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt (line 16))
+  Downloading threadpoolctl-3.7.0-py3-none-any.whl.metadata (24 kB)
+Collecting tzdata==2026.5 (from -r DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt (line 17))
+  Downloading tzdata-2026.5-py2.py3-none-any.whl.metadata (1.4 kB)
+Downloading cloudpickle-3.1.2-py3-none-any.whl (22 kB)
+Downloading contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (383 kB)
+Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Downloading fonttools-4.67.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.4/5.4 MB 3.7 MB/s eta 0:00:00
+Downloading joblib-1.6.0-py3-none-any.whl (306 kB)
+Downloading kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.5/1.5 MB 4.9 MB/s eta 0:00:00
+Downloading matplotlib-3.10.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (8.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.7/8.7 MB 8.2 MB/s eta 0:00:00
+Downloading numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.5/16.5 MB 11.3 MB/s eta 0:00:00
+Downloading packaging-26.3-py3-none-any.whl (129 kB)
+Downloading pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.1/7.1 MB 9.4 MB/s eta 0:00:00
+Downloading pyparsing-3.3.3-py3-none-any.whl (126 kB)
+Downloading python_dateutil-3.0.0-py2.py3-none-any.whl (94 kB)
+Downloading scikit_learn-1.7.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.5/9.5 MB 6.4 MB/s eta 0:00:00
+Downloading scipy-1.15.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (37.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 37.3/37.3 MB 6.2 MB/s eta 0:00:00
+Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+Downloading threadpoolctl-3.7.0-py3-none-any.whl (26 kB)
+Downloading tzdata-2026.5-py2.py3-none-any.whl (347 kB)
+Saved ./DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels/cloudpickle-3.1.2-py3-none-any.whl
+Saved ./DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels/contourpy-1.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+Saved ./DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels/cycler-0.12.1-py3-none-any.whl
+Saved ./DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels/fonttools-4.67.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Saved ./DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels/joblib-1.6.0-py3-none-any.whl
+Saved ./DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels/kiwisolver-1.5.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Saved ./DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels/matplotlib-3.10.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Saved ./DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels/numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Saved ./DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels/packaging-26.3-py3-none-any.whl
+Saved ./DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels/pillow-13.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+Saved ./DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels/pyparsing-3.3.3-py3-none-any.whl
+Saved ./DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels/python_dateutil-3.0.0-py2.py3-none-any.whl
+Saved ./DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels/scikit_learn-1.7.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Saved ./DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels/scipy-1.15.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Saved ./DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels/six-1.17.0-py2.py3-none-any.whl
+Saved ./DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels/threadpoolctl-3.7.0-py3-none-any.whl
+Saved ./DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels/tzdata-2026.5-py2.py3-none-any.whl
+Successfully downloaded cloudpickle contourpy cycler fonttools joblib kiwisolver matplotlib numpy packaging pillow pyparsing python-dateutil scikit-learn scipy six threadpoolctl tzdata

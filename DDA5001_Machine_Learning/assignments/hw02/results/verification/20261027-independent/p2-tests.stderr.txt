@@ -1,0 +1,12 @@
+test_analytic_gradient_against_finite_differences (test_p2.CoreChecks.test_analytic_gradient_against_finite_differences) ... ok
+test_first_updates_coincide (test_p2.CoreChecks.test_first_updates_coincide) ... ok
+test_gd_update_and_no_in_place_change (test_p2.CoreChecks.test_gd_update_and_no_in_place_change) ... ok
+test_loss_at_zero_and_extreme_wrong_prediction (test_p2.CoreChecks.test_loss_at_zero_and_extreme_wrong_prediction) ... ok
+test_momentum_gradient_location_and_update (test_p2.CoreChecks.test_momentum_gradient_location_and_update) ... ok
+test_nesterov_nonzero_extrapolation_and_update (test_p2.CoreChecks.test_nesterov_nonzero_extrapolation_and_update) ... ok
+test_softmax_stability_and_shift_invariance (test_p2.CoreChecks.test_softmax_stability_and_shift_invariance) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.023s
+
+OK

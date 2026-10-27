@@ -1,0 +1,22 @@
+{
+  "executor": "independent Verifier /root/verifier",
+  "command": [
+    "env",
+    "-u",
+    "PYTHONPATH",
+    "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/results/verification/20261027-independent/venv/bin/python",
+    "-m",
+    "pip",
+    "install",
+    "--no-index",
+    "--find-links",
+    "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/local_artifacts/wheels",
+    "-r",
+    "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/results/requirements-frozen.txt"
+  ],
+  "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/results/verification/20261027-independent",
+  "started_utc": "2026-10-27T11:02:30.689785+00:00",
+  "finished_utc": "2026-10-27T11:02:36.248675+00:00",
+  "elapsed_seconds": 5.558899397999994,
+  "exit_code": 0
+}

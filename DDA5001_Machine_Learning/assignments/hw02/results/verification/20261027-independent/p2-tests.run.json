@@ -1,0 +1,20 @@
+{
+  "executor": "independent Verifier /root/verifier",
+  "command": [
+    "env",
+    "-u",
+    "PYTHONPATH",
+    "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/results/verification/20261027-independent/venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "p2",
+    "-v"
+  ],
+  "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/results/verification/20261027-independent/src",
+  "started_utc": "2026-10-27T11:02:36.377775+00:00",
+  "finished_utc": "2026-10-27T11:02:36.480660+00:00",
+  "elapsed_seconds": 0.10289031199999954,
+  "exit_code": 0
+}

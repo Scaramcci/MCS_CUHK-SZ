@@ -1,0 +1,28 @@
+{
+  "checked_by": "coordinating Codex agent",
+  "status": "Ready — checked local package prepared for user submission",
+  "branch": "master",
+  "original_pdf_sha256": "f131d01bcbeb286b0cbc978be38d4978e2a7e0f9bab8e697e9332b8ddcd8920e",
+  "original_zip_sha256": "6f58949e6ef4ac1dce1857d3373fc804aee34c0b431a307deee26d08dedd32b4",
+  "p2_algorithms_sha256": "f3dff6c0408536b60731cb55c4f1e3237ddd234ed75c28359045acf45f78af96",
+  "p3_algorithms_sha256": "b05e25fa40cf890404693e2a15cc573ed26dabbdccee2c0894fc58900a97f4d7",
+  "datasets_excluded_from_submission": true,
+  "public_tests": {
+    "p2_passed": 7,
+    "p3_passed": 8
+  },
+  "independent_verifier_record": "notes/verification.md",
+  "review_record": "notes/review.md",
+  "student_ai_question_received": true,
+  "student_numeric_followup": "received and recorded in final one-page case",
+  "student_own_word_and_understanding_review": "user-reported personal review completed; no independent authorship/understanding/rewriting certification",
+  "git_commit_or_push_performed": false,
+  "blackboard_upload_performed": false,
+  "student_final_decision": "student explicitly requested assisted drafting; drafted rationale disclosed",
+  "current_candidate_sha256": "16dda52687c9733e4e0091cd67d12ac137b6519e27dfa8a0cbbd2e40bf537fbb",
+  "pdf_sha256": "1afba6eea2f64585c30d84577de357572970a767f78049e32c49c4d272d64d76",
+  "independent_final_review": "fresh requirement/package audit passed; no required product fixes; user-reported personal review recorded",
+  "artifact_production_complete": true,
+  "user_review_verbatim": "我看完了，没有问题，请再根据作业要求检查一遍作业，没有问题我就提交了",
+  "latest_check_evidence": "results/final-audit-20261027/summary.json"
+}

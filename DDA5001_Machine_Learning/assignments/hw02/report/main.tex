@@ -1,0 +1,213 @@
+% !TEX program = xelatex
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Termes}
+\usepackage[a4paper,margin=23mm,headheight=16pt]{geometry}
+\usepackage{amsmath,amssymb,booktabs,graphicx,xcolor,fancyhdr,lastpage,hyperref,enumitem,caption}
+\definecolor{CoursePurple}{HTML}{5C2267}
+\hypersetup{colorlinks=true,linkcolor=CoursePurple,urlcolor=CoursePurple,pdftitle={DDA5001 Homework 2},pdfauthor={Kunyuan Zhong}}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small DDA5001 Machine Learning}\fancyhead[R]{\small Homework 2}
+\fancyfoot[R]{\small\thepage/\pageref*{LastPage}}
+\setlength{\parindent}{0pt}\setlength{\parskip}{5pt}\setlength{\emergencystretch}{3em}
+\setlist[enumerate]{leftmargin=1.6em,itemsep=3pt,topsep=3pt}
+\captionsetup{font=small,labelfont=bf,skip=4pt}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Ein}{E_{\mathrm{in}}}
+\newcommand{\Eout}{E_{\mathrm{out}}}
+\newcommand{\Th}{\Theta}
+\newcommand{\softmax}{\operatorname{softmax}}
+\newcommand{\method}{\texttt}
+\begin{document}
+\begin{center}{\Large\bfseries\color{CoursePurple}DDA5001 Homework 2}\\[4pt]
+The Chinese University of Hong Kong, Shenzhen\\[2pt]
+\small Kunyuan Zhong \quad Student ID: 226040255
+\end{center}
+\noindent\rule{\linewidth}{0.8pt}
+
+\section*{Problem 1: Concepts and fundamental knowledge}
+\textbf{(a) VC dimension.} The VC dimension is $d+1$ for affine binary linear classifiers in $\R^d$, where the appended constant feature supplies the intercept. The $d+1$ affinely independent vertices of a simplex can be shattered. The standard upper bound for affine halfspaces rules out shattering $d+2$ points. The feature count $d$ here excludes the constant coordinate.
+
+\textbf{(b) Test error versus out-of-sample error.} For a fixed learned classifier $h$, its out-of-sample classification error is the population probability
+\[
+\Eout(h)=\mathbb P_{(x,y)\sim P}\{h(x)\ne y\}.
+\]
+The test error is the observed fraction of mistakes on a finite held-out test sample:
+\[E_{\mathrm{test}}(h)=\frac1m\sum_{j=1}^m\mathbf 1\{h(x_j)\ne y_j\}.\]
+It varies with the test sample and estimates the population error; with i.i.d. test examples independent of learning, its expectation conditional on the fixed $h$ equals $\Eout(h)$. The two quantities need not be numerically equal.
+
+\textbf{(c) Gradient descent: statement 2 is false.}
+\begin{enumerate}[label=\arabic*)]
+\item True. Convexity gives $L(u)\ge L(\theta)+\nabla L(\theta)^\top(u-\theta)$. A zero gradient therefore implies $L(u)\ge L(\theta)$ for every $u$.
+\item False. For $L(\theta)=\theta^2$, one update is $\theta^+=(1-2\mu)\theta$. If $\mu>1$ and $\theta\ne0$, then $L(\theta^+)>L(\theta)$. Convexity alone cannot control an arbitrarily large step.
+\item True. For $g=\nabla L(\theta)\ne0$, differentiability gives $L(\theta-\alpha g)=L(\theta)-\alpha\|g\|^2+o(\alpha)$. This decreases for sufficiently small positive $\alpha$.
+\item True. The iterate displacement is $\mu\|\nabla L(\theta)\|$ and can be tiny because $\mu$ is tiny. For the same quadratic, an arbitrarily small learning rate can give a tiny displacement far from the minimizer $0$.
+\end{enumerate}
+
+\textbf{(d) Softmax: statement 3 is false.}
+\begin{enumerate}[label=\arabic*)]
+\item True. Exponentiation preserves ordering and all classes share the same positive denominator; the sets of maximizers, including ties, coincide.
+\item True. Adding $c$ multiplies numerator and denominator by $e^c$, which cancels.
+\item False. Scaling scores changes their differences and typically changes the probabilities. For scores $(0,1)$, the second probability is $e/(1+e)$; after scaling by $2$ it is $e^2/(1+e^2)$. A positive scale preserves the predicted class, but not these probabilities.
+\item True. If the true class is $y$, one-hot cross-entropy reduces to $-\log q_y$.
+\end{enumerate}
+
+\clearpage
+\section*{Problem 2(a): Analytic mean cross-entropy gradient}
+For one sample, use $z=\Th^\top x$, $q=\softmax(z)$ and one-hot $p$ with $\sum_jp_j=1$. Softmax probabilities are strictly positive in exact arithmetic.
+
+\textbf{Step 1: differentiate cross-entropy.}
+\[
+H(p,q)=-\sum_{j=1}^K p_j\log q_j,
+\qquad \boxed{\frac{\partial H}{\partial q_j}=-\frac{p_j}{q_j}.}
+\]
+
+\textbf{Step 2: differentiate with respect to the logits.} Separating $j=k$ from the other terms in the chain rule gives
+\begin{align*}
+\frac{\partial H}{\partial z_k}
+&=-\frac{p_k}{q_k}q_k(1-q_k)
+ +\sum_{j\ne k}\left(-\frac{p_j}{q_j}\right)(-q_jq_k)\\
+&=-p_k+p_kq_k+q_k\sum_{j\ne k}p_j
+ =-p_k+q_k\sum_jp_j=q_k-p_k.
+\end{align*}
+Hence $\boxed{\nabla_z H=q-p\in\R^K}$.
+
+\textbf{Step 3: differentiate the parameter columns.} Since $z_k=\theta_k^\top x$ and only column $\theta_k$ affects $z_k$,
+\[
+\nabla_{\theta_k}H=x(q_k-p_k),\qquad
+\boxed{\nabla_{\Th}H=x(q-p)^\top\in\R^{d\times K}.}
+\]
+The outer product has features as rows and classes as columns.
+
+\textbf{Step 4: average over samples.}
+\[
+\boxed{\nabla_{\Th}L(\Th)=\frac1n\sum_{i=1}^n x_i(q_i-\mathbf 1_i)^\top
+       =\frac1n X^\top(P-Y).}
+\]
+Here $X\in\R^{n\times d}$ has sample rows; $P=\softmax(X\Th)$ and $Y\in\R^{n\times K}$ have probability and one-hot rows. The factor $1/n$ corresponds to the mean loss, not a sum loss.
+
+\section*{Problem 2(b): Implementation and fixed experiment}
+The six functions are in \method{p2/algorithms.py}. Softmax subtracts each row maximum $m$ before exponentiation. Since $e^{z_j-m}/\sum_\ell e^{z_\ell-m}=e^{z_j}/\sum_\ell e^{z_\ell}$, this is the same distribution. The loss uses
+\[
+\log q_j=(z_j-m)-\log\sum_\ell e^{z_\ell-m},
+\]
+then averages $-\sum_jp_j\log q_j$. Thus it avoids $\log(0)$ after probability underflow, without clipping. Training uses the analytic matrix gradient, no autodiff, ready-made optimizer or classifier. All updates return new arrays.
+
+For updates $k=1,\ldots,1000$, with $\Th_0=\Th_1=0$, $\mu=0.05$ and $\beta=0.90$,
+\begin{align*}
+\text{GD:}\quad&\Th_{k+1}=\Th_k-\mu\nabla L(\Th_k),\\
+\text{Momentum:}\quad&\Th_{k+1}=\Th_k-\mu\nabla L(\Th_k)+\beta(\Th_k-\Th_{k-1}),\\
+\text{Nesterov:}\quad&W_k=\Th_k+\frac{k-1}{k+2}(\Th_k-\Th_{k-1}),\quad
+\Th_{k+1}=W_k-\mu\nabla L(W_k).
+\end{align*}
+Each update uses exactly one full-training-set gradient. The original framework fixes seed 666, stratified 80/20 splitting after exact deduplication, training-only standardization and an appended constant feature, without regularization. No test observations enter a gradient. Parameters have shapes $65\times10$ (Digits) and $17\times7$ (Dry Bean). The recorded iteration is the number of completed updates.
+
+\clearpage
+\section*{Problem 2(b): Numerical verification before training}
+\input{p2-checks.tex}
+
+\clearpage
+\section*{Problem 2(b): Digits learning curves}
+\begin{center}
+\includegraphics[width=.96\linewidth]{../results/run-20261027/p2/digits_loss.png}
+\captionof{figure}{Digits mean cross-entropy on a logarithmic vertical axis. Each of the three methods has a training curve and a test curve.}\label{fig:digits-loss}
+\end{center}
+\begin{center}
+\includegraphics[width=.96\linewidth]{../results/run-20261027/p2/digits_accuracy.png}
+\captionof{figure}{Digits accuracy. Solid lines are training and dashed lines are test. Values are recorded after updates $0,5,\ldots,1000$.}\label{fig:digits-accuracy}
+\end{center}
+
+\clearpage
+\section*{Problem 2(b): Dry Bean learning curves}
+\begin{center}
+\includegraphics[width=.96\linewidth]{../results/run-20261027/p2/dry_bean_loss.png}
+\captionof{figure}{Dry Bean mean cross-entropy on a logarithmic vertical axis, using the same fixed methods and settings as Digits.}\label{fig:bean-loss}
+\end{center}
+\begin{center}
+\includegraphics[width=.96\linewidth]{../results/run-20261027/p2/dry_bean_accuracy.png}
+\captionof{figure}{Dry Bean accuracy. Each figure contains all six training/test curves; the held-out set is used only for evaluation.}\label{fig:bean-accuracy}
+\end{center}
+
+\clearpage
+\section*{Problem 2(b): Results and interpretation}
+\input{p2-results.tex}
+
+\clearpage
+\section*{Problem 2(b): AI collaboration case}
+\input{ai-case.tex}
+
+\clearpage
+\section*{Problem 3(a): Least-squares Legendre fits}
+For degree $K$, define
+\[
+A_K=\begin{pmatrix}
+L_0(x_1)&L_1(x_1)&\cdots&L_K(x_1)\\
+L_0(x_2)&L_1(x_2)&\cdots&L_K(x_2)\\
+\vdots&\vdots&&\vdots\\
+L_0(x_n)&L_1(x_n)&\cdots&L_K(x_n)
+\end{pmatrix},\quad
+w^{(K)}=\begin{pmatrix}w_0\\w_1\\\vdots\\w_K\end{pmatrix},\quad
+y=\begin{pmatrix}y_1\\y_2\\\vdots\\y_n\end{pmatrix}.
+\]
+Then $A_K\in\R^{n\times(K+1)}$, $w^{(K)}\in\R^{K+1}$ and $y\in\R^n$. In particular, $A_2$ has rows $(1,x_i,(3x_i^2-1)/2)$ and $A_{10}$ has rows $(L_0(x_i),\ldots,L_{10}(x_i))$.
+
+A nonzero linear combination of these basis polynomials has degree at most $K$, so it cannot vanish at $K+1$ distinct inputs. Thus the assumed $n\ge K+1$ distinct samples imply full column rank. Differentiating the mean squared training error gives
+\[
+\nabla_w\left(\frac1n\|A_Kw-y\|_2^2\right)=\frac2nA_K^\top(A_Kw-y)=0.
+\]
+Since $A_K^\top A_K$ is positive definite, the unique minimizer is
+\[
+\boxed{\widehat w^{(2)}=(A_2^\top A_2)^{-1}A_2^\top y,\qquad
+\widehat w^{(10)}=(A_{10}^\top A_{10})^{-1}A_{10}^\top y.}
+\]
+These inverses describe the mathematical solution. The implementation uses \method{numpy.linalg.lstsq(A, y, rcond=None)} to solve it numerically without forming the normal-equation inverse. For batched labels, each column is fitted independently using the same $A_K$. No oracle target coefficients enter fitting.
+
+\section*{Problem 3(b): Analytic out-of-sample error}
+Let $c_q=a_q/C_Q$ for $0\le q\le Q_g$ and $c_q=0$ above $Q_g$. Similarly set $\widetilde w_q=w_q$ for $q\le K$ and $0$ above $K$. With $M=\max(K,Q_g)$,
+\[
+f_K(x)-g(x)=\sum_{q=0}^{M}(\widetilde w_q-c_q)L_q(x).
+\]
+Using density $1/2$ for $x\sim\mathrm{Uniform}[-1,1]$ and the supplied orthogonality,
+\begin{align*}
+\Eout(f_K)
+&=\frac12\sum_{q=0}^{M}\sum_{j=0}^{M}(\widetilde w_q-c_q)(\widetilde w_j-c_j)
+\int_{-1}^{1}L_q(x)L_j(x)\,dx\\
+&=\frac12\sum_{q=0}^{M}(\widetilde w_q-c_q)^2\frac{2}{2q+1}
+ =\boxed{\sum_{q=0}^{M}\frac{(\widetilde w_q-c_q)^2}{2q+1}.}
+\end{align*}
+Thus, with empty sums equal to zero and $c_q=0$ when $q>Q_g$,
+\[
+\boxed{\begin{aligned}
+\Eout(f_2)&=\sum_{q=0}^{2}\frac{(\widehat w^{(2)}_q-c_q)^2}{2q+1}
+                +\sum_{q=3}^{Q_g}\frac{c_q^2}{2q+1},\\
+\Eout(f_{10})&=\sum_{q=0}^{10}\frac{(\widehat w^{(10)}_q-c_q)^2}{2q+1}
+                +\sum_{q=11}^{Q_g}\frac{c_q^2}{2q+1}.
+\end{aligned}}
+\]
+The framework already supplies $c_q=a_q/C_Q$; dividing by $C_Q$ again would be incorrect. This error is against the clean fixed target, so no observation-noise variance is added. The normalization ensures $\mathbb E_{a,x}[g(x)^2]=1$, not unit energy for every target draw.
+
+\clearpage
+\section*{Problem 3(c): Implementation, checks and protocol}
+\input{p3-checks.tex}
+
+\clearpage
+\section*{Problem 3(c): Required heat maps}
+\begin{center}
+\includegraphics[width=.88\linewidth]{../results/run-20261027/p3/target_complexity.png}
+\captionof{figure}{Target-complexity grid at fixed $\sigma^2=0.1$: horizontal axis $n=20,25,\ldots,120$, vertical axis $Q_g=1,\ldots,50$. Each cell averages all 1000 trials.}\label{fig:target}
+\end{center}
+\begin{center}
+\includegraphics[width=.88\linewidth]{../results/run-20261027/p3/noise_variance.png}
+\captionof{figure}{Noise-variance grid at fixed $Q_g=20$: the same horizontal sample counts and vertical axis $\sigma^2=0,0.05,\ldots,2$.}\label{fig:noise}
+\end{center}
+
+\clearpage
+\section*{Problem 3(c): Interpretation}
+\input{p3-results.tex}
+
+\section*{Execution and assistance disclosure}
+The fixed experiments were actually executed on 27 October 2026 using Python 3.12.14, NumPy 2.2.6, SciPy 1.15.3, scikit-learn 1.7.2, Matplotlib 3.10.6 and threadpoolctl 3.7.0, on a CPU with numerical-library thread count limited to one by the original frameworks. The source functions, verification scripts, original runners/frameworks/tests and dependency list accompany this PDF. The small verification scripts require no datasets. Digits is included in scikit-learn; Dry Bean is downloaded from the fixed UCI URL and checked against the teacher's SHA-256. Data and raw trial archives are excluded from the submission as instructed.
+
+Codex assisted with mathematical derivation, numerical implementation, test execution, experiment execution and English drafting. The dedicated AI page records the actual student--Codex verification question and numerical follow-up, translated from Chinese into English, with the source of the numerical evidence identified. Earlier coordinating-agent/coding-agent exchanges are also retained locally. Separate agents performed technical verification and final package review. The student remains responsible for understanding the submitted work and expressing mathematical derivations and explanations in their own words, as required by the assignment. This AI-assisted draft does not establish that a personal wording review has already occurred.
+
+\end{document}

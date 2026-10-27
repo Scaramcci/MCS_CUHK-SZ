@@ -1,0 +1,37 @@
+{
+  "command": [
+    "env",
+    "-u",
+    "PYTHONPATH",
+    "../.venv312/bin/python",
+    "p3/run.py",
+    "--output-dir",
+    "../results/run-20261027/p3"
+  ],
+  "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src",
+  "started_utc": "2026-10-27T11:01:14.218966+00:00",
+  "recorded_by": "coordinating Codex agent",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "hardware": "x86_64",
+  "logical_cpus": 32,
+  "source_sha256": {
+    "src/p2/algorithms.py": "f3dff6c0408536b60731cb55c4f1e3237ddd234ed75c28359045acf45f78af96",
+    "src/p2/framework.py": "612986d10d8fe914133021e0d16d63e6141ee9968c7383ccfcbb1e647c9b5d3f",
+    "src/p2/run.py": "6eeade766b0c9787c18ff986bd0e90749599013351ea076c09859f01152b255b",
+    "src/p2/test_p2.py": "c0194b5adfe4967f82d571248e7d355d2bfe9c36810a88ea7fa146f81c9c99f8",
+    "src/p2/verify.py": "e53d23cb855612ad3df79022d8932fa6132458c009161ee9ffc25a73fb558a81",
+    "src/p3/algorithms.py": "b05e25fa40cf890404693e2a15cc573ed26dabbdccee2c0894fc58900a97f4d7",
+    "src/p3/framework.py": "08daea51f823923897b993e72a830cf3e8013977bde0731cfe1d0774bb2abab8",
+    "src/p3/run.py": "0921a3922717afca9e1702d0257a3c81dd4d7f46b14cf95c59d987db02472f4f",
+    "src/p3/test_p3.py": "e9cc991e21b688d04a031b26d64e735c89e3e6bfa1325e98b0dfa4eea3788d1a",
+    "src/p3/verify.py": "83905ae5b16a1bf9506eb6e1e5c89a8f5c56223426af2f53c5c1838101efd719",
+    "src/requirements.txt": "222f6e10d0679db96d6e8a127b3050aadca9022f866e65c77936a67ea5c75895",
+    "DDA5001_HW2.pdf": "f131d01bcbeb286b0cbc978be38d4978e2a7e0f9bab8e697e9332b8ddcd8920e",
+    "code_source(1).zip": "6f58949e6ef4ac1dce1857d3373fc804aee34c0b431a307deee26d08dedd32b4"
+  },
+  "numerical_threads": "framework threadpool_limits(1) for full experiments",
+  "seed": 666,
+  "exit_code": 0,
+  "elapsed_seconds": 6.407450600999937,
+  "finished_utc": "2026-10-27T11:01:20.630825+00:00"
+}

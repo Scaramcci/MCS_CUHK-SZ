@@ -1,0 +1,21 @@
+\textbf{Dataset sizes.} Digits has 1437 training and 360 test examples, with no exact duplicates removed. Dry Bean has 10834 training and 2709 test examples after removing 68 duplicates (13543 remaining). These sizes and the train/test hashes were recorded by the unmodified framework.
+
+\begin{table}[htbp]\centering\small
+\caption{Metrics after exactly 1000 updates. CE denotes mean cross-entropy; accuracy is a percentage.}\label{tab:p2}
+\begin{tabular}{@{}llrrrr@{}}\toprule
+Dataset & Method & Train CE & Test CE & Train acc. & Test acc.\\\midrule
+Digits & GD & 0.122606 & 0.157478 & 97.912\% & 95.833\%\\
+Digits & Momentum & 0.029333 & 0.115559 & 99.861\% & 96.667\%\\
+Digits & Nesterov & 0.002176 & 0.167670 & 100.000\% & 96.944\%\\
+Dry Bean & GD & 0.311315 & 0.312644 & 91.748\% & 91.399\%\\
+Dry Bean & Momentum & 0.219241 & 0.227494 & 92.431\% & 92.174\%\\
+Dry Bean & Nesterov & 0.209742 & 0.218661 & 92.524\% & 92.174\%\\
+\bottomrule\end{tabular}\end{table}
+
+\textbf{(i) Which method reduces training loss faster?} In these runs, Nesterov eventually reduces training loss fastest, Momentum is next, and GD is slowest on both datasets. At update 100, the training CE values for GD/Momentum/Nesterov are $0.439801/0.108877/0.086856$ on Digits and $0.734252/0.294142/0.262083$ on Dry Bean. The final training losses have the same ordering. This is a comparison at equal gradient-update budgets, rather than a claim that one curve is lower at every early iteration.
+
+\textbf{(ii) Which method has the best final test metrics?} On Digits, Momentum has the lowest test CE ($0.115559$), while Nesterov has the highest test accuracy ($96.944\%$). Nesterov has the lowest training CE but a higher test CE ($0.167670$) than both other methods. Accuracy measures only the winning class; CE also penalizes confident incorrect predictions, so their rankings can differ. On Dry Bean, Nesterov has the lowest test CE ($0.218661$), and Nesterov and Momentum tie for the highest test accuracy ($92.174\%$, exactly the same accuracy before rounding). Thus the lowest-training-loss method is best on test CE for Dry Bean, but not for Digits.
+
+\textbf{(iii) Is there evidence of overfitting?} On Digits, Nesterov's smallest recorded test CE is $0.115969$ at update 185; its training CE there is $0.041322$. By update 1000, training CE falls to $0.002176$ while test CE rises to $0.167670$. Momentum has a weaker instance: after its test CE minimum of $0.114851$ at update 730, training CE falls from $0.036272$ to $0.029333$, while test CE increases to $0.115559$. The loss curves therefore show a divergence between continued fitting of training examples and held-out log-loss performance. In the last 100 updates, test CE increases by $0.004749$ for Nesterov and $0.000392$ for Momentum while each training CE decreases.
+
+For Dry Bean, no sustained late training/test loss divergence is observed. All three methods attain their lowest recorded test CE at update 1000, and both losses decrease over the last 100 updates. This does not prove that the models cannot overfit with a different training duration or setting. Test minima above are descriptive observations only; the prescribed final update remains 1000 and no stopping rule or hyperparameter was selected using the test set.

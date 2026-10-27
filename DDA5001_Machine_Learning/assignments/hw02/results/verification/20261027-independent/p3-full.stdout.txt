@@ -1,0 +1,11 @@
+Problem 3: 100/1000 trials complete
+Problem 3: 200/1000 trials complete
+Problem 3: 300/1000 trials complete
+Problem 3: 400/1000 trials complete
+Problem 3: 500/1000 trials complete
+Problem 3: 600/1000 trials complete
+Problem 3: 700/1000 trials complete
+Problem 3: 800/1000 trials complete
+Problem 3: 900/1000 trials complete
+Problem 3: 1000/1000 trials complete
+Saved Problem 3 results to /home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/results/verification/20261027-independent/p3-full

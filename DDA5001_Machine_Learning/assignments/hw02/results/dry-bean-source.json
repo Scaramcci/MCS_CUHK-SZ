@@ -1,0 +1,8 @@
+{
+  "url": "https://archive.ics.uci.edu/static/public/602/data.csv",
+  "local_path": "data/dry_bean.csv",
+  "sha256": "c91a086bb4357e69409d23287ec22be1be9512145cead1d8ca988c918be38fcb",
+  "bytes": 2484757,
+  "retrieved_utc": "2026-10-27T11:00:04.487520+00:00",
+  "status": "downloaded official CSV"
+}

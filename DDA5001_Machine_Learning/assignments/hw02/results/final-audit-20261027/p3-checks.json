@@ -1,0 +1,200 @@
+{
+  "problem": 3,
+  "purpose": "Deterministic verification examples, not experiment data",
+  "created_utc": "2026-10-27T11:36:57.986529+00:00",
+  "python": "3.12.14",
+  "numpy": "2.2.6",
+  "source_sha256": {
+    "algorithms.py": "b05e25fa40cf890404693e2a15cc573ed26dabbdccee2c0894fc58900a97f4d7",
+    "verify.py": "83905ae5b16a1bf9506eb6e1e5c89a8f5c56223426af2f53c5c1838101efd719"
+  },
+  "checks": {
+    "noiseless_degree_2": {
+      "expected_coefficients": [
+        0.3,
+        -0.7,
+        0.2
+      ],
+      "computed_coefficients": [
+        0.3,
+        -0.7000000000000001,
+        0.20000000000000123
+      ],
+      "max_absolute_difference": 1.2212453270876722e-15,
+      "coefficient_tolerance": 1e-11,
+      "expected_population_error": 0.0,
+      "computed_population_error": 3.0239668033472117e-31,
+      "risk_tolerance": 1e-20,
+      "inputs_unchanged": true,
+      "passed": true
+    },
+    "noiseless_degree_10": {
+      "expected_coefficients": [
+        0.3,
+        -0.7,
+        0.2,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "computed_coefficients": [
+        0.2999999999999975,
+        -0.7000000000000006,
+        0.19999999999999982,
+        4.040781478773442e-16,
+        -5.334284915798453e-16,
+        2.9822435859453957e-16,
+        -5.642959419944692e-16,
+        2.632138957727298e-16,
+        -2.3221727439230653e-16,
+        2.1630941836450033e-16,
+        -1.7982458289715968e-16
+      ],
+      "max_absolute_difference": 2.4980018054066022e-15,
+      "coefficient_tolerance": 1e-11,
+      "expected_population_error": 0.0,
+      "computed_population_error": 6.494789046837465e-30,
+      "risk_tolerance": 1e-20,
+      "inputs_unchanged": true,
+      "passed": true
+    },
+    "independent_quadrature": {
+      "model_coefficients": [
+        0.5,
+        -0.3,
+        0.2
+      ],
+      "target_coefficients": [
+        0.1,
+        0.2,
+        -0.1,
+        0.4
+      ],
+      "expected_weighted_coefficient_error": 0.2841904761904762,
+      "computed_analytic_error": 0.2841904761904762,
+      "computed_80_point_gauss_legendre_error": 0.28419047619047905,
+      "absolute_difference": 2.831068712794149e-15,
+      "tolerance": 1e-10,
+      "passed": true
+    },
+    "constant_density": {
+      "expected": 1.0,
+      "computed": 1.0,
+      "tolerance": 1e-14,
+      "passed": true
+    },
+    "target_tail": {
+      "expected": 0.5714285714285714,
+      "computed": 0.5714285714285714,
+      "tolerance": 1e-14,
+      "passed": true
+    },
+    "model_tail": {
+      "expected": 1.8,
+      "computed": 1.8,
+      "tolerance": 1e-14,
+      "passed": true
+    },
+    "already_normalized": {
+      "expected": 0.25,
+      "computed": 0.25000000000000006,
+      "tolerance": 1e-14,
+      "passed": true
+    },
+    "batched_columns": {
+      "design_shape": [
+        40,
+        5
+      ],
+      "label_shape": [
+        40,
+        3
+      ],
+      "expected_fit_shape": [
+        5,
+        3
+      ],
+      "computed_fit_shape": [
+        5,
+        3
+      ],
+      "expected_fit": [
+        [
+          0.3,
+          0.1,
+          -0.2
+        ],
+        [
+          -0.7,
+          0.4,
+          0.3
+        ],
+        [
+          0.2,
+          0.0,
+          -0.1
+        ],
+        [
+          0.0,
+          0.2,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.05
+        ]
+      ],
+      "computed_fit": [
+        [
+          0.2999999999999999,
+          0.09999999999999996,
+          -0.20000000000000015
+        ],
+        [
+          -0.7000000000000002,
+          0.40000000000000013,
+          0.30000000000000016
+        ],
+        [
+          0.19999999999999996,
+          4.4721950070995666e-17,
+          -0.09999999999999991
+        ],
+        [
+          2.677705344252733e-16,
+          0.1999999999999999,
+          -4.900544050710542e-17
+        ],
+        [
+          2.5371654906719605e-17,
+          -1.3179852400414585e-16,
+          0.04999999999999983
+        ]
+      ],
+      "fit_max_absolute_difference": 2.677705344252733e-16,
+      "separate_fit_max_absolute_difference": 2.220446049250313e-16,
+      "expected_risks": [
+        0.3613333333333333,
+        1.08
+      ],
+      "computed_risks": [
+        0.3613333333333333,
+        1.08
+      ],
+      "computed_risk_shape": [
+        2
+      ],
+      "risk_max_absolute_difference": 0.0,
+      "tolerance": 1e-11,
+      "inputs_unchanged": true,
+      "passed": true
+    }
+  },
+  "all_passed": true
+}

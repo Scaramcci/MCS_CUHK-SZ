@@ -1,0 +1,89 @@
+test_analytic_gradient_against_finite_differences (test_p2.CoreChecks.test_analytic_gradient_against_finite_differences) ... ERROR
+test_first_updates_coincide (test_p2.CoreChecks.test_first_updates_coincide) ... ERROR
+test_gd_update_and_no_in_place_change (test_p2.CoreChecks.test_gd_update_and_no_in_place_change) ... ERROR
+test_loss_at_zero_and_extreme_wrong_prediction (test_p2.CoreChecks.test_loss_at_zero_and_extreme_wrong_prediction) ... ERROR
+test_momentum_gradient_location_and_update (test_p2.CoreChecks.test_momentum_gradient_location_and_update) ... ERROR
+test_nesterov_nonzero_extrapolation_and_update (test_p2.CoreChecks.test_nesterov_nonzero_extrapolation_and_update) ... ERROR
+test_softmax_stability_and_shift_invariance (test_p2.CoreChecks.test_softmax_stability_and_shift_invariance) ... ERROR
+
+======================================================================
+ERROR: test_analytic_gradient_against_finite_differences (test_p2.CoreChecks.test_analytic_gradient_against_finite_differences)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p2/test_p2.py", line 39, in test_analytic_gradient_against_finite_differences
+    numerical[index] = (alg.cross_entropy(self.X @ plus, self.Y)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p2/algorithms.py", line 31, in cross_entropy
+    raise NotImplementedError("Implement the cross-entropy from Problem 2(a).")
+NotImplementedError: Implement the cross-entropy from Problem 2(a).
+
+======================================================================
+ERROR: test_first_updates_coincide (test_p2.CoreChecks.test_first_updates_coincide)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p2/test_p2.py", line 82, in test_first_updates_coincide
+    expected = alg.gd_step(self.theta, .05, grad)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p2/algorithms.py", line 44, in gd_step
+    raise NotImplementedError("Implement one GD update.")
+NotImplementedError: Implement one GD update.
+
+======================================================================
+ERROR: test_gd_update_and_no_in_place_change (test_p2.CoreChecks.test_gd_update_and_no_in_place_change)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p2/test_p2.py", line 48, in test_gd_update_and_no_in_place_change
+    actual = alg.gd_step(self.theta, .05, lambda t: 2 * t)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p2/algorithms.py", line 44, in gd_step
+    raise NotImplementedError("Implement one GD update.")
+NotImplementedError: Implement one GD update.
+
+======================================================================
+ERROR: test_loss_at_zero_and_extreme_wrong_prediction (test_p2.CoreChecks.test_loss_at_zero_and_extreme_wrong_prediction)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p2/test_p2.py", line 28, in test_loss_at_zero_and_extreme_wrong_prediction
+    self.assertAlmostEqual(alg.cross_entropy(np.zeros((4, 3)), self.Y), np.log(3), places=13)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p2/algorithms.py", line 31, in cross_entropy
+    raise NotImplementedError("Implement the cross-entropy from Problem 2(a).")
+NotImplementedError: Implement the cross-entropy from Problem 2(a).
+
+======================================================================
+ERROR: test_momentum_gradient_location_and_update (test_p2.CoreChecks.test_momentum_gradient_location_and_update)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p2/test_p2.py", line 58, in test_momentum_gradient_location_and_update
+    actual = alg.momentum_step(self.theta, previous, .05, .9, grad)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p2/algorithms.py", line 53, in momentum_step
+    raise NotImplementedError("Implement one momentum update.")
+NotImplementedError: Implement one momentum update.
+
+======================================================================
+ERROR: test_nesterov_nonzero_extrapolation_and_update (test_p2.CoreChecks.test_nesterov_nonzero_extrapolation_and_update)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p2/test_p2.py", line 71, in test_nesterov_nonzero_extrapolation_and_update
+    actual = alg.nesterov_step(self.theta, previous, .05, 3, grad)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p2/algorithms.py", line 62, in nesterov_step
+    raise NotImplementedError("Implement one Nesterov update.")
+NotImplementedError: Implement one Nesterov update.
+
+======================================================================
+ERROR: test_softmax_stability_and_shift_invariance (test_p2.CoreChecks.test_softmax_stability_and_shift_invariance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p2/test_p2.py", line 22, in test_softmax_stability_and_shift_invariance
+    probabilities = alg.softmax(logits)
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p2/algorithms.py", line 22, in softmax
+    raise NotImplementedError("Implement stable softmax with your coding agent.")
+NotImplementedError: Implement stable softmax with your coding agent.
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.002s
+
+FAILED (errors=7)

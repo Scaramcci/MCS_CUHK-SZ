@@ -1,0 +1,90 @@
+test_multiple_label_columns_and_no_mutation (test_p3.FittingTests.test_multiple_label_columns_and_no_mutation) ... ERROR
+test_nested_training_errors (test_p3.FittingTests.test_nested_training_errors) ... ERROR
+test_noiseless_recovery_for_both_models (test_p3.FittingTests.test_noiseless_recovery_for_both_models) ... ERROR
+test_independent_gaussian_quadrature_check (test_p3.PopulationErrorTests.test_independent_gaussian_quadrature_check) ... ERROR
+test_multiple_columns_and_no_mutation (test_p3.PopulationErrorTests.test_multiple_columns_and_no_mutation) ... ERROR
+test_target_tail_and_model_tail (test_p3.PopulationErrorTests.test_target_tail_and_model_tail) ... ERROR
+test_uniform_density_and_already_normalized_target (test_p3.PopulationErrorTests.test_uniform_density_and_already_normalized_target) ... ERROR
+test_random_bank_and_generated_data (test_p3.ProvidedFrameworkTests.test_random_bank_and_generated_data) ... ok
+
+======================================================================
+ERROR: test_multiple_label_columns_and_no_mutation (test_p3.FittingTests.test_multiple_label_columns_and_no_mutation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p3/test_p3.py", line 28, in test_multiple_label_columns_and_no_mutation
+    w = fit_polynomial(design, labels)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p3/algorithms.py", line 24, in fit_polynomial
+    raise NotImplementedError("Implement fit_polynomial using your result from 3(a).")
+NotImplementedError: Implement fit_polynomial using your result from 3(a).
+
+======================================================================
+ERROR: test_nested_training_errors (test_p3.FittingTests.test_nested_training_errors)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p3/test_p3.py", line 42, in test_nested_training_errors
+    w = fit_polynomial(design, y)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p3/algorithms.py", line 24, in fit_polynomial
+    raise NotImplementedError("Implement fit_polynomial using your result from 3(a).")
+NotImplementedError: Implement fit_polynomial using your result from 3(a).
+
+======================================================================
+ERROR: test_noiseless_recovery_for_both_models (test_p3.FittingTests.test_noiseless_recovery_for_both_models)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p3/test_p3.py", line 18, in test_noiseless_recovery_for_both_models
+    w = fit_polynomial(legvander(x, degree), y)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p3/algorithms.py", line 24, in fit_polynomial
+    raise NotImplementedError("Implement fit_polynomial using your result from 3(a).")
+NotImplementedError: Implement fit_polynomial using your result from 3(a).
+
+======================================================================
+ERROR: test_independent_gaussian_quadrature_check (test_p3.PopulationErrorTests.test_independent_gaussian_quadrature_check)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p3/test_p3.py", line 79, in test_independent_gaussian_quadrature_check
+    np.testing.assert_allclose(population_error(w, truth), numerical, rtol=1e-10, atol=1e-10)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p3/algorithms.py", line 43, in population_error
+    raise NotImplementedError("Implement population_error using your result from 3(b).")
+NotImplementedError: Implement population_error using your result from 3(b).
+
+======================================================================
+ERROR: test_multiple_columns_and_no_mutation (test_p3.PopulationErrorTests.test_multiple_columns_and_no_mutation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p3/test_p3.py", line 64, in test_multiple_columns_and_no_mutation
+    risk = population_error(w, truth)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p3/algorithms.py", line 43, in population_error
+    raise NotImplementedError("Implement population_error using your result from 3(b).")
+NotImplementedError: Implement population_error using your result from 3(b).
+
+======================================================================
+ERROR: test_target_tail_and_model_tail (test_p3.PopulationErrorTests.test_target_tail_and_model_tail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p3/test_p3.py", line 57, in test_target_tail_and_model_tail
+    self.assertAlmostEqual(population_error(np.array([0.]), np.array([0., 0., 0., 2.])), 4/7)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p3/algorithms.py", line 43, in population_error
+    raise NotImplementedError("Implement population_error using your result from 3(b).")
+NotImplementedError: Implement population_error using your result from 3(b).
+
+======================================================================
+ERROR: test_uniform_density_and_already_normalized_target (test_p3.PopulationErrorTests.test_uniform_density_and_already_normalized_target)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p3/test_p3.py", line 50, in test_uniform_density_and_already_normalized_target
+    self.assertAlmostEqual(population_error(np.array([2.]), np.array([1.])), 1.)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw02/src/p3/algorithms.py", line 43, in population_error
+    raise NotImplementedError("Implement population_error using your result from 3(b).")
+NotImplementedError: Implement population_error using your result from 3(b).
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.021s
+
+FAILED (errors=7)
