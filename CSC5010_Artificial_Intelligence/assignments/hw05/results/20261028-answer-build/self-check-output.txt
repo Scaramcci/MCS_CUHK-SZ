@@ -1,0 +1,5 @@
+A: confirmed negated-conclusion statement has counterexample (T,F,T).
+B: all 7 resolution steps match; 0 of 16 assignments satisfy the six clauses.
+C: maximum 5 of 5; witness (T,T,F).
+D: all 8 truth-table rows match; exactly 3 simultaneous models: [(False, True, True), (False, False, True), (False, False, False)]
+PASS: author self-check only, not independent verification.

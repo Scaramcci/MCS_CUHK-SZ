@@ -1,0 +1,206 @@
+{
+  "executor": "/root/verifier",
+  "time": "2026-10-28T21:28:37.612243+08:00",
+  "python": "3.14.7 | packaged by Anaconda, Inc. | (main, Aug 14 2026, 10:21:40) [GCC 14.3.0]",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "source_original_hashes": {
+    "“Prompt_Engineering_CSC6052_ipynb”的副本.ipynb": "5a396a71600492e39974d51ee7a2e6c5bf020242896dd37db88fcae2310c26e9",
+    "Assignment_2.pdf": "bf09fbc9f382a149804a7977a6cc63912efa93520c56d4c7fe7c51260e64aa5f"
+  },
+  "checks": [
+    {
+      "argv": [
+        "python3",
+        "src/main.py",
+        "check"
+      ],
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02",
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "pass": true,
+      "stdout": "00-stdout.txt",
+      "stderr": "00-stderr.txt"
+    },
+    {
+      "argv": [
+        "python3",
+        "src/main.py",
+        "preview",
+        "--method",
+        "zero_shot"
+      ],
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02",
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "pass": true,
+      "stdout": "01-stdout.txt",
+      "stderr": "01-stderr.txt"
+    },
+    {
+      "argv": [
+        "python3",
+        "src/main.py",
+        "preview",
+        "--method",
+        "few_shot"
+      ],
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02",
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "pass": true,
+      "stdout": "02-stdout.txt",
+      "stderr": "02-stderr.txt"
+    },
+    {
+      "argv": [
+        "python3",
+        "src/main.py",
+        "preview",
+        "--method",
+        "chain_of_thought"
+      ],
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02",
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "pass": true,
+      "stdout": "03-stdout.txt",
+      "stderr": "03-stderr.txt"
+    },
+    {
+      "argv": [
+        "python3",
+        "src/main.py",
+        "run"
+      ],
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02",
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "pass": true,
+      "stdout": "04-stdout.txt",
+      "stderr": "04-stderr.txt"
+    },
+    {
+      "argv": [
+        "python3",
+        "tests/offline_smoke.py"
+      ],
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02",
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "pass": true,
+      "stdout": "05-stdout.txt",
+      "stderr": "05-stderr.txt"
+    },
+    {
+      "argv": [
+        "python3",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/src/main.py",
+        "check"
+      ],
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/results/verification/20261028-scaffold",
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "pass": true,
+      "stdout": "06-stdout.txt",
+      "stderr": "06-stderr.txt"
+    },
+    {
+      "argv": [
+        "python3",
+        "src/main.py",
+        "preview",
+        "--method",
+        "not_a_method"
+      ],
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02",
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "pass": true,
+      "stdout": "07-stdout.txt",
+      "stderr": "07-stderr.txt"
+    },
+    {
+      "argv": [
+        "git",
+        "check-ignore",
+        ".env"
+      ],
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02",
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "pass": true,
+      "stdout": "08-stdout.txt",
+      "stderr": "08-stderr.txt"
+    },
+    {
+      "argv": [
+        "git",
+        "check-ignore",
+        ".env.example"
+      ],
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02",
+      "expected_exit": 1,
+      "actual_exit": 1,
+      "pass": true,
+      "stdout": "09-stdout.txt",
+      "stderr": "09-stderr.txt"
+    },
+    {
+      "argv": [
+        "git",
+        "check-ignore",
+        "data/raw/alpaca.json",
+        "local_artifacts/response.json",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/requirement/“Prompt_Engineering_CSC6052_ipynb”的副本.ipynb"
+      ],
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02",
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "pass": true,
+      "stdout": "10-stdout.txt",
+      "stderr": "10-stderr.txt"
+    },
+    {
+      "argv": [
+        "python3",
+        "src/main.py",
+        "check"
+      ],
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/results/verification/20261028-scaffold/isolated",
+      "expected_exit": 1,
+      "actual_exit": 1,
+      "pass": true,
+      "stdout": "11-stdout.txt",
+      "stderr": "11-stderr.txt"
+    },
+    {
+      "argv": [
+        "python3",
+        "src/main.py",
+        "check"
+      ],
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/results/verification/20261028-scaffold/isolated",
+      "expected_exit": 1,
+      "actual_exit": 1,
+      "pass": true,
+      "stdout": "12-stdout.txt",
+      "stderr": "12-stderr.txt"
+    },
+    {
+      "argv": [
+        "python3",
+        "src/main.py",
+        "check"
+      ],
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/results/verification/20261028-scaffold/isolated",
+      "expected_exit": 1,
+      "actual_exit": 1,
+      "pass": true,
+      "stdout": "13-stdout.txt",
+      "stderr": "13-stderr.txt"
+    }
+  ],
+  "boundary_interception": "passed: .env read, sockets, DNS, subprocess denied; check + 3 previews + run expected behavior",
+  "frozen_manifest_unchanged": true,
+  "all_passed": true
+}

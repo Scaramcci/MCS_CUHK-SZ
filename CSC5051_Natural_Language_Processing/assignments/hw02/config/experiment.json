@@ -1,0 +1,28 @@
+{
+  "status": "scaffold_only",
+  "task": 3,
+  "report_language": "English",
+  "methods": ["zero_shot", "few_shot", "chain_of_thought"],
+  "agent_status": "not_implemented",
+  "dataset": {
+    "candidate": "English GPT-4 Alpaca (provisional)",
+    "source": null,
+    "version": null,
+    "sha256": null,
+    "local_path": "data/raw/alpaca.json",
+    "evaluation_split": null,
+    "sample_size": null
+  },
+  "settings": {"seed": 42, "temperature": 0, "status": "proposed_not_executed"},
+  "rubric": {
+    "status": "draft_project_design_not_teacher_requirement",
+    "scale": "0 = fails; 1 = partially meets; 2 = meets; null = cannot assess",
+    "dimensions": {
+      "instruction_following": "Does the response follow the instruction and constraints?",
+      "correctness": "Are factual, logical and computational claims supportable? Mark uncertainty instead of inventing verification.",
+      "relevance_completeness": "Does the response address the input and include the necessary content?",
+      "clarity": "Is the response understandable without unnecessary repetition?"
+    },
+    "decision_rule": "keep only if all four scores are 2; reject if any score is 0; otherwise review (including uncertainty). This conservative draft rule needs validation."
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "executor": "/root/hw03_verifier",
+  "date": "2026-10-28",
+  "command_exit_status": {
+    "python3 results/verification/check-20261028-210245/verify.py": 0,
+    "python3 results/verification/check-20261028-210245/connect_query.py": 0
+  },
+  "test_script_sha256": {
+    "verify.py": "5ae8004da4132f86e692239bb98b5cb015dadb415e846604ecc3fe7f1f985932",
+    "connect_query.py": "7089ea64b39b84e3d5f2f4bb972d7f658c62d76d379b6194646f5ce557e6df8e"
+  },
+  "negative_assertion_quiet_windows_seconds": [
+    0.2,
+    0.25
+  ],
+  "reused_tests": "adapted from check-20261021; extraction changed to submitted ZIP, no prior output reused",
+  "source_changed": false,
+  "submission_changed": false
+}

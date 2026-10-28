@@ -1,0 +1,1 @@
+Scaffold check failed: inspect the local JSON configuration and prompt templates.

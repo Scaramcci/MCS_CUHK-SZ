@@ -1,0 +1,2 @@
+usage: main.py preview [-h] --method {zero_shot,few_shot,chain_of_thought}
+main.py preview: error: argument --method: invalid choice: 'not_a_method' (choose from 'zero_shot', 'few_shot', 'chain_of_thought')

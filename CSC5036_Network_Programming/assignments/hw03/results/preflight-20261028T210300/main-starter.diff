@@ -1,0 +1,82 @@
+--- 
+
++++ 
+
+@@ -8,6 +8,9 @@
+
+ #include <sys/types.h>
+ #include <unistd.h>
+ 
++
++/* Auxiliary startup synchronization, implemented in server.c. */
++void waitForServer(void);
+ 
+ int main(int argc, char **argv) {
+     // Read in port number, TTL, directory, and neighbors from arguments
+@@ -39,6 +42,10 @@
+
+                 ERROR("ERROR: Could not find host\n");
+             }
+             // TODO: Save to neighbor data structure
++            if (hostIpAddress == 0 || neighborPortNumber < 1 || neighborPortNumber > 65535) {
++                ERROR("ERROR: Invalid neighbor address or port\n");
++            }
++            addNeighbor(&neighbors, hostIpAddress, neighborPortNumber);
+             
+             // print neighbor information
+             printNeighborData(&neighbors);
+@@ -57,7 +64,10 @@
+
+      */
+ 
+     // Your code starts here
+-    
++    packet_t connectPacket;
++    generatePacket(&connectPacket, "", CONNECT, 0);
++    connectPacket.port = portNumber;
++    /* Send after the receiving thread has bound its listening socket. */
+     // Your code ends here
+ 
+     // Add values to server arguments
+@@ -72,7 +82,17 @@
+
+     // Hint: The server() function is defined in server.c
+     
+     // Your code starts here
+-    
++    pthread_t serverThread;
++    if (pthread_mutex_init(&lock, NULL) != 0) {
++        ERROR("ERROR: Could not initialize mutex\n");
++    }
++    if (pthread_create(&serverThread, NULL, server, &serverArg) != 0) {
++        ERROR("ERROR: Could not create server thread\n");
++    }
++    waitForServer();
++    pthread_mutex_lock(&lock);
++    floodRequest(&neighbors, portNumber, &connectPacket, sizeof(connectPacket));
++    pthread_mutex_unlock(&lock);
+     // Your code ends here
+     
+     // The main thread while loop: reads filenames from the user, searches
+@@ -101,7 +121,19 @@
+
+          */
+         
+         // Your code starts here
+-        
++        if (input[0] == '\0') {
++            continue;
++        }
++        packet_t query;
++        pthread_mutex_lock(&lock);
++        generatePacket(&query, input, QUERY, ttl);
++        while (findInList(&idList, query.ID)) {
++            query.ID = generateIdentifier();
++        }
++        query.port = portNumber;
++        addToDataList(&idList, query.ID);
++        floodRequest(&neighbors, portNumber, &query, sizeof(query));
++        pthread_mutex_unlock(&lock);
+ 
+         // Your code ends here
+     }

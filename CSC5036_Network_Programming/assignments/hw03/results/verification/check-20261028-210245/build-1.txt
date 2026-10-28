@@ -1,0 +1,5 @@
+gcc main.c -o main.o -c -g -std=c17
+gcc server.c -o server.o -c -g -std=c17
+gcc utils.c -o utils.o -c -g -std=c17
+gcc network.c -o network.o -c -g -std=c17
+gcc main.o server.o utils.o network.o -o p2p_server -lpthread -g

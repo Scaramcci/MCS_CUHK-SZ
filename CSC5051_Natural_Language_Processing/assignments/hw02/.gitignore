@@ -1,0 +1,8 @@
+# Preserve this reference locally: it contains a potential credential.
+/requirement/“Prompt_Engineering_CSC6052_ipynb”的副本.ipynb
+.env
+.env.*
+!.env.example
+data/
+local_artifacts/
+__pycache__/

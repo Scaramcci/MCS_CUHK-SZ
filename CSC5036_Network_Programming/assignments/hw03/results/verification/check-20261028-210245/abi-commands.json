@@ -1,0 +1,20 @@
+{
+  "compile_argv": [
+    "gcc",
+    "-std=c17",
+    "-I",
+    "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw03/results/verification/check-20261028-210245/local_artifacts/unpacked/Assignment-3",
+    "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw03/results/verification/check-20261028-210245/local_artifacts/abi/abi.c",
+    "-o",
+    "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw03/results/verification/check-20261028-210245/local_artifacts/abi/abi"
+  ],
+  "compile_exit": 0,
+  "compile_stdout": "",
+  "compile_stderr": "",
+  "execute_argv": [
+    "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw03/results/verification/check-20261028-210245/local_artifacts/abi/abi"
+  ],
+  "execute_exit": 0,
+  "stdout": "size=140 ID=0 descriptor=4 message=5 hostname=69 TTL=133 port=136\n",
+  "stderr": ""
+}

@@ -1,0 +1,18 @@
+[CONNECT] Successfully bind with the port: 57315
+[FILE] Enter the File Name for Search: 
+Message received, size: 140
+[SERVER INFO] Received new packet: CONNECT packet
+[NEIGHBOR] New neighbor connecting request. From address: 127.0.0.1:49540
+[NEIGHBOR] New neighbor connected!
+Message received, size: 140
+[SERVER INFO] Received new packet: QUERY packet
+[CONNECT] Destination IP: 127.0.0.1, Port: 53630
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[RESPON] File file1 found, responding to query.
+[CONNECT] Destination IP: 127.0.0.1, Port: 49540
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[FILE] Enter the File Name for Search: 
+[FILE] Found file 'file1' in local directory 
+[FILE] Enter the File Name for Search: 

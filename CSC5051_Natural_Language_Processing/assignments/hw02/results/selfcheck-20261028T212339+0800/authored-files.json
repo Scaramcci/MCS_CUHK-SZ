@@ -1,0 +1,16 @@
+{
+  ".env.example": "e37e3117a8c8ae5bbbd42db98d87189667307dad424c0e3ac7ab04f6cf663db7",
+  ".gitignore": "5d525c3da5772e97b7aa6d1ab8dee6cde6cc9972af6cff6c6f8210c7c728a866",
+  "README.md": "765383130ab51c6c1b00d2e4699645d54cc7c2cc4fca1d491fe9f6c35c8f41f4",
+  "config/experiment.json": "2accc739a8d85c0dfa15465799107636287000981040c114d2497d28d4f6f346",
+  "notes/implementation.md": "81e05cd429f5fbaa56ab0b14c75cecc75f5127e94c3aa24a46f9c98fdab0c902",
+  "notes/plan.md": "10d6ccabadacbe3059d1efc1b513cc952715b3a2c061d89c487dc4edb66e2b93",
+  "notes/research.md": "99dae7ee137dc3a9205ad247f669425fc196841967529541201923d090568f56",
+  "prompts/chain_of_thought.txt": "31fa4cdc5ced1d91a2f6dad60482a5636ef41d61d48c96851eff4729b7c6f1b6",
+  "prompts/few_shot.txt": "585f9ad12f3b8932bf00bd5d9ad17a43fcb9bf08de7f7e5ea2ce4ef3aadc0fe0",
+  "prompts/zero_shot.txt": "558fc2c82ce9e7e59f85be4219ec1082c9bd141039c71f7fa89921616588b193",
+  "report/outline.md": "a7e518504d1453377226cf555f65afe6e2e3b345cd22be330317afd14d0819a2",
+  "src/agent.py": "4621787df0cda9e7a53fee351df7d0093c690335f020e1f601019445788c0726",
+  "src/main.py": "e209b1250c1839217cb6e9dcb812b98e6481f56d4b656f633c7fd78e10a1c583",
+  "tests/offline_smoke.py": "7312d25cdef2513e9cb6e23ab6fbefd366033932bef434bc28d38bc044825ca5"
+}

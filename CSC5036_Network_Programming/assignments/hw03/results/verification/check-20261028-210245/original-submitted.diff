@@ -1,0 +1,330 @@
+--- original/Assignment-3/main.c
++++ submitted/Assignment-3/main.c
+@@ -8,6 +8,9 @@
+ #include <sys/types.h>
+ #include <unistd.h>
+ 
++
++/* Auxiliary startup synchronization, implemented in server.c. */
++void waitForServer(void);
+ 
+ int main(int argc, char **argv) {
+     // Read in port number, TTL, directory, and neighbors from arguments
+@@ -39,6 +42,10 @@
+                 ERROR("ERROR: Could not find host\n");
+             }
+             // TODO: Save to neighbor data structure
++            if (hostIpAddress == 0 || neighborPortNumber < 1 || neighborPortNumber > 65535) {
++                ERROR("ERROR: Invalid neighbor address or port\n");
++            }
++            addNeighbor(&neighbors, hostIpAddress, neighborPortNumber);
+             
+             // print neighbor information
+             printNeighborData(&neighbors);
+@@ -57,7 +64,10 @@
+      */
+ 
+     // Your code starts here
+-    
++    packet_t connectPacket;
++    generatePacket(&connectPacket, "", CONNECT, 0);
++    connectPacket.port = portNumber;
++    /* Send after the receiving thread has bound its listening socket. */
+     // Your code ends here
+ 
+     // Add values to server arguments
+@@ -72,7 +82,17 @@
+     // Hint: The server() function is defined in server.c
+     
+     // Your code starts here
+-    
++    pthread_t serverThread;
++    if (pthread_mutex_init(&lock, NULL) != 0) {
++        ERROR("ERROR: Could not initialize mutex\n");
++    }
++    if (pthread_create(&serverThread, NULL, server, &serverArg) != 0) {
++        ERROR("ERROR: Could not create server thread\n");
++    }
++    waitForServer();
++    pthread_mutex_lock(&lock);
++    floodRequest(&neighbors, portNumber, &connectPacket, sizeof(connectPacket));
++    pthread_mutex_unlock(&lock);
+     // Your code ends here
+     
+     // The main thread while loop: reads filenames from the user, searches
+@@ -101,7 +121,19 @@
+          */
+         
+         // Your code starts here
+-        
++        if (input[0] == '\0') {
++            continue;
++        }
++        packet_t query;
++        pthread_mutex_lock(&lock);
++        generatePacket(&query, input, QUERY, ttl);
++        while (findInList(&idList, query.ID)) {
++            query.ID = generateIdentifier();
++        }
++        query.port = portNumber;
++        addToDataList(&idList, query.ID);
++        floodRequest(&neighbors, portNumber, &query, sizeof(query));
++        pthread_mutex_unlock(&lock);
+ 
+         // Your code ends here
+     }
+--- original/Assignment-3/server.c
++++ submitted/Assignment-3/server.c
+@@ -8,6 +8,29 @@
+ #include <stdio.h>
+ #include <dirent.h>
+ #include <pthread.h>
++
++
++/* Auxiliary handshake: CONNECT is sent only after the receiver is bound. */
++static pthread_mutex_t startupMutex = PTHREAD_MUTEX_INITIALIZER;
++static pthread_cond_t startupCondition = PTHREAD_COND_INITIALIZER;
++static int startupReady = 0;
++
++void waitForServer(void) {
++  pthread_mutex_lock(&startupMutex);
++  while (!startupReady) {
++    pthread_cond_wait(&startupCondition, &startupMutex);
++  }
++  pthread_mutex_unlock(&startupMutex);
++}
++
++static void notifyServerReady(void) {
++  pthread_mutex_lock(&startupMutex);
++  if (!startupReady) {
++    startupReady = 1;
++    pthread_cond_signal(&startupCondition);
++  }
++  pthread_mutex_unlock(&startupMutex);
++}
+ 
+ 
+ void *server(void *arg) {
+@@ -30,6 +53,19 @@
+   while (1) {
+     // TODO: receive packet
+     // Hint: You can reuse the functions provided in network.c.
++    notifyServerReady();
++    clientIpAddress = recvFromSocket(socketfd, &packet, sizeof(packet));
++    if (packet.descriptor > RESPONSE) {
++      continue;
++    }
++    packet.message[MAX_STRLEN - 1] = '\0';
++    packet.hostname[MAX_STRLEN - 1] = '\0';
++    /* Preserve the query origin across hops; responses come directly from the holder. */
++    pthread_mutex_lock(mutex);
++    if (packet.hostname[0] == '\0' || packet.descriptor == RESPONSE) {
++      snprintf(packet.hostname, sizeof(packet.hostname), "%s", getHostIp(clientIpAddress));
++    }
++    pthread_mutex_unlock(mutex);
+   
+     unsigned char type = packet.descriptor;   
+ 
+@@ -43,14 +79,17 @@
+ 
+     if (type == CONNECT){
+       // TODO: handle server connect
++      serverHandleConnect(neighbors, &packet, mutex);
+       
+     }
+     else if (type == QUERY){
+       // TODO: handle server query
++      serverHandleQuery(_arg, &packet);
+       
+     }
+     else if (type == RESPONSE){
+       // TODO: handle server response
++      serverHandleResponse(&packet);
+       
+     }
+   }
+@@ -66,13 +105,30 @@
+    */
+ 
+   // Your code starts here
+-
++  pthread_mutex_lock(mutex);
++  hostIpAddress = getHostAddr(packet->hostname);
++  portNum = packet->port;
++  if (hostIpAddress == 0 || portNum < 1 || portNum > 65535) {
++    pthread_mutex_unlock(mutex);
++    return -1;
++  }
++  for (int i = 0; i < neighbors->num_neighbors; ++i) {
++    if (neighbors->neighbor_list[i].inaddr == hostIpAddress &&
++        neighbors->neighbor_list[i].port == portNum) {
++      pthread_mutex_unlock(mutex);
++      return 0;
++    }
++  }
++  addNeighbor(neighbors, hostIpAddress, portNum);
++  /* The following neighbor logs also use the shared address conversion buffer. */
+   // Your code ends here
+ 
++  for (int logOnce = 1; logOnce; pthread_mutex_unlock(mutex), logOnce = 0) {
+   printf("[NEIGHBOR] New neighbor connecting request. From address: %s:%d\n", 
+     getHostIp(hostIpAddress), portNum);
+ 
+   printf("[NEIGHBOR] New neighbor connected!\n");
++  }
+   return 0;
+ }
+ 
+@@ -87,18 +143,44 @@
+   
+   // TODO: If the ID is already recorded, print the message below and return.
+   // Otherwise, record the ID and continue processing.
++  pthread_mutex_lock(args->lock);
++  if (findInList(args->idList, packet->ID)) {
+ 
+   printf("[DUPLICATE ID] Duplicate packet with ID %d detected. Ignoring and discarding.\n", packet->ID);
+ 
++    pthread_mutex_unlock(args->lock);
++    return 0;
++  }
++  addToDataList(args->idList, packet->ID);
++
+   // TODO: if file found in directory, return the msg back to query host
++  if (findInDirectory(args->directory, packet->message) == 1) {
++    packet_t response = *packet;
++    response.descriptor = RESPONSE;
++    response.port = args->port;
++    response.hostname[0] = '\0';
++    response.TTL = 0;
++    sendToSocket(getHostAddr(packet->hostname), packet->port, &response, sizeof(response));
+ 
+   printf("[RESPON] File %s found, responding to query.\n", packet->message);
+     
++    pthread_mutex_unlock(args->lock);
++    return 0;
++  }
++
+   // TODO: TTL check
++  if (packet->TTL <= 1) {
+   
+   printf("[TTL] Packet TTL expired, stopping forwarding.\n");
+   
++    pthread_mutex_unlock(args->lock);
++    return 0;
++  }
++
+   // TODO: else not found, flood to neighbors
++  --packet->TTL;
++  floodRequest(args->neighbors, args->port, packet, sizeof(*packet));
++  pthread_mutex_unlock(args->lock);
+ 
+   printf("[TTL] Forwarding packet with TTL=%d\n", packet->TTL);
+   
+--- original/Assignment-3/utils.c
++++ submitted/Assignment-3/utils.c
+@@ -7,6 +7,14 @@
+ #include "network.h"
+ #include "utils.h"
+ #include "pthread.h"
++
++/* Auxiliary overflow history keeps IDs beyond the starter's fixed array. */
++typedef struct extraID {
++  IDlist_t *owner;
++  int identifier;
++  struct extraID *next;
++} extraID_t;
++static extraID_t *extraIDs = NULL;
+ 
+ extern int global_ttl;
+ 
+@@ -31,7 +39,13 @@
+    */
+ 
+   // Your code starts here
+-  
++  memset(dataPacket, 0, sizeof(*dataPacket));
++  dataPacket->ID = generateIdentifier();
++  dataPacket->descriptor = (unsigned char)type;
++  dataPacket->TTL = (unsigned char)TTL;
++  if (filename != NULL) {
++    snprintf(dataPacket->message, sizeof(dataPacket->message), "%s", filename);
++  }
+   // Your code ends here
+ 
+   return dataPacket->ID;
+@@ -49,7 +63,20 @@
+    */
+ 
+   // Your code starts here
+-  
++  if (!findInList(dataList, identifier)) {
++    if (dataList->num < MAX_IDSIZE) {
++      dataList->IDs[dataList->num++] = identifier;
++    } else {
++      extraID_t *entry = malloc(sizeof(*entry));
++      if (entry == NULL) {
++        ERROR("ERROR: Could not extend query ID history\n");
++      }
++      entry->owner = dataList;
++      entry->identifier = identifier;
++      entry->next = extraIDs;
++      extraIDs = entry;
++    }
++  }
+   // Your code ends here
+ 
+   return dataList->num;
+@@ -62,7 +89,16 @@
+    */
+ 
+   // Your code starts here
+-  
++  for (int i = 0; i < dataList->num; ++i) {
++    if (dataList->IDs[i] == identifier) {
++      return 1;
++    }
++  }
++  for (extraID_t *entry = extraIDs; entry != NULL; entry = entry->next) {
++    if (entry->owner == dataList && entry->identifier == identifier) {
++      return 1;
++    }
++  }
+   // Your code ends here
+ 
+   return 0;
+@@ -94,8 +130,18 @@
+     return -1;
+   }
+   // TODO: Assign the IP Address and Port to the new neighbor
++  for (int i = 0; i < index; ++i) {
++    if (neighborData->neighbor_list[i].inaddr == hostIPAddress &&
++        neighborData->neighbor_list[i].port == port) {
++      return i;
++    }
++  }
++  newNeighbor->inaddr = hostIPAddress;
++  newNeighbor->port = port;
++  snprintf(newNeighbor->hostname, sizeof(newNeighbor->hostname), "%s", getHostIp(hostIPAddress));
+   
+   // TODO: update the number of neighbors
++  ++neighborData->num_neighbors;
+   
+   return index;
+ }
+@@ -133,6 +179,16 @@
+   for (int i = 0; i < num_neighbors; ++i){
+     // TODO: send packet to the neighbor
+     // Hint: functions in network.c may be helpful
++    neighbor_t *neighbor = &neighbors->neighbor_list[i];
++    (void)portno; /* The origin is identified by both address and port below. */
++    if (packet->descriptor == QUERY && packet->hostname[0] != '\0' &&
++        neighbor->port == packet->port &&
++        neighbor->inaddr == getHostAddr(packet->hostname)) {
++      continue;
++    }
++    if (sendToSocket(neighbor->inaddr, neighbor->port, packet, size) < 0) {
++      return -1;
++    }
+     
+   }
+   return 0;

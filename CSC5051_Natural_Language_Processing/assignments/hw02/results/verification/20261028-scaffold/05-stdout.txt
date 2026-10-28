@@ -1,0 +1,1 @@
+PASS: check/previews require no env read or socket/DNS; configured key/budget cannot enable run; error values are not printed.

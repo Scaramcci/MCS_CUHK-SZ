@@ -1,0 +1,53 @@
+{
+  "time_utc": "2026-10-28T12:54:29.316387+00:00",
+  "executor": "root Codex author",
+  "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5010_Artificial_Intelligence/assignments/hw05",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "commands": [
+    {
+      "argv": [
+        "pdflatex",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-output-directory=/home/scarramcci/Project/MCS_CUHK-SZ/CSC5010_Artificial_Intelligence/assignments/hw05/results/20261028-final-answer-build",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5010_Artificial_Intelligence/assignments/hw05/report/answers.tex"
+      ],
+      "exit_status": 0
+    },
+    {
+      "argv": [
+        "pdflatex",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        "-output-directory=/home/scarramcci/Project/MCS_CUHK-SZ/CSC5010_Artificial_Intelligence/assignments/hw05/results/20261028-final-answer-build",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5010_Artificial_Intelligence/assignments/hw05/report/answers.tex"
+      ],
+      "exit_status": 0
+    },
+    {
+      "argv": [
+        "python3",
+        "notes/check_logic.py"
+      ],
+      "exit_status": 0
+    },
+    {
+      "argv": [
+        "pdftoppm",
+        "-r",
+        "110",
+        "-png",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5010_Artificial_Intelligence/assignments/hw05/report/answers.pdf",
+        "/tmp/csc5010-hw05-source/final"
+      ],
+      "exit_status": 0
+    }
+  ],
+  "sha256": {
+    "requirements/PropLogicHomeWork2026.pdf": "f9e73bbf008a46c623dea96c7bfcf930a1f20f58517ffc86eaed2291caf0fbda",
+    "report/answers.tex": "ca7eaf2fa03ec9cca6e81791d26f9c31ff3f8a0af3b7a583ec2830cde5885729",
+    "report/answers.pdf": "613645b0d40258cc174206900579c36e63095403e53c255207c6fd5090ccc344",
+    "notes/check_logic.py": "211779dea6104cc6c97905c7102c4ee393f2fd21558cb167503455a7fb385b24"
+  },
+  "compiler": "pdfTeX 3.141592653-2.6-1.40.28 (TeX Live 2025/Debian)"
+}

@@ -1,0 +1,2 @@
+Test helper built with submitted utils.h; header byte-identical to original.
+size=140 ID=0 descriptor=4 message=5 hostname=69 TTL=133 port=136

@@ -1,0 +1,120 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,array}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\pagestyle{plain}
+\begin{document}
+\begin{center}{\Large\bfseries Homework 5: Concise Answers}\end{center}
+
+\section*{A (p.\ 1): Proof in words}
+With the bar denoting negation, the statement is
+\[
+[(a\lor b)\land(\neg a\lor c)]\to\neg(b\lor c).
+\]
+\textbf{The statement is false as written.} Suppose $a$ and $c$ are true
+and $b$ is false. The first clause is true because $a$ is true, and the
+second clause is true because $c$ is true. Thus the premise is true.
+However, $b\lor c$ is true, so its negation is false.
+This gives a true premise and a false conclusion, making the implication
+false. Therefore it cannot be proved as a valid implication.
+\[
+\boxed{a=T,\quad b=F,\quad c=T\quad\text{is a counterexample}.}
+\]
+The valid resolution conclusion would be $b\lor c$.
+
+\section*{B (p.\ 1, second clause set): Resolution}
+Number the given clauses $C_1,\ldots,C_6$.
+Each subsequent row is the resolvent of the indicated two clauses.
+\begin{center}
+\renewcommand{\arraystretch}{1.16}
+\begin{tabular}{c|l|l}
+\toprule
+Clause&Expression&Reason\\
+\midrule
+$C_1$&$p\lor q\lor\neg r\lor s$&Given\\
+$C_2$&$\neg p\lor r\lor s$&Given\\
+$C_3$&$\neg q\lor\neg r$&Given\\
+$C_4$&$p\lor\neg s$&Given\\
+$C_5$&$\neg p\lor\neg r$&Given\\
+$C_6$&$r$&Given\\
+\midrule
+$C_7$&$\neg q$&$C_3,C_6$; resolve on $r$\\
+$C_8$&$\neg p$&$C_5,C_6$; resolve on $r$\\
+$C_9$&$\neg s$&$C_4,C_8$; resolve on $p$\\
+$C_{10}$&$p\lor q\lor s$&$C_1,C_6$; resolve on $r$\\
+$C_{11}$&$p\lor s$&$C_{10},C_7$; resolve on $q$\\
+$C_{12}$&$s$&$C_{11},C_8$; resolve on $p$\\
+$C_{13}$&$\square$ (empty clause)&$C_{12},C_9$; resolve on $s$\\
+\bottomrule
+\end{tabular}
+\end{center}
+The empty clause is false under every assignment. Since resolution is
+sound, the original clause set is $\boxed{\text{unsatisfiable}}$.
+The contradiction already follows from $C_1,C_3,C_4,C_5,C_6$;
+$C_2$ is not needed.
+
+\newpage
+\section*{C (p.\ 4, Exercise 58): Simultaneously true disjunctions}
+Let
+\[
+\begin{aligned}
+D_1&=p\lor\neg q,&D_2&=\neg p\lor q,&D_3&=q\lor r,\\
+D_4&=q\lor\neg r,&D_5&=\neg q\lor\neg r.
+\end{aligned}
+\]
+Choose $p=T,\ q=T,\ r=F$. Then
+\[
+\begin{aligned}
+D_1&=T\lor F=T, &D_2&=F\lor T=T,\\
+D_3&=T\lor F=T, &D_4&=T\lor T=T,\\
+D_5&=F\lor T=T.
+\end{aligned}
+\]
+All five are simultaneously true. Since there are only five disjunctions,
+\[
+\boxed{\text{The maximum is }5.}
+\]
+
+\section*{D (p.\ 5): Equations and implications}
+\textbf{Equations.} Over the real numbers,
+\[
+x=y,\quad y=z,\quad z=-x
+\quad\Longrightarrow\quad x=y=z=-x
+\quad\Longrightarrow\quad 2x=0.
+\]
+Hence $x=y=z=0$. Conversely, this assignment satisfies all three equations.
+\[
+\boxed{\text{Yes, exactly when }x=y=z=0.}
+\]
+
+\textbf{Propositional logic.} Let
+\[
+\Phi=(A\to B)\land(B\to C)\land(C\to\neg A).
+\]
+An implication is false only when its antecedent is true and its consequent
+is false.
+\begin{center}
+\renewcommand{\arraystretch}{1.16}
+\begin{tabular}{ccc|ccc|c}
+\toprule
+$A$&$B$&$C$&$A\to B$&$B\to C$&$C\to\neg A$&$\Phi$\\
+\midrule
+T&T&T&T&T&F&F\\
+T&T&F&T&F&T&F\\
+T&F&T&F&T&F&F\\
+T&F&F&F&T&T&F\\
+F&T&T&T&T&T&T\\
+F&T&F&T&F&T&F\\
+F&F&T&T&T&T&T\\
+F&F&F&T&T&T&T\\
+\bottomrule
+\end{tabular}
+\end{center}
+\[
+\boxed{\text{Choice (b): true simultaneously in some cases, but not all.}}
+\]
+Exactly three assignments work: $(A,B,C)=(F,T,T),(F,F,T),(F,F,F)$.
+Equivalently, $\Phi\equiv\neg A\land(\neg B\lor C)$, which is satisfiable
+but is not a tautology.
+\end{document}

@@ -1,0 +1,30 @@
+[NEIGHBOR] HostIPaddr: 16777343
+[NEIGHBOR] Current neighbors
+[NEIGHBOR] Number of neighbors: 1
+[NEIGHBOR] Neighbor list:
+[NEIGHBOR] Neighbor 1: IP 127.0.0.1, Port 57306
+[NEIGHBOR] Sent connection request to neighbor with address 127.0.0.1:41036 
+[NEIGHBOR] HostIPaddr: 16777343
+[NEIGHBOR] Current neighbors
+[NEIGHBOR] Number of neighbors: 2
+[NEIGHBOR] Neighbor list:
+[NEIGHBOR] Neighbor 1: IP 127.0.0.1, Port 57306
+[NEIGHBOR] Neighbor 2: IP 127.0.0.1, Port 47553
+[NEIGHBOR] Sent connection request to neighbor with address 127.0.0.1:41036 
+[CONNECT] Successfully bind with the port: 41036
+[CONNECT] Destination IP: 127.0.0.1, Port: 57306
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[CONNECT] Destination IP: 127.0.0.1, Port: 47553
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[FILE] Enter the File Name for Search: 
+Message received, size: 140
+[SERVER INFO] Received new packet: QUERY packet
+[CONNECT] Destination IP: 127.0.0.1, Port: 47553
+[CONNECT] Socket created successfully
+[CONNECT] Packet sent size: 140
+[TTL] Forwarding packet with TTL=63
+Message received, size: 140
+[SERVER INFO] Received new packet: QUERY packet
+[DUPLICATE ID] Duplicate packet with ID 559761917 detected. Ignoring and discarding.

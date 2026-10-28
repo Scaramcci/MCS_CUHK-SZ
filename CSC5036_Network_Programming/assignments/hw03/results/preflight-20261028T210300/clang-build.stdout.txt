@@ -1,0 +1,5 @@
+clang main.c -o main.o -c -g -std=c17
+clang server.c -o server.o -c -g -std=c17
+clang utils.c -o utils.o -c -g -std=c17
+clang network.c -o network.o -c -g -std=c17
+clang main.o server.o utils.o network.o -o p2p_server -lpthread -g
