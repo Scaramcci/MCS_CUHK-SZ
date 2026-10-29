@@ -1,0 +1,10 @@
+{
+  "method": "zero_shot",
+  "ids": [
+    "alpaca-37964-original",
+    "alpaca-49259-original"
+  ],
+  "count": 2,
+  "sha256": "1664925f85ee506afc32fc5dbfc147d7cd07d370eefe8ac90ac80e1072c86ca2",
+  "status": "Model-selected subset; not independently verified clean data."
+}

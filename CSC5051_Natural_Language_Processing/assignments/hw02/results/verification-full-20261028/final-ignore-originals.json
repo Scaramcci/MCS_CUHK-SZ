@@ -1,0 +1,33 @@
+{
+  "original_hashes": {
+    "“Prompt_Engineering_CSC6052_ipynb”的副本.ipynb": "5a396a71600492e39974d51ee7a2e6c5bf020242896dd37db88fcae2310c26e9",
+    "Assignment_2.pdf": "bf09fbc9f382a149804a7977a6cc63912efa93520c56d4c7fe7c51260e64aa5f"
+  },
+  "ignore_checks": [
+    {
+      "command": [
+        "git",
+        "check-ignore",
+        ".env",
+        "data/raw/alpaca_gpt4_data.json",
+        "data/processed/test.jsonl",
+        "data/selected/test-v1/agent.json",
+        "local_artifacts/runs/test-v1/predictions.jsonl",
+        "results/raw/budget.jsonl"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "stdout": ".env\ndata/raw/alpaca_gpt4_data.json\ndata/processed/test.jsonl\ndata/selected/test-v1/agent.json\nlocal_artifacts/runs/test-v1/predictions.jsonl\nresults/raw/budget.jsonl\n"
+    },
+    {
+      "command": [
+        "git",
+        "check-ignore",
+        ".env.example"
+      ],
+      "expected_exit": 1,
+      "actual_exit": 1,
+      "stdout": ""
+    }
+  ]
+}

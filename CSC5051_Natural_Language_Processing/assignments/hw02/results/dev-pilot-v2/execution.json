@@ -1,0 +1,27 @@
+{
+  "executor": "/root (coordinating Implementer)",
+  "command": "python3 src/main.py run --dataset data/processed/pilot.jsonl --output local_artifacts/runs/dev-pilot-v2 --methods zero_shot few_shot chain_of_thought agent agent_no_feedback --workers 3 --allow-paid",
+  "started_at": "2026-10-28T14:34:34.853184+00:00",
+  "completed_at": "2026-10-28T14:34:55.804449+00:00",
+  "exit_status": 0,
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "experiment_fingerprint": "ab269da0f19732ac12f2ec4a21556dc7539df3cd74e41787cbaac689e13c04cb",
+  "prediction_sha256": "9b609bccff6dc258914262b62524952d5b9b569cb44c96690ec9f658fe006d8c",
+  "summary": {
+    "completed_predictions": 40,
+    "experiment_fingerprint": "ab269da0f19732ac12f2ec4a21556dc7539df3cd74e41787cbaac689e13c04cb",
+    "ledger": {
+      "limit_micro_cny": 10000000,
+      "requires_reconciliation": false,
+      "spent_or_reserved_micro_cny": 173900
+    },
+    "statuses": {
+      "budget_exhausted": 0,
+      "error": 0,
+      "invalid": 0,
+      "success": 40
+    },
+    "timestamp": "2026-10-28T14:34:55.804449+00:00"
+  }
+}

@@ -1,0 +1,236 @@
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+Pager usage is off.
+SET
+Timing is on.
+SELECT 10
+Time: 487.329 ms
+ test | result  
+------+---------
+ q1   | correct
+ q2   | correct
+ q3   | correct
+ q4   | correct
+ q5   | correct
+ q6   | correct
+ q7   | correct
+ q8   | correct
+ q9   | correct
+ q10  | correct
+(10 rows)
+
+Time: 0.097 ms
+ all_ten_checks_passed 
+-----------------------
+                     1
+(1 row)
+
+Time: 0.121 ms
+ subject_code 
+--------------
+ COMP8505
+ COMP8506
+ COMP8509
+ COMP8512
+ COMP8514
+ COMP8518
+ COMP8522
+ COMP8524
+ COMP8530
+ COMP8542
+ COMP8548
+ COMP8560
+ COMP8572
+ COMP8612
+ COMP8618
+ COMP8624
+ COMP9912
+ COMP9945
+(18 rows)
+
+Time: 2.492 ms
+ course_id 
+-----------
+     68619
+     70427
+(2 rows)
+
+Time: 11.863 ms
+ unswid  |         name         
+---------+----------------------
+ 3021175 | Yue Wang
+ 3089715 | Louis Wang
+ 3115148 | Andrew Jackson
+ 3128697 | Zahid Riaz
+ 3129186 | Abu Shonchoy
+ 3138847 | Benoit Julien
+ 3149611 | Edward Harbor
+ 3150458 | Quan Gan
+ 3178237 | Sehne Avsar
+ 3210320 | Suzanne Chan-Serafin
+ 3217878 | Devorah Wainer
+ 3218828 | Hugh Bainbridge
+ 3227548 | Elaine Franco
+ 3228131 | Ben Greiner
+ 3247239 | Vincent Wong
+ 3266526 | Simon Restubog
+ 3281877 | Vasile Caprar
+ 3307694 | Ricardo Flores
+ 3344027 | Jennifer Foster
+ 3382677 | Chen Qiu
+ 3389919 | Denise Bunting
+ 6882728 | Diane Enahoro
+ 6987539 | Ian Wilkinson
+ 7676135 | Trevor Stegman
+ 8085382 | Louise Zieme
+ 8421419 | Chung-Sok Suh
+ 8545418 | Judith Watson
+ 8553813 | Donna Wilcox
+ 8831950 | Diane Fieldes
+ 8837004 | Tien Nguyen
+ 8997961 | Kenneth Ashwell
+ 9026074 | David Morgan
+ 9130234 | Barbara Hendrischke
+ 9155962 | Noor-E-Alam Ahmed
+ 9213794 | Tracy Wilcox
+ 9466637 | Betty Wong
+ 9643409 | Suk-Joong Kim
+ 9854333 | Denzil Fiebig
+ 9857057 | Raymond Durham
+ 9985688 | Pradeep Ray
+ 9995228 | Peter Nichols
+(41 rows)
+
+Time: 3.040 ms
+    facility     
+-----------------
+ Document camera
+ Fan ventilation
+ Hearing loop
+ Neck microphone
+ Slide projector
+ Whiteboard
+(6 rows)
+
+Time: 0.305 ms
+    name     | ncourses 
+-------------+----------
+ Susan Hagon |      248
+(1 row)
+
+Time: 9.112 ms
+                      school_name                       | stream_count 
+--------------------------------------------------------+--------------
+ School of Humanities and Languages                     |           83
+ School of International Studies                        |          111
+ School of Education                                    |          127
+ School of the Arts and Media                           |          108
+ School of Social Sciences                              |           92
+ School of Economics                                    |           57
+ School of Public Health & Community Medicine           |           54
+ School of Biological, Earth and Environmental Sciences |          111
+(8 rows)
+
+Time: 0.579 ms
+ subject_code | avg_mark 
+--------------+----------
+ COMP9020     |    60.04
+ COMP9021     |    55.39
+ COMP9024     |    59.20
+ COMP9101     |    62.07
+ COMP9317     |    76.17
+ COMP9331     |    55.35
+ COMP9414     |    68.75
+ COMP9441     |    76.58
+ GSOE9210     |    66.17
+(9 rows)
+
+Time: 123.515 ms
+ subject_code | inc_rate 
+--------------+----------
+ ACCT3610     |   0.1984
+(1 row)
+
+Time: 17.727 ms
+ unsw_id |          name          | academic_standing 
+---------+------------------------+-------------------
+ 3135602 | Shirley Caws           | Good
+ 3138484 | Sean Turle             | Good
+ 3138391 | Damchu Tenzin          | Good
+ 3136192 | Blake Croll            | Good
+ 3137680 | Benny Mok              | Good
+ 3137600 | Frances Sangster       | Good
+ 3132013 | Kathleen MacLaine      | Good
+ 3137261 | Kabbara Reda           | Good
+ 3138159 | Robert Neo             | Good
+ 3137694 | Paul Tench             | Referral
+ 3137415 | Derek Tejwani          | Good
+ 3135986 | Hui Goh                | Good
+ 3133614 | Olivia Tyng            | Referral
+ 3134640 | Steve Seelin           | Good
+ 3139955 | Margarita Kaplinovsky  | Good
+ 3132152 | Kwok Low               | Good
+ 3139033 | Alberto Hofbrucker     | Referral
+ 3133527 | Frederik Murtada       | Good
+ 3138713 | Selby Wilheim          | Good
+ 3133650 | Jen Paramananthakarasu | Probation
+ 3138579 | Toby Le Pavoux         | Good
+ 3132330 | Lauren Makin           | Good
+ 3138174 | Kaylin Doughty         | Good
+ 3134788 | Michelle Flower        | Good
+ 3130445 | Corey O'Loughlan       | Referral
+ 3132948 | Joseph Nik Mohd Zamri  | Good
+ 3137927 | Torunn Kotze           | Good
+ 3132145 | Rosemary Morisset      | Good
+ 3134072 | Hamish Flick           | Good
+ 3132540 | Jin-Oh Paick           | Good
+ 3132483 | Shannelle Sijabat      | Good
+ 3133285 | Lian Ogilvie           | Good
+ 3134514 | Christine Jaschuk      | Good
+ 3133828 | Victor Efendi          | Good
+ 3132054 | Shannon Phipps         | Good
+ 3137205 | Wing Sam               | Good
+(36 rows)
+
+Time: 9.718 ms
+ subject_code | year | term | fail_rate 
+--------------+------+------+-----------
+ COMP1911     | 2011 | S1   |    0.1212
+ COMP1917     | 2012 | S1   |    0.1030
+ COMP1927     | 2012 | S2   |    0.1812
+(3 rows)
+
+Time: 18.903 ms
+ view_name | column_number |      attname      |  column_type   
+-----------+---------------+-------------------+----------------
+ q1        |             1 | subject_code      | character(8)
+ q2        |             1 | course_id         | integer
+ q3        |             1 | unswid            | integer
+ q3        |             2 | name              | longname
+ q4        |             1 | facility          | mediumstring
+ q5        |             1 | name              | longname
+ q5        |             2 | ncourses          | integer
+ q6        |             1 | school_name       | longstring
+ q6        |             2 | stream_count      | integer
+ q7        |             1 | subject_code      | character(8)
+ q7        |             2 | avg_mark          | numeric(4,2)
+ q8        |             1 | subject_code      | character(8)
+ q8        |             2 | inc_rate          | numeric
+ q9        |             1 | unsw_id           | integer
+ q9        |             2 | name              | longname
+ q9        |             3 | academic_standing | text
+ q10       |             1 | subject_code      | character(8)
+ q10       |             2 | year              | courseyeartype
+ q10       |             3 | term              | character(2)
+ q10       |             4 | fail_rate         | numeric
+(20 rows)
+
+Time: 0.729 ms

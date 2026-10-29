@@ -1,0 +1,20 @@
+{
+  "executor": "main Codex agent /root",
+  "time_utc": "20261028T135559Z",
+  "action": "Verified local copies before removing data paths from Git index; originals retained. No history rewrite.",
+  "files": [
+    {
+      "original": "project_release_to_students.zip",
+      "backup": "local_artifacts/git-data-backup/20261028T135559Z/project_release_to_students.zip",
+      "bytes": 12678550,
+      "sha256": "975f924161dcf21180dcff09b1495f548079a8cf273c4f380866f93e440d4604"
+    },
+    {
+      "original": "project_release_to_students/MyDATASET.dump",
+      "backup": "local_artifacts/git-data-backup/20261028T135559Z/MyDATASET.dump",
+      "bytes": 52080321,
+      "sha256": "15ae92fbf9a40325743a09f174edf21bf79519b992a2f6810f0dad63c300db71"
+    }
+  ],
+  "zip_dump_matches_extracted_dump": true
+}

@@ -5,4 +5,5 @@
 !.env.example
 data/
 local_artifacts/
+/results/raw/
 __pycache__/

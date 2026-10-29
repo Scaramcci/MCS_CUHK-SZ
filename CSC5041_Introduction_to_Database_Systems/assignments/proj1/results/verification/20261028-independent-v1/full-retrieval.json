@@ -1,0 +1,212 @@
+[
+  {
+    "query": "q1",
+    "argv": [
+      "psql",
+      "-X",
+      "-q",
+      "-A",
+      "-t",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-d",
+      "proj1_verify_20261028_checked",
+      "-c",
+      "SET statement_timeout='120s'; SELECT * FROM q1"
+    ],
+    "utc": "2026-10-28T14:06:45.941419+00:00",
+    "seconds": 0.029153104999750212,
+    "exit": 0,
+    "stderr": "",
+    "output": "Full rows retrieved by psql and discarded to /dev/null, no COUNT optimization"
+  },
+  {
+    "query": "q2",
+    "argv": [
+      "psql",
+      "-X",
+      "-q",
+      "-A",
+      "-t",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-d",
+      "proj1_verify_20261028_checked",
+      "-c",
+      "SET statement_timeout='120s'; SELECT * FROM q2"
+    ],
+    "utc": "2026-10-28T14:06:45.985583+00:00",
+    "seconds": 0.04415727400009928,
+    "exit": 0,
+    "stderr": "",
+    "output": "Full rows retrieved by psql and discarded to /dev/null, no COUNT optimization"
+  },
+  {
+    "query": "q3",
+    "argv": [
+      "psql",
+      "-X",
+      "-q",
+      "-A",
+      "-t",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-d",
+      "proj1_verify_20261028_checked",
+      "-c",
+      "SET statement_timeout='120s'; SELECT * FROM q3"
+    ],
+    "utc": "2026-10-28T14:06:46.015908+00:00",
+    "seconds": 0.030317941999783216,
+    "exit": 0,
+    "stderr": "",
+    "output": "Full rows retrieved by psql and discarded to /dev/null, no COUNT optimization"
+  },
+  {
+    "query": "q4",
+    "argv": [
+      "psql",
+      "-X",
+      "-q",
+      "-A",
+      "-t",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-d",
+      "proj1_verify_20261028_checked",
+      "-c",
+      "SET statement_timeout='120s'; SELECT * FROM q4"
+    ],
+    "utc": "2026-10-28T14:06:46.041107+00:00",
+    "seconds": 0.025197236999702,
+    "exit": 0,
+    "stderr": "",
+    "output": "Full rows retrieved by psql and discarded to /dev/null, no COUNT optimization"
+  },
+  {
+    "query": "q5",
+    "argv": [
+      "psql",
+      "-X",
+      "-q",
+      "-A",
+      "-t",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-d",
+      "proj1_verify_20261028_checked",
+      "-c",
+      "SET statement_timeout='120s'; SELECT * FROM q5"
+    ],
+    "utc": "2026-10-28T14:06:46.078395+00:00",
+    "seconds": 0.03728494699953444,
+    "exit": 0,
+    "stderr": "",
+    "output": "Full rows retrieved by psql and discarded to /dev/null, no COUNT optimization"
+  },
+  {
+    "query": "q6",
+    "argv": [
+      "psql",
+      "-X",
+      "-q",
+      "-A",
+      "-t",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-d",
+      "proj1_verify_20261028_checked",
+      "-c",
+      "SET statement_timeout='120s'; SELECT * FROM q6"
+    ],
+    "utc": "2026-10-28T14:06:46.103796+00:00",
+    "seconds": 0.025397033000444935,
+    "exit": 0,
+    "stderr": "",
+    "output": "Full rows retrieved by psql and discarded to /dev/null, no COUNT optimization"
+  },
+  {
+    "query": "q7",
+    "argv": [
+      "psql",
+      "-X",
+      "-q",
+      "-A",
+      "-t",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-d",
+      "proj1_verify_20261028_checked",
+      "-c",
+      "SET statement_timeout='120s'; SELECT * FROM q7"
+    ],
+    "utc": "2026-10-28T14:06:46.299371+00:00",
+    "seconds": 0.19558155999948212,
+    "exit": 0,
+    "stderr": "",
+    "output": "Full rows retrieved by psql and discarded to /dev/null, no COUNT optimization"
+  },
+  {
+    "query": "q8",
+    "argv": [
+      "psql",
+      "-X",
+      "-q",
+      "-A",
+      "-t",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-d",
+      "proj1_verify_20261028_checked",
+      "-c",
+      "SET statement_timeout='120s'; SELECT * FROM q8"
+    ],
+    "utc": "2026-10-28T14:06:46.348862+00:00",
+    "seconds": 0.049484949000543565,
+    "exit": 0,
+    "stderr": "",
+    "output": "Full rows retrieved by psql and discarded to /dev/null, no COUNT optimization"
+  },
+  {
+    "query": "q9",
+    "argv": [
+      "psql",
+      "-X",
+      "-q",
+      "-A",
+      "-t",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-d",
+      "proj1_verify_20261028_checked",
+      "-c",
+      "SET statement_timeout='120s'; SELECT * FROM q9"
+    ],
+    "utc": "2026-10-28T14:06:46.386827+00:00",
+    "seconds": 0.037955681999847,
+    "exit": 0,
+    "stderr": "",
+    "output": "Full rows retrieved by psql and discarded to /dev/null, no COUNT optimization"
+  },
+  {
+    "query": "q10",
+    "argv": [
+      "psql",
+      "-X",
+      "-q",
+      "-A",
+      "-t",
+      "-v",
+      "ON_ERROR_STOP=1",
+      "-d",
+      "proj1_verify_20261028_checked",
+      "-c",
+      "SET statement_timeout='120s'; SELECT * FROM q10"
+    ],
+    "utc": "2026-10-28T14:06:46.427174+00:00",
+    "seconds": 0.0403446360005546,
+    "exit": 0,
+    "stderr": "",
+    "output": "Full rows retrieved by psql and discarded to /dev/null, no COUNT optimization"
+  }
+]

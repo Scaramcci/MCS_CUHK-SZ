@@ -1,0 +1,405 @@
+{
+  "methods": {
+    "zero_shot": {
+      "n": 8,
+      "statuses": {
+        "success": 8
+      },
+      "original_n": 4,
+      "original_decisions": {
+        "keep": 2,
+        "review": 2,
+        "reject": 0,
+        "failed": 0
+      },
+      "diagnostic_n": 4,
+      "diagnostic_decisions": {
+        "keep": 0,
+        "review": 1,
+        "reject": 3,
+        "failed": 0
+      },
+      "paired_keep_original_reject_diagnostic": 1,
+      "pairs_n": 4,
+      "per_defect": {
+        "empty": {
+          "keep": 0,
+          "review": 0,
+          "reject": 1,
+          "failed": 0
+        },
+        "excessive_repetition": {
+          "keep": 0,
+          "review": 1,
+          "reject": 0,
+          "failed": 0
+        },
+        "instruction_echo": {
+          "keep": 0,
+          "review": 0,
+          "reject": 1,
+          "failed": 0
+        },
+        "off_topic": {
+          "keep": 0,
+          "review": 0,
+          "reject": 1,
+          "failed": 0
+        }
+      },
+      "calls": 8,
+      "prompt_tokens": 4147,
+      "completion_tokens": 727,
+      "cost_micro_cny": 14110,
+      "mean_latency_seconds": 1.4721407209999597,
+      "median_latency_seconds": 1.27812159899986,
+      "p95_latency_seconds": 2.2900550958501293,
+      "actions": {},
+      "records_inspected": 0,
+      "records_reassessed": 0,
+      "threshold_sensitivity": {
+        "strict_all_2": {
+          "original_kept": 2,
+          "diagnostic_kept": 0
+        },
+        "sum_at_least_7": {
+          "original_kept": 4,
+          "diagnostic_kept": 0
+        },
+        "all_at_least_1": {
+          "original_kept": 4,
+          "diagnostic_kept": 1
+        }
+      }
+    },
+    "few_shot": {
+      "n": 8,
+      "statuses": {
+        "success": 8
+      },
+      "original_n": 4,
+      "original_decisions": {
+        "keep": 3,
+        "review": 1,
+        "reject": 0,
+        "failed": 0
+      },
+      "diagnostic_n": 4,
+      "diagnostic_decisions": {
+        "keep": 0,
+        "review": 1,
+        "reject": 3,
+        "failed": 0
+      },
+      "paired_keep_original_reject_diagnostic": 2,
+      "pairs_n": 4,
+      "per_defect": {
+        "empty": {
+          "keep": 0,
+          "review": 0,
+          "reject": 1,
+          "failed": 0
+        },
+        "excessive_repetition": {
+          "keep": 0,
+          "review": 1,
+          "reject": 0,
+          "failed": 0
+        },
+        "instruction_echo": {
+          "keep": 0,
+          "review": 0,
+          "reject": 1,
+          "failed": 0
+        },
+        "off_topic": {
+          "keep": 0,
+          "review": 0,
+          "reject": 1,
+          "failed": 0
+        }
+      },
+      "calls": 8,
+      "prompt_tokens": 5731,
+      "completion_tokens": 539,
+      "cost_micro_cny": 15774,
+      "mean_latency_seconds": 1.1873980154998662,
+      "median_latency_seconds": 1.1805328499999632,
+      "p95_latency_seconds": 1.3636032685997632,
+      "actions": {},
+      "records_inspected": 0,
+      "records_reassessed": 0,
+      "threshold_sensitivity": {
+        "strict_all_2": {
+          "original_kept": 3,
+          "diagnostic_kept": 0
+        },
+        "sum_at_least_7": {
+          "original_kept": 4,
+          "diagnostic_kept": 0
+        },
+        "all_at_least_1": {
+          "original_kept": 4,
+          "diagnostic_kept": 1
+        }
+      }
+    },
+    "chain_of_thought": {
+      "n": 8,
+      "statuses": {
+        "success": 8
+      },
+      "original_n": 4,
+      "original_decisions": {
+        "keep": 1,
+        "review": 3,
+        "reject": 0,
+        "failed": 0
+      },
+      "diagnostic_n": 4,
+      "diagnostic_decisions": {
+        "keep": 0,
+        "review": 1,
+        "reject": 3,
+        "failed": 0
+      },
+      "paired_keep_original_reject_diagnostic": 1,
+      "pairs_n": 4,
+      "per_defect": {
+        "empty": {
+          "keep": 0,
+          "review": 0,
+          "reject": 1,
+          "failed": 0
+        },
+        "excessive_repetition": {
+          "keep": 0,
+          "review": 1,
+          "reject": 0,
+          "failed": 0
+        },
+        "instruction_echo": {
+          "keep": 0,
+          "review": 0,
+          "reject": 1,
+          "failed": 0
+        },
+        "off_topic": {
+          "keep": 0,
+          "review": 0,
+          "reject": 1,
+          "failed": 0
+        }
+      },
+      "calls": 8,
+      "prompt_tokens": 4539,
+      "completion_tokens": 822,
+      "cost_micro_cny": 15654,
+      "mean_latency_seconds": 1.4340611846253069,
+      "median_latency_seconds": 1.3998493755002528,
+      "p95_latency_seconds": 1.8331710280502644,
+      "actions": {},
+      "records_inspected": 0,
+      "records_reassessed": 0,
+      "threshold_sensitivity": {
+        "strict_all_2": {
+          "original_kept": 1,
+          "diagnostic_kept": 0
+        },
+        "sum_at_least_7": {
+          "original_kept": 3,
+          "diagnostic_kept": 1
+        },
+        "all_at_least_1": {
+          "original_kept": 3,
+          "diagnostic_kept": 1
+        }
+      }
+    },
+    "agent": {
+      "n": 8,
+      "statuses": {
+        "success": 8
+      },
+      "original_n": 4,
+      "original_decisions": {
+        "keep": 4,
+        "review": 0,
+        "reject": 0,
+        "failed": 0
+      },
+      "diagnostic_n": 4,
+      "diagnostic_decisions": {
+        "keep": 0,
+        "review": 0,
+        "reject": 4,
+        "failed": 0
+      },
+      "paired_keep_original_reject_diagnostic": 4,
+      "pairs_n": 4,
+      "per_defect": {
+        "empty": {
+          "keep": 0,
+          "review": 0,
+          "reject": 1,
+          "failed": 0
+        },
+        "excessive_repetition": {
+          "keep": 0,
+          "review": 0,
+          "reject": 1,
+          "failed": 0
+        },
+        "instruction_echo": {
+          "keep": 0,
+          "review": 0,
+          "reject": 1,
+          "failed": 0
+        },
+        "off_topic": {
+          "keep": 0,
+          "review": 0,
+          "reject": 1,
+          "failed": 0
+        }
+      },
+      "calls": 10,
+      "prompt_tokens": 9275,
+      "completion_tokens": 837,
+      "cost_micro_cny": 25246,
+      "mean_latency_seconds": 1.6913984905000916,
+      "median_latency_seconds": 1.3649085624997497,
+      "p95_latency_seconds": 2.7681828900502294,
+      "actions": {
+        "finish": 8,
+        "inspect": 2
+      },
+      "records_inspected": 2,
+      "records_reassessed": 0,
+      "threshold_sensitivity": {
+        "strict_all_2": {
+          "original_kept": 4,
+          "diagnostic_kept": 0
+        },
+        "sum_at_least_7": {
+          "original_kept": 4,
+          "diagnostic_kept": 0
+        },
+        "all_at_least_1": {
+          "original_kept": 4,
+          "diagnostic_kept": 0
+        }
+      }
+    },
+    "agent_no_feedback": {
+      "n": 8,
+      "statuses": {
+        "success": 8
+      },
+      "original_n": 4,
+      "original_decisions": {
+        "keep": 4,
+        "review": 0,
+        "reject": 0,
+        "failed": 0
+      },
+      "diagnostic_n": 4,
+      "diagnostic_decisions": {
+        "keep": 0,
+        "review": 1,
+        "reject": 3,
+        "failed": 0
+      },
+      "paired_keep_original_reject_diagnostic": 3,
+      "pairs_n": 4,
+      "per_defect": {
+        "empty": {
+          "keep": 0,
+          "review": 0,
+          "reject": 1,
+          "failed": 0
+        },
+        "excessive_repetition": {
+          "keep": 0,
+          "review": 1,
+          "reject": 0,
+          "failed": 0
+        },
+        "instruction_echo": {
+          "keep": 0,
+          "review": 0,
+          "reject": 1,
+          "failed": 0
+        },
+        "off_topic": {
+          "keep": 0,
+          "review": 0,
+          "reject": 1,
+          "failed": 0
+        }
+      },
+      "calls": 10,
+      "prompt_tokens": 9136,
+      "completion_tokens": 811,
+      "cost_micro_cny": 24760,
+      "mean_latency_seconds": 1.713928860750002,
+      "median_latency_seconds": 1.4502633004999552,
+      "p95_latency_seconds": 2.6626223898002532,
+      "actions": {
+        "finish": 8,
+        "inspect": 2
+      },
+      "records_inspected": 2,
+      "records_reassessed": 0,
+      "threshold_sensitivity": {
+        "strict_all_2": {
+          "original_kept": 4,
+          "diagnostic_kept": 0
+        },
+        "sum_at_least_7": {
+          "original_kept": 4,
+          "diagnostic_kept": 1
+        },
+        "all_at_least_1": {
+          "original_kept": 4,
+          "diagnostic_kept": 1
+        }
+      }
+    }
+  },
+  "decision_differences": {
+    "zero_shot_vs_few_shot": {
+      "changed_n": 1,
+      "changed_ids": [
+        "alpaca-41906-original"
+      ]
+    },
+    "zero_shot_vs_chain_of_thought": {
+      "changed_n": 1,
+      "changed_ids": [
+        "alpaca-49259-original"
+      ]
+    },
+    "zero_shot_vs_agent": {
+      "changed_n": 3,
+      "changed_ids": [
+        "alpaca-49259-diagnostic",
+        "alpaca-46824-original",
+        "alpaca-41906-original"
+      ]
+    },
+    "agent_vs_agent_no_feedback": {
+      "changed_n": 1,
+      "changed_ids": [
+        "alpaca-49259-diagnostic"
+      ]
+    }
+  },
+  "interpretation": "Descriptive synthetic diagnostic rejection and unaltered-original retention; no human gold labels, no natural-data accuracy or downstream gain estimate.",
+  "provenance": {
+    "dataset_sha256": "e975a1f9d8b062092de97461385cbc39ee5b3172d8676e2e8beec6e647e90c15",
+    "experiment_fingerprint": "ab269da0f19732ac12f2ec4a21556dc7539df3cd74e41787cbaac689e13c04cb",
+    "prediction_sha256": "9b609bccff6dc258914262b62524952d5b9b569cb44c96690ec9f658fe006d8c",
+    "analysis_source_sha256": "9dcf9fb4b2f70091dc73107b46806bdbc3b9f8d2d4000daee2c597126a5b6ad8"
+  }
+}

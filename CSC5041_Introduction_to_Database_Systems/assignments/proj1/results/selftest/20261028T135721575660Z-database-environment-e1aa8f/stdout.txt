@@ -1,0 +1,5 @@
+                                                             version                                                             | encoding | parallel_workers_per_gather | jit | database_bytes 
+---------------------------------------------------------------------------------------------------------------------------------+----------+-----------------------------+-----+----------------
+ PostgreSQL 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0, 64-bit | UTF8     | 2                           | on  |      130684607
+(1 row)
+

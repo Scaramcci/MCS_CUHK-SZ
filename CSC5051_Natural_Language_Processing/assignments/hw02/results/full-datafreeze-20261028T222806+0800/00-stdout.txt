@@ -1,0 +1,2 @@
+Offline configuration/template check passed. No env read or API call.
+Run tests/offline_smoke.py for mocked budget/parser/agent checks.

@@ -1,0 +1,10 @@
+ multi_version_codes 
+---------------------
+                 682
+(1 row)
+
+ multiple_offerings_per_code_term 
+----------------------------------
+                                0
+(1 row)
+

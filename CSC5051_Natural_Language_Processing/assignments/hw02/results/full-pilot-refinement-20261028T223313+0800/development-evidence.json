@@ -1,0 +1,21 @@
+{
+  "run_path": "local_artifacts/runs/dev-pilot-v1",
+  "prediction_count": 40,
+  "statuses": {
+    "success": 37,
+    "invalid": 3
+  },
+  "invalid_methods": {
+    "chain_of_thought": 3
+  },
+  "agent_rows": 16,
+  "agent_initial_actions": {
+    "finish": 16
+  },
+  "prediction_file_sha256": "d6c2abf25e9e7a28250de77cdc1e971bbfc9883601fb0824331622c1077f7606",
+  "invalid_decision_values": [
+    "Reject",
+    "Reject",
+    "Reject"
+  ]
+}

@@ -1,21 +1,84 @@
 {
-  "status": "scaffold_only",
+  "status": "implemented_pending_experiments",
   "task": 3,
   "report_language": "English",
-  "methods": ["zero_shot", "few_shot", "chain_of_thought"],
-  "agent_status": "not_implemented",
+  "methods": [
+    "zero_shot",
+    "few_shot",
+    "chain_of_thought",
+    "agent",
+    "agent_no_feedback"
+  ],
+  "agent_status": "implemented_pending_experiments",
   "dataset": {
-    "candidate": "English GPT-4 Alpaca (provisional)",
-    "source": null,
-    "version": null,
-    "sha256": null,
-    "local_path": "data/raw/alpaca.json",
-    "evaluation_split": null,
-    "sample_size": null
+    "name": "English GPT-4 Alpaca",
+    "source": "https://raw.githubusercontent.com/Instruction-Tuning-with-GPT-4/GPT-4-LLM/38b93b75a80b019cc3aad362ca6f5bb0c3908959/data/alpaca_gpt4_data.json",
+    "version": "38b93b75a80b019cc3aad362ca6f5bb0c3908959",
+    "sha256": "0bd4f62585d494b794deb043ce0baddfec02f27696857c57c9c238d6eff35a18",
+    "local_path": "data/raw/alpaca_gpt4_data.json",
+    "source_records": 52002,
+    "license": "CC BY-NC 4.0; noncommercial coursework",
+    "retrieved_at": "2026-10-28T13:57:10.927463+00:00",
+    "evaluation_split": "test",
+    "sample_size": 64,
+    "eligible_unique_count": 25117,
+    "eligibility": "instruction20..400chars, input<=600, output60..800, combined<=1400, >=95%ASCII; exclude repeat/echo/copy/nothing/blank/empty/silence instructions; deduplicate instruction/input",
+    "seed": 20261028,
+    "design": "Unaltered originals have no gold quality labels. Corruptions are synthetic diagnostics, not natural defects.",
+    "split_manifest_path": "data/processed/manifest.json",
+    "split_manifest_sha256": "a7527912ba5d270ba93ea73de42563ba50f4a0dc6f1343100cdf481ac89174cb",
+    "splits": {
+      "dev": {
+        "local_path": "data/processed/dev.jsonl",
+        "sha256": "854073c748b2e608db901c5cf4992ad872379ecac3286a66b19a47a16da8ee8b",
+        "records": 16,
+        "variants": {
+          "synthetic_corruption": 8,
+          "unaltered": 8
+        },
+        "defects": {
+          "excessive_repetition": 2,
+          "off_topic": 2,
+          "instruction_echo": 2,
+          "empty": 2
+        }
+      },
+      "pilot": {
+        "local_path": "data/processed/pilot.jsonl",
+        "sha256": "e975a1f9d8b062092de97461385cbc39ee5b3172d8676e2e8beec6e647e90c15",
+        "records": 8
+      },
+      "test": {
+        "local_path": "data/processed/test.jsonl",
+        "sha256": "5973af0e5ae8b2b4569171beb43281d2cc614547a69e204cf7c82dc555583dbf",
+        "records": 64,
+        "variants": {
+          "synthetic_corruption": 32,
+          "unaltered": 32
+        },
+        "defects": {
+          "instruction_echo": 8,
+          "empty": 8,
+          "off_topic": 8,
+          "excessive_repetition": 8
+        }
+      }
+    },
+    "preparation_script_sha256": "1a9ef67f0394b4eb1a8a5217635cad9b79503539186fbde5f09d9f0f963492d0"
   },
-  "settings": {"seed": 42, "temperature": 0, "status": "proposed_not_executed"},
+  "settings": {
+    "seed": 20261028,
+    "temperature": 0,
+    "reasoning_effort": "none",
+    "max_completion_tokens": 768,
+    "max_input_tokens_bound": 24000,
+    "timeout_seconds": 120,
+    "workers": 3,
+    "allowed_requested_model": "ep-20261001200303-j7htx",
+    "expected_returned_model": "deepseek-v4-1-flash-260910"
+  },
   "rubric": {
-    "status": "draft_project_design_not_teacher_requirement",
+    "status": "predefined_project_design_not_teacher_requirement",
     "scale": "0 = fails; 1 = partially meets; 2 = meets; null = cannot assess",
     "dimensions": {
       "instruction_following": "Does the response follow the instruction and constraints?",
@@ -23,6 +86,19 @@
       "relevance_completeness": "Does the response address the input and include the necessary content?",
       "clarity": "Is the response understandable without unnecessary repetition?"
     },
-    "decision_rule": "keep only if all four scores are 2; reject if any score is 0; otherwise review (including uncertainty). This conservative draft rule needs validation."
+    "decision_rule": "Reject if any score is 0; otherwise keep only if all four scores are 2; otherwise review (including null uncertainty)."
+  },
+  "agent": {
+    "max_calls": 3,
+    "ablation": "same prompt and max calls; inspect observations withheld"
+  },
+  "pricing": {
+    "input_cny_per_million": "2",
+    "output_cny_per_million": "8",
+    "prior_spend_cny_upper_bound": "0.000430",
+    "currency": "CNY",
+    "basis": "Conservative peak list rates, no cache discount; estimate not invoice",
+    "verified_date": "2026-10-28",
+    "source": "https://console.volcengine.com/ark/region:cn-beijing/docs/model-pricing"
   }
 }

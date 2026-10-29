@@ -1,0 +1,15 @@
+test_analysis_oracle_counts_failures_pairs_thresholds (__main__.IndependentTests.test_analysis_oracle_counts_failures_pairs_thresholds) ... ok
+test_analysis_rejects_missing_duplicate_and_foreign_predictions (__main__.IndependentTests.test_analysis_rejects_missing_duplicate_and_foreign_predictions) ... ok
+test_budget_reinit_and_double_settlement (__main__.IndependentTests.test_budget_reinit_and_double_settlement) ... ok
+test_env_duplicates_and_unmatched_quotes_fail (__main__.IndependentTests.test_env_duplicates_and_unmatched_quotes_fail) ... ok
+test_exhaustive_rubric_decisions (__main__.IndependentTests.test_exhaustive_rubric_decisions) ... ok
+test_label_mutation_cannot_change_prompts_or_feedback (__main__.IndependentTests.test_label_mutation_cannot_change_prompts_or_feedback) ... ok
+test_no_usage_retains_reserved_even_after_restart (__main__.IndependentTests.test_no_usage_retains_reserved_even_after_restart) ... ok
+test_partial_agent_failure_preserves_trace (__main__.IndependentTests.test_partial_agent_failure_preserves_trace) ... ok
+test_process_budget_lock (__main__.IndependentTests.test_process_budget_lock) ... ok
+test_response_failure_cache_and_cost (__main__.IndependentTests.test_response_failure_cache_and_cost) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.047s
+
+OK

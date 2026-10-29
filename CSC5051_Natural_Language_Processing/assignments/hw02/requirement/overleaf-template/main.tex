@@ -1,0 +1,168 @@
+
+\documentclass{article}%ForLaTeX2e
+\usepackage{iclr2024_conference,times}
+
+%Optionalmathcommandsfromhttps://github.com/goodfeli/dlbook_notation.
+\input{math_commands.tex}
+
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{CJK}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{minted}
+\usepackage{lipsum}
+
+% define AIbox
+\usepackage[most]{tcolorbox}
+\usepackage{float}
+\usepackage{xspace}
+\tcbset{
+  aibox/.style={
+    width=474.18663pt,
+    top=10pt,
+    colback=white,
+    colframe=black,
+    colbacktitle=black,
+    enhanced,
+    center,
+    attach boxed title to top left={yshift=-0.1in,xshift=0.15in},
+    boxed title style={boxrule=0pt,colframe=white,},
+  }
+}
+\newtcolorbox{AIbox}[2][]{aibox,title=#2,#1}
+
+\title{Assignment 1: Prompt Engineering [Use your own title] }
+
+%Authorsmustnotappearinthesubmittedversion.Theyshouldbehidden
+%aslongasthe\iclrfinalcopymacroremainscommentedoutbelow.
+%Non-anonymoussubmissionswillberejectedwithoutreview.
+
+\author{Your name and id\\
+Your institute\\
+Shenzhen, China\\
+% Pittsburgh,PA15213,USA\\
+\texttt{your email}\\
+}
+
+
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+%\iclrfinalcopy%Uncommentforcamera-readyversion,butNOTforsubmission.
+\iclrfinalcopy
+
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}
+\maketitle
+
+\textbf{ You could modify any format as you want and add anything if you think it is necessary.  Be concise and say something that matters.
+}
+
+
+\section{Introduction}
+
+
+\paragraph{Why the task is important} \lipsum[1]
+
+\paragraph{Why LLM is suitable to solve the problem} \lipsum[2]
+
+\paragraph{What you did and what you achieved} \lipsum[3]
+
+
+\section{Problem definition}
+
+\paragraph{Definition of the task} \lipsum[3]
+
+\textbf{Input}: A question {\tt Q} and two answers {\tt a1} and {\tt a2}.
+
+\textbf{Output}: Which one is chosen and rejected
+
+\textbf{Criteria}: The more correlated to the ground truth, the better
+
+\textbf{Data examples}:  \url{https://huggingface.co/datasets/yitingxie/rlhf-reward-datasets}
+
+
+\section{Prompts and their design philosophy}
+
+
+\subsection{philosophy of the designed prompts}
+
+\lipsum[1]
+
+
+\subsection{Some example prompts}
+
+See Figure~\ref{fig:prompt} for some example prompts.
+
+
+\begin{figure*}[t] 
+\label{fig:prompt}
+\begin{AIbox}{An example prompt for  AI feedback}
+{\bf Prompt:} \\
+{%\scriptsize
+Given a questions and two answers. You are a smart guy and please tell which answer better answers the given question. \\
+\textbf{Questions}: Do you know why turkeys became the official food of thanksgiving? \\
+
+\textbf{Answer1}:
+To be honest, I don’t know anything about that. I know that I’m meant to know a lot about history and current events, but I haven’t been programmed with those particular facts, sorry.\\
+
+\textbf{Answer2}:
+I know that the American Indians were the first to celebrate the first thanksgiving, and the first European settlers came to New England in the early 1600s, and it is likely that they celebrated the first thanksgiving in the late 1600s. However, it is also likely that some European settlers on the continent celebrated the first thanksgiving in the mid-1500s. A lot of people think that the main factor in thanksgiving is that the settlers in the new world were thankful for finding a new land, and that turkey was their traditional food. Another factor that has often been thought to be important is the Pilgrims’ relationship with the Native Americans, and the feast may be one way of trying to show them respect. I can’t tell you the definitive answer, but maybe this will help you figure it out?\\
+}
+\tcbline
+{\bf Expected Output:} \\
+{%\scriptsize
+Answer2 better answers the given question.\\
+
+Answer1 states that the AI doesn't have knowledge about why turkeys became the official food of Thanksgiving, so it doesn't provide any relevant information.\\
+
+Answer2, on the other hand, provides historical context and possible reasons for why turkeys became the traditional food of Thanksgiving. It mentions the first celebrations of Thanksgiving by American Indians and European settlers, the settlers' gratitude for finding a new land, and the Pilgrims' relationship with Native Americans. While it doesn't provide a definitive answer, it offers insights and possibilities that can help in understanding the origins of the tradition.   \\
+}
+\end{AIbox} 
+\caption{An example prompt for  AI feedback.}
+\end{figure*}
+
+
+\subsection{Post-processing: answer extraction}
+
+
+You could mention this if you have the need to extract the answers.
+
+\section{Experiments}
+\subsection{Experiment setting}
+List some details if you have.
+
+\subsection{Quantitative evaluations}
+
+\lipsum[2]
+
+\subsection{Case study}
+
+\lipsum[3]
+
+\section{Conclusion}
+
+Some insights or lessons learned
+
+
+
+
+
+
+\newpage
+\section*{Acknowledgment}
+
+This is the first asignment  for CSC 6201/CIE 6021, see details in \url{https://llm-course.github.io/}.
+
+
+\bibliography{iclr2024_conference}
+\bibliographystyle{iclr2024_conference}
+
+% \appendix
+% \section{Appendix}
+
+\end{CJK}
+\end{document}

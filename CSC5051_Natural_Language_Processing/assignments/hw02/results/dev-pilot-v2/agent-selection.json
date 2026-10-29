@@ -1,0 +1,12 @@
+{
+  "method": "agent",
+  "ids": [
+    "alpaca-37964-original",
+    "alpaca-41906-original",
+    "alpaca-46824-original",
+    "alpaca-49259-original"
+  ],
+  "count": 4,
+  "sha256": "86bf6608770ddf182c49416bae51b774c1724fe394630d60c964b83d92f64a57",
+  "status": "Model-selected subset; not independently verified clean data."
+}

@@ -1,0 +1,48 @@
+{
+  "executor": "/root (one-shot diagnostic, not independent assignment verification)",
+  "authorization": "User requested exactly one real hello API connectivity test.",
+  "started_at": "2026-10-28T21:47:56.618603+08:00",
+  "python": "3.14.7",
+  "command": "python3 probe.py <hw02-directory>",
+  "script_sha256": "8202e55a19308309f2912381dd954e7f9a5da4f5a4ab93ec522d2be885606fe2",
+  "endpoint": "https://ark.cn-beijing.volces.com/api/v3/chat/completions",
+  "request": {
+    "model": "ep-20261001200303-j7htx",
+    "messages": [
+      {
+        "role": "user",
+        "content": "hello"
+      }
+    ],
+    "max_tokens": 128,
+    "stream": false
+  },
+  "timeout_seconds": 45,
+  "automatic_retries": 0,
+  "http_attempts": 1,
+  "pricing_checked": false,
+  "cost": null,
+  "http_status": 200,
+  "raw_response_path": "results/raw/api-hello-20261028T214756+0800-90da66f1/response.json",
+  "raw_response_sha256": "67bb3631a5acc28c5f94731b60773b5f02ec60916df70cbe200dddaa0e441873",
+  "response_model": "deepseek-v4-1-flash-260910",
+  "response_id": "021793195284147ecb0d1ecabc2ef46c8096e92eb2855829488e4",
+  "reply": "Hello! 😊 How can I help you today?",
+  "finish_reason": "stop",
+  "usage": {
+    "completion_tokens": 46,
+    "prompt_tokens": 31,
+    "total_tokens": 77,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 34
+    }
+  },
+  "success": true,
+  "status": "received_reply",
+  "elapsed_seconds": 8.923,
+  "exit_code": 0,
+  "evidence_path": "results/api-hello-20261028T214756+0800-90da66f1/result.json"
+}

@@ -1,0 +1,77 @@
+SET
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+DROP TYPE
+CREATE TYPE
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+DROP TABLE
+CREATE TABLE
+COPY 18
+COPY 2
+COPY 41
+COPY 6
+COPY 1
+COPY 8
+COPY 9
+COPY 1
+COPY 36
+COPY 3
+ test |               result                
+------+-------------------------------------
+ q1   | No q1 view; did it load correctly?
+ q2   | No q2 view; did it load correctly?
+ q3   | No q3 view; did it load correctly?
+ q4   | No q4 view; did it load correctly?
+ q5   | No q5 view; did it load correctly?
+ q6   | No q6 view; did it load correctly?
+ q7   | No q7 view; did it load correctly?
+ q8   | No q8 view; did it load correctly?
+ q9   | No q9 view; did it load correctly?
+ q10  | No q10 view; did it load correctly?
+(10 rows)
+
+   code   | count 
+----------+-------
+ BENV6700 |     2
+ LING5024 |     2
+ ARTS3872 |     2
+ COMP4920 |     2
+ SOCW3001 |     2
+(5 rows)
+
+ code | semester | count 
+------+----------+-------
+(0 rows)
+

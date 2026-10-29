@@ -1,0 +1,7 @@
+{
+  "source": "project_release_to_students/MyDATASET.dump",
+  "source_sha256": "15ae92fbf9a40325743a09f174edf21bf79519b992a2f6810f0dad63c300db71",
+  "target": "data/import/MyDATASET.sql",
+  "target_sha256": "64342e00296082e6764ee9ed415f3391bbea026b2eabb083d8d4a04a42d42793",
+  "change": "Omit exactly one COMMENT ON EXTENSION plpgsql statement; no schema/data changes."
+}

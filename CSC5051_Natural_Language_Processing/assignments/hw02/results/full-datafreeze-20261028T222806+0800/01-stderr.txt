@@ -1,0 +1,24 @@
+test_agent_immediate_finish (test_core.CoreTests.test_agent_immediate_finish) ... ok
+test_agent_observation_and_ablation (test_core.CoreTests.test_agent_observation_and_ablation) ... ok
+test_agent_three_call_limit_and_reassess_branch (test_core.CoreTests.test_agent_three_call_limit_and_reassess_branch) ... ok
+test_concurrent_duplicate_request_is_sent_once (test_core.CoreTests.test_concurrent_duplicate_request_is_sent_once) ... ok
+test_concurrent_reservations_respect_ceiling (test_core.CoreTests.test_concurrent_reservations_respect_ceiling) ... ok
+test_env_is_inert_data (test_core.CoreTests.test_env_is_inert_data) ... ok
+test_invalid_budget_before_transport (test_core.CoreTests.test_invalid_budget_before_transport) ... ok
+test_invalid_json_is_not_success_and_still_charged (test_core.CoreTests.test_invalid_json_is_not_success_and_still_charged) ... ok
+test_missing_usage_retains_reservation (test_core.CoreTests.test_missing_usage_retains_reservation) ... ok
+test_model_drift_blocks_followup_calls (test_core.CoreTests.test_model_drift_blocks_followup_calls) ... ok
+test_no_labels_in_prompts_or_tools (test_core.CoreTests.test_no_labels_in_prompts_or_tools) ... ok
+test_redirect_and_opt_in_rejected (test_core.CoreTests.test_redirect_and_opt_in_rejected) ... ok
+test_response_secret_redacted_in_artifacts (test_core.CoreTests.test_response_secret_redacted_in_artifacts) ... ok
+test_runner_resume_and_method_matrix (test_core.CoreTests.test_runner_resume_and_method_matrix) ... ok
+test_schema_and_decision (test_core.CoreTests.test_schema_and_decision) ... ok
+test_success_cache_prevents_duplicate_call (test_core.CoreTests.test_success_cache_prevents_duplicate_call) ... ok
+test_timeout_keeps_reservation_and_refuses_retry (test_core.CoreTests.test_timeout_keeps_reservation_and_refuses_retry) ... ok
+test_truncation_is_not_success_and_still_charged (test_core.CoreTests.test_truncation_is_not_success_and_still_charged) ... ok
+test_usage_excess_freezes_future_reservations (test_core.CoreTests.test_usage_excess_freezes_future_reservations) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.036s
+
+OK

@@ -1,0 +1,118 @@
+\documentclass{article}
+\usepackage{iclr2024_conference,times}
+\usepackage{booktabs,graphicx,amsmath,hyperref,url}
+\usepackage{listings,xcolor,tikz,pgfplots}
+\usetikzlibrary{arrows.meta,positioning}
+\pgfplotsset{compat=1.18}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\lstset{basicstyle=\ttfamily\scriptsize,breaklines=true,columns=fullflexible,frame=single,showstringspaces=false}
+\iclrfinalcopy
+\title{Prompting a Data Quality Judge:\\Three Techniques and an Inspection Agent}
+\author{CSC5051 Natural Language Processing\\Assignment 2 -- Task 3}
+\begin{document}
+\maketitle
+\lhead{CSC5051 Assignment 2: Prompt Engineering \& Agents}
+\begin{abstract}
+This project treats instruction-tuning data selection as a four-criterion judgment with a conservative keep/review/reject policy. It compares zero-shot, two-example few-shot, and zero-shot stepwise prompting with a bounded inspection agent and a no-feedback ablation. All five conditions use the same 64 held-out records: 32 unaltered GPT-4 Alpaca examples and 32 explicitly constructed defects. The experiment measures defect rejection, original retention, paired discrimination, schema reliability, latency, and token cost. Unaltered records have no human quality labels; consequently, retention is not accuracy and a selected subset is not independently certified clean data. The study tests prompt and workflow behavior, not downstream training gains.
+\end{abstract}
+
+\section{Task, data, and quality policy}
+\paragraph{Problem.} Task 3 asks for a quality evaluator that turns instruction-tuning data $D$ into a selected subset $D'$. An LLM can interpret semantic constraints that simple format filters miss, but its judgments can be inconsistent or unsupported. For each triple $x=(\text{instruction},\text{input},\text{output})$, the evaluator returns four scores and a brief reason. The deliverable implements $D'_m=\{x\in D: d_m(x)=\mathrm{keep}\}$ for each method $m$. Records assigned review are withheld for later adjudication. No training or parameter updates are performed.
+
+\paragraph{Source and split.} The original English GPT-4 Alpaca file contains 52,002 triples \citep{peng2023}. We pin commit \texttt{38b93b75a80b019cc3aad362ca6f5bb0c3908959} and verify its SHA-256 before sampling. To bound API use, eligible records have instruction length 20--400 characters, input at most 600, output 60--800, combined length at most 1,400, and at least 95\% ASCII characters. Instructions containing repeat/repetition/echo/copy/nothing/blank/empty/silence are excluded. After deduplicating instruction--input pairs, 25,117 eligible records remain. Seed 20261028 selects 40 bases: eight for development and 32 for test. Length and language filters limit representativeness. The data are used for noncommercial coursework under CC BY-NC 4.0.
+
+\paragraph{Controlled diagnostics.} Each base is paired with one synthetic defect: an empty output; an unrelated donor response with no overlap in filtered content words; the instruction/input echoed as the response; or the original response repeated four times. Each defect has eight test examples. Donors exclude the selected 40 bases. The resulting test has 64 rows, with labels and source identifiers hidden from prompts and tools. A four-pair development subset (eight rows) is used for the pilot. Unaltered examples are \emph{not} labeled good. Defect labels are operational constructions, not human annotations of naturally occurring errors; lexical separation does not itself prove semantic unrelatedness.
+
+\paragraph{Rubric and decision.} The four dimensions are instruction following, correctness, relevance/completeness, and clarity. These capture compliance, trustworthiness, usefulness, and readability; they are project choices rather than a teacher-prescribed rubric. Scores are 0 (fails), 1 (partially meets), 2 (meets), or null (cannot assess). The shared deterministic policy is
+\[
+d(x)=\begin{cases}
+\mathrm{reject},& \exists j:s_j=0,\\
+\mathrm{keep},& \forall j:s_j=2,\\
+\mathrm{review},& \text{otherwise, including unresolved nulls.}
+\end{cases}
+\]
+Thus a minor defect scored 1 is reviewed rather than rejected, and unverifiable claims need not be guessed. Empty optional input is not itself an error. Strict parsing requires exactly the score keys, a lowercase decision consistent with the scores, and a nonempty reason. Invalid responses remain failures; they are never converted into favorable decisions.
+
+\section{Prompts and the inspection agent}
+All conditions share the rubric, strict JSON contract, and a system instruction to treat record contents as untrusted data. Only the three text fields reach the model. Exact templates are in the code supplement; Appendix~\ref{sec:examples} gives concrete examples and the common contract.
+
+\paragraph{Zero-shot.} A direct request asks the model to evaluate the triple against the rubric without demonstrations. This is a short, low-complexity baseline.
+\paragraph{Few-shot.} Two hand-authored addition examples illustrate a keep case ($2+3=5$) and a reject case ($2+3=7$), with scores and reasons. They are independent of all sampled records. In-context demonstrations aim to calibrate format and score meaning \citep{brown2020}; their narrow arithmetic domain is a limitation, and no demonstration covers review or null.
+\paragraph{Stepwise / zero-shot CoT.} The prompt asks the model to identify task constraints, assess each criterion, check contradictions and unsupported claims, then apply the decision rule. This is a zero-shot stepwise adaptation \citep{kojima2022}, not a reproduction of rationale-demonstration CoT \citep{wei2022}. Only a concise justification is collected. Provider thinking is disabled in every condition; a stepwise instruction does not establish what internal reasoning the model actually performed.
+
+\paragraph{Bounded agent.} The ReAct-inspired workflow \citep{yao2023} selects \texttt{finish}, \texttt{inspect}, or \texttt{reassess}, with at most three model calls. The final development prompt requires inspection for empty output, output exceeding 120 words (or uncertain near-threshold length), or apparent sentence/paragraph repetition. Other records may finish immediately or reassess. The model selects the action from the record; Python executes it and returns feedback. Inspection reports empty fields, character counts, word count, unique-word ratio, and the maximum word repetition count. It cannot verify facts or supply labels. After inspection, the model consumes the observation and finishes or reassesses; it is instructed not to inspect twice. Reassessment supplies no new evidence. Failure to finish within the call limit is invalid. This combines conditional tool use with a bounded loop, rather than giving every record an identical sequence of calls.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[node distance=9mm, every node/.style={font=\small}, box/.style={draw,rounded corners,align=center,inner sep=5pt}, >=Stealth]
+\node[box] (record) {Record + rubric};
+\node[box,right=of record] (judge) {LLM selects action};
+\node[box,right=of judge] (finish) {finish: validate\\scores and decision};
+\node[box,below=of judge] (tool) {inspect: structural tool\\or reassess: no new evidence};
+\draw[->] (record)--(judge);
+\draw[->] (judge)--(finish);
+\draw[->] (judge.south east)--(tool.north east);
+\draw[->] (tool.north west)--node[left,font=\scriptsize]{feedback}(judge.south west);
+\end{tikzpicture}
+\caption{The bounded agent loop. A separate no-feedback condition replaces inspection observations with a withholding message; all other prompt and call-limit settings match.}
+\end{figure}
+
+\paragraph{Development decisions.} The first pilot produced 37 valid judgments out of 40: three CoT decisions used uppercase \texttt{Reject}. All 16 agent/ablation judgments finished without tools. We clarified the lowercase enum in the common contract and introduced the conditional inspection policy above. The second pilot produced 40/40 valid judgments, including two inspection branches in each agent condition. Both pilot versions and failures are retained. No held-out results were used to refine prompts; the final prompts and configuration were frozen before the test run.
+
+\section{Experiment and results}
+\paragraph{Controlled settings.} Actual inference used Volcengine Ark, returning \texttt{deepseek-v4-1-flash-260910}, on 28 October 2026. All conditions used temperature 0, \texttt{reasoning\_effort=none}, a 768-token completion cap, and the same record order. Three worker threads processed the five-method matrix; baselines use one call, agents up to three. Temperature 0 does not guarantee remote determinism. There is one held-out run per condition; timing includes network/provider variation and is not a controlled systems benchmark.
+
+\paragraph{Metrics and denominators.} Original retention is keep/32; diagnostic rejection is reject/32; paired discrimination counts the 32 bases for which the original is kept \emph{and} its defect rejected. Review counts and all invalid/error outcomes remain visible. A reviewed defect is excluded from $D'$ but is not a successful rejection. These measures deliberately avoid treating originals as gold positives. Latency sums request times per record; it is not total experiment wall time. Costs use a conservative peak list rate of CNY 2/M input and 8/M output tokens, ignoring off-peak/cache discounts \citep{arkprice}.
+
+\input{results.tex}
+
+\section{Cases, interpretation, and limits}
+\input{cases.tex}
+
+\paragraph{What the experiment can establish.} This is a small paired diagnostic study with eight examples per defect family. Labels cover obvious injected defects, not subtle factual errors or a representative natural-quality distribution. The same judge may share biases across prompts \citep{zheng2023}; no human adjudication, second model, repeated stochastic trials, or downstream training evaluation was performed. The tool measures surface structure, so its use cannot establish correctness. The ablation compares full workflows under a shared policy; differing action choices and unmeasured API variation prevent a strong causal claim about a particular observation. Reported differences are descriptive, with no significance claim. Post-hoc threshold analysis changes only the selection policy, not the model predictions.
+
+\paragraph{Operational recommendation.} The strict policy provides a reproducible candidate subset and diverts uncertain records to review. Choose a method by the measured retention/rejection tradeoff and cost, rather than assuming additional reasoning or tools are better. Before using $D'$ for training, add independent human factual and instruction-compliance checks, broaden natural error coverage, and evaluate downstream behavior. The included subsets are explicitly labeled \emph{model-selected}, not verified-clean.
+
+\section{Reproducibility and implementation}
+The core uses Python standard-library HTTPS, JSON, file locks, and a thread pool on Linux (tested with Python 3.14.7). Request journals record exact prompts, raw provider outputs, model/usage/timing, and source/config/data fingerprints. A locked append-only ledger reserves conservative input/output bounds before dispatch and retains uncertain charges. Requests have no automatic retries; successful cached responses support resume, while failed/uncertain requests cannot silently be sent again. The original dataset and raw model records stay local. The supplement contains code, prompts, config, compact results, and retrieval/preparation instructions; it excludes credentials and datasets. The supplied report layout derives from the teacher-linked Overleaf source, with assignment headers and content updated.
+
+\paragraph{API code.} The following is a shortened rendering of \texttt{src/client.py}; the real implementation adds locked accounting, redaction, timeout/error handling, and journaling. The key is loaded locally from an ignored \texttt{.env} file.
+\begin{lstlisting}[language=Python]
+payload = {"model": configured_model, "messages": messages,
+           "temperature": 0, "reasoning_effort": "none",
+           "max_completion_tokens": 768}
+request = urllib.request.Request(base_url + "/chat/completions",
+    data=json.dumps(payload).encode(), method="POST",
+    headers={"Authorization": "Bearer " + api_key,
+             "Content-Type": "application/json"})
+# opener rejects redirects; each request is reserved and journaled first
+with opener.open(request, timeout=120) as response:
+    raw = json.loads(response.read())
+\end{lstlisting}
+
+\paragraph{Assistance disclosure.} AI agents assisted with implementation, experiments, analysis, and writing. Separate agents performed implementation verification and package review; these are software/evidence checks, not human gold labeling or instructor approval. The author workflow retains failed pilot outputs and independent role records. The user remains responsible for reviewing the work and uploading it to Blackboard.
+
+{\small\setlength{\bibsep}{3pt}
+\bibliographystyle{iclr2024_conference}
+\bibliography{references}}
+
+\appendix
+\section{Concrete prompt examples}\label{sec:examples}
+\paragraph{Common contract.} Every baseline returns only one JSON object with exactly \texttt{scores}, \texttt{decision}, and \texttt{reason}. Scores contain exactly \texttt{instruction\_following}, \texttt{correctness}, \texttt{relevance\_completeness}, and \texttt{clarity}, each 0/1/2/null. The decision is exactly lowercase \texttt{keep}, \texttt{review}, or \texttt{reject}, consistent with the policy. No Markdown fences, extra keys, or unsupported verification claims are permitted. The shared system message says the record is untrusted data and denies access to external facts or private evaluation labels.
+
+\paragraph{Zero-shot modifier (verbatim).}
+\begin{quote}\small
+Evaluate an instruction-tuning record for data quality. Apply the supplied rubric directly. Return the specified JSON assessment and a concise reason for the decision.
+\end{quote}
+\paragraph{Few-shot demonstrations.} Both examples use instruction ``Add the two integers. Respond with the number only.'' and input ``2, 3''. For output ``5'', all scores are 2 and the decision is keep. For output ``7'', correctness is 0 and the other dimensions are 2, yielding reject. They are explicitly marked illustrative hand-authored demonstrations, not measured outcomes. The evaluated triple follows these demonstrations and the common rubric/contract.
+
+\paragraph{Stepwise modifier (verbatim).}
+\begin{quote}\small
+Evaluate an instruction-tuning record step by step before choosing a quality decision:\\
+1. Identify the instruction, its constraints, and the input context.\\
+2. Assess each rubric dimension separately against the response.\\
+3. Check for contradictions and unsupported claims; mark unresolved assessments as null.\\
+4. Apply the common decision rule. Return only the specified JSON with a concise justification summarizing the decisive evidence.
+\end{quote}
+\paragraph{Agent actions.} Inspect and reassess emit exactly \texttt{action} and \texttt{reason}; finish emits \texttt{action} and a nested \texttt{assessment} obeying the same four-score contract. Python returns the inspection observation or a withholding message and supplies the remaining call count. The full agent prompt in \texttt{prompts/agent.txt} includes valid JSON examples of all three actions; rendered request journals preserve the exact wording for each call.
+\end{document}

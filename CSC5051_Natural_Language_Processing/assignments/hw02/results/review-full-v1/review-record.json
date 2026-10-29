@@ -1,0 +1,541 @@
+{
+  "executor": "/root/reviewer",
+  "date": "2026-10-28",
+  "package_hashes": {
+    "submission/CSC5051_HW02_Task3_Report.pdf": {
+      "sha256": "220a8e31984d9f4ebe7e63982444e33b657829c42cf92513bbe09fdca75741dc",
+      "bytes": 182953
+    },
+    "submission/CSC5051_HW02_Task3_Code.zip": {
+      "sha256": "bbf2ef1ce1097a405723d24fcc2d8a909cf05d2cc5890da653893bdafa708cd6",
+      "bytes": 85204
+    }
+  },
+  "archive_members": [
+    "hw02-task3/.env.example",
+    "hw02-task3/.gitignore",
+    "hw02-task3/README.md",
+    "hw02-task3/config/experiment.json",
+    "hw02-task3/prompts/agent.txt",
+    "hw02-task3/prompts/chain_of_thought.txt",
+    "hw02-task3/prompts/few_shot.txt",
+    "hw02-task3/prompts/zero_shot.txt",
+    "hw02-task3/report/latex/cases.tex",
+    "hw02-task3/report/latex/fancyhdr.sty",
+    "hw02-task3/report/latex/iclr2024_conference.bst",
+    "hw02-task3/report/latex/iclr2024_conference.sty",
+    "hw02-task3/report/latex/main.tex",
+    "hw02-task3/report/latex/natbib.sty",
+    "hw02-task3/report/latex/references.bib",
+    "hw02-task3/report/latex/results.tex",
+    "hw02-task3/results/dev-pilot-v1/execution.json",
+    "hw02-task3/results/dev-pilot-v1/summary.json",
+    "hw02-task3/results/dev-pilot-v2/execution.json",
+    "hw02-task3/results/dev-pilot-v2/summary.json",
+    "hw02-task3/results/test-v1/agent-selection.json",
+    "hw02-task3/results/test-v1/agent_no_feedback-selection.json",
+    "hw02-task3/results/test-v1/chain_of_thought-selection.json",
+    "hw02-task3/results/test-v1/execution.json",
+    "hw02-task3/results/test-v1/few_shot-selection.json",
+    "hw02-task3/results/test-v1/summary.json",
+    "hw02-task3/results/test-v1/zero_shot-selection.json",
+    "hw02-task3/src/agent.py",
+    "hw02-task3/src/analyze.py",
+    "hw02-task3/src/budget.py",
+    "hw02-task3/src/client.py",
+    "hw02-task3/src/core.py",
+    "hw02-task3/src/main.py",
+    "hw02-task3/src/prepare_data.py",
+    "hw02-task3/src/prompting.py",
+    "hw02-task3/src/render_results.py",
+    "hw02-task3/src/runner.py",
+    "hw02-task3/tests/offline_smoke.py",
+    "hw02-task3/tests/test_core.py",
+    "hw02-task3/MANIFEST.json"
+  ],
+  "archive_member_hashes": {
+    ".env.example": {
+      "sha256": "1987c680f93e209fa6af8734baca3f054a5a7b6a7f46664522c5e5b72b059ba2",
+      "bytes": 346
+    },
+    ".gitignore": {
+      "sha256": "0e1b5a47f3507bc307e70210485ba0e0c6ef78abee02755ad543a6e23b31dcd4",
+      "bytes": 214
+    },
+    "README.md": {
+      "sha256": "b12e98f72c2d3be6c75d7ce5da57c561088cdc8fa54978407af0cb2ae17c984f",
+      "bytes": 6504
+    },
+    "config/experiment.json": {
+      "sha256": "1900ee78130d2edf3d0636e04264e3b3e2f1f4f19de505d1cb6ed314094aad08",
+      "bytes": 4132
+    },
+    "prompts/agent.txt": {
+      "sha256": "f5948f8db9385124eaa0463d5230832150dda7c99699504ddcf8850184d5400f",
+      "bytes": 2240
+    },
+    "prompts/chain_of_thought.txt": {
+      "sha256": "36ffa5066d070f88166dc67b9aec24752ade196304b1cc3fd9a54f59742825b0",
+      "bytes": 575
+    },
+    "prompts/few_shot.txt": {
+      "sha256": "b07d03e8b90fbdff91e362abaded1876cabdfe9dd532c0e43524c6a5152c6f34",
+      "bytes": 1083
+    },
+    "prompts/zero_shot.txt": {
+      "sha256": "56df0fbe39453980df0a31ae98ccf73cbe9b6ad1f85cfa9178efed9a516c5402",
+      "bytes": 303
+    },
+    "report/latex/cases.tex": {
+      "sha256": "6680776709bb1213c84136d8510b1a577e61833ac11edef5195cd3e877ce5517",
+      "bytes": 1863
+    },
+    "report/latex/fancyhdr.sty": {
+      "sha256": "b56ec4434b9f4607529a4b23dc68ad8d4b94f1f631c8cddaf7da78140d53a5ea",
+      "bytes": 20521
+    },
+    "report/latex/iclr2024_conference.bst": {
+      "sha256": "2d67552db7ed38ccfccb5957b52f95656e25c249724761d3cf5f7922ad1844c5",
+      "bytes": 26973
+    },
+    "report/latex/iclr2024_conference.sty": {
+      "sha256": "b7b0e4e892bab298a146c8ab06d1dcb228696ba044f9f02aabcf042c87604dc9",
+      "bytes": 9134
+    },
+    "report/latex/main.tex": {
+      "sha256": "92928217592603383fbe09c79189fa91508f5fd94eb8758c7572f12056c68355",
+      "bytes": 15512
+    },
+    "report/latex/natbib.sty": {
+      "sha256": "88bc70c0e48461934cab5b2accef06b74a8b3ac45ad03ccd3f2a6b7e0d6d530d",
+      "bytes": 45154
+    },
+    "report/latex/references.bib": {
+      "sha256": "8ba251d41b9a6f9ce099e327dc5e7848288cc11c96957aba22fd1d89d490dffe",
+      "bytes": 1828
+    },
+    "report/latex/results.tex": {
+      "sha256": "8a064e23b0ebbad70ad87b553efab96611102db611212d642c7243ca6836a9d7",
+      "bytes": 5854
+    },
+    "results/dev-pilot-v1/execution.json": {
+      "sha256": "05b15ce207a1c3a3533e584b1bf3f9c26ec0271c68d965d9bdbfb7b2786be6a3",
+      "bytes": 1303
+    },
+    "results/dev-pilot-v1/summary.json": {
+      "sha256": "c2dd1596b3485199861df730e8ce2979bb9b3e65b42d873da8b71d8debb6ac9a",
+      "bytes": 9649
+    },
+    "results/dev-pilot-v2/execution.json": {
+      "sha256": "3c3092f45f8d5277e32bd9b3221c2f72d697dcfdddd11776f2b0f4abd4819a92",
+      "bytes": 1122
+    },
+    "results/dev-pilot-v2/summary.json": {
+      "sha256": "b8510ef84e3ee6273548b6538800d1e5953355b447e455ec63fa7766e7df9d4d",
+      "bytes": 9650
+    },
+    "results/test-v1/agent-selection.json": {
+      "sha256": "0eb977eb442a008ea8a3c4e3ae5a8aa5f35a88c0f66edf4c31a1483a0b1f490e",
+      "bytes": 994
+    },
+    "results/test-v1/agent_no_feedback-selection.json": {
+      "sha256": "d84f443d7563954da6351a8617c7ce23e6aa803a29ca21639ffcc2a031bc6362",
+      "bytes": 1006
+    },
+    "results/test-v1/chain_of_thought-selection.json": {
+      "sha256": "344b5dc0b7dd5d39a4ebd02cd8230163a9b9f01e3e291f4989ccda98968c4e49",
+      "bytes": 947
+    },
+    "results/test-v1/execution.json": {
+      "sha256": "fb46b2285d38a5a5780bc0ad6a8de493b79be50b7416d9ef488435ef3e543a42",
+      "bytes": 1347
+    },
+    "results/test-v1/few_shot-selection.json": {
+      "sha256": "fece018eb32290d1bf5704ef0b01552f684f7eff93abebda5820d4f4483777b3",
+      "bytes": 997
+    },
+    "results/test-v1/summary.json": {
+      "sha256": "04fa4a29eb8377d140a67d670df51e22d2c3ede65e9cfed2b56b188d5c31d281",
+      "bytes": 10083
+    },
+    "results/test-v1/zero_shot-selection.json": {
+      "sha256": "d3f8bcab112cf7e575c980c4604a26f6443adc56ae390225cf6c4b8965108409",
+      "bytes": 940
+    },
+    "src/agent.py": {
+      "sha256": "1006feeb05f99e12814d2bdbe1c814219a707791d8d677ea8fa393837499adbb",
+      "bytes": 3270
+    },
+    "src/analyze.py": {
+      "sha256": "9dcf9fb4b2f70091dc73107b46806bdbc3b9f8d2d4000daee2c597126a5b6ad8",
+      "bytes": 7623
+    },
+    "src/budget.py": {
+      "sha256": "1d06d3f9d4aa9b06ec9bd95581b97c64231dbd768856447f5456e45fd1e6b53f",
+      "bytes": 5133
+    },
+    "src/client.py": {
+      "sha256": "b010667ee49f424b616a615e61213450343dd4b77eb86cee11edf4d89f3b7401",
+      "bytes": 7809
+    },
+    "src/core.py": {
+      "sha256": "e10e9e29cb8de4386ea70576482e37562365f91e8b136fd524a878e733bb4109",
+      "bytes": 6805
+    },
+    "src/main.py": {
+      "sha256": "dfcb17811a6a2a1408ca3ff2804b57724d5c603b82f95e2dcc68ec1788dc4cbd",
+      "bytes": 3354
+    },
+    "src/prepare_data.py": {
+      "sha256": "1a9ef67f0394b4eb1a8a5217635cad9b79503539186fbde5f09d9f0f963492d0",
+      "bytes": 5652
+    },
+    "src/prompting.py": {
+      "sha256": "331d10e2511a557ffea276c8e08cc839f122816834003b53d9bb2d2df8cd3ff0",
+      "bytes": 1864
+    },
+    "src/render_results.py": {
+      "sha256": "90be3efa5626a9ce7e86a071432ee4bae11ac91bf0df20ec18cd60a8918db2c6",
+      "bytes": 6736
+    },
+    "src/runner.py": {
+      "sha256": "80e3318546e72437881c2f00ff606330f9c0a5626f6a9e53d0c7223ca2cbf136",
+      "bytes": 7273
+    },
+    "tests/offline_smoke.py": {
+      "sha256": "26918930c3a5984843454c3c74c556c001fb6c558d2b972958dffb077b80a894",
+      "bytes": 375
+    },
+    "tests/test_core.py": {
+      "sha256": "3f1247fc64a17b24bdfe1f61b2decfb41f062e72c252ecd28b59fc826116d9ac",
+      "bytes": 13792
+    }
+  },
+  "commands": {
+    "results": [
+      {
+        "args": [
+          "python3",
+          "-B",
+          "tests/offline_smoke.py"
+        ],
+        "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3",
+        "exit": 0,
+        "expected": 0,
+        "stdout": "00-stdout.txt",
+        "stderr": "00-stderr.txt"
+      },
+      {
+        "args": [
+          "python3",
+          "-B",
+          "src/main.py",
+          "check"
+        ],
+        "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3",
+        "exit": 0,
+        "expected": 0,
+        "stdout": "01-stdout.txt",
+        "stderr": "01-stderr.txt"
+      },
+      {
+        "args": [
+          "python3",
+          "-B",
+          "src/main.py",
+          "preview",
+          "--method",
+          "zero_shot"
+        ],
+        "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3",
+        "exit": 0,
+        "expected": 0,
+        "stdout": "02-stdout.txt",
+        "stderr": "02-stderr.txt"
+      },
+      {
+        "args": [
+          "python3",
+          "-B",
+          "src/main.py",
+          "preview",
+          "--method",
+          "few_shot"
+        ],
+        "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3",
+        "exit": 0,
+        "expected": 0,
+        "stdout": "03-stdout.txt",
+        "stderr": "03-stderr.txt"
+      },
+      {
+        "args": [
+          "python3",
+          "-B",
+          "src/main.py",
+          "preview",
+          "--method",
+          "chain_of_thought"
+        ],
+        "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3",
+        "exit": 0,
+        "expected": 0,
+        "stdout": "04-stdout.txt",
+        "stderr": "04-stderr.txt"
+      },
+      {
+        "args": [
+          "python3",
+          "-B",
+          "src/main.py",
+          "preview",
+          "--method",
+          "agent"
+        ],
+        "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3",
+        "exit": 0,
+        "expected": 0,
+        "stdout": "05-stdout.txt",
+        "stderr": "05-stderr.txt"
+      },
+      {
+        "args": [
+          "python3",
+          "-B",
+          "src/main.py",
+          "preview",
+          "--method",
+          "agent_no_feedback"
+        ],
+        "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3",
+        "exit": 0,
+        "expected": 0,
+        "stdout": "06-stdout.txt",
+        "stderr": "06-stderr.txt"
+      },
+      {
+        "args": [
+          "python3",
+          "-B",
+          "src/main.py",
+          "run",
+          "--dataset",
+          "not-read",
+          "--output",
+          "not-created"
+        ],
+        "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3",
+        "exit": 2,
+        "expected": 2,
+        "stdout": "07-stdout.txt",
+        "stderr": "07-stderr.txt"
+      },
+      {
+        "args": [
+          "python3",
+          "-B",
+          "src/prepare_data.py",
+          "--source",
+          "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/data/raw/alpaca_gpt4_data.json",
+          "--output",
+          "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3/data/processed"
+        ],
+        "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3",
+        "exit": 0,
+        "expected": 0,
+        "stdout": "08-stdout.txt",
+        "stderr": "08-stderr.txt"
+      },
+      {
+        "args": [
+          "python3",
+          "-B",
+          "src/analyze.py",
+          "--dataset",
+          "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/data/processed/test.jsonl",
+          "--run",
+          "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/runs/test-v1",
+          "--output",
+          "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3/local_artifacts/reanalyzed",
+          "--cleaned-output",
+          "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3/data/selected/test-v1"
+        ],
+        "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3",
+        "exit": 0,
+        "expected": 0,
+        "stdout": "09-stdout.txt",
+        "stderr": "09-stderr.txt"
+      },
+      {
+        "args": [
+          "python3",
+          "-B",
+          "src/render_results.py"
+        ],
+        "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3",
+        "exit": 0,
+        "expected": 0,
+        "stdout": "10-stdout.txt",
+        "stderr": "10-stderr.txt"
+      },
+      {
+        "args": [
+          "pdflatex",
+          "-interaction=nonstopmode",
+          "-halt-on-error",
+          "main.tex"
+        ],
+        "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3/report/latex",
+        "exit": 0,
+        "expected": 0,
+        "stdout": "11-stdout.txt",
+        "stderr": "11-stderr.txt"
+      },
+      {
+        "args": [
+          "bibtex",
+          "main"
+        ],
+        "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3/report/latex",
+        "exit": 0,
+        "expected": 0,
+        "stdout": "12-stdout.txt",
+        "stderr": "12-stderr.txt"
+      },
+      {
+        "args": [
+          "pdflatex",
+          "-interaction=nonstopmode",
+          "-halt-on-error",
+          "main.tex"
+        ],
+        "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3/report/latex",
+        "exit": 0,
+        "expected": 0,
+        "stdout": "13-stdout.txt",
+        "stderr": "13-stderr.txt"
+      },
+      {
+        "args": [
+          "pdflatex",
+          "-interaction=nonstopmode",
+          "-halt-on-error",
+          "main.tex"
+        ],
+        "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/review-full-v1/unpacked/hw02-task3/report/latex",
+        "exit": 0,
+        "expected": 0,
+        "stdout": "14-stdout.txt",
+        "stderr": "14-stderr.txt"
+      }
+    ],
+    "checks": {
+      "all_commands_pass": true,
+      "summary_identical": true,
+      "generated_tables_identical": true,
+      "splits_identical": true,
+      "selected_identical": true
+    }
+  },
+  "audit": {
+    "source_matches_package": true,
+    "supplement_readme_match": true,
+    "style_match": {
+      "fancyhdr.sty": true,
+      "natbib.sty": true,
+      "iclr2024_conference.bst": true,
+      "iclr2024_conference.sty": true
+    },
+    "teacher_archive_sha256": "44f988836ade08d4593780f4b99a46c55e93690e0ae3402d8f2e1aa2b02e48a0",
+    "secret_patterns": [],
+    "unwanted_members": [],
+    "rebuilt_pdf_text_matches": true,
+    "final_packages_unchanged": {
+      "submission/CSC5051_HW02_Task3_Report.pdf": true,
+      "submission/CSC5051_HW02_Task3_Code.zip": true
+    }
+  },
+  "independent_counts": {
+    "zero_shot": {
+      "original": {
+        "keep": 25,
+        "review": 5,
+        "reject": 2
+      },
+      "diagnostic": {
+        "reject": 27,
+        "review": 5
+      },
+      "calls": 64,
+      "cost_micro_cny": 111110
+    },
+    "few_shot": {
+      "original": {
+        "keep": 27,
+        "review": 4,
+        "reject": 1
+      },
+      "diagnostic": {
+        "reject": 25,
+        "review": 7
+      },
+      "calls": 64,
+      "cost_micro_cny": 130142
+    },
+    "chain_of_thought": {
+      "original": {
+        "keep": 25,
+        "review": 5,
+        "reject": 2
+      },
+      "diagnostic": {
+        "reject": 25,
+        "review": 7
+      },
+      "calls": 64,
+      "cost_micro_cny": 118662
+    },
+    "agent": {
+      "original": {
+        "keep": 27,
+        "review": 4,
+        "reject": 1
+      },
+      "diagnostic": {
+        "reject": 27,
+        "review": 4,
+        "failed": 1
+      },
+      "calls": 82,
+      "cost_micro_cny": 209812
+    },
+    "agent_no_feedback": {
+      "original": {
+        "keep": 27,
+        "review": 4,
+        "reject": 1
+      },
+      "diagnostic": {
+        "reject": 27,
+        "review": 4,
+        "failed": 1
+      },
+      "calls": 81,
+      "cost_micro_cny": 204680
+    }
+  },
+  "viewed_pdf_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "raw_cases_checked": [
+    39766,
+    49960
+  ],
+  "technical_verifier_hashes_current": true,
+  "scope": "Exact final PDF and supplemental ZIP; offline local reproduction, no API calls, no real .env read."
+}

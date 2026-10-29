@@ -1,0 +1,139 @@
+{
+  "executor": "/root/verifier",
+  "time": "2026-10-28T14:45:31.682606+00:00",
+  "python": "3.14.7 | packaged by Anaconda, Inc. | (main, Aug 14 2026, 10:21:40) [GCC 14.3.0]",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "fingerprint": "94c3955aea076ccdeccad0a6dae0caae85118d43872c9c2919e909bc68dc0f99",
+  "prediction_sha256": "6ed539add527c61eddf7f79d9f797c841115db982dd8fb884b24da459376127e",
+  "input_hashes": {
+    "config/experiment.json": "1900ee78130d2edf3d0636e04264e3b3e2f1f4f19de505d1cb6ed314094aad08",
+    "prompts/agent.txt": "f5948f8db9385124eaa0463d5230832150dda7c99699504ddcf8850184d5400f",
+    "prompts/chain_of_thought.txt": "36ffa5066d070f88166dc67b9aec24752ade196304b1cc3fd9a54f59742825b0",
+    "prompts/few_shot.txt": "b07d03e8b90fbdff91e362abaded1876cabdfe9dd532c0e43524c6a5152c6f34",
+    "prompts/zero_shot.txt": "56df0fbe39453980df0a31ae98ccf73cbe9b6ad1f85cfa9178efed9a516c5402",
+    "src/agent.py": "1006feeb05f99e12814d2bdbe1c814219a707791d8d677ea8fa393837499adbb",
+    "src/analyze.py": "9dcf9fb4b2f70091dc73107b46806bdbc3b9f8d2d4000daee2c597126a5b6ad8",
+    "src/budget.py": "1d06d3f9d4aa9b06ec9bd95581b97c64231dbd768856447f5456e45fd1e6b53f",
+    "src/client.py": "b010667ee49f424b616a615e61213450343dd4b77eb86cee11edf4d89f3b7401",
+    "src/core.py": "e10e9e29cb8de4386ea70576482e37562365f91e8b136fd524a878e733bb4109",
+    "src/main.py": "dfcb17811a6a2a1408ca3ff2804b57724d5c603b82f95e2dcc68ec1788dc4cbd",
+    "src/prepare_data.py": "1a9ef67f0394b4eb1a8a5217635cad9b79503539186fbde5f09d9f0f963492d0",
+    "src/prompting.py": "331d10e2511a557ffea276c8e08cc839f122816834003b53d9bb2d2df8cd3ff0",
+    "src/runner.py": "80e3318546e72437881c2f00ff606330f9c0a5626f6a9e53d0c7223ca2cbf136",
+    "tests/test_core.py": "3f1247fc64a17b24bdfe1f61b2decfb41f062e72c252ecd28b59fc826116d9ac"
+  },
+  "runs": {
+    "dev-pilot-v1": {
+      "predictions": 40,
+      "status": {
+        "success": 37,
+        "invalid": 3
+      },
+      "calls": 40,
+      "cost_micro_cny": 77926
+    },
+    "dev-pilot-v2": {
+      "predictions": 40,
+      "status": {
+        "success": 40
+      },
+      "calls": 44,
+      "cost_micro_cny": 95544
+    },
+    "test-v1": {
+      "predictions": 320,
+      "status": {
+        "success": 318,
+        "invalid": 2
+      },
+      "calls": 355,
+      "cost_micro_cny": 774406
+    }
+  },
+  "global_journals": 439,
+  "global_ledger_micro_cny": 948306,
+  "global_highest_spent_plus_reservations_micro_cny": 986238,
+  "ledger_sha256": "f7755e4d3684d4edcb6d4bab10216be9a9433a393ec26e7a36b35110af6ad998",
+  "final_matrix_rows": 320,
+  "replayed_predictions": 320,
+  "independent_statistics_match": true,
+  "analysis_bytes_match": true,
+  "selected_dataset_bytes_match": true,
+  "analysis_command": [
+    "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/verification-20261028/venv/bin/python",
+    "-B",
+    "src/analyze.py",
+    "--dataset",
+    "data/processed/test.jsonl",
+    "--run",
+    "local_artifacts/runs/test-v1",
+    "--output",
+    "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/results/verification-full-20261028/reproduced-test-analysis",
+    "--cleaned-output",
+    "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/verification-20261028/selected-test-v1"
+  ],
+  "analysis_exit": 0,
+  "fresh_test_commands": [
+    {
+      "command": [
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/verification-20261028/venv/bin/python",
+        "-B",
+        "tests/offline_smoke.py"
+      ],
+      "exit": 0
+    },
+    {
+      "command": [
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/local_artifacts/verification-20261028/venv/bin/python",
+        "-B",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02/results/verification-full-20261028/independent_tests.py"
+      ],
+      "exit": 0
+    }
+  ],
+  "missed_prompt_inspection_triggers": {
+    "agent": [
+      {
+        "id": "alpaca-46458-diagnostic",
+        "word_count": 131
+      },
+      {
+        "id": "alpaca-00459-original",
+        "word_count": 124
+      },
+      {
+        "id": "alpaca-05599-original",
+        "word_count": 123
+      }
+    ],
+    "agent_no_feedback": [
+      {
+        "id": "alpaca-46458-diagnostic",
+        "word_count": 131
+      },
+      {
+        "id": "alpaca-00459-original",
+        "word_count": 124
+      },
+      {
+        "id": "alpaca-05599-original",
+        "word_count": 123
+      }
+    ]
+  },
+  "invalid_predictions": [
+    {
+      "id": "alpaca-41377-diagnostic",
+      "method": "agent_no_feedback",
+      "calls": 2,
+      "status": "invalid"
+    },
+    {
+      "id": "alpaca-39784-diagnostic",
+      "method": "agent",
+      "calls": 2,
+      "status": "invalid"
+    }
+  ],
+  "scope": "Offline exact-result reconciliation, not independent live model repetition or human quality validation"
+}

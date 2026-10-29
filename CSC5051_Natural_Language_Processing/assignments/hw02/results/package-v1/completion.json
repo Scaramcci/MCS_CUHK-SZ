@@ -1,0 +1,23 @@
+{
+  "status": "Ready for user upload; not submitted",
+  "recorded_at": "2026-10-29T09:52:53.049483+00:00",
+  "client_date": "2026-10-29",
+  "coordinator": "/root",
+  "independent_verifier": "/root/verifier",
+  "verification_record": "notes/verification-full.md",
+  "independent_reviewer": "/root/reviewer",
+  "review_record": "notes/review-full.md",
+  "approved_files": {
+    "submission/CSC5051_HW02_Task3_Report.pdf": {
+      "sha256": "220a8e31984d9f4ebe7e63982444e33b657829c42cf92513bbe09fdca75741dc",
+      "bytes": 182953
+    },
+    "submission/CSC5051_HW02_Task3_Code.zip": {
+      "sha256": "bbf2ef1ce1097a405723d24fcc2d8a909cf05d2cc5890da653893bdafa708cd6",
+      "bytes": 85204
+    }
+  },
+  "candidate_hashes_unchanged": true,
+  "budget_estimate_cny": "0.948306",
+  "remaining_required_work": "User reviews and uploads to Blackboard; no further authorized implementation required."
+}

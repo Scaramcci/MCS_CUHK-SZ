@@ -1,0 +1,9 @@
+{
+  "method": "chain_of_thought",
+  "ids": [
+    "alpaca-37964-original"
+  ],
+  "count": 1,
+  "sha256": "828fd911e54cc8c5f4555d2b9dbd09c303e0f57e1255b4e4d515a28d71117c64",
+  "status": "Model-selected subset; not independently verified clean data."
+}

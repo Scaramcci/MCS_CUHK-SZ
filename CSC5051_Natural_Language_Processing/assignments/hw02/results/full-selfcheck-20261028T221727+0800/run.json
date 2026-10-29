@@ -1,0 +1,98 @@
+{
+  "executor": "/root/implementer",
+  "timestamp": "2026-10-28T22:17:27.789164+08:00",
+  "python": "3.14.7",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5051_Natural_Language_Processing/assignments/hw02",
+  "results": [
+    {
+      "command": [
+        "python3",
+        "tests/offline_smoke.py"
+      ],
+      "exit": 0,
+      "expected": 0
+    },
+    {
+      "command": [
+        "python3",
+        "src/main.py",
+        "check"
+      ],
+      "exit": 0,
+      "expected": 0
+    },
+    {
+      "command": [
+        "python3",
+        "src/main.py",
+        "preview",
+        "--method",
+        "zero_shot"
+      ],
+      "exit": 0,
+      "expected": 0
+    },
+    {
+      "command": [
+        "python3",
+        "src/main.py",
+        "preview",
+        "--method",
+        "few_shot"
+      ],
+      "exit": 0,
+      "expected": 0
+    },
+    {
+      "command": [
+        "python3",
+        "src/main.py",
+        "preview",
+        "--method",
+        "chain_of_thought"
+      ],
+      "exit": 0,
+      "expected": 0
+    },
+    {
+      "command": [
+        "python3",
+        "src/main.py",
+        "preview",
+        "--method",
+        "agent"
+      ],
+      "exit": 0,
+      "expected": 0
+    },
+    {
+      "command": [
+        "python3",
+        "src/main.py",
+        "preview",
+        "--method",
+        "agent_no_feedback"
+      ],
+      "exit": 0,
+      "expected": 0
+    },
+    {
+      "command": [
+        "python3",
+        "src/main.py",
+        "run",
+        "--dataset",
+        "not-read",
+        "--output",
+        "not-created"
+      ],
+      "exit": 2,
+      "expected": 2
+    }
+  ],
+  "source_hashes": {
+    "requirement/Assignment_2.pdf": "bf09fbc9f382a149804a7977a6cc63912efa93520c56d4c7fe7c51260e64aa5f",
+    "requirement/“Prompt_Engineering_CSC6052_ipynb”的副本.ipynb": "5a396a71600492e39974d51ee7a2e6c5bf020242896dd37db88fcae2310c26e9"
+  }
+}

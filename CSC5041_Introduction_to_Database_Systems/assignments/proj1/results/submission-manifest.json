@@ -1,0 +1,14 @@
+{
+  "executor": "main Codex agent /root (assembly, not review)",
+  "assembled_utc": "2026-10-28T14:11:27.436431+00:00",
+  "source": "src/proj1.sql",
+  "candidate": "submission/226040255-Proj1.sql",
+  "bytes": 5692,
+  "sha256": "3c5f06abbca9b49f4984df3b2de4c4f1d33adc74ca20f7f3f47c6e3a6880c3c9",
+  "verification_record": "notes/verification.md",
+  "verification_record_sha256": "b5163e462c9811e825711177003436af74538b803b98bbc51b194b2f48058b85",
+  "submission_files": [
+    "226040255-Proj1.sql"
+  ],
+  "uploaded": false
+}

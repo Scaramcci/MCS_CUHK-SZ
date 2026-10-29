@@ -1,0 +1,570 @@
+SET
+                                                             version                                                             
+---------------------------------------------------------------------------------------------------------------------------------
+ PostgreSQL 18.6 (Ubuntu 18.6-0ubuntu0.26.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0, 64-bit
+(1 row)
+
+ test | result  
+------+---------
+ q1   | correct
+ q2   | correct
+ q3   | correct
+ q4   | correct
+ q5   | correct
+ q6   | correct
+ q7   | correct
+ q8   | correct
+ q9   | correct
+ q10  | correct
+(10 rows)
+
+ view | multiset_difference 
+------+---------------------
+ q1   |                   0
+(1 row)
+
+                                                           QUERY PLAN                                                            
+---------------------------------------------------------------------------------------------------------------------------------
+ Unique  (cost=1339.39..1339.39 rows=1 width=36) (actual time=1.518..1.521 rows=18.00 loops=1)
+   Buffers: shared hit=1052
+   ->  Sort  (cost=1339.39..1339.39 rows=1 width=36) (actual time=1.518..1.518 rows=18.00 loops=1)
+         Sort Key: s.code
+         Sort Method: quicksort  Memory: 25kB
+         Buffers: shared hit=1052
+         ->  Nested Loop  (cost=0.00..1339.38 rows=1 width=36) (actual time=0.241..1.509 rows=18.00 loops=1)
+               Join Filter: (o.id = s.offeredby)
+               Rows Removed by Join Filter: 1080
+               Buffers: shared hit=1052
+               ->  Seq Scan on subjects s  (cost=0.00..1309.88 rows=31 width=40) (actual time=0.004..1.329 rows=1098.00 loops=1)
+                     Filter: ((uoc > 6) AND ((career)::bpchar = 'PG'::bpchar))
+                     Rows Removed by Filter: 17427
+                     Buffers: shared hit=1032
+               ->  Materialize  (cost=0.00..28.12 rows=3 width=4) (actual time=0.000..0.000 rows=1.00 loops=1098)
+                     Storage: Memory  Maximum Storage: 17kB
+                     Buffers: shared hit=20
+                     ->  Seq Scan on orgunits o  (cost=0.00..28.10 rows=3 width=4) (actual time=0.004..0.031 rows=1.00 loops=1)
+                           Filter: ((longname)::text = 'School of Computer Science and Engineering'::text)
+                           Rows Removed by Filter: 647
+                           Buffers: shared hit=20
+ Planning Time: 0.051 ms
+ Execution Time: 1.530 ms
+(23 rows)
+
+ view | multiset_difference 
+------+---------------------
+ q2   |                   0
+(1 row)
+
+                                                                    QUERY PLAN                                                                     
+---------------------------------------------------------------------------------------------------------------------------------------------------
+ GroupAggregate  (cost=6465.98..6670.14 rows=3403 width=4) (actual time=20.865..20.933 rows=2.00 loops=1)
+   Group Key: c.id
+   Filter: (count(DISTINCT r.building) >= 3)
+   Rows Removed by Filter: 1383
+   Buffers: shared hit=1989
+   ->  Sort  (cost=6465.98..6491.50 rows=10208 width=8) (actual time=20.526..20.623 rows=4204.00 loops=1)
+         Sort Key: c.id, r.building
+         Sort Method: quicksort  Memory: 291kB
+         Buffers: shared hit=1989
+         ->  Hash Join  (cost=2109.41..5786.26 rows=10208 width=8) (actual time=7.914..20.232 rows=4204.00 loops=1)
+               Hash Cond: (cl.room = r.id)
+               Buffers: shared hit=1989
+               ->  Hash Join  (cost=2064.66..5714.61 rows=10208 width=8) (actual time=7.781..19.734 rows=4204.00 loops=1)
+                     Hash Cond: (cl.course = c.id)
+                     Buffers: shared hit=1969
+                     ->  Hash Join  (cost=1.21..3624.37 rows=10208 width=8) (actual time=0.493..12.016 rows=4204.00 loops=1)
+                           Hash Cond: (cl.ctype = ct.id)
+                           Buffers: shared hit=1553
+                           ->  Seq Scan on classes cl  (cost=0.00..3185.32 rows=163332 width=12) (actual time=0.003..5.509 rows=163332.00 loops=1)
+                                 Buffers: shared hit=1552
+                           ->  Hash  (cost=1.20..1.20 rows=1 width=4) (actual time=0.003..0.004 rows=1.00 loops=1)
+                                 Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                 Buffers: shared hit=1
+                                 ->  Seq Scan on class_types ct  (cost=0.00..1.20 rows=1 width=4) (actual time=0.003..0.003 rows=1.00 loops=1)
+                                       Filter: ((name)::text = 'Studio'::text)
+                                       Rows Removed by Filter: 15
+                                       Buffers: shared hit=1
+                     ->  Hash  (cost=1148.20..1148.20 rows=73220 width=4) (actual time=7.269..7.269 rows=73220.00 loops=1)
+                           Buckets: 131072  Batches: 1  Memory Usage: 3599kB
+                           Buffers: shared hit=416
+                           ->  Seq Scan on courses c  (cost=0.00..1148.20 rows=73220 width=4) (actual time=0.003..2.924 rows=73220.00 loops=1)
+                                 Buffers: shared hit=416
+               ->  Hash  (cost=31.00..31.00 rows=1100 width=8) (actual time=0.130..0.131 rows=1100.00 loops=1)
+                     Buckets: 2048  Batches: 1  Memory Usage: 59kB
+                     Buffers: shared hit=20
+                     ->  Seq Scan on rooms r  (cost=0.00..31.00 rows=1100 width=8) (actual time=0.004..0.064 rows=1100.00 loops=1)
+                           Buffers: shared hit=20
+ Planning Time: 0.137 ms
+ Execution Time: 20.955 ms
+(39 rows)
+
+ view | multiset_difference 
+------+---------------------
+ q3   |                   0
+(1 row)
+
+                                                                                QUERY PLAN                                                                                 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ HashAggregate  (cost=27007.99..27565.66 rows=55767 width=36) (actual time=27.435..27.657 rows=41.00 loops=1)
+   Group Key: teacher.unswid, teacher.name
+   Batches: 1  Memory Usage: 1057kB
+   Buffers: shared hit=5796
+   ->  Hash Join  (cost=11284.93..24109.54 rows=579690 width=36) (actual time=25.123..27.587 rows=43.00 loops=1)
+         Hash Cond: (cs.staff = teacher.id)
+         Buffers: shared hit=5796
+         ->  Merge Join  (cost=8998.17..20300.99 rows=579690 width=4) (actual time=17.091..19.542 rows=43.00 loops=1)
+               Merge Cond: (cs.course = ce.course)
+               Buffers: shared hit=4764
+               ->  Index Only Scan using course_staff_pkey on course_staff cs  (cost=0.29..2497.53 rows=44083 width=8) (actual time=0.007..2.692 rows=32293.00 loops=1)
+                     Heap Fetches: 32293
+                     Index Searches: 1
+                     Buffers: shared hit=356
+               ->  Sort  (cost=8997.88..9004.45 rows=2630 width=4) (actual time=15.709..15.877 rows=46.00 loops=1)
+                     Sort Key: ce.course
+                     Sort Method: quicksort  Memory: 25kB
+                     Buffers: shared hit=4408
+                     ->  Gather  (cost=2444.10..8848.48 rows=2630 width=4) (actual time=15.681..15.870 rows=33.00 loops=1)
+                           Workers Planned: 2
+                           Workers Launched: 2
+                           Buffers: shared hit=4408
+                           ->  Parallel Hash Join  (cost=1444.10..7585.48 rows=1096 width=4) (actual time=11.302..14.032 rows=11.00 loops=3)
+                                 Hash Cond: (ce.student = student.id)
+                                 Buffers: shared hit=4408
+                                 ->  Parallel Seq Scan on course_enrolments ce  (cost=0.00..5566.37 rows=219037 width=8) (actual time=0.007..6.595 rows=175229.33 loops=3)
+                                       Buffers: shared hit=3376
+                                 ->  Parallel Hash  (cost=1442.05..1442.05 rows=164 width=4) (actual time=1.076..1.076 rows=0.33 loops=3)
+                                       Buckets: 1024  Batches: 1  Memory Usage: 40kB
+                                       Buffers: shared hit=1032
+                                       ->  Parallel Seq Scan on people student  (cost=0.00..1442.05 rows=164 width=4) (actual time=0.406..1.057 rows=0.33 loops=3)
+                                             Filter: ((name)::text = 'Hemma Margareta'::text)
+                                             Rows Removed by Filter: 18589
+                                             Buffers: shared hit=1032
+         ->  Hash  (cost=1589.67..1589.67 rows=55767 width=40) (actual time=8.016..8.016 rows=55767.00 loops=1)
+               Buckets: 65536  Batches: 1  Memory Usage: 3554kB
+               Buffers: shared hit=1032
+               ->  Seq Scan on people teacher  (cost=0.00..1589.67 rows=55767 width=40) (actual time=0.005..3.764 rows=55767.00 loops=1)
+                     Buffers: shared hit=1032
+ Planning Time: 0.196 ms
+ Execution Time: 27.709 ms
+(41 rows)
+
+ view | multiset_difference 
+------+---------------------
+ q4   |                   0
+(1 row)
+
+                                                                             QUERY PLAN                                                                             
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ HashAggregate  (cost=43.66..43.90 rows=24 width=32) (actual time=0.168..0.169 rows=6.00 loops=1)
+   Group Key: f.description
+   Batches: 1  Memory Usage: 32kB
+   Buffers: shared hit=230
+   ->  Hash Right Anti Join  (cost=4.60..43.60 rows=24 width=32) (actual time=0.166..0.167 rows=6.00 loops=1)
+         Hash Cond: (rf.facility = f.id)
+         Buffers: shared hit=230
+         ->  Nested Loop  (cost=3.01..41.97 rows=13 width=4) (actual time=0.029..0.152 rows=120.00 loops=1)
+               Buffers: shared hit=229
+               ->  Hash Join  (cost=2.74..36.69 rows=10 width=4) (actual time=0.012..0.095 rows=94.00 loops=1)
+                     Hash Cond: (r.building = b.id)
+                     Buffers: shared hit=21
+                     ->  Seq Scan on rooms r  (cost=0.00..31.00 rows=1100 width=8) (actual time=0.002..0.037 rows=1100.00 loops=1)
+                           Buffers: shared hit=20
+                     ->  Hash  (cost=2.72..2.72 rows=1 width=4) (actual time=0.007..0.007 rows=8.00 loops=1)
+                           Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                           Buffers: shared hit=1
+                           ->  Seq Scan on buildings b  (cost=0.00..2.72 rows=1 width=4) (actual time=0.003..0.006 rows=8.00 loops=1)
+                                 Filter: ((gridref ~~ 'C%'::text) AND ((campus)::bpchar = 'K'::bpchar))
+                                 Rows Removed by Filter: 107
+                                 Buffers: shared hit=1
+               ->  Index Only Scan using room_facilities_pkey on room_facilities rf  (cost=0.28..0.46 rows=7 width=8) (actual time=0.000..0.000 rows=1.28 loops=94)
+                     Index Cond: (room = r.id)
+                     Heap Fetches: 120
+                     Index Searches: 94
+                     Buffers: shared hit=208
+         ->  Hash  (cost=1.26..1.26 rows=26 width=36) (actual time=0.006..0.006 rows=26.00 loops=1)
+               Buckets: 1024  Batches: 1  Memory Usage: 10kB
+               Buffers: shared hit=1
+               ->  Seq Scan on facilities f  (cost=0.00..1.26 rows=26 width=36) (actual time=0.003..0.004 rows=26.00 loops=1)
+                     Buffers: shared hit=1
+ Planning Time: 0.093 ms
+ Execution Time: 0.182 ms
+(33 rows)
+
+ view | multiset_difference 
+------+---------------------
+ q5   |                   0
+(1 row)
+
+                                                                   QUERY PLAN                                                                    
+-------------------------------------------------------------------------------------------------------------------------------------------------
+ Nested Loop  (cost=879.56..892.06 rows=1 width=36) (actual time=12.582..12.622 rows=1.00 loops=1)
+   Buffers: shared hit=298
+   CTE lic_counts
+     ->  GroupAggregate  (cost=870.80..874.78 rows=199 width=8) (actual time=9.192..12.121 rows=2922.00 loops=1)
+           Group Key: cs.staff
+           Buffers: shared hit=295
+           ->  Sort  (cost=870.80..871.30 rows=199 width=8) (actual time=9.189..10.083 rows=34191.00 loops=1)
+                 Sort Key: cs.staff, cs.course
+                 Sort Method: quicksort  Memory: 2338kB
+                 Buffers: shared hit=295
+                 ->  Hash Join  (cost=18.10..863.20 rows=199 width=8) (actual time=0.041..4.619 rows=34191.00 loops=1)
+                       Hash Cond: (cs.role = sr.id)
+                       Buffers: shared hit=295
+                       ->  Seq Scan on course_staff cs  (cost=0.00..728.83 rows=44083 width=12) (actual time=0.004..1.372 rows=44083.00 loops=1)
+                             Buffers: shared hit=288
+                       ->  Hash  (cost=18.05..18.05 rows=4 width=4) (actual time=0.035..0.035 rows=1.00 loops=1)
+                             Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                             Buffers: shared hit=7
+                             ->  Seq Scan on staff_roles sr  (cost=0.00..18.05 rows=4 width=4) (actual time=0.033..0.034 rows=1.00 loops=1)
+                                   Filter: ((name)::text = 'Course Convenor'::text)
+                                   Rows Removed by Filter: 883
+                                   Buffers: shared hit=7
+   InitPlan 2
+     ->  Aggregate  (cost=4.48..4.49 rows=1 width=4) (actual time=3.335..3.335 rows=1.00 loops=1)
+           ->  CTE Scan on lic_counts  (cost=0.00..3.98 rows=199 width=4) (actual time=0.000..3.205 rows=2922.00 loops=1)
+                 Storage: Memory  Maximum Storage: 124kB
+   ->  CTE Scan on lic_counts lc  (cost=0.00..4.48 rows=1 width=8) (actual time=12.576..12.613 rows=1.00 loops=1)
+         Filter: (ncourses = (InitPlan 2).col1)
+         Rows Removed by Filter: 2921
+         Storage: Memory  Maximum Storage: 124kB
+         Buffers: shared hit=295
+   ->  Index Scan using people_pkey on people p  (cost=0.29..8.31 rows=1 width=36) (actual time=0.005..0.005 rows=1.00 loops=1)
+         Index Cond: (id = lc.staff)
+         Index Searches: 1
+         Buffers: shared hit=3
+ Planning Time: 0.113 ms
+ Execution Time: 12.645 ms
+(37 rows)
+
+ view | multiset_difference 
+------+---------------------
+ q6   |                   0
+(1 row)
+
+                                                                    QUERY PLAN                                                                     
+---------------------------------------------------------------------------------------------------------------------------------------------------
+ CTE Scan on school_counts sc  (cost=215.87..220.88 rows=74 width=36) (actual time=0.494..0.498 rows=8.00 loops=1)
+   Filter: (stream_count > (InitPlan 2).col1)
+   Rows Removed by Filter: 102
+   Storage: Memory  Maximum Storage: 24kB
+   Buffers: shared hit=165
+   CTE school_counts
+     ->  HashAggregate  (cost=208.05..210.84 rows=223 width=40) (actual time=0.472..0.480 rows=110.00 loops=1)
+           Group Key: o.id
+           Batches: 1  Memory Usage: 40kB
+           Buffers: shared hit=165
+           ->  Hash Right Join  (cost=30.16..206.93 rows=223 width=40) (actual time=0.069..0.343 rows=1747.00 loops=1)
+                 Hash Cond: (s.offeredby = o.id)
+                 Buffers: shared hit=165
+                 ->  Seq Scan on streams s  (cost=0.00..166.21 rows=2221 width=8) (actual time=0.001..0.090 rows=2221.00 loops=1)
+                       Buffers: shared hit=144
+                 ->  Hash  (cost=29.35..29.35 rows=65 width=36) (actual time=0.067..0.067 rows=110.00 loops=1)
+                       Buckets: 1024  Batches: 1  Memory Usage: 16kB
+                       Buffers: shared hit=21
+                       ->  Hash Join  (cost=1.14..29.35 rows=65 width=36) (actual time=0.007..0.060 rows=110.00 loops=1)
+                             Hash Cond: (o.utype = ot.id)
+                             Buffers: shared hit=21
+                             ->  Seq Scan on orgunits o  (cost=0.00..26.48 rows=648 width=40) (actual time=0.003..0.024 rows=648.00 loops=1)
+                                   Buffers: shared hit=20
+                             ->  Hash  (cost=1.12..1.12 rows=1 width=4) (actual time=0.003..0.003 rows=1.00 loops=1)
+                                   Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                   Buffers: shared hit=1
+                                   ->  Seq Scan on orgunit_types ot  (cost=0.00..1.12 rows=1 width=4) (actual time=0.002..0.002 rows=1.00 loops=1)
+                                         Filter: ((name)::text = 'School'::text)
+                                         Rows Removed by Filter: 9
+                                         Buffers: shared hit=1
+   InitPlan 2
+     ->  Aggregate  (cost=5.02..5.03 rows=1 width=8) (actual time=0.020..0.020 rows=1.00 loops=1)
+           ->  CTE Scan on school_counts cse  (cost=0.00..5.02 rows=1 width=4) (actual time=0.013..0.019 rows=1.00 loops=1)
+                 Filter: ((longname)::text = 'School of Computer Science and Engineering'::text)
+                 Rows Removed by Filter: 109
+                 Storage: Memory  Maximum Storage: 24kB
+ Planning Time: 0.067 ms
+ Execution Time: 0.512 ms
+(38 rows)
+
+ view | multiset_difference 
+------+---------------------
+ q7   |                   0
+(1 row)
+
+                                                                                   QUERY PLAN                                                                                   
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Subquery Scan on q7  (cost=5770.15..5770.37 rows=2 width=48) (actual time=126.957..126.992 rows=9.00 loops=1)
+   Buffers: shared hit=43851
+   ->  GroupAggregate  (cost=5770.15..5770.35 rows=2 width=52) (actual time=126.956..126.991 rows=9.00 loops=1)
+         Group Key: c.id, s.code
+         Filter: (count(*) > 10)
+         Rows Removed by Filter: 12
+         Buffers: shared hit=43851
+         ->  Sort  (cost=5770.15..5770.17 rows=7 width=44) (actual time=126.942..126.952 rows=350.00 loops=1)
+               Sort Key: c.id, s.code
+               Sort Method: quicksort  Memory: 38kB
+               Buffers: shared hit=43851
+               ->  Nested Loop  (cost=2.97..5770.05 rows=7 width=44) (actual time=6.577..126.901 rows=350.00 loops=1)
+                     Buffers: shared hit=43851
+                     ->  Nested Loop  (cost=2.54..1774.15 rows=1 width=40) (actual time=3.547..8.182 rows=23.00 loops=1)
+                           Buffers: shared hit=10452
+                           ->  Nested Loop  (cost=2.26..1766.04 rows=6 width=44) (actual time=3.162..7.933 rows=1073.00 loops=1)
+                                 Buffers: shared hit=10257
+                                 ->  Hash Join  (cost=1.97..1346.45 rows=1144 width=8) (actual time=3.139..5.218 rows=3280.00 loops=1)
+                                       Hash Cond: (c.semester = sem.id)
+                                       Buffers: shared hit=417
+                                       ->  Seq Scan on courses c  (cost=0.00..1148.20 rows=73220 width=12) (actual time=0.005..2.293 rows=73220.00 loops=1)
+                                             Buffers: shared hit=416
+                                       ->  Hash  (cost=1.96..1.96 rows=1 width=4) (actual time=0.006..0.007 rows=1.00 loops=1)
+                                             Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                             Buffers: shared hit=1
+                                             ->  Seq Scan on semesters sem  (cost=0.00..1.96 rows=1 width=4) (actual time=0.005..0.006 rows=1.00 loops=1)
+                                                   Filter: (((year)::integer = 2010) AND (term = 'S1'::bpchar))
+                                                   Rows Removed by Filter: 63
+                                                   Buffers: shared hit=1
+                                 ->  Index Scan using subjects_pkey on subjects s  (cost=0.29..0.37 rows=1 width=44) (actual time=0.001..0.001 rows=0.33 loops=3280)
+                                       Index Cond: (id = c.subject)
+                                       Filter: ((career)::bpchar = 'PG'::bpchar)
+                                       Rows Removed by Filter: 1
+                                       Index Searches: 3280
+                                       Buffers: shared hit=9840
+                           ->  Memoize  (cost=0.29..1.34 rows=1 width=4) (actual time=0.000..0.000 rows=0.02 loops=1073)
+                                 Cache Key: s.offeredby
+                                 Cache Mode: logical
+                                 Hits: 1008  Misses: 65  Evictions: 0  Overflows: 0  Memory Usage: 5kB
+                                 Buffers: shared hit=195
+                                 ->  Index Scan using orgunits_pkey on orgunits o  (cost=0.28..1.33 rows=1 width=4) (actual time=0.001..0.001 rows=0.02 loops=65)
+                                       Index Cond: (id = s.offeredby)
+                                       Filter: ((longname)::text = 'School of Computer Science and Engineering'::text)
+                                       Rows Removed by Filter: 1
+                                       Index Searches: 65
+                                       Buffers: shared hit=195
+                     ->  Index Scan using course_enrolments_pkey on course_enrolments ce  (cost=0.42..3969.63 rows=2628 width=8) (actual time=2.469..5.160 rows=15.22 loops=23)
+                           Index Cond: (course = c.id)
+                           Index Searches: 23
+                           Buffers: shared hit=33399
+ Planning Time: 0.235 ms
+ Execution Time: 127.025 ms
+(52 rows)
+
+ view | multiset_difference 
+------+---------------------
+ q8   |                   0
+(1 row)
+
+                                                                                        QUERY PLAN                                                                                        
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ CTE Scan on increases  (cost=9193.85..9195.61 rows=1 width=68) (actual time=29.065..31.742 rows=1.00 loops=1)
+   Filter: (rate = (InitPlan 2).col1)
+   Rows Removed by Filter: 15
+   Storage: Memory  Maximum Storage: 17kB
+   Buffers: shared hit=65858
+   CTE increases
+     ->  Subquery Scan on semester_means  (cost=9179.35..9192.09 rows=78 width=68) (actual time=28.831..31.730 rows=16.00 loops=1)
+           Buffers: shared hit=65858
+           ->  GroupAggregate  (cost=9179.35..9190.72 rows=78 width=100) (actual time=28.829..31.722 rows=16.00 loops=1)
+                 Group Key: s.code
+                 Filter: ((avg(ce.mark) FILTER (WHERE (sem.term = 'S1'::bpchar)) IS NOT NULL) AND (avg(ce.mark) FILTER (WHERE (sem.term = 'S2'::bpchar)) IS NOT NULL))
+                 Rows Removed by Filter: 39
+                 Buffers: shared hit=65858
+                 ->  Gather Merge  (cost=9179.35..9188.55 rows=79 width=52) (actual time=28.760..31.579 rows=1578.00 loops=1)
+                       Workers Planned: 2
+                       Workers Launched: 2
+                       Buffers: shared hit=65858
+                       ->  Sort  (cost=8179.32..8179.41 rows=33 width=52) (actual time=26.691..26.708 rows=526.00 loops=3)
+                             Sort Key: s.code
+                             Sort Method: quicksort  Memory: 46kB
+                             Buffers: shared hit=65858
+                             Worker 0:  Sort Method: quicksort  Memory: 45kB
+                             Worker 1:  Sort Method: quicksort  Memory: 44kB
+                             ->  Hash Join  (cost=1794.51..8178.49 rows=33 width=52) (actual time=12.768..26.553 rows=526.00 loops=3)
+                                   Hash Cond: (ce.course = c.id)
+                                   Buffers: shared hit=65844
+                                   ->  Parallel Seq Scan on course_enrolments ce  (cost=0.00..5566.37 rows=217942 width=8) (actual time=0.006..8.860 rows=160833.33 loops=3)
+                                         Filter: (mark IS NOT NULL)
+                                         Rows Removed by Filter: 14396
+                                         Buffers: shared hit=3376
+                                   ->  Hash  (cost=1794.38..1794.38 rows=11 width=52) (actual time=12.684..12.687 rows=114.00 loops=3)
+                                         Buckets: 1024  Batches: 1  Memory Usage: 14kB
+                                         Buffers: shared hit=62468
+                                         ->  Hash Join  (cost=30.43..1794.38 rows=11 width=52) (actual time=2.456..12.672 rows=114.00 loops=3)
+                                               Hash Cond: (s.offeredby = o.id)
+                                               Buffers: shared hit=62468
+                                               ->  Nested Loop  (cost=2.26..1763.18 rows=1144 width=56) (actual time=2.394..12.321 rows=6795.00 loops=3)
+                                                     Buffers: shared hit=62408
+                                                     ->  Hash Join  (cost=1.97..1346.45 rows=1144 width=20) (actual time=2.375..5.795 rows=6795.00 loops=3)
+                                                           Hash Cond: (c.semester = sem.id)
+                                                           Buffers: shared hit=1251
+                                                           ->  Seq Scan on courses c  (cost=0.00..1148.20 rows=73220 width=12) (actual time=0.010..2.639 rows=73220.00 loops=3)
+                                                                 Buffers: shared hit=1248
+                                                           ->  Hash  (cost=1.96..1.96 rows=1 width=16) (actual time=0.016..0.017 rows=4.00 loops=3)
+                                                                 Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                                                 Buffers: shared hit=3
+                                                                 ->  Seq Scan on semesters sem  (cost=0.00..1.96 rows=1 width=16) (actual time=0.011..0.014 rows=4.00 loops=3)
+                                                                       Filter: ((term = ANY ('{S1,S2}'::bpchar[])) AND ((year)::integer = 2008))
+                                                                       Rows Removed by Filter: 60
+                                                                       Buffers: shared hit=3
+                                                     ->  Index Scan using subjects_pkey on subjects s  (cost=0.29..0.36 rows=1 width=44) (actual time=0.001..0.001 rows=1.00 loops=20385)
+                                                           Index Cond: (id = c.subject)
+                                                           Index Searches: 20385
+                                                           Buffers: shared hit=61157
+                                               ->  Hash  (cost=28.10..28.10 rows=6 width=4) (actual time=0.055..0.056 rows=2.00 loops=3)
+                                                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                                     Buffers: shared hit=60
+                                                     ->  Seq Scan on orgunits o  (cost=0.00..28.10 rows=6 width=4) (actual time=0.009..0.053 rows=2.00 loops=3)
+                                                           Filter: ((longname)::text = ANY ('{"School of Chemistry","School of Accounting"}'::text[]))
+                                                           Rows Removed by Filter: 646
+                                                           Buffers: shared hit=60
+   InitPlan 2
+     ->  Aggregate  (cost=1.76..1.77 rows=1 width=32) (actual time=0.229..0.230 rows=1.00 loops=1)
+           ->  CTE Scan on increases increases_1  (cost=0.00..1.56 rows=78 width=32) (actual time=0.001..0.226 rows=16.00 loops=1)
+                 Storage: Memory  Maximum Storage: 17kB
+ Planning Time: 0.301 ms
+ Execution Time: 31.781 ms
+(67 rows)
+
+ view | multiset_difference 
+------+---------------------
+ q9   |                   0
+(1 row)
+
+                                                                                    QUERY PLAN                                                                                    
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Subquery Scan on q9  (cost=9094.95..9101.37 rows=41 width=68) (actual time=20.943..24.099 rows=36.00 loops=1)
+   Buffers: shared hit=26042
+   ->  GroupAggregate  (cost=9094.95..9100.96 rows=41 width=72) (actual time=20.943..24.087 rows=36.00 loops=1)
+         Group Key: p.id
+         Buffers: shared hit=26042
+         ->  Gather Merge  (cost=9094.95..9099.73 rows=41 width=44) (actual time=20.938..24.074 rows=64.00 loops=1)
+               Workers Planned: 2
+               Workers Launched: 2
+               Buffers: shared hit=26042
+               ->  Sort  (cost=8094.93..8094.97 rows=17 width=44) (actual time=19.079..19.082 rows=21.33 loops=3)
+                     Sort Key: p.id
+                     Sort Method: quicksort  Memory: 26kB
+                     Buffers: shared hit=26042
+                     Worker 0:  Sort Method: quicksort  Memory: 26kB
+                     Worker 1:  Sort Method: quicksort  Memory: 25kB
+                     ->  Hash Join  (cost=1610.39..8094.58 rows=17 width=44) (actual time=2.485..19.065 rows=21.33 loops=3)
+                           Hash Cond: (c.semester = sem.id)
+                           Buffers: shared hit=26028
+                           ->  Nested Loop  (cost=1608.41..8089.69 rows=1090 width=48) (actual time=1.677..18.918 rows=2401.67 loops=3)
+                                 Buffers: shared hit=26025
+                                 ->  Parallel Hash Join  (cost=1608.12..7746.63 rows=1090 width=48) (actual time=1.662..16.311 rows=2401.67 loops=3)
+                                       Hash Cond: (ce.student = p.id)
+                                       Buffers: shared hit=4408
+                                       ->  Parallel Seq Scan on course_enrolments ce  (cost=0.00..5566.37 rows=217942 width=12) (actual time=0.003..9.129 rows=160833.33 loops=3)
+                                             Filter: (mark IS NOT NULL)
+                                             Rows Removed by Filter: 14396
+                                             Buffers: shared hit=3376
+                                       ->  Parallel Hash  (cost=1606.07..1606.07 rows=164 width=40) (actual time=1.406..1.407 rows=244.00 loops=3)
+                                             Buckets: 1024  Batches: 1  Memory Usage: 104kB
+                                             Buffers: shared hit=1032
+                                             ->  Parallel Seq Scan on people p  (cost=0.00..1606.07 rows=164 width=40) (actual time=0.020..1.346 rows=244.00 loops=3)
+                                                   Filter: ((unswid)::text ~~ '313%'::text)
+                                                   Rows Removed by Filter: 18345
+                                                   Buffers: shared hit=1032
+                                 ->  Index Scan using courses_pkey on courses c  (cost=0.29..0.31 rows=1 width=8) (actual time=0.001..0.001 rows=1.00 loops=7205)
+                                       Index Cond: (id = ce.course)
+                                       Index Searches: 7205
+                                       Buffers: shared hit=21617
+                           ->  Hash  (cost=1.96..1.96 rows=1 width=4) (actual time=0.014..0.014 rows=1.00 loops=3)
+                                 Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                 Buffers: shared hit=3
+                                 ->  Seq Scan on semesters sem  (cost=0.00..1.96 rows=1 width=4) (actual time=0.010..0.011 rows=1.00 loops=3)
+                                       Filter: (((year)::integer = 2012) AND (term = 'S1'::bpchar))
+                                       Rows Removed by Filter: 63
+                                       Buffers: shared hit=3
+ Planning Time: 0.205 ms
+ Execution Time: 24.133 ms
+(47 rows)
+
+ view | multiset_difference 
+------+---------------------
+ q10  |                   0
+(1 row)
+
+                                                                                      QUERY PLAN                                                                                       
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Subquery Scan on ranked_courses  (cost=10513.11..10541.77 rows=4 width=84) (actual time=27.578..29.263 rows=3.00 loops=1)
+   Filter: (ranked_courses.enrolment_rank = 1)
+   Buffers: shared hit=7751
+   ->  WindowAgg  (cost=10513.11..10530.71 rows=881 width=84) (actual time=27.575..29.259 rows=3.00 loops=1)
+         Window: w1 AS (PARTITION BY course_counts.code ORDER BY course_counts.enrolled ROWS UNBOUNDED PRECEDING)
+         Run Condition: (rank() OVER w1 <= 1)
+         Storage: Memory  Maximum Storage: 17kB
+         Buffers: shared hit=7751
+         ->  Sort  (cost=10513.09..10515.29 rows=881 width=76) (actual time=27.572..29.253 rows=8.00 loops=1)
+               Sort Key: course_counts.code, course_counts.enrolled DESC
+               Sort Method: quicksort  Memory: 25kB
+               Buffers: shared hit=7751
+               ->  Subquery Scan on course_counts  (cost=10067.62..10470.00 rows=881 width=76) (actual time=25.687..29.247 rows=8.00 loops=1)
+                     Buffers: shared hit=7751
+                     ->  GroupAggregate  (cost=10067.62..10461.19 rows=881 width=80) (actual time=25.687..29.246 rows=8.00 loops=1)
+                           Group Key: c.id, s.code, sem.year, sem.term
+                           Filter: (count(*) > 150)
+                           Rows Removed by Filter: 1010
+                           Buffers: shared hit=7751
+                           ->  Gather Merge  (cost=10067.62..10375.32 rows=2642 width=60) (actual time=25.047..28.068 rows=13710.00 loops=1)
+                                 Workers Planned: 2
+                                 Workers Launched: 2
+                                 Buffers: shared hit=7751
+                                 ->  Sort  (cost=9067.59..9070.34 rows=1101 width=60) (actual time=22.961..23.168 rows=4570.00 loops=3)
+                                       Sort Key: c.id, s.code, sem.year, sem.term
+                                       Sort Method: quicksort  Memory: 462kB
+                                       Buffers: shared hit=7751
+                                       Worker 0:  Sort Method: quicksort  Memory: 279kB
+                                       Worker 1:  Sort Method: quicksort  Memory: 275kB
+                                       ->  Hash Join  (cost=2613.20..9011.97 rows=1101 width=60) (actual time=7.433..22.190 rows=4570.00 loops=3)
+                                             Hash Cond: (ce.course = c.id)
+                                             Buffers: shared hit=7723
+                                             ->  Parallel Seq Scan on course_enrolments ce  (cost=0.00..5566.37 rows=219037 width=8) (actual time=0.007..6.487 rows=175229.33 loops=3)
+                                                   Buffers: shared hit=3376
+                                             ->  Hash  (cost=2608.60..2608.60 rows=368 width=56) (actual time=7.398..7.399 rows=1618.00 loops=3)
+                                                   Buckets: 2048 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 103kB
+                                                   Buffers: shared hit=4347
+                                                   ->  Hash Join  (cost=1267.16..2608.60 rows=368 width=56) (actual time=1.604..7.240 rows=1618.00 loops=3)
+                                                         Hash Cond: (c.semester = sem.id)
+                                                         Buffers: shared hit=4347
+                                                         ->  Hash Join  (cost=1264.72..2605.17 rows=368 width=44) (actual time=1.576..7.068 rows=1618.00 loops=3)
+                                                               Hash Cond: (c.subject = s.id)
+                                                               Buffers: shared hit=4344
+                                                               ->  Seq Scan on courses c  (cost=0.00..1148.20 rows=73220 width=12) (actual time=0.007..2.521 rows=73220.00 loops=3)
+                                                                     Buffers: shared hit=1248
+                                                               ->  Hash  (cost=1263.56..1263.56 rows=93 width=40) (actual time=1.535..1.535 rows=265.00 loops=3)
+                                                                     Buckets: 1024  Batches: 1  Memory Usage: 21kB
+                                                                     Buffers: shared hit=3096
+                                                                     ->  Seq Scan on subjects s  (cost=0.00..1263.56 rows=93 width=40) (actual time=0.011..1.512 rows=265.00 loops=3)
+                                                                           Filter: (code ~~ 'COMP%'::text)
+                                                                           Rows Removed by Filter: 18260
+                                                                           Buffers: shared hit=3096
+                                                         ->  Hash  (cost=1.64..1.64 rows=64 width=20) (actual time=0.020..0.020 rows=64.00 loops=3)
+                                                               Buckets: 1024  Batches: 1  Memory Usage: 11kB
+                                                               Buffers: shared hit=3
+                                                               ->  Seq Scan on semesters sem  (cost=0.00..1.64 rows=64 width=20) (actual time=0.009..0.012 rows=64.00 loops=3)
+                                                                     Buffers: shared hit=3
+ Planning Time: 0.227 ms
+ Execution Time: 29.298 ms
+(59 rows)
+
+ relname |      attname      |  format_type   
+---------+-------------------+----------------
+ q1      | subject_code      | character(8)
+ q10     | subject_code      | character(8)
+ q10     | year              | courseyeartype
+ q10     | term              | character(2)
+ q10     | fail_rate         | numeric
+ q2      | course_id         | integer
+ q3      | unswid            | integer
+ q3      | name              | longname
+ q4      | facility          | mediumstring
+ q5      | name              | longname
+ q5      | ncourses          | integer
+ q6      | school_name       | longstring
+ q6      | stream_count      | integer
+ q7      | subject_code      | character(8)
+ q7      | avg_mark          | numeric(4,2)
+ q8      | subject_code      | character(8)
+ q8      | inc_rate          | numeric
+ q9      | unsw_id           | integer
+ q9      | name              | longname
+ q9      | academic_standing | text
+(20 rows)
+

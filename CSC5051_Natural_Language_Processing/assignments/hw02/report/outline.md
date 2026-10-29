@@ -1,5 +1,9 @@
 # Task 3: LLMs as a Data Quality Evaluator
 
+Historical scaffold-only outline, superseded by `latex/main.tex` and
+`../notes/report-evidence.md` on2026-10-28. Statements below describe the earlier
+planning stage, not the now-completed experiments.
+
 Planning outline only — not a completed report or a submission candidate.
 No dataset has been acquired, no model has been called, and no experimental
 results are available. Use the teacher's Overleaf template once obtained.

@@ -1,0 +1,90 @@
+{
+  "seed": 20261028,
+  "source_sha256": "0bd4f62585d494b794deb043ce0baddfec02f27696857c57c9c238d6eff35a18",
+  "source_count": 52002,
+  "eligible_unique_count": 25117,
+  "source_commit": "38b93b75a80b019cc3aad362ca6f5bb0c3908959",
+  "design": "Unaltered originals have no gold quality labels. Corruptions are synthetic diagnostics, not natural defects.",
+  "eligibility": "instruction20..400chars, input<=600, output60..800, combined<=1400, >=95%ASCII; exclude repeat/echo/copy/nothing/blank/empty/silence instructions; deduplicate instruction/input",
+  "source_indices": {
+    "dev": [
+      41906,
+      37964,
+      46824,
+      49259,
+      39706,
+      3039,
+      39343,
+      46439
+    ],
+    "test": [
+      14303,
+      2530,
+      33834,
+      36740,
+      9471,
+      17773,
+      459,
+      31174,
+      15709,
+      40534,
+      14578,
+      39766,
+      44567,
+      49960,
+      2234,
+      39784,
+      73,
+      14353,
+      31159,
+      27575,
+      23939,
+      46458,
+      44819,
+      13774,
+      14464,
+      31485,
+      5791,
+      41377,
+      14151,
+      2538,
+      46295,
+      5599
+    ]
+  },
+  "files": {
+    "dev": {
+      "sha256": "854073c748b2e608db901c5cf4992ad872379ecac3286a66b19a47a16da8ee8b",
+      "records": 16,
+      "variants": {
+        "synthetic_corruption": 8,
+        "unaltered": 8
+      },
+      "defects": {
+        "excessive_repetition": 2,
+        "off_topic": 2,
+        "instruction_echo": 2,
+        "empty": 2
+      }
+    },
+    "pilot": {
+      "sha256": "e975a1f9d8b062092de97461385cbc39ee5b3172d8676e2e8beec6e647e90c15",
+      "records": 8
+    },
+    "test": {
+      "sha256": "5973af0e5ae8b2b4569171beb43281d2cc614547a69e204cf7c82dc555583dbf",
+      "records": 64,
+      "variants": {
+        "synthetic_corruption": 32,
+        "unaltered": 32
+      },
+      "defects": {
+        "instruction_echo": 8,
+        "empty": 8,
+        "off_topic": 8,
+        "excessive_repetition": 8
+      }
+    }
+  },
+  "preparation_script_sha256": "1a9ef67f0394b4eb1a8a5217635cad9b79503539186fbde5f09d9f0f963492d0"
+}
