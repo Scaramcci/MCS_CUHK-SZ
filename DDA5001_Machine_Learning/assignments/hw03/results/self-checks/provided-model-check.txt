@@ -1,0 +1,1 @@
+Model checks: [{"model": "A", "parameters": 7850, "output_shape": [2, 10]}, {"model": "B", "parameters": 50890, "output_shape": [2, 10]}, {"model": "C", "parameters": 50890, "output_shape": [2, 10]}]

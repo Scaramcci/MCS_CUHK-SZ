@@ -1,0 +1,26 @@
+{
+  "started_utc": "2026-10-29T12:37:49.244632+00:00",
+  "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03",
+  "argv": [
+    ".venv/bin/python",
+    "src/p1/p1.py",
+    "--output-dir",
+    "results/run-20261029/p1"
+  ],
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "git_head": "26cf2eeb639a79d622cee5c0f5ee40d83f54809b",
+  "source_sha256": {
+    "src/p1/p1.py": "3f51f39fb81f42996a16a336714ea9120f8980ca1473772638ee4d05c4425442",
+    "src/p2/p2.py": "97405f76831d4338625a19333837eb611863e806ca39d1fabaff8e9f5694f93c",
+    "src/p3/p3.py": "10e7e663b48e75cbdd9463234a8ec55b393eb085a2063559f2b3cf1d58e0a94a"
+  },
+  "prediction_sha256": "42ea0a54afaf0ea02a2c9b7ec47e74a236451895e9ceb2728862427dd5b99ee4",
+  "thread_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  },
+  "exit_code": 0,
+  "finished_utc": "2026-10-29T12:37:49.956706+00:00"
+}

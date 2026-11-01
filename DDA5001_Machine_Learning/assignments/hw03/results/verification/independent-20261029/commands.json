@@ -1,0 +1,81 @@
+[
+  {
+    "name": "freeze",
+    "argv": [
+      "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/results/verification/independent-20261029/.venv/bin/python",
+      "-m",
+      "pip",
+      "freeze"
+    ],
+    "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03",
+    "started_utc": "2026-10-29T12:42:24.621478+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-29T12:42:24.745927+00:00"
+  },
+  {
+    "name": "p1",
+    "argv": [
+      "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/results/verification/independent-20261029/.venv/bin/python",
+      "src/p1/p1.py",
+      "--output-dir",
+      "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/results/verification/independent-20261029/p1"
+    ],
+    "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03",
+    "started_utc": "2026-10-29T12:42:24.746092+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-29T12:42:26.276418+00:00"
+  },
+  {
+    "name": "p2",
+    "argv": [
+      "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/results/verification/independent-20261029/.venv/bin/python",
+      "src/p2/p2.py",
+      "--output-dir",
+      "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/results/verification/independent-20261029/p2"
+    ],
+    "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03",
+    "started_utc": "2026-10-29T12:42:26.276644+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-29T12:42:27.444235+00:00"
+  },
+  {
+    "name": "p3",
+    "argv": [
+      "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/results/verification/independent-20261029/.venv/bin/python",
+      "src/p3/p3.py",
+      "--output-dir",
+      "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/results/verification/independent-20261029/p3"
+    ],
+    "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03",
+    "started_utc": "2026-10-29T12:42:27.444468+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-29T12:42:31.826316+00:00"
+  },
+  {
+    "name": "author-tests",
+    "argv": [
+      "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/results/verification/independent-20261029/.venv/bin/python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-v"
+    ],
+    "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03",
+    "started_utc": "2026-10-29T12:42:31.826676+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-29T12:42:33.459394+00:00"
+  },
+  {
+    "name": "independent-checks",
+    "argv": [
+      "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/results/verification/independent-20261029/.venv/bin/python",
+      "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/results/verification/independent-20261029/verify.py"
+    ],
+    "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03",
+    "started_utc": "2026-10-29T12:42:33.459673+00:00",
+    "exit_code": 1,
+    "finished_utc": "2026-10-29T12:42:35.811381+00:00"
+  }
+]

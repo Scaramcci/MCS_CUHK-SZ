@@ -1,0 +1,76 @@
+{
+  "seed_data": 666,
+  "training_seeds": [
+    666
+  ],
+  "epochs": 30,
+  "batch_size": 128,
+  "optimizer": "SGD with Momentum",
+  "learning_rate": 0.1,
+  "momentum": 0.9,
+  "weight_decay": 0,
+  "device": "cpu",
+  "threads": 1,
+  "torch": "2.8.0+cpu",
+  "numpy": "2.2.6",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "split_sizes": {
+    "train": 6000,
+    "validation": 2000,
+    "test": 2000
+  },
+  "split_sha256": {
+    "train": "134a3c150e72967775f7dfaa07ca0a7096b4e3ab18914316a73db8c44753a92b",
+    "validation": "aa4e4b4552e06e6912f9689526458fb6951a2c491c1c7efc608aa25c7c44d2b1",
+    "test": "8f8d3f005645446de8b91bb1ed10d48ecff1ca22c795c9fdc3ed3c4d0bc0f36f"
+  },
+  "selection": {
+    "criterion": "lowest validation CE at each trained model best checkpoint",
+    "validation_ce": {
+      "A": 0.3183046646118164,
+      "B": 0.3366292114257812,
+      "C": 0.1862191963195801
+    },
+    "selected_model": "C",
+    "test_metrics_used": false
+  },
+  "rows": [
+    {
+      "model": "A",
+      "seed": 666,
+      "width": 0,
+      "parameters": 7850,
+      "best_epoch": 9,
+      "validation_ce": 0.3183046646118164,
+      "validation_accuracy": 0.9145,
+      "test_ce": 0.27724192810058595,
+      "test_accuracy": 0.9145,
+      "test_accuracy_percent": 91.45
+    },
+    {
+      "model": "B",
+      "seed": 666,
+      "width": 64,
+      "parameters": 50890,
+      "best_epoch": 4,
+      "validation_ce": 0.3366292114257812,
+      "validation_accuracy": 0.905,
+      "test_ce": 0.2900937919616699,
+      "test_accuracy": 0.908,
+      "test_accuracy_percent": 90.8
+    },
+    {
+      "model": "C",
+      "seed": 666,
+      "width": 64,
+      "parameters": 50890,
+      "best_epoch": 14,
+      "validation_ce": 0.1862191963195801,
+      "validation_accuracy": 0.9485,
+      "test_ce": 0.1705025978088379,
+      "test_accuracy": 0.952,
+      "test_accuracy_percent": 95.19999999999999
+    }
+  ],
+  "elapsed_seconds": 11.776070805000018
+}

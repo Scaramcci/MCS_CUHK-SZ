@@ -1,0 +1,93 @@
+--- teacher
++++ completed
+@@ -78,7 +78,10 @@
+     # MEAN squared error, and a penalty on ALL d coefficients, including
+     # the intercept. Do not call fit_ridge_for_cv in your implementation.
+     # You may use np.linalg.solve to evaluate your closed-form solution.
+-    raise NotImplementedError('TODO 1: implement the final regularized fit.')
++    # grad = (2/m) X.T @ (X @ theta - y) + 2*lam*theta.
++    # Setting it to zero gives (X.T @ X + m*lam*I) @ theta = X.T @ y.
++    m, d = X.shape
++    return np.linalg.solve(X.T @ X + m * lam * np.eye(d), X.T @ y)
+ 
+ 
+ def mse_from_predictions(y_true, y_pred):
+@@ -107,7 +110,12 @@
+     # average. Break an exact tie by choosing the smaller lambda.
+     # Return that lambda (a scalar) and the complete fold_mse matrix.
+     # Do not refit any model here or use training/test errors for selection.
+-    raise NotImplementedError('TODO 2: score validation folds and choose lambda.')
++    fold_mse = np.empty((len(candidates), n_folds), dtype=float)
++    for candidate_index, fold_index, targets, predictions in validation_records:
++        fold_mse[candidate_index, fold_index] = mse_from_predictions(targets, predictions)
++    # Candidates are ascending; argmin returns the first exact minimum.
++    best_index = np.argmin(fold_mse.mean(axis=1))
++    return float(candidates[best_index]), fold_mse
+ 
+ 
+ def cross_validate(x, y):
+
+--- teacher
++++ completed
+@@ -90,7 +90,7 @@
+     # Return X with shape (10304, 400) for this dataset: one face per COLUMN,
+     # and the same pixel position in every entry of a given ROW.
+     # Pixels are already normalized; do not normalize or reorder them again.
+-    raise NotImplementedError('TODO 1: construct the data matrix from the images.')
++    return images.reshape(images.shape[0], -1, order='C').T
+ 
+ 
+ def pca(X):
+@@ -108,7 +108,9 @@
+     # in descending order, with the shapes described above.
+     # Use all 400 faces; do not form a d-by-d covariance matrix or use
+     # a ready-made PCA class. The supplied framework handles display signs.
+-    raise NotImplementedError('TODO 2: center the data and compute the PCA basis.')
++    mu = X.mean(axis=1, keepdims=True)
++    U, s, _ = np.linalg.svd(X - mu, full_matrices=False)
++    return mu, U, s
+ 
+ 
+ def _projection_inputs(X, mu, U, k):
+@@ -143,7 +145,10 @@
+     # Return (Theta, Xhat) with the shapes specified above.
+     # Do not clip or rescale Xhat; the supplied plotting code clips only
+     # its display copy, while MSE uses your original reconstruction.
+-    raise NotImplementedError('TODO 3: project the images and reconstruct them.')
++    basis = U[:, :k]
++    Theta = basis.T @ (X - mu)
++    Xhat = mu + basis @ Theta
++    return Theta, Xhat
+ 
+ 
+ def reconstruct(X, mu, U, k):
+
+--- teacher
++++ completed
+@@ -56,7 +56,7 @@
+     # TODO 1: Construct model A, the single linear layer from 784 inputs
+     # to 10 outputs. Include a bias and return the complete nn.Module.
+     # Do not add Softmax: the supplied cross-entropy loss takes raw logits.
+-    raise NotImplementedError('TODO 1: construct model A with your coding agent.')
++    return nn.Linear(784, 10)
+ 
+ 
+ def build_model_b():
+@@ -68,7 +68,7 @@
+     # TODO 2: Construct model B using two linear layers: 784 -> 64 -> 10.
+     # There is NO activation between them and NO output Softmax.
+     # Return the complete nn.Module, with a bias in each linear layer.
+-    raise NotImplementedError('TODO 2: construct model B with your coding agent.')
++    return nn.Sequential(nn.Linear(784, 64), nn.Linear(64, 10))
+ 
+ 
+ def build_model_c():
+@@ -81,7 +81,7 @@
+     # Place ReLU BETWEEN the two linear layers; do not put it after the
+     # final layer. Include both biases, return the nn.Module, and do not
+     # add output Softmax. B and C must have the same layer dimensions.
+-    raise NotImplementedError('TODO 3: construct model C with your coding agent.')
++    return nn.Sequential(nn.Linear(784, 64), nn.ReLU(), nn.Linear(64, 10))
+ 
+ 
+ def build_model(name='A'):

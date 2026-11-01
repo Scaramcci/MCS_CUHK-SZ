@@ -1,0 +1,5 @@
+Selected lambda: 0.01
+Model             Training MSE       Test MSE
+unregularized    0.00090436 2.08003393
+selected         0.00933397 0.04021308
+Outputs saved in results/run-20261029/p1

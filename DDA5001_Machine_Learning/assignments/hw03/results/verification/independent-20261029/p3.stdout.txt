@@ -1,0 +1,8 @@
+A: selected epoch=9, validation CE=0.3183
+B: selected epoch=4, validation CE=0.3366
+C: selected epoch=14, validation CE=0.1862
+Model | selected epoch | validation CE | test CE | test accuracy (%)
+A | 9 | 0.3183 | 0.2772 | 91.45
+B | 4 | 0.3366 | 0.2901 | 90.80
+C | 14 | 0.1862 | 0.1705 | 95.20
+Validation-selected model: C

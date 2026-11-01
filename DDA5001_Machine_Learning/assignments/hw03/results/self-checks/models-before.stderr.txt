@@ -1,0 +1,42 @@
+test_architectures (test_models.ModelChecks.test_architectures) ... /home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/.venv/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:64: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+  prop = Group((name + Suppress("=") + comma_separated(value)) | oneOf(_CONSTANTS))
+/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/.venv/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+  parse = parser.parseString(pattern)
+/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/.venv/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+  parser.resetCache()
+/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/.venv/lib/python3.12/site-packages/matplotlib/_mathtext.py:45: PyparsingDeprecationWarning: 'enablePackrat' deprecated - use 'enable_packrat'
+  ParserElement.enablePackrat()
+In /home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/.venv/lib/python3.12/site-packages/matplotlib/mpl-data/stylelib/classic.mplstyle: 'parseString' deprecated - use 'parse_string'
+In /home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/.venv/lib/python3.12/site-packages/matplotlib/mpl-data/stylelib/classic.mplstyle: 'resetCache' deprecated - use 'reset_cache'
+ERROR
+test_b_affine_collapse (test_models.ModelChecks.test_b_affine_collapse) ... ERROR
+
+======================================================================
+ERROR: test_architectures (test_models.ModelChecks.test_architectures)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/tests/test_models.py", line 11, in test_architectures
+    model=p3.build_model(name)
+          ^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/src/p3/p3.py", line 92, in build_model
+    model = builders[name]()
+            ^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/src/p3/p3.py", line 59, in build_model_a
+    raise NotImplementedError('TODO 1: construct model A with your coding agent.')
+NotImplementedError: TODO 1: construct model A with your coding agent.
+
+======================================================================
+ERROR: test_b_affine_collapse (test_models.ModelChecks.test_b_affine_collapse)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/tests/test_models.py", line 20, in test_b_affine_collapse
+    model=p3.build_model_b().double(); first,last=list(model.children())
+          ^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/src/p3/p3.py", line 71, in build_model_b
+    raise NotImplementedError('TODO 2: construct model B with your coding agent.')
+NotImplementedError: TODO 2: construct model B with your coding agent.
+
+----------------------------------------------------------------------
+Ran 2 tests in 1.559s
+
+FAILED (errors=2)

@@ -1,0 +1,5 @@
+Selected lambda: 0.01
+Model             Training MSE       Test MSE
+unregularized    0.00090436 2.08003393
+selected         0.00933397 0.04021308
+Outputs saved in /home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/results/verification/independent-20261029/p1

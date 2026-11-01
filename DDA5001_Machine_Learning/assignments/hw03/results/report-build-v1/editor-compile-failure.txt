@@ -1,0 +1,1 @@
+Built-in compile_latex_document failed before TeX compilation: Tectonic default_bundle_v33.tar.index.gz is not cached and could not be downloaded from https://relay.fullyjustified.net/. Source retained. Fallback: local xelatex.

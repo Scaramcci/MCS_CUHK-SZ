@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/results/verification/independent-20261029/verify.py", line 94, in <module>
+    assert errs[20]['max_reconstruction']>1 # proves returned values were not clipped
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

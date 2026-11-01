@@ -1,0 +1,4 @@
+PASS Only eight TODO raise statements replaced; all other framework text/dependencies unchanged
+PASS Recorded input manifest hashes match actual files
+PASS Ridge mean scaling, intercept penalty, underdetermined/full-rank cases against augmented least squares
+PASS All 80 held-out fold scores independently recomputed; fixed row IDs and exact tie

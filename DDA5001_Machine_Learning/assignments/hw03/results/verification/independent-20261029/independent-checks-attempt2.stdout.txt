@@ -1,0 +1,10 @@
+PASS Only eight TODO raise statements replaced; all other framework text/dependencies unchanged
+PASS Recorded input manifest hashes match actual files
+PASS Ridge mean scaling, intercept penalty, underdetermined/full-rank cases against augmented least squares
+PASS All 80 held-out fold scores independently recomputed; fixed row IDs and exact tie
+PASS All 400 faces C-order/normalization/order; thin centered SVD; orthonormality; unclipped projection and tail energy
+PASS P3 layer types/biases/counts; empty and nonempty batches; raw negative logits; B affine collapse; C nonlinearity
+PASS P3 fixed class-balanced disjoint train/validation split; official test subset; normalization
+PASS All numerical output tables/histories and six requested/generated plots reproduce byte-for-byte
+PASS Checkpoint minima among trained epochs; C selected by validation; supplied training settings; input code stable
+ALL INDEPENDENT CHECKS PASSED

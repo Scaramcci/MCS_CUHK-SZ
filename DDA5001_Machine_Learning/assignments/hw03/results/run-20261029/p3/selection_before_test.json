@@ -1,0 +1,10 @@
+{
+  "criterion": "lowest validation CE at each trained model best checkpoint",
+  "validation_ce": {
+    "A": 0.3183046646118164,
+    "B": 0.3366292114257812,
+    "C": 0.1862191963195801
+  },
+  "selected_model": "C",
+  "test_metrics_used": false
+}

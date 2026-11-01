@@ -1,0 +1,51 @@
+test_cv_exact_tie_and_mse (test_math.MathChecks.test_cv_exact_tie_and_mse) ... /home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/.venv/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:64: PyparsingDeprecationWarning: 'oneOf' deprecated - use 'one_of'
+  prop = Group((name + Suppress("=") + comma_separated(value)) | oneOf(_CONSTANTS))
+/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/.venv/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:85: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+  parse = parser.parseString(pattern)
+/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/.venv/lib/python3.12/site-packages/matplotlib/_fontconfig_pattern.py:89: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+  parser.resetCache()
+/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/.venv/lib/python3.12/site-packages/matplotlib/_mathtext.py:45: PyparsingDeprecationWarning: 'enablePackrat' deprecated - use 'enable_packrat'
+  ParserElement.enablePackrat()
+In /home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/.venv/lib/python3.12/site-packages/matplotlib/mpl-data/stylelib/classic.mplstyle: 'parseString' deprecated - use 'parse_string'
+In /home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/.venv/lib/python3.12/site-packages/matplotlib/mpl-data/stylelib/classic.mplstyle: 'resetCache' deprecated - use 'reset_cache'
+ERROR
+test_pca_order_and_spectral_error (test_math.MathChecks.test_pca_order_and_spectral_error) ... ERROR
+test_ridge_mean_scaling_and_intercept (test_math.MathChecks.test_ridge_mean_scaling_and_intercept) ... ERROR
+
+======================================================================
+ERROR: test_cv_exact_tie_and_mse (test_math.MathChecks.test_cv_exact_tie_and_mse)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/tests/test_math.py", line 26, in test_cv_exact_tie_and_mse
+    selected, errors = p1.score_and_select_cv(records,[.1,.3])
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/src/p1/p1.py", line 110, in score_and_select_cv
+    raise NotImplementedError('TODO 2: score validation folds and choose lambda.')
+NotImplementedError: TODO 2: score validation folds and choose lambda.
+
+======================================================================
+ERROR: test_pca_order_and_spectral_error (test_math.MathChecks.test_pca_order_and_spectral_error)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/tests/test_math.py", line 32, in test_pca_order_and_spectral_error
+    X = p2.build_data_matrix(images)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/src/p2/p2.py", line 93, in build_data_matrix
+    raise NotImplementedError('TODO 1: construct the data matrix from the images.')
+NotImplementedError: TODO 1: construct the data matrix from the images.
+
+======================================================================
+ERROR: test_ridge_mean_scaling_and_intercept (test_math.MathChecks.test_ridge_mean_scaling_and_intercept)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/tests/test_math.py", line 17, in test_ridge_mean_scaling_and_intercept
+    np.testing.assert_allclose(p1.fit_ridge_final(np.eye(2), [2.,4.], .5), [1.,2.], rtol=1e-13)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/hw03/src/p1/p1.py", line 81, in fit_ridge_final
+    raise NotImplementedError('TODO 1: implement the final regularized fit.')
+NotImplementedError: TODO 1: implement the final regularized fit.
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.544s
+
+FAILED (errors=3)
