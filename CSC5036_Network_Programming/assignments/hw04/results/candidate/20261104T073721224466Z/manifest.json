@@ -1,0 +1,15 @@
+{
+  "status": "local review candidate; required Learner Lab execution pending",
+  "members": {
+    "Assignment-4/chord_node.py": {
+      "sha256": "6c03bb4a0e7309401a4e08a0cc6a145e57347d0bebae3decbcd0b725b561d632",
+      "size": 21812
+    },
+    "Assignment-4/test_dht.py": {
+      "sha256": "ea237f6b59cb24ff18edace676c0821d9e9ae9a091f4d6c0895efaca646d4d11",
+      "size": 8587
+    }
+  },
+  "archive": "226040255_hw4.zip",
+  "sha256": "dff82fdcec7f0266bcf166bc5d31d02aad3bf75b47752fcc62bcd7c4dd367dd2"
+}

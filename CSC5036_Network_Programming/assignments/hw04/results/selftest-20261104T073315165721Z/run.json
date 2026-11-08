@@ -1,0 +1,27 @@
+{
+  "environment": {
+    "python": "3.14.7 | packaged by Anaconda, Inc. | (main, Aug 14 2026, 10:21:40) [GCC 14.3.0]",
+    "platform": "Linux-7.0.0-42-generic-x86_64-with-glibc2.43",
+    "machine": "x86_64",
+    "cpu_count": 32
+  },
+  "scope": "supplementary local checks, not required AWS environment",
+  "hashes": {
+    "src/Assignment-4/test_dht.py": "ea237f6b59cb24ff18edace676c0821d9e9ae9a091f4d6c0895efaca646d4d11",
+    "src/Assignment-4/chord_node.py": "6c03bb4a0e7309401a4e08a0cc6a145e57347d0bebae3decbcd0b725b561d632",
+    "tests/run_checks.py": "1b805c5ba0d8795b5e7391104ee7acc0c61998e5fe713f7a833afa78852b905b",
+    "tests/check_behavior.py": "0b37567124054b7d0ae8e90e0dc865fb2aff98e0a6f316c206d2ffb7ce48cd00",
+    "tests/check_scope.py": "71511cdece0b22e2f5613398c91577809aa8c6d3544a4ee4befe45841c0d84f3"
+  },
+  "runs": [
+    {
+      "label": "scope",
+      "command": [
+        "/home/scarramcci/miniconda3/bin/python3",
+        "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw04/tests/check_scope.py"
+      ],
+      "cwd": "/home/scarramcci/Project/MCS_CUHK-SZ/CSC5036_Network_Programming/assignments/hw04",
+      "exit": 1
+    }
+  ]
+}

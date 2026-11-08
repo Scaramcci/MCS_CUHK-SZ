@@ -26,9 +26,9 @@ Originals are not gold-positive labels. No method kept a diagnostic. Actual
 agent inspection counts18/17; both agents skipped three prompt-requested length
 checks. Feedback did not improve aggregate decisions over the ablation.
 See [verified summary](results/test-v1/summary.json),
-[independent verification](notes/verification-full.md), and
-[report evidence](notes/report-evidence.md). The separate Reviewer approved the
-exact files in [final package review](notes/review-full.md). Upload the required
+[independent verification](notes/verification-rewrite.md), and
+[report evidence](notes/report-evidence-v3.md). The separate Reviewer approved the
+exact files in [final package review](notes/review-author.md). Upload the required
 `submission/CSC5051_HW02_Task3_Report.pdf` and optional
 `submission/CSC5051_HW02_Task3_Code.zip` to Blackboard yourself. Ready applies
 to those reviewed bytes, not an upload or instructor approval.

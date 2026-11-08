@@ -1,0 +1,28 @@
+{
+  "archive": "results/candidate/20261104T074144997572Z/226040255_hw4.zip",
+  "archive_sha256": "12b0688cd6bce4012f075a532f853a144277c98cc11b00009c468a6fa4389121",
+  "members": {
+    "Assignment-4/chord_node.py": {
+      "sha256": "4427dab102a41527aff9567d26c660fc52a868739714dde0e268d19d50b77374",
+      "size": 21907
+    },
+    "Assignment-4/test_dht.py": {
+      "sha256": "ea237f6b59cb24ff18edace676c0821d9e9ae9a091f4d6c0895efaca646d4d11",
+      "size": 8587
+    }
+  },
+  "static_package_checks": "PASS",
+  "repeat_transfer": {
+    "key": "review-23",
+    "key_hash": 10,
+    "current_owner": 15,
+    "existing_predecessor": 8,
+    "expected": "retain key on node 15",
+    "actual_data": {
+      "review-23": "owned-by-15"
+    },
+    "sent": [],
+    "failed": false,
+    "status": "PASS: current owner retains key; no store RPC"
+  }
+}

@@ -7,3 +7,4 @@ data/
 local_artifacts/
 /results/raw/
 __pycache__/
+/report/latex/author-local.tex

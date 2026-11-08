@@ -1,0 +1,11 @@
+{
+  "executor": "root self-check",
+  "scope": "in-memory regression, not real TCP",
+  "source_sha256": "4427dab102a41527aff9567d26c660fc52a868739714dde0e268d19d50b77374",
+  "key": "review-23",
+  "retained": {
+    "review-23": "owned-by-15"
+  },
+  "sent": [],
+  "passed": true
+}
