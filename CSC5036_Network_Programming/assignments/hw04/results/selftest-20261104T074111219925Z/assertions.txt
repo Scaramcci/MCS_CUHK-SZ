@@ -1,0 +1,9 @@
+PASS join / full identifier routing / ownership: 3
+PASS join / full identifier routing / ownership: 29
+PASS join / full identifier routing / ownership: 11
+PASS join / full identifier routing / ownership: 24
+PASS join / full identifier routing / ownership: 0
+PASS failure recovery: 17
+PASS failure recovery: 3
+PASS failure recovery: 0
+PASS all supplementary assertions

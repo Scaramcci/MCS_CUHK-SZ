@@ -25,20 +25,20 @@ actual execution state is recorded in these separate results.
 ## Files and dependencies
 
 - `src/`: data preparation, strict API client, budget ledger, adaptive agent,
-  runner, offline analysis, and report-table/plot generation.
+  runner, offline analysis, and report table and chart generation.
 - `prompts/`, `config/`: exact final prompts and experiment settings.
 - `tests/test_core.py`, `tests/offline_smoke.py`:19 offline tests; no credentials
   or external calls. Independent verification is recorded in the local project,
   outside this submission supplement.
 - `results/`: compact summaries, selections (IDs/hashes, no source triples),
   and actual execution metadata. Original raw outputs remain local.
-- `report/latex/`: English report source, generated tables, and teacher-derived
+- `report/latex/`: English report source, tables and vector figures, and teacher-derived
   style files. `src/render_results.py` recreates `results.tex` from summary JSON.
 - `.env.example`: placeholders only. Never include the real `.env` in a package.
 
 Core: Python3.9+ standard library on Linux (`fcntl` is required), actually
 tested on Python3.14.7. No GPU or pip packages are needed. Report: TeX Live with
-pdflatex, BibTeX, PGFPlots/TikZ, listings, booktabs, hyperref, and Times fonts;
+pdflatex, BibTeX, TikZ, listings, booktabs, hyperref, and Times fonts;
 tested with TeX Live2025/Debian. Bibliography and style files are included.
 
 ## Recover the source and deterministic split
@@ -120,9 +120,9 @@ pdflatex -interaction=nonstopmode -halt-on-error main.tex
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-The included compact test summary is sufficient for the report tables/plot.
-Cases refer to source indices39766 and49960. The teacher template was retrieved
+The included compact test summary is sufficient for the report tables and repetition chart.
+Cases refer to source indices 39766 and 49960. The teacher template was retrieved
 from https://www.overleaf.com/read/jpcrtgzjjdry#36db1a; source archive SHA-256
 `44f988836ade08d4593780f4b99a46c55e93690e0ae3402d8f2e1aa2b02e48a0`.
 Only a working copy was adapted. See the PDF for source citations, methods,
-two development revisions, observed failures, and AI assistance disclosure.
+the development pilot and prompt refinement, observed failures, and AI assistance disclosure.

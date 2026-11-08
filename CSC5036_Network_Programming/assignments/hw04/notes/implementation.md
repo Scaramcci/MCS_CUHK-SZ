@@ -1,0 +1,21 @@
+# Implementation and self-check
+
+Executor: root session, 2026-11-04; base commit 929bf81, uncommitted hw04 additions on master. Scope: src/Assignment-4/chord_node.py, separate development tests and records. Teacher originals unchanged.
+
+Implemented 13 TODO bodies and four helper methods: modular intervals, Chord lookup/join/stabilization/fingers, SHA-1 storage, acknowledged transfer, failed predecessor removal and live successor candidate recovery. All fixed starter segments (including __init__ and network methods), line endings, and teacher test bytes preserved by tests/check_scope.py. No third-party packages, report, global node registry, or fixed test answers.
+
+Evidence: results/selftest-20261104T073419306127Z/run.json and scope.txt, teacher.txt, assertions.txt. Actual command: `python3 tests/run_checks.py` from repository root via the full script path. Python 3.14.7 on local Linux, exact platform/version and source/test SHA-256 in run.json. Real loopback TCP, sequential suites; original teacher random node selection is unseeded, supplementary cases are deterministic. Teacher output additionally assessed in teacher-assessment.json, not merely exit code. All checks passed, including 65,536 interval assertions, all 32 lookups and all fingers after each of five joins, 96 key values/unique owners, overwrite/missing key, and three successive single-node failures. Self-check is not independent validation.
+
+Earlier runs retained: selftest-20261104T073315165721Z failed due to a bug in the new fixed-segment checker (last body not skipped). Checker corrected; implementation unchanged. selftest-20261104T073324014068Z was blocked by sandbox sockets; teacher caught PermissionError and returned zero, but assertions failed. First escalation failed because approval transport disconnected; after explicit user permission, local TCP tests executed successfully. run_checks.py subsequently gained automatic teacher-output semantic checks; successful run's original runner hash remains in its record, and teacher-assessment.json explicitly records post-run inspection.
+
+Limitations: required Learner Lab t3.small / Ubuntu 24.04 / Python 3.12 run not yet performed. Original single-recv(4096) JSON framing and unlocked network store dispatcher remain unchanged; no claim of arbitrary large values, linearizable concurrent writes during migration, or key replication. Backup candidates require previously learned reachable peers; arbitrary network partition recovery is not claimed. Failed node's unreplicated keys are outside required bonus scope.
+
+Next: independent Verifier of frozen source, then package audit by different independent Reviewer. Do not label course-environment completion or Ready until required run and its checks are complete.
+
+## Reviewer correction — repeat transfer
+
+Independent Reviewer found that an explicit repeated transfer_keys RPC after predecessor adoption used equal interval endpoints and could move retained keys around the full ring. Original local tests did not call this RPC twice. Old candidate and reviewer reproduction are retained in results/candidate/20261104T073721224466Z/ and results/review-20261104/; that candidate is invalid.
+
+Root added a predecessor-address equality guard inside the transfer_keys TODO body. New source SHA-256: 4427dab102a41527aff9567d26c660fc52a868739714dde0e268d19d50b77374. New self-test checks repeated calls after every join. Fixed-segment check and in-memory reproduction pass (results/repeat-transfer-selfcheck.json). Multiple new root TCP approval attempts failed at approval-service transport, before execution; independent Verifier is obtaining fresh normal approval for real-TCP checks. Old source's validation does not certify the corrected source.
+
+Revalidation completed: independent Verifier reran its complete TCP suite plus 15 remote repeated-transfer calls (results/verification-20261104-repeat-transfer/), then ran latest tests/run_checks.py (results/selftest-20261104T074111219925Z/): scope, original teacher suite and supplementary assertions all exit 0 and semantic_ok true. New source hash unchanged. New candidate results/candidate/20261104T074144997572Z/ contains these exact source/test bytes. Old candidate remains invalid. Required EC2 run still pending.

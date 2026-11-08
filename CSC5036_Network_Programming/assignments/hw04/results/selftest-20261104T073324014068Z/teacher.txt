@@ -1,0 +1,6 @@
+=== Creating Chord Network ===
+Test failed with error: [Errno 1] Operation not permitted
+
+Shutting down all nodes...
+
+Test suite finished

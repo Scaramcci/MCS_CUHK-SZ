@@ -1,0 +1,11 @@
+PASS original network/init/stop methods and teacher test byte-identical
+PASS 65536 interval endpoint/wraparound assertions
+PASS singleton stores keys covering all 32 hashes
+PASS join 0: complete routing, fingers, predecessor/successor, exact ownership and all-node retrieval
+PASS join 16: complete routing, fingers, predecessor/successor, exact ownership and all-node retrieval
+PASS join 7: complete routing, fingers, predecessor/successor, exact ownership and all-node retrieval
+PASS join 26: complete routing, fingers, predecessor/successor, exact ownership and all-node retrieval
+PASS missing key and falsy overwrite
+PASS 15 real TCP repeated transfer RPCs preserve all key ownership and retrieval
+PASS two adjacent failures: surviving keys, exhaustive routing and fingers
+PASS recovery down to singleton

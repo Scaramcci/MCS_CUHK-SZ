@@ -1,0 +1,234 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=21mm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,array}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\pagestyle{plain}
+\begin{document}
+\begin{center}{\Large\bfseries Homework 6: Concise Answers}\end{center}
+
+\section*{1 (p.\ 1): Student seniorities}
+Assume four independent draws. Let $n_i$ be the number of students from
+category $i$, with $\sum_i n_i=4$. The unordered composition has probability
+\[
+ P(n_1,\ldots,n_5)=\frac{4!}{\prod_i n_i!}\prod_i q_i^{n_i}.
+\]
+\textbf{Laplace smoothing.} If the given proportions are empirical frequencies
+from $N$ students, add-one smoothing gives
+\[
+ q_i=\frac{Np_i+1}{N+5},\qquad
+ (p_1,p_2,p_3,p_4,p_5)=(.24,.22,.20,.18,.16).
+\]
+The original gives no $N$, so the smoothed numerical probabilities depend
+on an unspecified sample size.
+\begin{enumerate}
+\item[(i)] All four are fourth-year students: $\boxed{q_4^4}$.
+\item[(ii)] Two first-year and two second-year students:
+$\boxed{\binom42 q_1^2q_2^2=6q_1^2q_2^2}$.
+\item[(iii)] The most likely composition is
+$\boxed{(n_1,n_2,n_3,n_4,n_5)=(1,1,1,1,0)}$, with probability
+$\boxed{24q_1q_2q_3q_4}$.
+Indeed, if a category is repeated, there is an unused category. Moving one
+student from a repeated category $i$ to an unused category $j$ multiplies
+its probability by $n_iq_j/q_i>1$, since $n_i\ge2$ and $q_i/q_j\le1.5$.
+Thus the maximum uses four distinct categories, specifically the four largest.
+\item[(iv)] The least likely composition is
+$\boxed{(0,0,0,0,4)}$, with probability $\boxed{q_5^4}$.
+Every product is at least $q_5^4$ and its multinomial coefficient is at least one.
+\end{enumerate}
+\textbf{Numerical example, assuming $N=100$:}
+$q=(25,23,21,19,17)/105$ gives, respectively,
+\[
+\boxed{0.0010721541,\quad0.0163203603,\quad0.0452996437,\quad0.0006871293.}
+\]
+For comparison, without smoothing the four probabilities are
+\[0.00104976,\quad 0.01672704,\quad 0.04561920,\quad 0.00065536.\]
+
+\section*{2 (p.\ 2): Preparation given a correct answer}
+Let $U$ mean unprepared and $R$ mean a correct answer. By Bayes' rule,
+\[
+ P(U\mid R)=\frac{P(R\mid U)P(U)}{P(R\mid U)P(U)+P(R\mid\neg U)P(\neg U)}
+ =\frac{(1/4)(1/4)}{(1/4)(1/4)+(0.9)(3/4)}
+ =\boxed{\frac5{59}\approx8.4746\%}.
+\]
+
+\newpage
+\section*{3 (p.\ 3): Naive Bayes classification}
+Use the visible query $x=(\text{yes},\text{yes},\text{yes},\text{yes})$
+in the order (Give Birth, Can Fly, Live in Water, Have Legs).
+Let $M$ and $N$ denote mammals and non-mammals. There are 7 mammals and
+13 non-mammals. The counts of each queried attribute value are:
+\begin{center}
+\begin{tabular}{c|rrrr|r}
+\toprule
+Class & Birth=yes & Fly=yes & Water=yes & Legs=yes & Total\\
+\midrule
+$M$ &6&1&2&5&7\\
+$N$ &1&3&3&9&13\\
+\bottomrule
+\end{tabular}
+\end{center}
+Using empirical probabilities and conditional independence,
+\[
+\begin{aligned}
+ s_M&=P(M)P(x\mid M)=\frac7{20}\frac67\frac17\frac27\frac57
+      =\frac3{343}\approx0.00874636,\\
+ s_N&=P(N)P(x\mid N)=\frac{13}{20}\frac1{13}\frac3{13}\frac3{13}\frac9{13}
+      =\frac{81}{43940}\approx0.00184342.
+\end{aligned}
+\]
+Therefore
+\[
+ \boxed{x\text{ is classified as a mammal}},\qquad
+ P(M\mid x)=\frac{s_M}{s_M+s_N}=\frac{43940}{53201}\approx0.825924.
+\]
+If add-one smoothing is also applied here, the binary attributes have two
+possible values, while Water has three (yes/no/sometimes). Smoothing the
+class priors as well gives
+\[
+\begin{aligned}
+ \widetilde s_M&=\frac8{22}\frac79\frac29\frac3{10}\frac69
+     \approx0.01257015,\\
+ \widetilde s_N&=\frac{14}{22}\frac2{15}\frac4{15}\frac4{16}\frac{10}{15}
+     \approx0.00377104.
+\end{aligned}
+\]
+The smoothed classifier also predicts mammal, with posterior $0.769231$.
+
+\section*{4 (p.\ 4): Weather transition estimates}
+Use state order $(S,C,R)$ for rows (current state) and columns (next state).
+The 17-day sequence gives 16 adjacent transitions:
+\begin{center}
+\begin{tabular}{c|rrr|r}
+\toprule
+From $\backslash$ To & $S$ & $C$ & $R$ & Row total\\
+\midrule
+$S$&4&1&2&7\\
+$C$&0&2&2&4\\
+$R$&2&2&1&5\\
+\midrule
+Total&6&5&5&16\\
+\bottomrule
+\end{tabular}
+\end{center}
+Normalize each row to estimate $A_{ij}=P(W_{t+1}=j\mid W_t=i)$:
+\[
+ \boxed{A=\begin{pmatrix}4/7&1/7&2/7\\0&1/2&1/2\\2/5&2/5&1/5\end{pmatrix}}.
+\]
+The last day's $C$ has no observed successor and adds no transition.
+
+\newpage
+\section*{5 (p.\ 5): Three consecutive sunny days}
+The given matrix, in state order $(S,C,R)$, is
+\[
+ A=\begin{pmatrix}.8&.15&.05\\.38&.6&.02\\.75&.05&.2\end{pmatrix}.
+\]
+A three-day sunny sequence contains two transitions. For a window starting
+on day $t$,
+\[
+ \boxed{P(W_t=S,W_{t+1}=S,W_{t+2}=S)=P(W_t=S)(.8)^2}.
+\]
+If day $t$ is already known to be sunny, the conditional probability is $0.64$.
+For a window starting on an arbitrary day in the stationary regime, solve
+$\pi A=\pi$, $\sum_i\pi_i=1$:
+\[
+ 20\pi_S=38\pi_C+75\pi_R,\qquad
+ 40\pi_C=15\pi_S+5\pi_R,
+ \qquad
+ \pi=\frac1{929}(638,245,46).
+\]
+Hence the stationary answer is
+\[
+ \boxed{\pi_S(.8)^2=\frac{10208}{23225}\approx0.43952637}.
+\]
+An initial distribution is not specified. Outside stationarity the general
+formula above applies; if $\mu$ is the day-1 distribution, use
+$P(W_t=S)=(\mu A^{t-1})_S$.
+
+\section*{6 (p.\ 6): Car-value Bayesian network}
+Let $M,E,A,C$ denote Mileage, Engine, Air Conditioner, and Car Value.
+The graph gives
+\[
+ \boxed{P(M,E,A,C)=P(M)P(A)P(E\mid M)P(C\mid E,A)}.
+\]
+The table represents 40 records. Summing the appropriate counts gives
+\[
+ P(M=\mathrm{Hi})=P(M=\mathrm{Lo})=\tfrac12,\qquad
+ P(A=\mathrm{Working})=\tfrac{25}{40}=\tfrac58,\quad
+ P(A=\mathrm{Broken})=\tfrac{15}{40}=\tfrac38.
+\]
+\begin{center}
+\begin{tabular}{c|cc}
+\toprule
+$M$&$P(E=\mathrm{Good}\mid M)$&$P(E=\mathrm{Bad}\mid M)$\\
+\midrule
+Hi&$10/20=1/2$&$10/20=1/2$\\
+Lo&$15/20=3/4$&$5/20=1/4$\\
+\bottomrule
+\end{tabular}
+\quad
+\begin{tabular}{cc|cc}
+\toprule
+$E$&$A$&$P(C=\mathrm{Hi}\mid E,A)$&$P(C=\mathrm{Lo}\mid E,A)$\\
+\midrule
+Good&Working&$12/16=3/4$&$4/16=1/4$\\
+Good&Broken&$6/9=2/3$&$3/9=1/3$\\
+Bad&Working&$2/9$&$7/9$\\
+Bad&Broken&$0/6=0$&$6/6=1$\\
+\bottomrule
+\end{tabular}
+\end{center}
+For example, marginalizing $M$ gives $P(C=\mathrm{Hi}\mid E=\mathrm{Good},
+A=\mathrm{Working})=(3+9)/(3+4+9+0)=3/4$.
+Since $E$ and $A$ are marginally independent in this network,
+\[
+\begin{aligned}
+P(E=\mathrm{Bad},A=\mathrm{Broken})
+ &=P(A=\mathrm{Broken})\sum_mP(m)P(E=\mathrm{Bad}\mid m)\\
+ &=\frac38\left(\frac12\frac12+\frac12\frac14\right)
+ =\boxed{\frac9{64}=0.140625}.
+\end{aligned}
+\]
+This is the fitted-network probability; the raw empirical joint frequency
+is $(0+4+0+2)/40=0.15$.
+
+\newpage
+\section*{7 (p.\ 7): Battery, fuel, gauge and starting}
+Let $B,F,G,S$ denote Battery, Fuel, Gauge and Start. The graph has
+$B,F$ as independent roots, and both are parents of $G$ and $S$. Therefore
+\[
+ \boxed{P(B,F,G,S)=P(B)P(F)P(G\mid B,F)P(S\mid B,F)}.
+\]
+In particular, $G$ and $S$ are conditionally independent given $B,F$.
+The supplied root probabilities are
+\[
+ P(B=\mathrm{bad})=.1,\quad P(B=\mathrm{good})=.9,\qquad
+ P(F=\mathrm{empty})=.2,\quad P(F=\mathrm{not\ empty})=.8.
+\]
+\textbf{(a)} Using the complementary start probability,
+$P(S=\mathrm{yes}\mid B=\mathrm{good},F=\mathrm{empty})=1-.8=.2$:
+\[
+\begin{aligned}
+&P(B=\mathrm{good},F=\mathrm{empty},G=\mathrm{empty},S=\mathrm{yes})\\
+&\qquad=(.9)(.2)(.8)(.2)=\boxed{0.0288}.
+\end{aligned}
+\]
+\textbf{(b)} Here
+$P(G=\mathrm{not\ empty}\mid B=\mathrm{bad},F=\mathrm{empty})=1-.9=.1$:
+\[
+\begin{aligned}
+&P(B=\mathrm{bad},F=\mathrm{empty},G=\mathrm{not\ empty},S=\mathrm{no})\\
+&\qquad=(.1)(.2)(.1)(1)=\boxed{0.002}.
+\end{aligned}
+\]
+\textbf{(c)} Marginalize the unknown fuel state. Since $B$ and $F$ are independent,
+\[
+\begin{aligned}
+ P(S=\mathrm{yes}\mid B=\mathrm{bad})
+ &=\sum_fP(S=\mathrm{yes}\mid B=\mathrm{bad},f)P(f)\\
+ &=(1-.9)(.8)+(1-1)(.2)=\boxed{0.08}.
+\end{aligned}
+\]
+No gauge evidence is given, so its conditional probabilities sum to one
+and do not enter this marginal.
+\end{document}

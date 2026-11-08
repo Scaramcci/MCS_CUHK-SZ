@@ -1,0 +1,15 @@
+{
+  "status": "Ready for user upload",
+  "approved_files": {
+    "submission/CSC5051_HW02_Task3_Code.zip": {
+      "sha256": "1d33572689587d98ecb25641f6b1e22b54dabab756b94b5b7a1219e6657a25de",
+      "bytes": 81315
+    },
+    "submission/CSC5051_HW02_Task3_Report.pdf": {
+      "sha256": "1c1648fa0b32c319fe88cd509e9a4d65214168cd9d6a6a90bd6750ed57d832d8",
+      "bytes": 128113
+    }
+  },
+  "technical_verification": "notes/verification-rewrite.md",
+  "package_review": "notes/review-author.md"
+}
