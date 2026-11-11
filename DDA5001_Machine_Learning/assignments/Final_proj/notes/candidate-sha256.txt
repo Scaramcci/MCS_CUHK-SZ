@@ -1,0 +1,2 @@
+37e478f6db821a87fd31c38d8468da0326c8ee5734984ecf449e921f177092a7  local_artifacts/candidate/part1-results.zip
+a738a4ef048363bb98f89574fb8b52724a3224be30dd941578836880e7c3eb7c  report/part1-report.pdf

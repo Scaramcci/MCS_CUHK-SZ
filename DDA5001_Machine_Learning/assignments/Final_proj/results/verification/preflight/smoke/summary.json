@@ -1,0 +1,18 @@
+{
+  "status": "completed",
+  "step": 8,
+  "tokens": 1024,
+  "train_seconds": 0.03446111499943072,
+  "checkpoint_seconds": 0.054858549000528,
+  "wall_seconds": 0.6676394290007011,
+  "endpoint_scores": {
+    "loss": 3.6954946517944336,
+    "perplexity": 40.265485057133574,
+    "bits_per_character": 5.331471807775516
+  },
+  "best_val_loss": 3.6954946517944336,
+  "tokens_per_second": 29714.65084681433,
+  "peak_memory_bytes": null,
+  "budget": "tokens",
+  "output": "/home/scarramcci/Project/MCS_CUHK-SZ/DDA5001_Machine_Learning/assignments/Final_proj/results/verification/preflight/smoke"
+}
