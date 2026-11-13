@@ -1,0 +1,61 @@
+{
+  "date": "2026-11-13",
+  "executor": "root Codex session",
+  "method": "byte-identical copies checked with SHA-256; PDF page counts via pypdf",
+  "slides": [
+    {
+      "original": "slides/AI-Introduction2026-09-01.pdf",
+      "numbered": "slides/编号复习版/01_AI导论.pdf",
+      "pages": 34,
+      "sha256": "f8d3956aa70d8dcb8e103bacfa60365c05f6f6c13040a7e06b5dbc7016439b62"
+    },
+    {
+      "original": "slides/AI_Search_Ding6.pdf",
+      "numbered": "slides/编号复习版/02_状态空间与搜索建模.pdf",
+      "pages": 28,
+      "sha256": "aa9c8bd08781873b823ddde4a2df0af9c842d2fddd9b0e93c0489b4fe48b30ad"
+    },
+    {
+      "original": "slides/BFS-DFS-Dijkstra-2026-4-7.pdf",
+      "numbered": "slides/编号复习版/03_BFS_DFS_Dijkstra.pdf",
+      "pages": 52,
+      "sha256": "9d7b4bc358a5dd38788cd838a7ef70016e9bcd28718fa7f085c77fab2a36e195"
+    },
+    {
+      "original": "slides/Informed_Search_Ding2026-6-15.pdf",
+      "numbered": "slides/编号复习版/04_启发式搜索与Astar.pdf",
+      "pages": 33,
+      "sha256": "d1bcc7f619a31cf8d883386a148929a73ccbbb10d7d9c81f1f338c78574e1f25"
+    },
+    {
+      "original": "slides/GamesCDing2026-9-20.pdf",
+      "numbered": "slides/编号复习版/05_博弈搜索_Minimax_剪枝.pdf",
+      "pages": 78,
+      "sha256": "184d70d5aa2385b7bb483d72bd0f92cd02d86a6398fdf62a2784d793694bae83"
+    },
+    {
+      "original": "slides/CSP_Ding_2026.pdf",
+      "numbered": "slides/编号复习版/06_约束满足_CSP.pdf",
+      "pages": 63,
+      "sha256": "13d5f56f0df7fdce7ee6ccec286c2e8568a80218eb59da3015ccd050a9342dc0"
+    },
+    {
+      "original": "slides/PropLogicDing2026.10.pdf",
+      "numbered": "slides/编号复习版/07_命题逻辑与知识表示.pdf",
+      "pages": 87,
+      "sha256": "73e6c6d2d09b931cf36bf9f720fa4a500fb20ba89bb7f22aff76acc54716ec0a"
+    },
+    {
+      "original": "slides/Probabily-BayesTheorem-Naive-Bayes-2026-11.pdf",
+      "numbered": "slides/编号复习版/08_概率分布_Bayes_朴素贝叶斯.pdf",
+      "pages": 49,
+      "sha256": "423e903b66494bbc9fc68e1db1e766e518c3a004c82d65bb0e6b1de52e14c34f"
+    },
+    {
+      "original": "slides/Markov-BayesNetDing2026-10-25.pdf",
+      "numbered": "slides/编号复习版/09_联合分布_Markov链_贝叶斯网络.pdf",
+      "pages": 110,
+      "sha256": "bf31a3a18587be9ab2e62a0d9731e56edc8798e8f525b834bd52990d69a47f56"
+    }
+  ]
+}
