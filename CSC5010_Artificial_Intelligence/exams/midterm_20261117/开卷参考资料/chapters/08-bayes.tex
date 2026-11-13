@@ -1,0 +1,78 @@
+\section{Bayes 与 Naive Bayes 分类}\label{sec:bayes}
+\src{课件 08 p.20--49；HW6 P2--P3}
+\[
+P(H|E)=\frac{P(E|H)P(H)}{P(E)},\quad
+P(E)=\sum_jP(E|H_j)P(H_j).
+\]
+$H_j$ 互斥且穷尽。prior=$P(H)$；likelihood=$P(E|H)$；evidence=$P(E)$；posterior=$P(H|E)$。\textbf{先写条件方向，再代入。}
+
+\ex{检测阳性与后验（课件 08 p.30--35）}
+V=感染，$P(V)=.04$；灵敏度 $P(+|V)=.95$；特异度 $P(-|\neg V)=.99$，故假阳性 .01。
+\begin{center}\begin{tabular}{c|c|c|c}\toprule
+分支&先验&阳性条件概率&联合权重\\\midrule
+V&.04&.95&.038\\$\neg V$&.96&.01&.0096\\\bottomrule\end{tabular}\end{center}
+\[
+P(V|+)=\frac{.038}{.038+.0096}=\ans{95/119}\approx.7983.
+\]
+不能把 $P(+|V)$ 的 .95 直接作为 $P(V|+)$。\checkit{归一化两类后验和为 1；注意特异度需先取补才能得到假阳性。}
+
+\ex{答对后未准备（HW6 P2，p.2）}
+U=未准备，R=答对。$P(U)=1/4,P(\neg U)=3/4$；$P(R|U)=1/4,P(R|\neg U)=9/10$。
+\[
+P(U|R)=\frac{(1/4)(1/4)}{(1/4)(1/4)+(3/4)(9/10)}
+=\frac{1/16}{59/80}=\ans{5/59}.
+\]
+
+\ex{朴素贝叶斯的估计、分数与后验}
+给定类别 c 后属性条件独立：
+\[
+P(\mathbf x|c)=\prod_jP(x_j|c),\quad s_c=P(c)\prod_jP(x_j|c),\quad
+\widehat c=\arg\max_c s_c,\quad P(c|\mathbf x)=\frac{s_c}{\sum_{c'}s_{c'}}.
+\]
+MLE 条件概率 $n_{j,v,c}/N_c$；add-one：$(n_{j,v,c}+1)/(N_c+K_j)$，$K_j$ 是\textbf{该属性的取值数}。若先验也平滑，$P(c)=(N_c+1)/(N+\#classes)$。明确哪些分布做平滑，不随意混用。
+
+\ex{动物分类全计数（HW6 P3，p.3）}
+原表 20 例，M 哺乳=7，N 非哺乳=13。属性顺序 Birth,Fly,Water,Legs；\textbf{作业可见查询为四个 yes}，课件旧查询是 yes,no,yes,no。
+\begin{center}\small\begin{tabular}{c|c|c|c|c}\toprule
+类&Birth yes/no&Fly yes/no&Water yes/no/sometimes&Legs yes/no\\\midrule
+M&6/1&1/6&2/5/0&5/2\\N&1/12&3/10&3/6/4&9/4\\\bottomrule\end{tabular}\end{center}
+\[
+\begin{aligned}
+s_M&=\frac7{20}\frac67\frac17\frac27\frac57=\frac3{343},\\
+s_N&=\frac{13}{20}\frac1{13}\frac3{13}\frac3{13}\frac9{13}=\frac{81}{43940}.
+\end{aligned}
+\]
+$s_M>s_N$，判 M；归一化
+\[
+P(M|\mathbf x)=\frac{3/343}{3/343+81/43940}=\ans{43940/53201}\approx.825924.
+\]
+若全部 add-one，Water 有三值，其余二值：
+\[
+\widetilde s_M=\frac8{22}\frac79\frac29\frac3{10}\frac69,\qquad
+\widetilde s_N=\frac{14}{22}\frac2{15}\frac4{15}\frac4{16}\frac{10}{15}.
+\]
+归一化 $P(M|x)=\ans{10/13}$，仍判 M。
+\checkit{每个属性按其类别子表计数；分母不是全体 20；score 还需归一化才能叫后验。属性数 4 不是 Water 平滑分母加 4 的理由。}
+
+\ex{银行分类与零概率（课件 08 p.43--47）}
+标签是是否违约，No 类7例、Yes类3例。按原始表重数：
+\begin{center}\small\begin{tabular}{c|c|c|c}\toprule
+类&Home yes/no&Marital single/married/divorced&Income low/mid/high\\\midrule
+No&3/4&2/4/1&3/1/3\\Yes&0/3&2/0/1&0/3/0\\\bottomrule\end{tabular}\end{center}
+收入 low$<80$K、mid 80--101K、high$>101$K。p.45 把 married/divorced 数字调换，\textbf{以原表计数为准}。
+
+教学查询 home=no,single,mid：
+\[
+s_{No}=\frac7{10}\frac47\frac27\frac17=\frac4{245},\quad
+s_{Yes}=\frac3{10}\frac33\frac23\frac33=\frac15.
+\]
+判 Yes（违约），后验 $P(Yes|x)=49/53$。如查询 home=yes，未平滑 Yes 类整项为零；add-one 条件变 $(0+1)/(3+2)=1/5$，避免零概率。
+
+\ex{连续属性与维数灾难简查（课件 08 p.23--29）}
+连续 x 用密度 $f(x|c)$，不能把精确点概率当非零。正态
+\[
+f(x|c)=\frac1{\sigma_c\sqrt{2\pi}}e^{-(x-\mu_c)^2/(2\sigma_c^2)},\quad s_c=P(c)f(x|c).
+\]
+身高例 x=1.65，男/女均值 1.67/1.61、共同标准差 .05、先验 .7/.3，加权密度约 5.156/1.738；归一化男约 .748。无计算器可保留指数式。
+
+每维 k 格，联合格子 $k^d$；在单位 d 维立方体覆盖体积 s 的小立方体边长 $s^{1/d}$。d=10，s=.1 时 .794，s=.01 时 .631（课件 p.28 对调）。Naive Bayes 通过条件独立减少需要估计的联合参数，但这是模型假设。

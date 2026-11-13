@@ -1,0 +1,70 @@
+\section{A* 与启发函数}\label{sec:astar}
+\src{课件 04 p.2--3、11、17、20--33；HW2 AStar1--3}
+\[
+\text{Greedy: }f=h;\qquad\text{Dijkstra: }f=g;\qquad\text{A*: }f=g+h.
+\]
+$g$ 为当前最好已知累计代价；$h$ 为剩余代价估计；每轮从\textbf{整个 OPEN}取最小 f。后继候选 $g'=g(n)+w(n,m)$，严格更小时更新 g、f、parent 和队列优先级；需要时重开 CLOSED 节点。\textbf{目标出队才停止，不能一生成目标就停。}
+
+\par\noindent\begin{tabularx}{\textwidth}{lY}
+\toprule 条件 & 判别与使用\\\midrule
+Admissible 可采纳 & $0\le h(n)\le h^*(n)$，$h(G)=0$。不能高估真实最短剩余代价。\\
+Consistent 一致 & 每条有向边 $h(u)\le w(u,v)+h(v)$；无向图查两个方向，即 $|h(u)-h(v)|\le w$。\\
+一致的作用 & 沿路径 f 非递减；在通常有限非负图上可以不重开已关闭节点。\\
+仅可采纳 & 树搜索或支持更优路径 reopen 的图搜索可保最优；永久封闭 CLOSED 一般不够。\\\bottomrule
+\end{tabularx}\par
+
+\ex{八数码启发式（课件 04 p.3）}
+\[
+S=\begin{pmatrix}7&2&4\\5&\blank&6\\8&3&1\end{pmatrix},\qquad
+G=\begin{pmatrix}\blank&1&2\\3&4&5\\6&7&8\end{pmatrix}.
+\]
+错位块数 $h_1=8$；不数空格。Manhattan
+\[
+h_2=\sum_{k=1}^8(|r_k-r_k^*|+|c_k-c_k^*|)
+=3+1+2+2+3+2+2+3=\ans{18}.
+\]
+每次移动一数字一格，故两者均是下界且一致；以题目给的目标为准。地图直线距离适用于同单位的距离边权，时间权重需相应时间下界。
+
+\ex{原图 AStar1：h(B)=16（HW2 p.8）}
+\textbf{足以复算的无向边：}AX17、XB16、XC11、CL20、CW11、WB12、WK10、WT9、BT17、BS7、SH6。启发值如下：
+\[
+\begin{array}{c|rrrrrrrrrr}n&A&X&B&C&L&W&K&T&S&H\\\hline
+h&30&27&16&17&33&9&19&0&17&22\end{array}
+\]
+记 $n(g,f)$。初始 OPEN=$\{A(0,30)\}$。
+\begin{center}\small\par\noindent\begin{tabularx}{\textwidth}{cY Y}\toprule
+出队&本轮计算&更新后 OPEN，按 f 排序\\\midrule
+A&X: $0+17=17,f=44$&X(17,44)\\
+X&B: $17+16=33,f=49$；C: $17+11=28,f=45$&C(28,45),B(33,49)\\
+C&W: $28+11=39,f=48$；L: $28+20=48,f=81$&W(39,48),B(33,49),L(48,81)\\
+W&T: $39+9=48,f=48$；K: $39+10=49,f=68$；经 W 到 B 为51，拒绝&T(48,48),B(33,49),K(49,68),L(48,81)\\
+T&取出目标，停止&--\\\bottomrule\end{tabularx}\par\end{center}
+\[
+\ans{A\to X\to C\to W\to T},\quad\ans{17+11+11+9=48}.
+\]
+Greedy 会先 B 再 T，总长 50。\textbf{课件 04 p.11 的局部数字没有累计前缀，手算必须用上表的 g。}
+
+\ex{AStar2：h(B)=6 后更新 OPEN（HW2 p.9）}
+\begin{center}\small\par\noindent\begin{tabularx}{\textwidth}{cY Y}\toprule
+出队&计算&OPEN\\\midrule
+A&产生 X(17,44)&X(17,44)\\
+X&B(33,39),C(28,45)&B(33,39),C(28,45)\\
+B&W(45,54),T(50,50),S(40,57)&C(28,45),T(50,50),W(45,54),S(40,57)\\
+C&W: $45\to39,f=48$；L(48,81)&W(39,48),T(50,50),S(40,57),L(48,81)\\
+W&T: $50\to48$；K(49,68)&T(48,48),S(40,57),K(49,68),L(48,81)\\
+T&取出目标&停止\\\bottomrule\end{tabularx}\par\end{center}
+最优路径/代价仍 48。新 h 可采纳但不一致：$h(X)=27>16+h(B)=22$。本题改善的是 OPEN 中的 W、T，\textbf{本次并未发生 CLOSED 中更优路径重开}。
+
+\ex{reopen 的独立演示（教学变式）}
+有向边 S$\to$A=3，S$\to$B=1，B$\to$A=1，A$\to$G=3。$h(S)=h(A)=h(G)=0,h(B)=4$，可采纳但 $4>1+0$ 不一致。
+\begin{center}\begin{tabular}{c|l}\toprule
+出队&结果\\\midrule
+S&A(3,3), B(1,5)\\
+A&G(6,6)，A 关闭\\
+B&改善 A 为 g=2，必须重开\\
+A&G 更新到 g=5\\
+G&最优 S--B--A--G，总代价 5\\\bottomrule\end{tabular}\end{center}
+永久跳过已关闭 A 会错误返回 6。\checkit{比较改善看 g；选下个节点看 f；返回路径看 parent。}
+
+\ex{多边形障碍（HW2 AStar3，p.10）}
+连续位置状态无限；若只取障碍顶点加起终点，共 V+2 个不同节点，连接不穿障碍内部的可见直线段，得 visibility graph。最短路在自由空间的无障碍折点可拉直；必要转折落在障碍顶点。路径由可见线段构成，可能沿部分边界，\textbf{不要求全程沿多边形边}。

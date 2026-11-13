@@ -1,0 +1,125 @@
+\section{命题逻辑、范式、SAT 与归结}\label{sec:logic}
+\src{课件 07 p.8--87；HW5 A--D}
+\begin{center}\begin{tabular}{cc|cccccc}\toprule
+p&q&$\neg p$&$p\land q$&$p\lor q$&$p\oplus q$&$p\to q$&$p\leftrightarrow q$\\\midrule
+F&F&T&F&F&F&T&T\\F&T&T&F&T&T&T&F\\T&F&F&F&T&T&F&F\\T&T&F&T&T&F&T&T\\\bottomrule
+\end{tabular}\end{center}
+优先级 $\neg>\land>\lor>\to>\leftrightarrow$；n 个不同变量真值表 $2^n$ 行。
+\par\noindent\begin{tabularx}{\textwidth}{lY}
+\toprule 词语/形式 & 对应意义\\\midrule
+$p$ only if $q$；p 充分于 q & $p\to q$；q 是 p 的必要条件。\\
+$p$ if $q$ & $q\to p$。$p$ unless $q$ 通常为 $\neg q\to p$。\\
+逆/否/逆否 & $q\to p$；$\neg p\to\neg q$；$\neg q\to\neg p$。原式与逆否等价。\\
+永真/矛盾/可满足 & 全行真 / 全行假 / 至少一行真；可满足不等于永真。\\
+等价 $F\equiv G$ & 每行同真值；$F\leftrightarrow G$ 永真。\\
+蕴含 $KB\models Q$ & KB 真时 Q 必真；等价于 $KB\land\neg Q$ 不可满足。\\\bottomrule
+\end{tabularx}\par
+
+\ex{等价律与推理规则}
+\[
+\begin{aligned}
+p\to q&\equiv\neg p\lor q,&\neg(p\to q)&\equiv p\land\neg q,\\
+p\leftrightarrow q&\equiv(\neg p\lor q)\land(\neg q\lor p),\\
+\neg(p\land q)&\equiv\neg p\lor\neg q,&\neg(p\lor q)&\equiv\neg p\land\neg q,\\
+p\lor(q\land r)&\equiv(p\lor q)\land(p\lor r),\\
+p\land(q\lor r)&\equiv(p\land q)\lor(p\land r).
+\end{aligned}
+\]
+幂等 $p\lor p=p$；吸收 $p\lor(p\land q)=p$；$p\lor\neg p=T,p\land\neg p=F$。Modus Ponens：$p,p\to q\vdash q$；Modus Tollens：$\neg q,p\to q\vdash\neg p$；$p\lor q,\neg p\vdash q$；$p\to q,q\to r\vdash p\to r$。\textbf{由 q 和 $p\to q$ 不能反推 p。}
+
+\ex{NNF、CNF、DNF 完整转换（课件 07 p.60--70）}
+文字 literal 为 p 或 $\neg p$；term 为文字 AND；clause 为文字 OR。
+\begin{itemize}
+\item NNF：只有 $\neg,\land,\lor$，否定只作用原子。
+\item CNF：外 AND，内 OR，即子句合取；DNF：外 OR，内 AND，即项析取。
+\item 流程：去 $\to,\leftrightarrow$ → De Morgan 推否定 → 去双否 → 向目标方向分配并化简。
+\end{itemize}
+\textbf{教学变式：}$F=\neg(p\to q)\lor r$。
+\[
+F=\neg(\neg p\lor q)\lor r=(p\land\neg q)\lor r
+=(p\lor r)\land(\neg q\lor r).
+\]
+中间式为 NNF 和 DNF，最后为 CNF。
+
+\textbf{课件 p.68：}
+\[
+\begin{aligned}
+(p\to q)\land(q\to p)
+&=(\neg p\lor q)\land(\neg q\lor p)\\
+&=(\neg p\land\neg q)\lor(\neg p\land p)\lor(q\land\neg q)\lor(q\land p)\\
+&=\ans{(\neg p\land\neg q)\lor(p\land q)}.
+\end{aligned}
+\]
+\textbf{真值表转主范式：}真行写 AND 最小项（真写正、假写负），再 OR；假行写 OR 最大项（真写负、假写正），再 AND。例如假行 $(T,F,T)$ 对应 $\neg p\lor q\lor\neg r$。
+
+\textbf{课件 p.69--70：}$F=(x\lor y)\to(\neg x\land z)$，真行 000,001,011，故
+\[
+\operatorname{PDNF}=(\neg x\land\neg y\land\neg z)\lor(\neg x\land\neg y\land z)\lor(\neg x\land y\land z).
+\]
+假行 010,100,101,110,111，各取最大项 AND：
+\[
+\begin{aligned}
+\operatorname{PCNF}={}&(x\lor\neg y\lor z)\land(\neg x\lor y\lor z)\land(\neg x\lor y\lor\neg z)\\
+&\land(\neg x\lor\neg y\lor z)\land(\neg x\lor\neg y\lor\neg z).
+\end{aligned}
+\]
+简化 CNF 为 $\neg x\land(\neg y\lor z)$。主范式中每项含全部变量，简化范式不必。
+\checkit{De Morgan 要同时换联结词并否定每个文字；不能只把 AND/OR 对调。CNF 分配成 DNF 可能指数膨胀。2-SAT 可线性求解，3-SAT 为 NP 完全；不是已经证明没有多项式算法。}
+
+\ex{真值树：展开、关闭与反例}
+检查蕴含，放入全部前提和\textbf{结论的否定}。
+\begin{center}\begin{tabular}{l|l}\toprule
+同一分支加入&分成两个分支\\\midrule
+$A\land B$: A,B&$A\lor B$: A / B\\
+$\neg(A\lor B)$: $\neg A,\neg B$&$\neg(A\land B)$: $\neg A$ / $\neg B$\\
+$\neg(A\to B)$: $A,\neg B$&$A\to B$: $\neg A$ / B\\
+$\neg\neg A$: A&$A\leftrightarrow B$: (A,B) / ($\neg A,\neg B$)\\\bottomrule
+\end{tabular}\end{center}
+某分支含 p 与 $\neg p$ 则关闭；所有分支全闭才不可满足。完全展开的开放分支给出模型/反例。
+
+\textbf{教学变式：}$p\lor q,p\to r,q\to r\models r$：加 $\neg r$，两蕴含迫使 $\neg p,\neg q$；$p\lor q$ 两枝都关闭。
+
+\textbf{课件 p.50--52：}$B\to C,D\lor C,B\leftrightarrow\neg D$ 不蕴含 $\neg(B\land C)$，反例 B=T,C=T,D=F。只要有一行前提全真而结论假，蕴含即不成立。
+
+\ex{归结与不可满足（HW5 B）}\label{ex:resolution}
+\[
+\frac{l\lor A\qquad\neg l\lor B}{A\lor B}.
+\]
+一次消一对互补文字，保留原子句并加入归结式。一般是\textbf{推出}，不是把原式等价替换掉。$p,\neg p\vdash\square$ 空子句为假；空子句集无约束为真。
+\begin{center}\begin{tabular}{c|l|l}\toprule
+编号&子句&来源/消去文字\\\midrule
+1&$p\lor q\lor\neg r\lor s$&原题\\
+2&$\neg p\lor r\lor s$&原题\\
+3&$\neg q\lor\neg r$&原题\\
+4&$p\lor\neg s$&原题\\
+5&$\neg p\lor\neg r$&原题\\
+6&$r$&原题\\\midrule
+7&$\neg q$&3,6；r\\
+8&$\neg p$&5,6；r\\
+9&$\neg s$&4,8；p\\
+10&$p\lor q\lor s$&1,6；r\\
+11&$p\lor s$&10,7；q\\
+12&$s$&11,8；p\\
+13&$\square$&12,9；s\\\bottomrule
+\end{tabular}\end{center}
+不可满足；原子句 2 不必用到。若只是归结出 $r\lor\neg r$，那是永真，不能宣布矛盾。
+
+\textbf{课件 p.39 的短例：}$p\lor q,p\lor\neg q$ 推 p；$\neg p\lor r,\neg p\lor\neg r$ 推 $\neg p$；再得空子句。
+
+\ex{反例与最大满足数（HW5 A、C）}
+A 原件横线读为否定：$[(a\lor b)\land(\neg a\lor c)]\to\neg(b\lor c)$。反例 $\ans{a=T,b=F,c=T}$：前件真、后件假。标准归结正确结论是 $b\lor c$，不能为“证明”把原题横线无声删去。
+
+C 五子句 $p\lor\neg q,\neg p\lor q,q\lor r,q\lor\neg r,\neg q\lor\neg r$，取 $\ans{p=q=T,r=F}$ 全部真，最大数 $\ans{5}$。上界是总子句数，给出达到上界的赋值即可。
+
+\ex{同时成立与真值表（HW5 D）}
+实数 $x=y,y=z,z=-x$ 推 $2x=0$，唯一解 $x=y=z=0$。
+逻辑 $\Phi=(A\to B)\land(B\to C)\land(C\to\neg A)$：
+\begin{center}\begin{tabular}{ccc|ccc|c}\toprule
+A&B&C&$A\to B$&$B\to C$&$C\to\neg A$&$\Phi$\\\midrule
+T&T&T&T&T&F&F\\T&T&F&T&F&T&F\\T&F&T&F&T&F&F\\T&F&F&F&T&T&F\\
+F&T&T&T&T&T&T\\F&T&F&T&F&T&F\\F&F&T&T&T&T&T\\F&F&F&T&T&T&T\\\bottomrule
+\end{tabular}\end{center}
+三组满足赋值 FTT,FFT,FFF；$\Phi\equiv\neg A\land(\neg B\lor C)$，可满足而非永真，选“某些情况同时成立”。
+
+\ex{Horn 与规则链（课件 07 p.76--87；教学变式）}
+Horn 子句最多一个正文字。$\neg A\lor\neg B\lor C\equiv(A\land B)\to C$；事实 C 是单文字规则。事实 A,B；规则 $A\land B\to C,C\to D$：前向链逐步新增 C,D；后向查 D→需 C→需 A 和 B→事实支持。前件必须全满足才能触发；未证明某事实不自动等于它为假。专家系统：知识库、工作记忆、推理机、规则议程；匹配→选规则→执行→更新。

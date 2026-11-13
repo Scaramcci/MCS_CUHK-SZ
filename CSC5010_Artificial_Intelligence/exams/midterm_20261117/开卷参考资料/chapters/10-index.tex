@@ -1,0 +1,39 @@
+\section{作业题号索引与易错条件}\label{sec:crossref}
+\begin{longtable}{p{.18\textwidth}p{.57\textwidth}r}
+\toprule 原题 & 方法和查询入口 & 本册页\\\midrule\endhead
+HW1 INTRO1--3 & 理性、人的任务局限、XOR & \pageref{sec:intro}\\
+HW2 BFS1 & 八数码逐层计数 & \pageref{sec:search}\\
+HW2 DFS1--4 & 栈、时间戳、森林、回溯口径 & \pageref{sec:search}\\
+HW2 DFS5 & 逆退出时间与拓扑序检查 & \pageref{ex:topo}\\
+HW2 Dijkstra1 & 非负边松弛，原题 bh=1 & \pageref{ex:dijkstra}\\
+HW2 AStar1--2 & OPEN 更新，h(B)=16/6 & \pageref{sec:astar}\\
+HW2 AStar3 & 连续状态与可见图 & \pageref{sec:astar}\\
+HW3 Game1--5 & 前瞻计数、终局、回传、开放线 & \pageref{sec:games}\\
+课件 05 p.66 & 指定顺序的两棵 alpha--beta 树 & \pageref{ex:ab}\\
+HW4 CSP1--3 & MRV/degree/FC 与染色 & \pageref{sec:csp}\\
+课件 06 p.40--58 & 弧一致性与 min-conflicts & \pageref{ex:ac}\\
+HW5 A--D & 反例、归结、最大满足、真值表 & \pageref{sec:logic}\\
+课件 07 p.60--82 & 范式、真值树、Horn 与链推理 & \pageref{sec:logic}\\
+HW6 P1 & 多项组成、未知 N 的 Laplace & \pageref{sec:prob}\\
+HW6 P2 & 答对后未准备，Bayes & \pageref{sec:bayes}\\
+HW6 P3 & 可见查询四个 yes，按原表计数 & \pageref{sec:bayes}\\
+HW6 P4--P5 & 转移估计、三天窗口与稳态 & \pageref{ex:transition}\\
+课件 09 p.4--36 & 联合、卡方、传播、序列、等待 & \pageref{sec:markov}\\\bottomrule
+\end{longtable}
+\subsection*{开算前的十个条件}
+\begin{enumerate}
+\item 搜索根深度、生成/检查/扩展口径、去重、邻接与平局次序。
+\item BFS 等步代价；Dijkstra 非负边；目标按规定时机停止。
+\item DFS 发现序不是路径；进入退出均加1；有向图可有交叉边；拓扑序先排除环。
+\item A* 松弛看 g，选点看 f，parent 同步更新；可采纳与一致分开。
+\item 博弈看谁即将行动，终局停树；剪掉子树不虚填精确值。
+\item MRV 选变量，LCV 选值；回溯恢复域；弧 X$\to$Y 删 X 无支持值。
+\item 蕴含真前件假后件时假；反例前提全真；归结一次消一对；CNF/DNF外层别反。
+\item 指定次序不乘组合系数，无序组成要乘；平滑需要样本量和取值数。
+\item Bayes 先写条件方向；Naive Bayes 乘类先验；score 再归一化才是后验。
+\item Markov 写状态顺序和初始分布；T天T$-$1次转移；任意日起点不自动稳态。
+\end{enumerate}
+\subsection*{来源与使用边界}
+编号为复习顺序，不是官方 Lecture 编号。原课件在课程 slides/编号复习版；教师作业原件在 assignments/hw01--hw06/requirements。按复习计划与考试通知取范围，完整 Markdown 讲义另解释课件扩展部分。旧通知不改变本次考试安排。
+
+本册按原件可见内容重算，明确修正了部分累计代价、概率、频数和范式问题；详细辨析见对应讲义。个人可在页边追加实际错题。Bayesian Network、HW6 P6--P7 未收入。

@@ -1,0 +1,344 @@
+{
+  "files": {
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md": "5f020c2c546c1167df5b3fbce9a2bc2f1b4530d417d8bd0b174e70e883315933",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md": "049574041d8c9926c1419df19461b868fe99bdcf1eb69ebd8035035d22184531",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/01_AI导论.md": "8103ad6c1f7c52a776f185f1aa7e1a9de5294c4aea32757c88f2446d9633c782",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/02_状态空间与搜索建模.md": "62648dc4b7a061c6fd6f4f540a79cf69392041174ab35cfc8516a74ab22a4af5",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/03_BFS_DFS_Dijkstra.md": "0454babe32a55ceebf7619daf6fd0639430a04558dc3eac175ab567f447d2d9e",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/04_启发式搜索与Astar.md": "5fa519b87081e6dda347fd5a8d9d723a55914685d81ed90b5ab476b9efeabf0f",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/05_博弈搜索_Minimax_剪枝.md": "2acf1185871c3014c2dac05d3a0c37e0305503ca6edf9550854ef3165be1ea70",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/06_约束满足_CSP.md": "49f9fa2504c9b4d388f66ff3e83fde22fbfc213fee285ac25a6de9cff70d8fd5",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/07_命题逻辑与知识表示.md": "6bca12ce1d817b16d72fa4485a04ee189756ba64501a86f8a5f2cd11aec29282",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/08_概率分布_Bayes_朴素贝叶斯.md": "4fed0bdc589bccc44f9f3a6cf44d3a77f771a19222321979b4c950b394a1264c",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/09_联合分布_Markov链_贝叶斯网络.md": "b1a35860ce4e1f75d5fbc3fe8e832d4bdae22360bcf6616b228850f255771d61",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/开卷参考资料/chapters/01-intro.tex": "0b1a11a004873915ed67cf0c1542b35872194e81d73deb1bcbe70bbdd07f7c82",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/开卷参考资料/chapters/02-search.tex": "5aedaedfcc57e992cd5b6f671a48e742b82d0a0241cd7cdbd420622089b2ad84",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/开卷参考资料/chapters/03-astar.tex": "2bb0ddaccffc2a8d4ad3e5cea423890007ea1b6328514923eed554603bec6faf",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/开卷参考资料/chapters/04-games.tex": "508a9043ac3ecbf67a31a8d35af371c386c4fb1a49689feddb9dae1f13ea52d8",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/开卷参考资料/chapters/05-csp.tex": "3cf2ad45d2810b5e0f06cd70eead446e63174a145c22c36824e7f86391ae8733",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/开卷参考资料/chapters/06-logic.tex": "1c0d8c717f28b2d83ab3b4e19a57da5ceee2c95ae7cfe874a2b1feea04f3444f",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/开卷参考资料/chapters/07-probability.tex": "095f93cbfe7617e07c9924d39607c368bca0e79a3edcf59d56b96e9e72024405",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/开卷参考资料/chapters/08-bayes.tex": "10e9e448945d5af5a7d91aa3478840085503fdbf55ba39277abfbca35025b7dc",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/开卷参考资料/chapters/09-markov.tex": "7296d948a4ee6e558235e51878f7ad795b58f24a4c78ffcc895157fb435c44f7",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/开卷参考资料/chapters/10-index.tex": "0e3f3d9f1dc42e81d31ad8e9257ec59ffa1531e3664cbce45f38b8c48060cb61",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/开卷参考资料/main.tex": "dc08ae724a2d838571eeb518b2a3395d4b7b0a8d89b2b5f7a5d01e1c08060430",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/开卷参考资料/build.sh": "feef3399e40e236e1984396932eae4291eb81f1f7a7f48eef621472cc3e6c570",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/开卷参考资料/CSC5010_期中开卷参考.pdf": "04d34e7825af6bcadb4b25e08a3a1398a13cd4ad3ecf027598bde6ff2794d411"
+  },
+  "markdown_links": [
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md",
+      "link": "讲义/01_AI导论.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md",
+      "link": "讲义/02_状态空间与搜索建模.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md",
+      "link": "讲义/03_BFS_DFS_Dijkstra.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md",
+      "link": "讲义/04_启发式搜索与Astar.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md",
+      "link": "讲义/05_博弈搜索_Minimax_剪枝.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md",
+      "link": "讲义/06_约束满足_CSP.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md",
+      "link": "讲义/07_命题逻辑与知识表示.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md",
+      "link": "讲义/08_概率分布_Bayes_朴素贝叶斯.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md",
+      "link": "讲义/09_联合分布_Markov链_贝叶斯网络.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md",
+      "link": "开卷参考资料/CSC5010_期中开卷参考.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md",
+      "link": "开卷参考资料/main.tex",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md",
+      "link": "开卷参考资料/chapters/",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md",
+      "link": "开卷参考资料/build.sh",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md",
+      "link": "复习大纲与计划.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md",
+      "link": "考试通知.png",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md",
+      "link": "notes/编写与核对记录.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/README.md",
+      "link": "notes/verification/独立核验报告.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "考试通知.png",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "../../slides/编号复习版/",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "../../slides/编号复习版/01_AI导论.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "../../slides/编号复习版/02_状态空间与搜索建模.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "../../slides/编号复习版/03_BFS_DFS_Dijkstra.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "../../slides/编号复习版/04_启发式搜索与Astar.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "../../slides/编号复习版/05_博弈搜索_Minimax_剪枝.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "../../slides/编号复习版/06_约束满足_CSP.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "../../slides/编号复习版/07_命题逻辑与知识表示.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "../../slides/编号复习版/08_概率分布_Bayes_朴素贝叶斯.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "../../slides/编号复习版/09_联合分布_Markov链_贝叶斯网络.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "../../assignments/hw01/requirements/AI-2026-homeWork-Set-1.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "../../assignments/hw02/requirements/BFS-DFS-Dijkstra-Astar-homework.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "../../assignments/hw03/requirements/Games-HomeWork%20Set%203.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "../../assignments/hw04/requirements/CSP_Ding_2026-homework.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "../../assignments/hw05/requirements/PropLogicHomeWork2026.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "../../assignments/hw06/requirements/Prob-Reasoning%20HomeWork.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "README.md#逐份-ppt-讲义",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "开卷参考资料/CSC5010_期中开卷参考.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "开卷参考资料/main.tex",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "README.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/复习大纲与计划.md",
+      "link": "课件来源核对.json",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/01_AI导论.md",
+      "link": "../../../slides/编号复习版/01_AI导论.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/01_AI导论.md",
+      "link": "02_状态空间与搜索建模.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/02_状态空间与搜索建模.md",
+      "link": "../../../slides/编号复习版/02_状态空间与搜索建模.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/02_状态空间与搜索建模.md",
+      "link": "03_BFS_DFS_Dijkstra.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/03_BFS_DFS_Dijkstra.md",
+      "link": "../../../slides/编号复习版/03_BFS_DFS_Dijkstra.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/03_BFS_DFS_Dijkstra.md",
+      "link": "04_启发式搜索与Astar.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/04_启发式搜索与Astar.md",
+      "link": "../../../slides/编号复习版/04_启发式搜索与Astar.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/04_启发式搜索与Astar.md",
+      "link": "05_博弈搜索_Minimax_剪枝.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/05_博弈搜索_Minimax_剪枝.md",
+      "link": "../../../slides/编号复习版/05_博弈搜索_Minimax_剪枝.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/05_博弈搜索_Minimax_剪枝.md",
+      "link": "06_约束满足_CSP.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/06_约束满足_CSP.md",
+      "link": "../../../slides/编号复习版/06_约束满足_CSP.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/06_约束满足_CSP.md",
+      "link": "07_命题逻辑与知识表示.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/07_命题逻辑与知识表示.md",
+      "link": "../../../slides/编号复习版/07_命题逻辑与知识表示.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/07_命题逻辑与知识表示.md",
+      "link": "08_概率分布_Bayes_朴素贝叶斯.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/08_概率分布_Bayes_朴素贝叶斯.md",
+      "link": "../../../slides/编号复习版/08_概率分布_Bayes_朴素贝叶斯.pdf",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/08_概率分布_Bayes_朴素贝叶斯.md",
+      "link": "09_联合分布_Markov链_贝叶斯网络.md",
+      "exists": true
+    },
+    {
+      "file": "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/09_联合分布_Markov链_贝叶斯网络.md",
+      "link": "../../../slides/编号复习版/09_联合分布_Markov链_贝叶斯网络.pdf",
+      "exists": true
+    }
+  ],
+  "broken_links": [],
+  "render_matching": {
+    "08": true,
+    "23": true
+  },
+  "pdf_matches_build_record": true,
+  "current_files": {
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/02_状态空间与搜索建模.md": "62648dc4b7a061c6fd6f4f540a79cf69392041174ab35cfc8516a74ab22a4af5",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/04_启发式搜索与Astar.md": "5fa519b87081e6dda347fd5a8d9d723a55914685d81ed90b5ab476b9efeabf0f",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/07_命题逻辑与知识表示.md": "6bca12ce1d817b16d72fa4485a04ee189756ba64501a86f8a5f2cd11aec29282",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/08_概率分布_Bayes_朴素贝叶斯.md": "4fed0bdc589bccc44f9f3a6cf44d3a77f771a19222321979b4c950b394a1264c",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/03_BFS_DFS_Dijkstra.md": "0454babe32a55ceebf7619daf6fd0639430a04558dc3eac175ab567f447d2d9e",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/05_博弈搜索_Minimax_剪枝.md": "2acf1185871c3014c2dac05d3a0c37e0305503ca6edf9550854ef3165be1ea70",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/06_约束满足_CSP.md": "49f9fa2504c9b4d388f66ff3e83fde22fbfc213fee285ac25a6de9cff70d8fd5",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/09_联合分布_Markov链_贝叶斯网络.md": "b1a35860ce4e1f75d5fbc3fe8e832d4bdae22360bcf6616b228850f255771d61",
+    "CSC5010_Artificial_Intelligence/exams/midterm_20261117/讲义/01_AI导论.md": "8103ad6c1f7c52a776f185f1aa7e1a9de5294c4aea32757c88f2446d9633c782"
+  },
+  "pdf_pages": 25,
+  "latex_warnings": [],
+  "verifier_hash_mismatches": [],
+  "tex_include_check": {
+    "chapters/01-intro": true,
+    "chapters/02-search": true,
+    "chapters/03-astar": true,
+    "chapters/04-games": true,
+    "chapters/05-csp": true,
+    "chapters/06-logic": true,
+    "chapters/07-probability": true,
+    "chapters/08-bayes": true,
+    "chapters/09-markov": true,
+    "chapters/10-index": true
+  },
+  "largest_deliverable_bytes": 564050,
+  "build_shell_syntax": "pass"
+}

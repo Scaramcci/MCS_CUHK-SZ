@@ -1,0 +1,61 @@
+\documentclass[UTF8,10pt,a4paper,fontset=fandol]{ctexart}
+\usepackage[margin=17mm,headheight=15pt]{geometry}
+\usepackage{amsmath,amssymb,booktabs,longtable,array,tabularx,enumitem,fancyhdr,xcolor,tikz}
+\usetikzlibrary{arrows.meta,positioning,trees}
+\usepackage[unicode,colorlinks=true,linkcolor=blue!45!black,urlcolor=blue!45!black]{hyperref}
+\hypersetup{pdftitle={CSC5010 期中开卷参考资料},pdfauthor={个人复习资料}}
+\setlength{\parindent}{0pt}\setlength{\parskip}{4pt}
+\setlist{nosep,leftmargin=1.6em}
+\renewcommand{\arraystretch}{1.18}
+\pagestyle{fancy}\fancyhf{}\fancyhead[L]{CSC5010 · 期中开卷参考}\fancyhead[R]{\nouppercase{\leftmark}}\fancyfoot[C]{\thepage}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
+\newcommand{\src}[1]{\par{\footnotesize\color{black!65}来源：#1。所有页码为 PDF 文件页码。}\par}
+\newcommand{\ex}[1]{\subsection{#1}}
+\newcommand{\checkit}[1]{\par\textbf{检查：}#1\par}
+\newcommand{\method}[1]{\par\textbf{何时用：}#1\par}
+\newcommand{\ans}[1]{\boxed{#1}}
+\newcommand{\blank}{\square}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\begin{document}
+\begin{center}
+{\LARGE\bfseries CSC5010 期中开卷参考资料}\\[5pt]
+{\large 定义 · 公式 · 手算流程 · 作业与课件例题}\\[4pt]
+2026 年 11 月 17 日期中考试复习版\quad 编写日期：2026-11-13
+\end{center}
+\textbf{使用方式：}先按下表找题型，再翻目录所示页码。各章保留计算条件、中间表和分数结果。\textbf{“教学变式”是编写者为演示方法自拟的题，不是教师原题。}资料供个人复习与纸质开卷使用，遵守课件不得向班外传播的限制。
+
+\textbf{范围：}课程开始至 10 月 29 日的 Search、Logic Representation、Probabilistic Reasoning；HW1--HW5、HW6 P1--P5。\textbf{Bayesian Network、HW6 P6--P7 不收录。}考试通知为纸质开卷，禁止计算器，计算可保留分数。本册不把背景扩展当作教师押题。
+
+\par\noindent\begin{tabularx}{\textwidth}{p{.32\textwidth}Y r}
+\toprule 想查什么 & 关键词 / 入口 & 页码\\\midrule
+Agent、理性、XOR & Rational action / state modeling & \pageref{sec:intro}\\
+队列、BFS、DFS、时间戳 & BFS / DFS / parent / backtrack & \pageref{sec:search}\\
+拓扑序、迭代加深 & DAG / finish time / IDDFS & \pageref{ex:topo}\\
+带权最短路、松弛 & Dijkstra / relaxation & \pageref{ex:dijkstra}\\
+g、h、f、改父节点、重开 & A* / admissible / consistent / reopen & \pageref{sec:astar}\\
+前瞻、树节点、Minimax & branching / value backup & \pageref{sec:games}\\
+剪枝、开放线评分 & alpha--beta / evaluation & \pageref{ex:ab}\\
+MRV、degree、LCV、删域 & CSP / forward checking & \pageref{sec:csp}\\
+弧一致、局部修复 & AC-3 / min-conflicts & \pageref{ex:ac}\\
+必要充分、真值表、范式 & logic / NNF / CNF / DNF & \pageref{sec:logic}\\
+归结、满足赋值、规则链 & resolution / SAT / Horn & \pageref{ex:resolution}\\
+组合、二项、多项、平滑 & binomial / multinomial / Laplace & \pageref{sec:prob}\\
+后验、全概率、分类 & Bayes / Naive Bayes & \pageref{sec:bayes}\\
+联合边缘、独立检验 & joint / marginal / chi-square & \pageref{sec:markov}\\
+转移、矩阵、稳态、等待 & Markov / stationary / first passage & \pageref{ex:transition}\\
+题号索引与易错条件 & HW1--6 / 来源映射 & \pageref{sec:crossref}\\\bottomrule
+\end{tabularx}\par
+
+\tableofcontents
+\clearpage
+\input{chapters/01-intro}
+\clearpage\input{chapters/02-search}
+\clearpage\input{chapters/03-astar}
+\clearpage\input{chapters/04-games}
+\clearpage\input{chapters/05-csp}
+\clearpage\input{chapters/06-logic}
+\clearpage\input{chapters/07-probability}
+\clearpage\input{chapters/08-bayes}
+\clearpage\input{chapters/09-markov}
+\clearpage\input{chapters/10-index}
+\end{document}

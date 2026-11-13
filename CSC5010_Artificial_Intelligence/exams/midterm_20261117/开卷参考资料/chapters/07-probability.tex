@@ -1,0 +1,57 @@
+\section{计数、二项、多项与平滑}\label{sec:prob}
+\src{课件 08 p.3--19、47；HW6 P1}
+\[
+\binom nk=\frac{n!}{k!(n-k)!};\quad
+P(A)=\frac{|A|}{|\Omega|}\ \text{仅适用于等可能基本结果}.
+\]
+\par\noindent\begin{tabularx}{\textwidth}{lY}
+\toprule 模型 & 公式与条件\\\midrule
+Bernoulli & $X\in\{0,1\},P(X=x)=p^x(1-p)^{1-x}$。\\
+Binomial & n 次独立同概率试验，$P(K=k)=\binom nkp^k(1-p)^{n-k}$，$E[K]=np,Var(K)=np(1-p)$。\\
+Multinomial & $\sum_i n_i=n,\sum_i p_i=1$，$P(\mathbf n)=\dfrac{n!}{\prod n_i!}\prod p_i^{n_i}$。\\
+有序序列 & 每个位置类别已指定时直接 $\prod_i p_i^{n_i}$，不乘多项系数。\\
+MLE & $\widehat p_i=n_i/N$；多批先合并计数和样本量。\\
+Laplace add-one & $\widetilde p_i=(n_i+1)/(N+K)$，K 为该分布可能类别数。\\\bottomrule
+\end{tabularx}\par
+无放回抽样可能不独立；按题目抽样规则选模型，不自动套二项/多项。
+
+\ex{硬币与合并估计（课件 08 p.6、11--12）}
+10 次公平硬币恰好 5 正：$\binom{10}5/2^{10}=\ans{63/256}$；恰好 4 或 6 正：$2\binom{10}4/2^{10}=\ans{105/256}$。期望 5 不表示每次一定 5。
+
+三批 4/10、4/8、7/12，合并 $\widehat p=(4+4+7)/(10+8+12)=\ans{1/2}$，不对比例简单平均。多项相同真实 p 且批次独立时，计数可加成 $\mathrm{Multinomial}(n+m,p)$；p 不同时不能直接套此分布性质。
+
+\ex{多项组成与最可能组成（HW6 P1，p.1）}
+已知学生五类比例 $p=(.24,.22,.20,.18,.16)$，四次独立抽取。原题要求 Laplace，但未给原样本总量 N。定义
+\[
+q_i=\frac{Np_i+1}{N+5};\qquad
+P(\mathbf n)=\frac{4!}{\prod n_i!}\prod_i q_i^{n_i}.
+\]
+\begin{center}\begin{tabular}{l|l}\toprule
+事件&计算结果\\\midrule
+全四名大四&$\ans{q_4^4}$\\
+两名大一、两名大二&$\ans{6q_1^2q_2^2}$\\
+最可能组成&$\ans{(1,1,1,1,0)}$，概率 $\ans{24q_1q_2q_3q_4}$\\
+最不可能组成&$\ans{(0,0,0,0,4)}$，概率 $\ans{q_5^4}$\\\bottomrule
+\end{tabular}\end{center}
+最大值理由：若某类 i 重复且 j 未用，移一个后概率乘 $n_iq_j/q_i$。本题 $q_i/q_j\le1.5$ 且 $n_i\ge2$，比值大于 1，故最大组成四类各一个，再取最大的四类。最小值：任一概率乘积至少 $q_5^4$，系数至少 1，全部选第五类达到下界。
+
+\textbf{示范假设 N=100（非题给事实）：}$q=(25,23,21,19,17)/105$。四问对应
+\[
+\left(\frac{19}{105}\right)^4,\quad
+6\left(\frac{25}{105}\right)^2\left(\frac{23}{105}\right)^2,\quad
+\frac{24\cdot25\cdot23\cdot21\cdot19}{105^4},\quad
+\left(\frac{17}{105}\right)^4.
+\]
+分别约 .00107215, .01632036, .04529964, .00068713。若不给 N，\textbf{以含 N 公式为正式结果}。不平滑时分别为 .00104976, .01672704, .0456192, .00065536。
+\checkit{百分数并不自动给出 N=100；组成忽略次序时需要系数 6 或 24；最可能组成不一定全选最大 p 类。}
+
+\ex{比较组成概率的手算比值（课件血型例）}
+从 i 类移一个到 j 类，
+\[
+\frac{P(n_i-1,n_j+1)}{P(n_i,n_j)}=\frac{n_i}{n_j+1}\frac{p_j}{p_i}.
+\]
+血型 p=(.44,.42,.10,.04)，10 人组成 (6,2,1,1)：
+\[
+P=\frac{10!}{6!2!}(.44)^6(.42)^2(.10)(.04)\approx .01290.
+\]
+课件 08 p.19 说 (4,4,1,1) 概率 .0294 为最大；\textbf{若允许零计数，真正最大为 (5,4,1,0)，概率约 .0646593}；若附加每类至少一人，(4,4,1,1) 才是受限最大。计数总数小可枚举所有非负组成（此例 $\binom{13}3=286$），不可只比较一个候选就宣布全局最大。

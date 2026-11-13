@@ -1,0 +1,99 @@
+\section{BFS、DFS、拓扑序、IDDFS 与 Dijkstra}\label{sec:search}
+\src{课件 03 p.3--52；HW2 BFS1、DFS1--5、Dijkstra1}
+\par\noindent\begin{tabularx}{\textwidth}{lYYY}
+\toprule 方法 & 取点规则 & 常见最优条件 & 手算记录\\\midrule
+BFS & FIFO 队列 & 相同步代价 & 队列、层、距离、parent\\
+DFS & 栈/递归深入 & 一般不最优 & 递归栈、进入/退出时间\\
+IDDFS & 深度限额 0,1,2,… & 相同步代价的最浅解 & 每轮到达/扩展数\\
+Dijkstra/UCS & 最小当前 $g$ & 非负边权 & 距离、parent、确定集合\\\bottomrule
+\end{tabularx}\par
+显式邻接表图 BFS/DFS 时间 $O(V+E)$、空间 $O(V)$。有限图去重时两者可遍历全部可达点；无限深度 DFS 不保证终止。UCS 无限空间常需有限分支且边代价有正下界。堆 Dijkstra 常记 $O((V+E)\log V)$。
+
+\ex{BFS 队列、parent 与最短路径（教学变式）}
+无向边 $AB,AC,BD,BE,CE$；起点 A，邻接字母序，入队即标记。
+\begin{center}\begin{tabular}{c|l|l|l}\toprule
+出队&新发现&本轮后队列&新 parent\\\midrule
+A&B,C&B,C&B$\leftarrow$A,C$\leftarrow$A\\
+B&D,E&C,D,E&D$\leftarrow$B,E$\leftarrow$B\\
+C&无&D,E&不重复发现 E\\D&无&E&--\\E&无&空&--\\\bottomrule
+\end{tabular}\end{center}
+距离 $d(A)=0,d(B)=d(C)=1,d(D)=d(E)=2$。访问序 A,B,C,D,E；到 E 路径按 parent 反转为 A--B--E。\textbf{同层次序依赖邻接顺序，层数不变。}
+
+\ex{八数码 BFS 计数（HW2 BFS1，p.1）}
+初始棋盘 $\left[\begin{smallmatrix}2&8&3\\1&6&4\\7&\blank&5\end{smallmatrix}\right]$。根深度 0；不同状态去重。
+\begin{center}\begin{tabular}{c|rrrrrr}\toprule
+深度&0&1&2&3&4&5\\\midrule
+本层状态&1&3&5&10&14&28\\\bottomrule
+\end{tabular}\end{center}
+第二层 $2(2-1)+(4-1)=5$，因排除立即回父状态。题设第 5 层查一半：
+\[
+N=1+3+5+10+14+\frac{28}{2}=\ans{47}.
+\]
+\checkit{根与目标计入；这是已检查状态数量。若问已生成/扩展节点，需按具体目标检测时机另算。}
+
+\ex{DFS 时间戳与回溯（HW2 DFS1--2）}
+时钟每进入或退出顶点加 1。完整 n 顶点遍历产生 2n 个时间。祖先区间包含后代区间：$d(u)<d(v)<f(v)<f(u)$。
+
+\textbf{DFS1 p.2：}按原图课件选择，树边 $uv,vt,ts,tr,rw$，发现 $u,v,t,s,r,w$。
+\begin{center}\begin{tabular}{c|rrrrrr}\toprule
+顶点&u&v&t&s&r&w\\\midrule
+$d$&1&2&3&4&6&7\\$f$&12&11&10&5&9&8\\\bottomrule
+\end{tabular}\end{center}
+返回 $s\rightsquigarrow t$ 后转入 r，重新分叉点 t；无向非树边 su、wv 连向祖先。无向 DFS 只有树边和回边；有向 DFS 还可能有前向、交叉边。
+
+\textbf{DFS2 p.3：}按右侧原图、字母邻接序，D 是一个顶点，不因左示意树重复标签而重复访问。
+\begin{center}\begin{tabular}{c|rrrrrrrr}\toprule
+顶点&S&A&B&C&E&D&F&G\\\midrule
+$d/f$&1/16&2/15&3/14&4/5&6/13&7/8&9/12&10/11\\\bottomrule
+\end{tabular}\end{center}
+重新分叉点 B,E；函数返回的每一步也可叫 backtrack，应在答题时声明口径。
+
+\textbf{DFS3 p.4 网格续走：}保留所给前缀，余下邻居按行列标签升序这一约定，可得分叉点 $(4,1),(4,2),(4,4)$。新增路线为 $41\to51\to61\to62$（死路），返回 $42\to43\to44\to34\to24$（死路），再返回 $44\to54$（目标）。题目未固定余下方向顺序，不同声明可产生不同路线。最终路径只保留 parent 链，不包括走入后又退出的死路。
+
+\textbf{DFS4 p.5 有向图：}从 v 开始，余下根/邻接字母序，发现序
+\[
+v,w,s,q,t,x,z,y,r,u.
+\]
+根为 v,q,r；退出序 $s,w,v,z,x,y,t,q,u,r$。回边 $s\to v,z\to x,y\to q$；交叉边 $q\to s,q\to w,u\to y,r\to y$。
+
+\ex{拓扑排序（HW2 DFS5 + 教学小图）}\label{ex:topo}
+\method{有向无环图中，要求每条边 $u\to v$ 的 u 在 v 之前。}
+方法一：完整 DFS 后按 $f$ 递减排序；方法二：反复输出入度 0 点并删出边。存在有向环则没有拓扑序。
+
+教学图 $A\to B,A\to C,B\to D,C\to D$，字母序 DFS：A 1/8，B 2/5，D 3/4，C 6/7；逆退出序 $A,C,B,D$。$A,B,C,D$ 也合法。
+
+HW2 p.6 的一组合法序：
+\[
+\ans{p,n,o,s,m,r,y,v,x,w,z,u,q,t}.
+\]
+\checkit{逐条检查 $\operatorname{pos}(u)<\operatorname{pos}(v)$；拓扑序通常不唯一。有向 DFS4 图含环，不可用其逆退出序冒充拓扑序。}
+
+\ex{迭代加深的重复计数（课件 03 p.43；教学变式）}
+DLS 到深度 L 截断；cutoff 不等于无解。IDDFS 重跑 L=0,1,…,d，每轮重置该轮记录。
+\[
+N_{\mathrm{IDDFS}}=\sum_{i=0}^d(d-i+1)b^i.
+\]
+b=2,d=3，各轮到达节点 $1,3,7,15$，共 $26$；BFS 到深度 3 共 15。若只数真正扩展且不扩展限制层，IDDFS 对应 $0+1+3+7=11$ 次；\textbf{计数先写口径}。树搜索内存约 $O(bd)$。
+
+\ex{Dijkstra 全表（HW2 Dijkstra1，p.7）}\label{ex:dijkstra}
+\method{边权非负，要求逐轮松弛与最短路径。}
+\[
+g(v)\leftarrow\min\{g(v),g(u)+w(u,v)\};\quad
+\text{严格改善时同步设置 }parent(v)=u.
+\]
+每轮取所有未确定点中 $g$ 最小者；目标\textbf{取出确定}才可停止。原题为无向图，特别注意 $w(b,h)=1$。
+\begin{center}\small\begin{tabular}{c|rrrrrrrrr}\toprule
+确定点&a&b&h&g&f&c&i&e&d\\\midrule
+初始&0&$\infty$&$\infty$&$\infty$&$\infty$&$\infty$&$\infty$&$\infty$&$\infty$\\
+a&0&4&8&$\infty$&$\infty$&$\infty$&$\infty$&$\infty$&$\infty$\\
+b&0&4&5&$\infty$&$\infty$&12&$\infty$&$\infty$&$\infty$\\
+h&0&4&5&6&$\infty$&12&12&$\infty$&$\infty$\\
+g&0&4&5&6&8&12&12&$\infty$&$\infty$\\
+f&0&4&5&6&8&12&12&18&22\\
+c&0&4&5&6&8&12&12&18&19\\
+i&0&4&5&6&8&12&12&18&19\\
+e&0&4&5&6&8&12&12&18&19\\
+d&0&4&5&6&8&12&12&18&19\\\bottomrule
+\end{tabular}\end{center}
+parent：b$\leftarrow$a；h,c$\leftarrow$b；g,i$\leftarrow$h；f$\leftarrow$g；e$\leftarrow$f；d$\leftarrow$c。$g(d):22\to19$ 因 $12+7<8+14$。
+\checkit{到 d 路径 a--b--c--d，边和 $4+8+7=19$；到 e 路径 a--b--h--g--f--e，边和 18。12 的平局按字母选 c 再 i。}

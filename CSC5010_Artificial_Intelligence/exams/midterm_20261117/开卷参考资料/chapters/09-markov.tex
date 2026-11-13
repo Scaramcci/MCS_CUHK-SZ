@@ -1,0 +1,113 @@
+\section{联合分布、独立性与 Markov 链}\label{sec:markov}
+\src{课件 09 p.4--36、106、108；HW6 P4--P5}
+\[
+P(x)=\sum_yP(x,y),\quad P(x|y)=P(x,y)/P(y),\quad P(x,y)=P(x|y)P(y).
+\]
+独立：$P(x,y)=P(x)P(y)$ 对全部 x,y 成立。条件独立：$P(x,y|z)=P(x|z)P(y|z)$，等价于 $P(x|y,z)=P(x|z)$（所需条件概率有定义时）。条件独立与无条件独立互不自动推出。
+
+\ex{联合表与 chi-square（课件 09 p.4--10）}
+\begin{center}\begin{tabular}{l|rrr|r}\toprule
+Game / Snack&Pizza&Chips&Cookies&合计\\\midrule
+Poker&10&3&12&25\\Trivial Pursuit&8&14&7&29\\Monopoly&14&17&7&38\\Wii Bowling&12&7&4&23\\\midrule
+合计&44&41&30&115\\\bottomrule\end{tabular}\end{center}
+$P(Poker,Pizza)=10/115$；$P(Poker)=25/115$；$P(Pizza|Poker)=10/25$，反向 $P(Poker|Pizza)=10/44$。
+
+$H_0$ 为行列变量独立，期望\textbf{频数} $E_{ij}=R_iC_j/N$；
+\[
+\chi^2=\sum_{i,j}\frac{(O_{ij}-E_{ij})^2}{E_{ij}},\quad df=(r-1)(c-1).
+\]
+$E_{11}=25\cdot44/115=220/23$；全表 $\chi^2\approx14.508$，df=6，课件给5\%临界值12.592，拒绝独立。若另一情形统计量10.281，则不拒绝，\textbf{不等于证明独立}。抽样波动可令经验频率不精确分解。
+
+\textbf{教学变式：}$O=\left[\begin{smallmatrix}8&2\\2&8\end{smallmatrix}\right]$，行列总计各10，N=20，四格 E=5；$\chi^2=4\cdot9/5=36/5>3.84$（df1），拒绝独立。Pearson 近似需独立观测和适当期望频数。
+
+\ex{Markov 假设、方向和序列概率}
+\[
+P(X_{t+1}|X_t,\ldots,X_1)=P(X_{t+1}|X_t),\qquad a_{ij}=P(X_{t+1}=j|X_t=i).
+\]
+行 i 当前、列 j 下一状态；每行非负且和1；齐次指 A 不随时间改变，不等于边缘分布已稳态。还需初始分布 $\mu$。
+\[
+P(x_1,\ldots,x_T)=\mu(x_1)\prod_{t=1}^{T-1}a_{x_t,x_{t+1}},\quad
+p_{t+1}=p_tA,\quad p_{t+k}=p_tA^k.
+\]
+使用\textbf{行向量}；$p_1=\mu$ 时 $p_t=\mu A^{t-1}$。多步概率对中间状态求和，特定序列按路径相乘。
+
+\ex{17 天天气估计转移矩阵（HW6 P4）}\label{ex:transition}
+顺序(S,C,R)，观察 $S,S,R,C,C,R,R,S,S,S,R,C,C,R,S,S,C$。
+\begin{center}\begin{tabular}{c|rrr|r}\toprule
+从/到&S&C&R&出发总数\\\midrule
+S&4&1&2&7\\C&0&2&2&4\\R&2&2&1&5\\\midrule
+合计&6&5&5&16\\\bottomrule\end{tabular}\end{center}
+\[
+\widehat A_{ij}=\frac{N_{ij}}{\sum_jN_{ij}},\qquad
+\ans{\widehat A=\begin{pmatrix}4/7&1/7&2/7\\0&1/2&1/2\\2/5&2/5&1/5\end{pmatrix}}.
+\]
+\checkit{17天16个转移；末日 C 无后继，不作为出发计数。课件 p.18 的2/5与可见序列不符，C行分母应4。无出发观测的行无法直接估计，不可填零行冒充概率分布。}
+
+\ex{一步、多步传播与稳态（课件 09 p.25--31）}
+两状态(S,R)，$A=\left[\begin{smallmatrix}.9&.1\\.3&.7\end{smallmatrix}\right]$，已知第一天 S。
+\begin{center}\begin{tabular}{c|cc}\toprule
+日&p(S)&p(R)\\\midrule
+1&1&0\\2&9/10&1/10\\3&21/25&4/25\\4&201/250&49/250\\\bottomrule\end{tabular}\end{center}
+第三天晴 $.9^2+.1\cdot.3=.84$，不只包含连晴的.81。
+稳态 $\pi=\pi A,\pi_S+\pi_R=1$，$.1\pi_S=.3\pi_R$，得 $\ans{\pi=(3/4,1/4)}$。
+
+有限不可约非周期链保证任意初始分布收敛到唯一稳态；存在稳态不等于一定收敛，周期链可能振荡。
+
+\ex{三状态矩阵的统一演算（HW6 P5；课件 p.32--36）}
+统一顺序(S,C,R)，
+\[
+A=\begin{pmatrix}4/5&3/20&1/20\\19/50&3/5&1/50\\3/4&1/20&1/5\end{pmatrix}.
+\]
+\textbf{注意：}p.32 把第二/第三状态称 rainy/snowy，后续作业称 cloudy/rainy；先确认行列命名，不与上一题的估计矩阵混用。
+
+教学初始分布 $p=(1/2,1/3,1/6)$：
+\[
+\begin{aligned}
+p'(S)&=\tfrac12\tfrac45+\tfrac13\tfrac{19}{50}+\tfrac16\tfrac34=391/600,\\
+p'(C)&=\tfrac12\tfrac3{20}+\tfrac13\tfrac35+\tfrac16\tfrac1{20}=17/60,\\
+p'(R)&=\tfrac12\tfrac1{20}+\tfrac13\tfrac1{50}+\tfrac16\tfrac15=13/200.
+\end{aligned}
+\]
+检查 $(391+170+39)/600=1$。
+
+稳态联立归一化与两个独立方程：
+\[
+20\pi_S=38\pi_C+75\pi_R,\quad40\pi_C=15\pi_S+5\pi_R.
+\]
+第二式给 $\pi_C=(3\pi_S+\pi_R)/8$，代入得 $46\pi_S=638\pi_R$，所以
+\[
+\ans{\pi=(638,245,46)/929}.
+\]
+\checkit{$\pi A=\pi$，且分子和929。}
+
+\ex{三天晴天与四天最可能序列}
+\textbf{HW6 P5：}固定从 t 开始连续三天晴：
+\[
+\ans{P(SSS)=p_t(S)(4/5)^2}.
+\]
+已知首日晴则条件概率16/25；若明确稳态，则 $\ans{10208/23225}$。原题“可任意一天开始”\textbf{不自动给初始分布}，先给一般式。固定三天窗口不同于一周内任意处至少出现一次三连晴，后者窗口重叠不可直接乘。
+
+\textbf{课件 p.34：}指定稳态开始，最可能四天 SSSS，概率 $\ans{(638/929)(4/5)^3=40832/116125}$。本例最大初始项为 S、最大边为 SS=.8，SSSS 同时达到各因子上界。
+
+一般情况：$\delta_1(j)=\mu_j$，$\delta_{t+1}(j)=\max_i\delta_t(i)a_{ij}$，记最优前驱后回溯。\textbf{传播用 sum，最可能序列用 max}；不能拼接每天边缘最大状态就当最可能序列。
+
+\ex{连续段与首次晴天等待（课件 p.35--36）}
+已知今天晴，$q=a_{SS}<1$，额外连续晴天数K从0开始，$P(K=k)=q^k(1-q)$：
+\[
+E[K]=q/(1-q),\qquad E[L]=1/(1-q)\quad(L=K+1,\text{含今天}).
+\]
+q=4/5时，额外4天，含今天5天；若额外条件“明天仍晴”，该条件下的额外段长才为 $1/(1-q)$。不能直接照抄 p.35 的“more”。
+
+首次到 S 的等待 $h_S=0$，非S状态 $h_i=1+\sum_ja_{ij}h_j$（可达且期望有限）。本例
+\[
+h_C=1+\tfrac35h_C+\tfrac1{50}h_R,\quad h_R=1+\tfrac1{20}h_C+\tfrac15h_R.
+\]
+化为 $20h_C-h_R=50,-h_C+16h_R=20$，解
+\[
+\ans{h_C=820/319,\quad h_R=450/319}\ \text{天}.
+\]
+从第三状态 R 出发，明天晴3/4，后天晴
+\[
+(A^2)_{RS}=\tfrac34\tfrac45+\tfrac1{20}\tfrac{19}{50}+\tfrac15\tfrac34=\ans{769/1000}.
+\]
+若要求\textbf{首次}后天晴，排除经 S 的中间路线，仅算 $a_{RC}a_{CS}+a_{RR}a_{RS}$。
